@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Eliana Faria Lima — Bringing clarity to public finance</title>
+<meta name="viewport" content="width=1440" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/base.css" />
+<style>
+  /* ============ Civic Modern overrides ============ */
+  /* Lighter tone, more contemporary; civic-trust palette (navy as accent,
+     warmer cream paper, less ornament, more photography weight). */
+
+  body {
+    background: #FBF7EC;
+    color: #1A1F2E;
+  }
+
+  /* Nav — light, refined */
+  .nav.civic {
+    background: rgba(251, 247, 236, 0.94);
+    padding: 24px 64px;
+    border-bottom: 1px solid #E8DFC9;
+  }
+  .nav.civic .brand-name { font-weight: 500; }
+  .nav.civic .nav-cta {
+    background: var(--bg-deep);
+    color: var(--ivory);
+    border-color: var(--bg-deep);
+  }
+  .nav.civic .nav-cta:hover { background: var(--gold); border-color: var(--gold); }
+
+  /* ----- HERO ----- */
+  .hero-civic {
+    padding: 64px 0 96px;
+    background:
+      radial-gradient(ellipse 60% 70% at 20% 30%, rgba(168,135,82,0.06), transparent 60%),
+      #FBF7EC;
+  }
+  .hero-civic .inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 64px;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 80px;
+    align-items: center;
+    min-height: 580px;
+  }
+  .hero-civic .eyebrow {
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-bottom: 28px;
+    color: var(--gold-deep);
+  }
+  .hero-civic .eyebrow::before {
+    content: ''; width: 24px; height: 1px; background: var(--gold-deep);
+  }
+  .hero-civic h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 76px;
+    line-height: 1.02;
+    letter-spacing: -0.018em;
+    color: #0C1A2C;
+    margin-bottom: 26px;
+  }
+  .hero-civic h1 .accent {
+    color: var(--gold-deep);
+    font-style: italic;
+    font-weight: 400;
+    display: block;
+  }
+  .hero-civic .lede {
+    font-family: var(--font-editorial);
+    font-size: 21px;
+    line-height: 1.5;
+    color: #3A3F4D;
+    margin-bottom: 36px;
+    max-width: 560px;
+  }
+  .hero-civic .actions {
+    display: flex; gap: 16px; align-items: center;
+    margin-bottom: 56px;
+  }
+  .hero-civic .btn-primary {
+    background: #0C1A2C;
+    color: #F1E9D2;
+    border-color: #0C1A2C;
+  }
+  .hero-civic .btn-primary:hover { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+
+  .hero-civic .strip {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding-top: 28px;
+    border-top: 1px solid #E8DFC9;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-civic .strip b {
+    color: var(--ink); font-weight: 600;
+  }
+  .hero-civic .strip .sep { width: 18px; height: 1px; background: var(--gold); }
+
+  /* Right column — image with caption card */
+  .hero-civic .image-wrap {
+    position: relative;
+    height: 580px;
+  }
+  .hero-civic .image-wrap .photo-slot {
+    height: 100%; width: 100%;
+  }
+  .hero-civic .image-card {
+    position: absolute;
+    left: -40px;
+    bottom: 40px;
+    background: #FBF7EC;
+    border: 1px solid #E8DFC9;
+    padding: 24px 28px;
+    max-width: 340px;
+    box-shadow: 0 20px 50px rgba(12, 26, 44, 0.08);
+  }
+  .hero-civic .image-card .label {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 12px;
+  }
+  .hero-civic .image-card .quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.3;
+    color: #0C1A2C;
+    margin: 0 0 14px;
+    letter-spacing: -0.005em;
+  }
+  .hero-civic .image-card .by {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ----- Trust strip ----- */
+  .trust-strip {
+    background: #F2EBD9;
+    padding: 36px 0;
+    border-top: 1px solid #E8DFC9;
+    border-bottom: 1px solid #E8DFC9;
+  }
+  .trust-strip .inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 64px;
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    justify-content: space-between;
+  }
+  .trust-strip .label {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+    max-width: 220px;
+    line-height: 1.4;
+  }
+  .trust-items {
+    display: flex; gap: 56px; flex: 1; justify-content: flex-end;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .trust-items .item { opacity: 0.7; }
+
+  /* ----- AREAS — civic version: clearer cards, photos paired ----- */
+  .areas-civic { padding: 120px 0; background: #FBF7EC; }
+  .areas-civic .head {
+    max-width: 1320px; margin: 0 auto 64px; padding: 0 64px;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: end;
+  }
+  .areas-civic h2 {
+    font-size: 50px; line-height: 1.05; font-weight: 500;
+    color: #0C1A2C;
+  }
+  .areas-civic .head p {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 18px; color: var(--ink-soft); line-height: 1.5;
+    margin: 0;
+  }
+  .areas-list {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+  }
+  .area-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 2fr 1fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid #E8DFC9;
+    align-items: center;
+    transition: background 220ms ease;
+  }
+  .area-row:first-child { border-top: 1px solid #E8DFC9; }
+  .area-row:hover { background: #F6F1E2; }
+  .area-row .num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 32px;
+    color: var(--gold);
+  }
+  .area-row h3 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 500;
+    color: #0C1A2C;
+    letter-spacing: -0.005em;
+  }
+  .area-row p {
+    font-size: 15.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .area-row .more {
+    text-align: right;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+
+  /* ----- FEATURED ARTICLE (civic) ----- */
+  .featured-civic {
+    padding: 120px 0;
+    background: #F2EBD9;
+    position: relative;
+  }
+  .featured-civic .inner {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center;
+  }
+  .featured-civic .photo-slot {
+    height: 600px;
+  }
+  .featured-civic .badge {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 26px;
+  }
+  .featured-civic .badge::before {
+    content: ''; width: 28px; height: 1px; background: currentColor;
+  }
+  .featured-civic h2 {
+    font-size: 52px; line-height: 1.05; font-weight: 500; color: #0C1A2C;
+    margin-bottom: 24px;
+    letter-spacing: -0.012em;
+  }
+  .featured-civic h2 .italic { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .featured-civic .meta {
+    display: flex; gap: 14px; align-items: center;
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 30px;
+  }
+  .featured-civic .meta .dot { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
+  .featured-civic .excerpt {
+    font-family: var(--font-editorial);
+    font-size: 18px; line-height: 1.6; color: var(--ink-soft);
+    margin-bottom: 32px;
+  }
+  .featured-civic .btn-primary {
+    background: #0C1A2C; color: var(--ivory); border-color: #0C1A2C;
+  }
+  .featured-civic .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
+
+  /* ----- BLOG SECTION (civic) ----- */
+  .blog-civic {
+    padding: 120px 0;
+    background: #FBF7EC;
+  }
+  .blog-civic .head {
+    max-width: 1320px; margin: 0 auto 64px; padding: 0 64px;
+    display: flex; align-items: end; justify-content: space-between;
+    gap: 60px;
+  }
+  .blog-civic .head .left { max-width: 640px; }
+  .blog-civic h2 {
+    font-size: 64px; line-height: 1; font-weight: 500;
+    color: #0C1A2C; margin-bottom: 14px;
+    letter-spacing: -0.015em;
+  }
+  .blog-civic h2 .italic { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .blog-civic .tagline {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 22px; color: var(--ink-soft);
+  }
+  .blog-civic .head .right p {
+    max-width: 380px;
+    font-size: 15.5px; line-height: 1.6; color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .blog-civic .insights {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  }
+  .ic-card {
+    background: #FFFFFF;
+    border: 1px solid #E8DFC9;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 220ms ease;
+    display: flex; flex-direction: column;
+  }
+  .ic-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(12,26,44,0.08); }
+  .ic-card .photo-slot { height: 220px; }
+  .ic-card .body { padding: 26px 28px 28px; flex: 1; display: flex; flex-direction: column; }
+  .ic-card .cat {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+  }
+  .ic-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.22;
+    font-weight: 500;
+    letter-spacing: -0.003em;
+    color: #0C1A2C;
+    margin-bottom: 12px;
+  }
+  .ic-card p {
+    font-size: 14.5px; line-height: 1.55; color: var(--ink-soft);
+    margin: 0 0 22px;
+    flex: 1;
+  }
+  .ic-card .foot {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding-top: 16px;
+    border-top: 1px solid #E8DFC9;
+  }
+  .ic-card .foot .time { color: var(--muted); }
+  .ic-card .foot .read { color: var(--gold-deep); font-weight: 500; }
+
+  /* ----- ABOUT (civic) ----- */
+  .about-civic { padding: 140px 0; background: #F2EBD9; }
+  .about-civic .inner {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 96px;
+    align-items: center;
+  }
+  .about-civic h2 {
+    font-size: 56px; line-height: 1.05; font-weight: 500;
+    color: #0C1A2C; margin-bottom: 32px;
+    letter-spacing: -0.012em;
+  }
+  .about-civic h2 .italic { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .about-civic p {
+    font-size: 17.5px; line-height: 1.65; color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .about-civic .image-stack {
+    position: relative;
+    height: 600px;
+  }
+  .about-civic .image-stack .photo-slot.main {
+    position: absolute;
+    top: 0; right: 0;
+    width: 78%;
+    height: 480px;
+  }
+  .about-civic .image-stack .photo-slot.accent {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 60%;
+    height: 280px;
+    border: 8px solid #F2EBD9;
+  }
+
+  /* ----- RESOURCES (civic) ----- */
+  .resources-civic { padding: 110px 0; background: #FBF7EC; }
+  .resources-civic .head {
+    max-width: 1320px; margin: 0 auto 56px; padding: 0 64px;
+  }
+  .resources-civic h2 {
+    font-size: 50px; line-height: 1.05; font-weight: 500;
+    color: #0C1A2C; max-width: 700px;
+    letter-spacing: -0.012em;
+  }
+  .resources-civic h2 .italic { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .resources-civic .grid {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .res-tile {
+    background: #FFFFFF;
+    border: 1px solid #E8DFC9;
+    padding: 32px 30px;
+    transition: all 220ms ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .res-tile:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .res-tile .kind {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .res-tile .kind::before { content: ''; width: 16px; height: 1px; background: currentColor; }
+  .res-tile h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: #0C1A2C;
+    margin-bottom: 10px;
+    letter-spacing: -0.003em;
+  }
+  .res-tile p {
+    font-size: 14px; color: var(--ink-soft); line-height: 1.55;
+    margin: 0 0 18px;
+  }
+  .res-tile .arrow {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+
+  /* ----- CONTACT (civic) ----- */
+  .contact-civic {
+    background: #0C1A2C;
+    color: var(--ivory);
+    padding: 130px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-civic .inner {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center;
+  }
+  .contact-civic .eyebrow.on-dark { color: var(--gold-soft); margin-bottom: 24px; display: block; }
+  .contact-civic h2 {
+    font-size: 58px; line-height: 1.05; font-weight: 500;
+    color: var(--ivory); margin-bottom: 28px;
+    letter-spacing: -0.012em;
+  }
+  .contact-civic h2 .italic { font-style: italic; color: var(--gold-soft); font-weight: 400; }
+  .contact-civic p {
+    font-size: 17.5px; line-height: 1.6; color: var(--ivory-soft);
+    margin-bottom: 0; max-width: 460px;
+  }
+  .contact-civic .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(197,168,120,0.25);
+    padding: 40px;
+  }
+  .contact-civic .card .row {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(197,168,120,0.15);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .contact-civic .card .row:first-child { padding-top: 0; }
+  .contact-civic .card .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .contact-civic .card .k {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .contact-civic .card .v {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ivory);
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="nav civic" data-screen-label="01 Home — Civic Modern">
+  <div class="brand">
+    <span class="brand-mark" style="color: var(--gold-deep);">ecfl</span>
+    <span class="brand-name">Eliana Faria Lima</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Focus</a>
+    <a href="#">Insights</a>
+    <a href="#">Resources</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="lang-switch"><span class="on">EN</span><span>/</span><span>PT</span></div>
+  <button class="nav-cta">Subscribe</button>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero-civic">
+  <div class="inner">
+    <div>
+      <div class="eyebrow">A Practice in Public Finance</div>
+      <h1>
+        Bringing clarity
+        <span class="accent">to public money.</span>
+      </h1>
+      <p class="lede">
+        For more than a decade, Eliana Faria Lima has worked at the intersection of public finance, government budgeting, and health governance — translating the language of public money into something a citizen can read.
+      </p>
+      <div class="actions">
+        <button class="btn btn-primary">Read the Featured Essay <span>→</span></button>
+        <button class="btn-link">About Eliana</button>
+      </div>
+      <div class="strip">
+        <span><b>13+ years</b> · public-sector practice</span>
+        <span class="sep"></span>
+        <span><b>How Public Money Works</b> · ongoing publication</span>
+        <span class="sep"></span>
+        <span><b>EN / PT</b> · bilingual practice</span>
+      </div>
+    </div>
+
+    <div class="image-wrap">
+      <div class="photo-slot light photo-illus">
+        <svg viewBox="0 0 600 580" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#8A6F40" stroke-width="0.6">
+          <!-- City hall steps + columns (documentary feel) -->
+          <g opacity="0.7">
+            <!-- Sky line -->
+            <line x1="0" y1="80" x2="600" y2="80" opacity="0.3"/>
+            <!-- Building -->
+            <g transform="translate(120, 100)">
+              <polygon points="180,0 360,80 0,80"/>
+              <line x1="0" y1="80" x2="360" y2="80"/>
+              <!-- Columns -->
+              <g stroke-width="1">
+                <line x1="30" y1="80" x2="30" y2="340"/>
+                <line x1="90" y1="80" x2="90" y2="340"/>
+                <line x1="150" y1="80" x2="150" y2="340"/>
+                <line x1="210" y1="80" x2="210" y2="340"/>
+                <line x1="270" y1="80" x2="270" y2="340"/>
+                <line x1="330" y1="80" x2="330" y2="340"/>
+              </g>
+              <!-- Column tops -->
+              <rect x="20" y="80" width="20" height="6"/>
+              <rect x="80" y="80" width="20" height="6"/>
+              <rect x="140" y="80" width="20" height="6"/>
+              <rect x="200" y="80" width="20" height="6"/>
+              <rect x="260" y="80" width="20" height="6"/>
+              <rect x="320" y="80" width="20" height="6"/>
+              <!-- Floor -->
+              <line x1="-30" y1="340" x2="390" y2="340" stroke-width="1"/>
+              <line x1="-60" y1="360" x2="420" y2="360"/>
+              <!-- Steps -->
+              <line x1="-90" y1="380" x2="450" y2="380"/>
+              <line x1="-120" y1="400" x2="480" y2="400"/>
+              <line x1="-150" y1="420" x2="510" y2="420"/>
+              <line x1="-180" y1="440" x2="540" y2="440"/>
+              <line x1="-210" y1="460" x2="570" y2="460"/>
+            </g>
+            <!-- Ground -->
+            <line x1="0" y1="540" x2="600" y2="540"/>
+          </g>
+        </svg>
+        <div class="caption">Documentary editorial photography · placeholder</div>
+      </div>
+
+      <div class="image-card">
+        <div class="label">From the editor</div>
+        <p class="quote">A budget is a city's most honest piece of writing.</p>
+        <div class="by">— Eliana Faria Lima</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TRUST STRIP ========== -->
+<section class="trust-strip">
+  <div class="inner">
+    <div class="label">Areas of practice — at a glance</div>
+    <div class="trust-items">
+      <span class="item">Public Finance</span>
+      <span class="item">Government Budgeting</span>
+      <span class="item">Health Governance</span>
+      <span class="item">Fiscal Modernization</span>
+      <span class="item">Transparency</span>
+      <span class="item">Civic Education</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== AREAS — list ========== -->
+<section class="areas-civic">
+  <div class="head">
+    <h2>Six disciplines, <span style="color:var(--gold-deep); font-style:italic; font-weight:400;">one practice.</span></h2>
+    <p>The work that follows is one continuous body of thinking — on how public money is raised, spent, and made visible to the people it serves.</p>
+  </div>
+  <div class="areas-list">
+    <div class="area-row">
+      <div class="num">01</div>
+      <h3>Public Finance</h3>
+      <p>The economics of how governments raise, allocate, and account for public resources — from local treasuries to national systems.</p>
+      <div class="more">Read more →</div>
+    </div>
+    <div class="area-row">
+      <div class="num">02</div>
+      <h3>Government Budgeting</h3>
+      <p>Designing, executing, and explaining budgets that translate political intent into operational reality.</p>
+      <div class="more">Read more →</div>
+    </div>
+    <div class="area-row">
+      <div class="num">03</div>
+      <h3>Health Governance</h3>
+      <p>The financing and stewardship of public health systems — where fiscal decisions become matters of life and care.</p>
+      <div class="more">Read more →</div>
+    </div>
+    <div class="area-row">
+      <div class="num">04</div>
+      <h3>Fiscal Modernization</h3>
+      <p>Re-engineering the practices, systems, and culture of public-sector finance for clarity, integrity, and resilience.</p>
+      <div class="more">Read more →</div>
+    </div>
+    <div class="area-row">
+      <div class="num">05</div>
+      <h3>Transparency &amp; Accountability</h3>
+      <p>Making the workings of public money visible — so that scrutiny becomes possible and trust becomes earned.</p>
+      <div class="more">Read more →</div>
+    </div>
+    <div class="area-row">
+      <div class="num">06</div>
+      <h3>Civic Financial Education</h3>
+      <p>Bringing the language of public finance into civic life — for citizens, students, and community leaders.</p>
+      <div class="more">Read more →</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURED ARTICLE ========== -->
+<section class="featured-civic">
+  <div class="inner">
+    <div>
+      <div class="badge">Featured Essay · How Public Money Works</div>
+      <h2>What Is a City Budget <span class="italic">— and Why Should You Care?</span></h2>
+      <div class="meta">
+        <span>Civic Education</span>
+        <span class="dot"></span>
+        <span>N.º 01</span>
+        <span class="dot"></span>
+        <span>8 min read</span>
+      </div>
+      <p class="excerpt">
+        Every year, your city decides how to spend hundreds of millions of dollars — on streets, schools, libraries, parks, fire trucks, water lines. That decision is called a budget. It is not a technical document for accountants. It is a public statement of priorities, written in numbers.
+      </p>
+      <p class="excerpt" style="margin-top:-12px;">
+        This essay walks through how a city budget is built, who has a voice in it, and what a citizen can actually see by reading one.
+      </p>
+      <button class="btn btn-primary">Read the article <span>→</span></button>
+    </div>
+
+    <div class="photo-slot light photo-illus">
+      <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#8A6F40" stroke-width="0.7">
+        <!-- Community meeting / town hall scene -->
+        <g opacity="0.7">
+          <!-- Backdrop: rows of chairs from above -->
+          <g stroke-width="0.6">
+            <rect x="100" y="120" width="400" height="20"/>
+            <rect x="100" y="160" width="400" height="20"/>
+            <rect x="100" y="200" width="400" height="20"/>
+            <rect x="100" y="240" width="400" height="20"/>
+            <!-- Chairs (small u-shapes) -->
+            <g stroke-width="0.5" opacity="0.7">
+              <path d="M 120 120 Q 132 110 144 120"/>
+              <path d="M 160 120 Q 172 110 184 120"/>
+              <path d="M 200 120 Q 212 110 224 120"/>
+              <path d="M 240 120 Q 252 110 264 120"/>
+              <path d="M 280 120 Q 292 110 304 120"/>
+              <path d="M 320 120 Q 332 110 344 120"/>
+              <path d="M 360 120 Q 372 110 384 120"/>
+              <path d="M 400 120 Q 412 110 424 120"/>
+              <path d="M 440 120 Q 452 110 464 120"/>
+            </g>
+          </g>
+          <!-- Podium -->
+          <rect x="260" y="320" width="80" height="100"/>
+          <line x1="260" y1="340" x2="340" y2="340"/>
+          <!-- Mic -->
+          <line x1="300" y1="320" x2="300" y2="300"/>
+          <circle cx="300" cy="295" r="4"/>
+          <!-- Person at podium (silhouette) -->
+          <g stroke-width="0.7">
+            <circle cx="300" cy="280" r="14"/>
+            <path d="M 280 320 Q 300 300 320 320"/>
+          </g>
+          <!-- Banner above -->
+          <line x1="100" y1="80" x2="500" y2="80"/>
+          <line x1="100" y1="84" x2="500" y2="84" opacity="0.4"/>
+          <text x="300" y="74" text-anchor="middle" font-family="Playfair Display" font-style="italic" font-size="20" fill="#8A6F40" opacity="0.7">Community Budget Hearing</text>
+          <!-- Ground -->
+          <line x1="0" y1="540" x2="600" y2="540"/>
+        </g>
+      </svg>
+      <div class="caption">Town hall · budget hearing · placeholder</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BLOG ========== -->
+<section class="blog-civic">
+  <div class="head">
+    <div class="left">
+      <div class="eyebrow" style="color:var(--gold-deep); margin-bottom:18px; display:inline-flex; align-items:center; gap:14px;">
+        <span style="width:24px; height:1px; background:currentColor;"></span>
+        A publication by Eliana Faria Lima
+      </div>
+      <h2>How Public Money <span class="italic">Works.</span></h2>
+      <div class="tagline">Bringing clarity to public finance.</div>
+    </div>
+    <div class="right">
+      <p>Short, plain-language essays on how American government raises, spends, and accounts for public money — from city hall to state capitol. Written for the people who live with the consequences.</p>
+      <button class="btn">Browse all Insights <span>→</span></button>
+    </div>
+  </div>
+
+  <div class="insights">
+    <article class="ic-card">
+      <div class="photo-slot light photo-illus" style="height:220px;">
+        <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#8A6F40" stroke-width="0.6">
+          <g opacity="0.55">
+            <rect x="40" y="40" width="120" height="160"/>
+            <line x1="40" y1="70" x2="160" y2="70"/>
+            <line x1="40" y1="100" x2="160" y2="100"/>
+            <line x1="40" y1="130" x2="160" y2="130"/>
+            <line x1="40" y1="160" x2="160" y2="160"/>
+            <line x1="40" y1="190" x2="160" y2="190"/>
+            <g stroke-width="2">
+              <line x1="60" y1="85" x2="100" y2="85"/>
+              <line x1="60" y1="115" x2="120" y2="115"/>
+              <line x1="60" y1="145" x2="90" y2="145"/>
+              <line x1="60" y1="175" x2="110" y2="175"/>
+            </g>
+            <text x="100" y="58" text-anchor="middle" font-family="Playfair Display" font-style="italic" font-size="12" fill="#8A6F40">City Budget</text>
+            <!-- Magnifier -->
+            <circle cx="240" cy="120" r="40"/>
+            <line x1="270" y1="150" x2="300" y2="180" stroke-width="1.5"/>
+            <line x1="240" y1="105" x2="240" y2="135"/>
+            <line x1="225" y1="120" x2="255" y2="120"/>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="cat">Civic Education · N.º 01</div>
+        <h3>What Is a City Budget and Why Should You Care?</h3>
+        <p>A plain-language walk through the document that shapes your streets, your schools, and your local services.</p>
+        <div class="foot">
+          <span class="time">8 min read</span>
+          <span class="read">Read article →</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="ic-card">
+      <div class="photo-slot light photo-illus" style="height:220px;">
+        <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#8A6F40" stroke-width="0.6">
+          <g opacity="0.55">
+            <!-- Tax bill envelope -->
+            <rect x="80" y="60" width="240" height="120"/>
+            <line x1="80" y1="60" x2="200" y2="130"/>
+            <line x1="320" y1="60" x2="200" y2="130"/>
+            <!-- Stamp -->
+            <rect x="270" y="72" width="30" height="20" stroke-dasharray="2 1"/>
+            <text x="285" y="86" text-anchor="middle" font-family="Inter" font-size="6" fill="#8A6F40">$</text>
+            <!-- Address lines -->
+            <line x1="90" y1="150" x2="200" y2="150"/>
+            <line x1="90" y1="160" x2="180" y2="160"/>
+            <line x1="90" y1="170" x2="160" y2="170"/>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="cat">Property Tax · N.º 02</div>
+        <h3>Where Does My Property Tax Actually Go?</h3>
+        <p>Following a single dollar from your tax bill to the public services it pays for — and the choices that route it there.</p>
+        <div class="foot">
+          <span class="time">6 min read</span>
+          <span class="read">Read article →</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="ic-card">
+      <div class="photo-slot light photo-illus" style="height:220px;">
+        <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#8A6F40" stroke-width="0.6">
+          <g opacity="0.55">
+            <!-- Report cover -->
+            <rect x="100" y="30" width="200" height="170"/>
+            <line x1="100" y1="60" x2="300" y2="60"/>
+            <line x1="120" y1="80" x2="220" y2="80"/>
+            <line x1="120" y1="95" x2="200" y2="95"/>
+            <!-- Pie chart -->
+            <circle cx="200" cy="140" r="35"/>
+            <line x1="200" y1="140" x2="200" y2="105"/>
+            <line x1="200" y1="140" x2="234" y2="156"/>
+            <line x1="200" y1="140" x2="170" y2="160"/>
+            <!-- Footnote -->
+            <line x1="120" y1="185" x2="270" y2="185"/>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="cat">Transparency · N.º 03</div>
+        <h3>Reading a Government Financial Report Without a Degree</h3>
+        <p>The four pages that matter, the three numbers to look for, and the one question that reveals everything.</p>
+        <div class="foot">
+          <span class="time">10 min read</span>
+          <span class="read">Read article →</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section class="about-civic">
+  <div class="inner">
+    <div>
+      <div class="eyebrow" style="margin-bottom:20px; display:inline-flex; align-items:center; gap:14px;">
+        <span style="width:24px; height:1px; background:currentColor;"></span>
+        About
+      </div>
+      <h2>A career spent <span class="italic">reading budgets aloud,</span> so that more people can.</h2>
+      <p>For more than a decade, Eliana Faria Lima has worked at the intersection of public finance, government budgeting, and health governance — designing fiscal systems, advising public administrations, and writing on accountability and transparency.</p>
+      <p>Her current work focuses on bringing American public-finance literacy into reach of the people it most affects: residents, small-business owners, students, civic organizations, and community leaders who live with the consequences of how budgets are written.</p>
+      <p style="font-family:var(--font-editorial); font-style:italic; color:var(--gold-deep); font-size:18px; margin-top:28px;">
+        The goal is simple, and the method is patient: clear language, plain numbers, and the conviction that public money belongs to the public.
+      </p>
+      <button class="btn btn-gold" style="margin-top: 28px;">Read full biography <span>→</span></button>
+    </div>
+
+    <div class="image-stack">
+      <div class="photo-slot main" style="position:relative; background:#0C1A2C; overflow:hidden;">
+        <img src="assets/eliana-portrait.jpeg" alt="Eliana Faria Lima"
+          style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 35%;" />
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 60%, rgba(12,26,44,0.45) 100%); pointer-events:none;"></div>
+        <div class="caption" style="color:#F1E9D2; z-index:2;">Eliana Faria Lima · Portrait</div>
+      </div>
+      <div class="photo-slot light photo-illus accent" style="border-color: #F2EBD9;">
+        <svg viewBox="0 0 280 280" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#8A6F40" stroke-width="0.6">
+          <g opacity="0.5">
+            <!-- Books stack -->
+            <rect x="60" y="160" width="160" height="20"/>
+            <rect x="70" y="140" width="140" height="20"/>
+            <rect x="50" y="120" width="170" height="20"/>
+            <rect x="80" y="100" width="120" height="20"/>
+            <!-- Title lines -->
+            <line x1="80" y1="170" x2="180" y2="170" opacity="0.7"/>
+            <line x1="90" y1="150" x2="160" y2="150" opacity="0.7"/>
+            <line x1="70" y1="130" x2="180" y2="130" opacity="0.7"/>
+            <!-- Quill on top -->
+            <line x1="120" y1="100" x2="180" y2="60" stroke-width="1"/>
+            <path d="M 175 65 Q 180 60 175 55" stroke-width="0.7"/>
+          </g>
+        </svg>
+        <div class="caption">Context · placeholder</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESOURCES ========== -->
+<section class="resources-civic">
+  <div class="head">
+    <div class="eyebrow" style="margin-bottom:18px; display:inline-flex; align-items:center; gap:14px;">
+      <span style="width:24px; height:1px; background:currentColor;"></span>
+      Resources
+    </div>
+    <h2>A small library, <span class="italic">freely available.</span></h2>
+  </div>
+  <div class="grid">
+    <div class="res-tile">
+      <div class="kind">Reference</div>
+      <h3>Glossary of Public Finance</h3>
+      <p>An evolving A–Z of public-finance terms, in plain English. From <em>appropriation</em> to <em>zero-based budgeting</em>.</p>
+      <div class="arrow">Open glossary →</div>
+    </div>
+    <div class="res-tile">
+      <div class="kind">Guide</div>
+      <h3>How to Read a City Budget</h3>
+      <p>A short, illustrated guide to finding the four numbers that matter most in any municipal budget document.</p>
+      <div class="arrow">Read guide →</div>
+    </div>
+    <div class="res-tile">
+      <div class="kind">Primer</div>
+      <h3>Understanding Property Tax</h3>
+      <p>What it is, how it's set, who decides, and where the money goes — for homeowners, renters, and small businesses.</p>
+      <div class="arrow">Read primer →</div>
+    </div>
+    <div class="res-tile">
+      <div class="kind">Index</div>
+      <h3>Open-Data Portals — A Map</h3>
+      <p>Where to find your city's, county's, and state's published financial data — with notes on what each portal offers.</p>
+      <div class="arrow">Open index →</div>
+    </div>
+    <div class="res-tile">
+      <div class="kind">Bibliography</div>
+      <h3>Reading List · Civic Finance</h3>
+      <p>Books and long-form essays for citizens, students, and local-government practitioners — curated and annotated.</p>
+      <div class="arrow">View list →</div>
+    </div>
+    <div class="res-tile">
+      <div class="kind">Directory</div>
+      <h3>Annual Reports — Where to Find Them</h3>
+      <p>A directory of where to find the comprehensive annual financial reports for U.S. cities, counties, and states.</p>
+      <div class="arrow">Open directory →</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section class="contact-civic">
+  <div class="grain"></div>
+  <div class="inner">
+    <div>
+      <div class="eyebrow on-dark">Get in touch</div>
+      <h2>For institutions, journalists, <span class="italic">and the curious citizen.</span></h2>
+      <p>For speaking, consulting, writing collaborations, or to suggest a topic for <em style="color:var(--gold-soft);">How Public Money Works.</em></p>
+    </div>
+    <div class="card">
+      <div class="row">
+        <span class="k">Email</span>
+        <span class="v">contact@elianafarialima.com</span>
+      </div>
+      <div class="row">
+        <span class="k">LinkedIn</span>
+        <a class="v" href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--ivory);">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="opacity:0.85;"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+          /in/eliana-faria-lima
+        </a>
+      </div>
+      <div class="row">
+        <span class="k">Based</span>
+        <span class="v">São Paulo · Brasil</span>
+      </div>
+      <div class="row">
+        <span class="k">Speaks</span>
+        <span class="v">English · Português</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="foot">
+  <div class="foot-top">
+    <div>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom: 22px;">
+        <span style="font-family:var(--font-display); font-style:italic; font-size:28px; color:var(--gold-soft);">ecfl</span>
+        <span style="font-family:var(--font-display); font-size:22px; color:var(--ivory);">Eliana Faria Lima</span>
+      </div>
+      <p style="font-family:var(--font-editorial); font-style:italic; font-size:15px; color:var(--ivory-soft); max-width:340px; line-height:1.5;">
+        Bringing clarity to public finance — for citizens, communities, and the institutions that serve them.
+      </p>
+    </div>
+    <div>
+      <h5>Read</h5>
+      <ul>
+        <li><a href="#">How Public Money Works</a></li>
+        <li><a href="#">Featured Essay</a></li>
+        <li><a href="#">By Category</a></li>
+        <li><a href="#">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Practice</h5>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Areas of Focus</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">Speaking</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">Contact</a></li>
+        <li><a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="#">Newsletter</a></li>
+        <li><a href="#">RSS</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© MMXXVI Eliana Faria Lima</span>
+    <span>Bringing clarity to public finance.</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Eliana Faria Lima — Website Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Caslon+Text:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #0b0f1a; font-family: 'Inter', system-ui, sans-serif; color: #efe7d2; }
+  * { box-sizing: border-box; }
+
+  /* Rationale cards — readable on dark canvas */
+  .rationale {
+    width: 100%;
+    padding: 28px 36px;
+    background: #0B1A2E;
+    border: 1px solid rgba(201, 169, 106, 0.35);
+    font-family: 'Libre Caslon Text', Georgia, serif;
+    color: #e8dfc6;
+    font-size: 15px;
+    line-height: 1.6;
+    height: 100%;
+  }
+  .rationale h4 {
+    margin: 0 0 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #C9A96A;
+    font-weight: 500;
+  }
+  .rationale p { margin: 0 0 8px; }
+  .rationale em { color: #f1e9d2; font-style: italic; }
+  .rationale .rec { color: #C9A96A; font-weight: 500; font-style: italic; }
+  .rationale .bad { color: #9aa5b8; font-style: italic; }
+
+  /* iframe wrappers */
+  .site-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    background: #FBF7EC;
+  }
+  .frame-card {
+    width: 100%;
+    height: 100%;
+    background: #1a1f2e;
+    overflow: hidden;
+    position: relative;
+  }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+
+<script type="text/babel">
+  function SiteFrame({ src }) {
+    return (
+      <div className="frame-card">
+        <iframe className="site-frame" src={src} title={src} />
+      </div>
+    );
+  }
+
+  function App() {
+    return (
+      <DesignCanvas background="#0b0f1a">
+
+        {/* RECOMMENDATION */}
+        <DCSection id="rec" title="Recommendation" subtitle="Senior-AD pick of three website directions for Eliana Faria Lima">
+          <DCArtboard id="rec-card" label="Rationale — three concepts, one recommended" width={1440} height={400}>
+            <div className="rationale" style={{ width: 1440, height: 400 }}>
+              <h4>Final Recommendation</h4>
+              <p><span className="rec">Best — Concept B, Civic Modern.</span> The brief is, at its core, about translation: bringing public-finance language into reach of citizens, communities, small-business owners, and students. Civic Modern is the variation that physically <em>looks</em> like that intent — generous light surfaces, calm typography, larger photography, a visible warmth — without giving up any institutional credibility. It welcomes a reader before it impresses one. It is also the easiest to scale into a long publication: every essay will land on a page that feels like the home.</p>
+              <p><span className="rec">Second — Concept A, Editorial Premium.</span> The most distinctive of the three. Dark hero, FT/Economist cadence, drop-caps and pull quotes. Strongest for authority, slightly heavier for first-time visitors. The right choice if Eliana wants the publication to feel like a journal more than a community resource.</p>
+              <p><span className="rec">Third — Concept C, Executive Institutional.</span> Most formal and most structured — closest to a consulting or law-firm site. Strong for executive trajectory and credentials. Slightly cooler for a citizen-facing publication; recommended only if the consulting/advisory side of the practice is the primary axis.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* THREE HOMES SIDE BY SIDE */}
+        <DCSection id="homes" title="Three Home Variations" subtitle="1440 px desktop — full home page rendered in each artboard. Click an artboard to focus and scroll.">
+          <DCArtboard id="home-editorial" label="A · Editorial Premium — FT/Economist cadence, dark hero" width={1440} height={6100}>
+            <SiteFrame src="sites/home-editorial.html" />
+          </DCArtboard>
+          <DCArtboard id="home-civic" label="B · Civic Modern — recommended · light, accessible, premium" width={1440} height={7050}>
+            <SiteFrame src="sites/home-civic.html" />
+          </DCArtboard>
+          <DCArtboard id="home-executive" label="C · Executive Institutional — consulting/law-firm restraint" width={1440} height={6150}>
+            <SiteFrame src="sites/home-executive.html" />
+          </DCArtboard>
+        </DCSection>
+
+        {/* RATIONALES PER VARIATION */}
+        <DCSection id="notes" title="Notes per variation" subtitle="What each direction does well, and what it asks of the reader">
+          <DCArtboard id="note-a" label="Concept A · Editorial Premium" width={1440} height={300}>
+            <div className="rationale" style={{ width: 1440, height: 300 }}>
+              <h4>Concept A · Editorial Premium</h4>
+              <p><em>Visual voice:</em> deep navy hero with classical skyline silhouette, gold hairlines, Playfair masthead, Caslon italics for pull quotes, drop-cap intro on the about block. Strongest "publication" feel of the three — reads as a journal or annual report cover.</p>
+              <p><em>Strength:</em> immediate authority. <em>Trade-off:</em> the dark hero is sophisticated but slightly more distant; first-time citizen-readers may take a beat longer to feel invited in. Ideal if Eliana wants the practice to read primarily as <em>editorial authority.</em></p>
+            </div>
+          </DCArtboard>
+          <DCArtboard id="note-b" label="Concept B · Civic Modern — recommended" width={1440} height={300}>
+            <div className="rationale" style={{ width: 1440, height: 300 }}>
+              <h4>Concept B · Civic Modern <span className="rec">— recommended</span></h4>
+              <p><em>Visual voice:</em> warm ivory paper throughout, large documentary placeholders (town hall, columns, library), navy used only as accent and for the contact block. Editorial restraint of A, with the openness of a civic publication.</p>
+              <p><em>Strength:</em> reads as both <em>credible</em> and <em>accessible</em> — the exact balance the brief asked for. <em>Trade-off:</em> none significant. The variation that best matches "premium and humane at once."</p>
+            </div>
+          </DCArtboard>
+          <DCArtboard id="note-c" label="Concept C · Executive Institutional" width={1440} height={300}>
+            <div className="rationale" style={{ width: 1440, height: 300 }}>
+              <h4>Concept C · Executive Institutional</h4>
+              <p><em>Visual voice:</em> two-row institutional masthead (top strip + main nav), section numbering (§ I, § II…), a "Senior Practitioner" profile card in the hero, structured grid timeline. Closest to a top consulting or boutique law firm.</p>
+              <p><em>Strength:</em> credentials and structure. Strongest for a reader arriving for the <em>practice</em> (consulting, speaking). <em>Trade-off:</em> reads slightly more formal than the publication itself wants to be — best for B2B-leaning practice axis.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* DEEP PAGES — RECOMMENDED DIRECTION */}
+        <DCSection id="deep" title="Deep pages — in Concept B (Civic Modern)" subtitle="Two more pages, built in the recommended visual system">
+          <DCArtboard id="insights" label="Insights — How Public Money Works (blog index)" width={1440} height={3800}>
+            <SiteFrame src="sites/insights.html" />
+          </DCArtboard>
+          <DCArtboard id="article" label="Article — What Is a City Budget and Why Should You Care?" width={1440} height={9300}>
+            <SiteFrame src="sites/article-city-budget.html" />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="deep-notes" title="Notes — deep pages" subtitle="What's in the blog system, what to plan for next">
+          <DCArtboard id="deep-rationale" label="The publication system" width={1440} height={360}>
+            <div className="rationale" style={{ width: 1440, height: 360 }}>
+              <h4>The Publication — How Public Money Works</h4>
+              <p><em>Insights index:</em> dark masthead with the publication name, gold subtle grid behind. Sticky filter bar with category chips and a search field; a featured essay row; six article cards in a 3-column grid (twelve essays planned for Volume I); a calm newsletter block ("one essay, once a month — no tracking, no third parties").</p>
+              <p><em>Article template:</em> breadcrumb, category eyebrow, large editorial title with italic accent, subtitle, byline with avatar and stats, hero illustration, generous reading column (720 px). The body uses drop-cap opener, section numbering (§ I, § II…), a "Key Term" box for vocabulary, a pull-quote, a numbered list, a budget-anatomy diagram (revenue ↔ expenditure), tag chips, share row, an author block, and prev/next cards plus three related essays.</p>
+              <p><em>Honest about content:</em> the featured essay is written end-to-end in Eliana's voice, plain-language and patient, with <em>no invented numbers, no specific city names, no claims of credentials beyond the brief.</em> Photo slots show editorial illustration placeholders ready for documentary photography to follow.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* WHAT'S NEXT */}
+        <DCSection id="next" title="What I can build next" subtitle="If you'd like to go further with the recommended direction">
+          <DCArtboard id="next-card" label="Next steps menu" width={1440} height={340}>
+            <div className="rationale" style={{ width: 1440, height: 340 }}>
+              <h4>Possible Next Pages</h4>
+              <p><em>· About / The Practice</em> — Eliana's biography, trajectory, public-finance practice statement, signature, and a long-form portrait. Carries the language of the "Practice Statement" already drafted in Concept C, in the Civic Modern shell.</p>
+              <p><em>· Areas of Focus — deep page</em> — one page per discipline (Public Finance, Government Budgeting, Health Governance, Fiscal Modernization, Transparency, Civic Education), each with a definition, why-it-matters note, related essays, and recommended reading.</p>
+              <p><em>· Resources</em> — glossary (A–Z, expandable), open-data directory, reading list with annotations, downloadable primers (PDF).</p>
+              <p><em>· Contact</em> — full contact page with form, channels, response-time note, and a calm institutional sign-off.</p>
+              <p><em>· Article variants</em> — second and third articles to validate the template at different lengths (5-min, 10-min).</p>
+              <p style={{ marginTop: 12, color: '#C5A878', fontStyle: 'italic' }}>Tell me which direction you want to take forward, and I'll continue.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+      </DesignCanvas>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>

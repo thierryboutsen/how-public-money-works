@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Eliana Correa Faria Lima — LinkedIn Banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #0b0f1a; font-family: 'Inter', system-ui, sans-serif; color: #efe7d2; }
+  * { box-sizing: border-box; }
+
+  /* Tweaks panel */
+  #tweaks {
+    position: fixed; top: 16px; right: 16px; z-index: 10000;
+    background: rgba(13, 20, 36, 0.96); color: #efe7d2;
+    border: 1px solid rgba(201, 169, 106, 0.35);
+    padding: 18px 18px 16px; border-radius: 4px;
+    font-family: 'Inter', sans-serif; font-size: 12px;
+    min-width: 250px; backdrop-filter: blur(8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: none;
+  }
+  #tweaks.on { display: block; }
+  #tweaks h3 { margin: 0 0 14px; font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: #C9A96A; font-weight: 500; }
+  #tweaks .row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  #tweaks label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #9aa3b4; }
+  #tweaks .swatches { display: flex; gap: 6px; }
+  #tweaks .swatch { width: 26px; height: 26px; border-radius: 2px; border: 1px solid rgba(255,255,255,0.12); cursor: pointer; }
+  #tweaks .swatch.on { outline: 2px solid #C9A96A; outline-offset: 2px; }
+  #tweaks .toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  #tweaks input[type=checkbox] { accent-color: #C9A96A; }
+</style>
+</head>
+<body>
+
+<div id="tweaks">
+  <h3>Tweaks</h3>
+  <div class="row">
+    <label>Palette</label>
+    <div class="swatches" id="palette-swatches"></div>
+  </div>
+  <div class="row">
+    <label class="toggle"><input type="checkbox" id="safe-toggle" /> Show safe-zone guide</label>
+  </div>
+</div>
+
+<div id="root"></div>
+
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "paletteIndex": 2,
+    "showSafe": false
+  }/*EDITMODE-END*/;
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="banners.jsx"></script>
+
+<script type="text/babel">
+  const PALETTES = [
+    { name: 'Midnight & Gold',   bg: '#0B1A2E', gold: '#C9A96A', deepGold: '#B08A4A', ivory: '#F1E9D2', muted: '#9AA5B8' },
+    { name: 'Ink Navy & Brass',  bg: '#0A1626', gold: '#D4B97C', deepGold: '#B59856', ivory: '#F4ECD8', muted: '#A8B0C0' },
+    { name: 'Oxford & Champagne',bg: '#0D1B33', gold: '#E0C891', deepGold: '#BFA56E', ivory: '#F7F0DC', muted: '#A5ADBE' },
+    { name: 'Charcoal & Gold',   bg: '#161A24', gold: '#C9A96A', deepGold: '#A8884A', ivory: '#EFE7D2', muted: '#989FAD' },
+  ];
+
+  function App() {
+    const [safe, setSafe] = React.useState(TWEAK_DEFAULTS.showSafe);
+    const [pi, setPi] = React.useState(TWEAK_DEFAULTS.paletteIndex || 0);
+    const palette = PALETTES[pi];
+
+    // Tweaks wiring
+    React.useEffect(() => {
+      const handler = (e) => {
+        if (!e.data) return;
+        if (e.data.type === '__activate_edit_mode') document.getElementById('tweaks').classList.add('on');
+        if (e.data.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+      };
+      window.addEventListener('message', handler);
+      window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+      return () => window.removeEventListener('message', handler);
+    }, []);
+
+    React.useEffect(() => {
+      const wrap = document.getElementById('palette-swatches');
+      wrap.innerHTML = '';
+      PALETTES.forEach((p, i) => {
+        const el = document.createElement('div');
+        el.className = 'swatch' + (i === pi ? ' on' : '');
+        el.style.background = `linear-gradient(135deg, ${p.bg} 60%, ${p.gold} 60%)`;
+        el.title = p.name;
+        el.onclick = () => {
+          setPi(i);
+          window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { paletteIndex: i } }, '*');
+        };
+        wrap.appendChild(el);
+      });
+      const t = document.getElementById('safe-toggle');
+      t.checked = safe;
+      t.onchange = () => {
+        setSafe(t.checked);
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { showSafe: t.checked } }, '*');
+      };
+    }, [pi, safe]);
+
+    return (
+      <DesignCanvas background="#0b0f1a">
+        <DCSection id="final" title="Final — Recommended" subtitle="Editorial masthead · primary deliverable">
+          <DCArtboard id="final-a" label="LinkedIn Banner · 1584×396 · Editorial Masthead" width={1584} height={396}>
+            <BannerMasthead showSafe={safe} palette={palette} />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="alt" title="Alternates" subtitle="Two additional directions to compare">
+          <DCArtboard id="alt-1" label="Alt · Quiet Luxury (framed, centered)" width={1584} height={396}>
+            <BannerQuiet showSafe={safe} palette={palette} />
+          </DCArtboard>
+          <DCArtboard id="alt-2" label="Alt · Asymmetric Broadsheet" width={1584} height={396}>
+            <BannerBroadsheet showSafe={safe} palette={palette} />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="linkedin" title="LinkedIn Preview" subtitle="With profile photo overlay (approx. placement)">
+          <DCArtboard id="preview" label="On-profile preview — final" width={1584} height={560}>
+            <div style={{ position: 'relative', width: 1584, height: 560, background: '#f3f2ee' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0 }}>
+                <BannerMasthead showSafe={false} palette={palette} />
+              </div>
+              {/* Profile circle */}
+              <div style={{
+                position: 'absolute', left: 88, top: 300, width: 192, height: 192,
+                borderRadius: '50%', background: '#b5b0a6', border: '4px solid #ffffff',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#6c665a', fontFamily: 'Inter, sans-serif', fontSize: 11,
+                letterSpacing: '0.2em', textTransform: 'uppercase',
+              }}>
+                profile photo
+              </div>
+              <div style={{
+                position: 'absolute', left: 310, top: 410,
+                fontFamily: "'Cormorant Garamond', serif", fontSize: 32, color: '#1a1a1a',
+              }}>
+                Eliana Correa Faria Lima
+              </div>
+              <div style={{
+                position: 'absolute', left: 310, top: 456,
+                fontFamily: 'Inter, sans-serif', fontSize: 14, color: '#555',
+              }}>
+                Public Finance Specialist · Government Budgeting, Health Funding & Fiscal Modernization
+              </div>
+              <div style={{
+                position: 'absolute', left: 310, top: 482,
+                fontFamily: 'Inter, sans-serif', fontSize: 13, color: '#777',
+              }}>
+                Itapeva, São Paulo, Brasil
+              </div>
+            </div>
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>

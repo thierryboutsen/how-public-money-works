@@ -1,0 +1,8 @@
+# Arquivos internos de design - não sobem para produção
+project/
+
+# Docs internos
+README.md
+Assumptions.md
+Decisions.md
+DONE.md

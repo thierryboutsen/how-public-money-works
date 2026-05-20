@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Eliana Correa Faria Lima — Refined LinkedIn Banners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #0b0f1a; font-family: 'Inter', system-ui, sans-serif; color: #efe7d2; }
+  * { box-sizing: border-box; }
+
+  /* Rationale cards shown inside the canvas */
+  .rationale {
+    width: 1584px; padding: 28px 36px;
+    background: #0B1A2E;
+    border: 1px solid rgba(201, 169, 106, 0.35); border-radius: 2px;
+    font-family: 'Libre Caslon Text', Georgia, serif; color: #e8dfc6;
+    font-size: 15px; line-height: 1.55;
+  }
+  .rationale h4 {
+    margin: 0 0 10px; font-family: 'Inter', sans-serif; font-size: 10px;
+    letter-spacing: 0.4em; text-transform: uppercase; color: #C9A96A; font-weight: 500;
+  }
+  .rationale p { margin: 0 0 8px; }
+  .rationale em { color: #f1e9d2; font-style: italic; }
+  .rationale .rec { color: #C9A96A; font-weight: 500; font-style: italic; }
+
+  /* Tweaks panel */
+  #tweaks {
+    position: fixed; top: 16px; right: 16px; z-index: 10000;
+    background: rgba(13, 20, 36, 0.96); color: #efe7d2;
+    border: 1px solid rgba(201, 169, 106, 0.35);
+    padding: 18px 18px 16px; border-radius: 4px;
+    font-family: 'Inter', sans-serif; font-size: 12px;
+    min-width: 260px; backdrop-filter: blur(8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: none;
+  }
+  #tweaks.on { display: block; }
+  #tweaks h3 { margin: 0 0 14px; font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: #C9A96A; font-weight: 500; }
+  #tweaks .row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  #tweaks label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #9aa3b4; }
+  #tweaks .swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+  #tweaks .swatch { width: 26px; height: 26px; border-radius: 2px; border: 1px solid rgba(255,255,255,0.12); cursor: pointer; }
+  #tweaks .swatch.on { outline: 2px solid #C9A96A; outline-offset: 2px; }
+  #tweaks .toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  #tweaks input[type=checkbox] { accent-color: #C9A96A; }
+  #tweaks .pname { font-family: 'Libre Caslon Text', serif; font-style: italic; color: #C9A96A; font-size: 11px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div id="tweaks">
+  <h3>Tweaks</h3>
+  <div class="row">
+    <label>Palette</label>
+    <div class="swatches" id="palette-swatches"></div>
+    <div class="pname" id="palette-name"></div>
+  </div>
+  <div class="row">
+    <label class="toggle"><input type="checkbox" id="safe-toggle" /> Show safe-zone guides</label>
+  </div>
+</div>
+
+<div id="root"></div>
+
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "paletteIndex": 2,
+    "showSafe": true
+  }/*EDITMODE-END*/;
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="banners.jsx"></script>
+
+<script type="text/babel">
+  const PALETTES = [
+    { name: 'Midnight & Gold',    bg: '#0B1A2E', gold: '#C9A96A', deepGold: '#B08A4A', ivory: '#F1E9D2', muted: '#9AA5B8' },
+    { name: 'Ink Navy & Brass',   bg: '#0A1626', gold: '#D4B97C', deepGold: '#B59856', ivory: '#F4ECD8', muted: '#A8B0C0' },
+    { name: 'Oxford & Champagne', bg: '#0D1B33', gold: '#E0C891', deepGold: '#BFA56E', ivory: '#F7F0DC', muted: '#A5ADBE' },
+    { name: 'Charcoal & Gold',    bg: '#161A24', gold: '#C9A96A', deepGold: '#A8884A', ivory: '#EFE7D2', muted: '#989FAD' },
+  ];
+
+  function LinkedInPreview({ children }) {
+    return (
+      <div style={{
+        width: 1584, height: 560, background: '#f3f2ee', position: 'relative',
+        fontFamily: 'Inter, system-ui, sans-serif',
+        boxShadow: 'inset 0 -1px 0 rgba(0,0,0,0.08)',
+      }}>
+        <div style={{ position: 'absolute', top: 0, left: 0 }}>{children}</div>
+        {/* Profile circle */}
+        <div style={{
+          position: 'absolute', left: 88, top: 300, width: 192, height: 192,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle at 35% 30%, #d4cec2 0%, #a39c8c 85%)',
+          border: '4px solid #ffffff',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#6c665a', fontSize: 10, letterSpacing: '0.25em',
+          textTransform: 'uppercase',
+        }}>
+          profile photo
+        </div>
+        <div style={{
+          position: 'absolute', left: 310, top: 410,
+          fontFamily: "'Playfair Display', serif", fontSize: 32, color: '#1a1a1a',
+          fontWeight: 500,
+        }}>
+          Eliana Correa Faria Lima
+        </div>
+        <div style={{
+          position: 'absolute', left: 310, top: 456,
+          fontSize: 14, color: '#555',
+        }}>
+          Public Finance Specialist · Government Budgeting · Fiscal Modernization
+        </div>
+        <div style={{
+          position: 'absolute', left: 310, top: 482,
+          fontSize: 13, color: '#777',
+        }}>
+          Itapeva, São Paulo, Brasil · 500+ connections
+        </div>
+      </div>
+    );
+  }
+
+  function App() {
+    const [safe, setSafe] = React.useState(TWEAK_DEFAULTS.showSafe);
+    const [pi, setPi] = React.useState(TWEAK_DEFAULTS.paletteIndex || 0);
+    const palette = PALETTES[pi];
+
+    React.useEffect(() => {
+      const handler = (e) => {
+        if (!e.data) return;
+        if (e.data.type === '__activate_edit_mode') document.getElementById('tweaks').classList.add('on');
+        if (e.data.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+      };
+      window.addEventListener('message', handler);
+      window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+      return () => window.removeEventListener('message', handler);
+    }, []);
+
+    React.useEffect(() => {
+      const wrap = document.getElementById('palette-swatches');
+      const nameEl = document.getElementById('palette-name');
+      wrap.innerHTML = '';
+      PALETTES.forEach((p, i) => {
+        const el = document.createElement('div');
+        el.className = 'swatch' + (i === pi ? ' on' : '');
+        el.style.background = `linear-gradient(135deg, ${p.bg} 55%, ${p.gold} 55%)`;
+        el.title = p.name;
+        el.onclick = () => {
+          setPi(i);
+          window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { paletteIndex: i } }, '*');
+        };
+        wrap.appendChild(el);
+      });
+      nameEl.textContent = PALETTES[pi].name;
+      const t = document.getElementById('safe-toggle');
+      t.checked = safe;
+      t.onchange = () => {
+        setSafe(t.checked);
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { showSafe: t.checked } }, '*');
+      };
+    }, [pi, safe]);
+
+    return (
+      <DesignCanvas background="#0b0f1a">
+
+        {/* RECOMMENDATION */}
+        <DCSection id="pick" title="Recommendation" subtitle="Senior-AD pick, with second-best rationale">
+          <DCArtboard id="rec-card" label="Rationale — recommended direction" width={1584} height={260}>
+            <div className="rationale" style={{ height: 260 }}>
+              <h4>Final Recommendation</h4>
+              <p><span className="rec">Best — Concept 2, Editorial Masthead.</span> It reads as a premium policy publication: a quiet top masthead, a restrained name in Playfair, a single gold rule, then the English positioning promoted to headline weight — the one line a recruiter or LinkedIn visitor needs to read in under two seconds. The monogram on the right anchors it without icon clichés. Portuguese stays italic and secondary, coexisting gracefully rather than competing.</p>
+              <p><span className="rec">Second-best — Concept 1, Quiet Luxury.</span> Symmetry and a single frame give it the most institutional calm of the four — closest to an annual-report cover. Slightly less distinctive than the masthead, but the safest choice if the rest of Eliana's visual identity is centered and serif-led.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* CONCEPT 2 — EDITORIAL MASTHEAD (primary) */}
+        <DCSection id="masthead" title="Concept 2 — Editorial Masthead" subtitle="Recommended · primary positioning line promoted to headline">
+          <DCArtboard id="masthead-banner" label="Banner · 1584×396" width={1584} height={396}>
+            <BannerMasthead showSafe={safe} palette={palette} />
+          </DCArtboard>
+          <DCArtboard id="masthead-preview" label="On LinkedIn — preview" width={1584} height={560}>
+            <LinkedInPreview>
+              <BannerMasthead showSafe={false} palette={palette} />
+            </LinkedInPreview>
+          </DCArtboard>
+          <DCArtboard id="masthead-rationale" label="Rationale" width={1584} height={180}>
+            <div className="rationale" style={{ height: 180 }}>
+              <h4>Concept 2 · Editorial Masthead</h4>
+              <p><em>What changed:</em> the English positioning line now reads as the headline — wider tracking, lifted weight — so the composition states what Eliana does before it says her name twice over. Monogram column replaces the prior vertical folio text; decorative dots removed. Softer gradient, calmer masthead bar.</p>
+              <p><em>Why it wins:</em> clearest hierarchy, strongest international-publication cadence, safest legibility at LinkedIn's actual display size.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* CONCEPT 1 — QUIET LUXURY */}
+        <DCSection id="quiet" title="Concept 1 — Executive Minimal / Quiet Luxury" subtitle="Centered, single gold frame, annual-report cadence">
+          <DCArtboard id="quiet-banner" label="Banner · 1584×396" width={1584} height={396}>
+            <BannerQuiet showSafe={safe} palette={palette} />
+          </DCArtboard>
+          <DCArtboard id="quiet-preview" label="On LinkedIn — preview" width={1584} height={560}>
+            <LinkedInPreview>
+              <BannerQuiet showSafe={false} palette={palette} />
+            </LinkedInPreview>
+          </DCArtboard>
+          <DCArtboard id="quiet-rationale" label="Rationale" width={1584} height={180}>
+            <div className="rationale" style={{ height: 180 }}>
+              <h4>Concept 1 · Quiet Luxury</h4>
+              <p><em>What changed:</em> corner diamond marks and double-frame removed — they read as ornament. Now a single thin gold frame, the diamond divider replaced with one precise gold rule, spacing opened up, Portuguese reset in true italic serif. Eyebrow swapped for italic Caslon to warm the composition.</p>
+              <p><em>Best for:</em> Eliana if she prefers centered symmetry and an understated, book-cover feel.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* CONCEPT 3 — BILINGUAL SPLIT */}
+        <DCSection id="bilingual" title="Concept 3 — Bilingual Split" subtitle="Two columns, one intention — EN / PT-BR as equal voices">
+          <DCArtboard id="bi-banner" label="Banner · 1584×396" width={1584} height={396}>
+            <BannerBilingual showSafe={safe} palette={palette} />
+          </DCArtboard>
+          <DCArtboard id="bi-preview" label="On LinkedIn — preview" width={1584} height={560}>
+            <LinkedInPreview>
+              <BannerBilingual showSafe={false} palette={palette} />
+            </LinkedInPreview>
+          </DCArtboard>
+          <DCArtboard id="bi-rationale" label="Rationale" width={1584} height={180}>
+            <div className="rationale" style={{ height: 180 }}>
+              <h4>Concept 3 · Bilingual Split</h4>
+              <p><em>What changed:</em> the prior rigid block-block split is now a name-spanning masthead above two softened columns, separated by a fading gold thread instead of a hard rule. EN set in Playfair, PT-BR in italic Caslon — distinct voices, not a translation grid.</p>
+              <p><em>Best for:</em> international positioning where bilingualism itself is part of the message (EB2-NIW, cross-border roles).</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* CONCEPT 4 — BROADSHEET (original, mantido para referência) */}
+        <DCSection id="broad" title="Concept 4 — Broadsheet / Asymmetric Editorial" subtitle="Original · mantido para referência">
+          <DCArtboard id="broad-banner" label="Banner · 1584×396 · original" width={1584} height={396}>
+            <BannerBroadsheet showSafe={safe} palette={palette} />
+          </DCArtboard>
+        </DCSection>
+
+        {/* CONCEPT 4A — BROADSHEET + DASHBOARD MOTIF */}
+        <DCSection id="broad-a" title="Concept 4A — Broadsheet + Dashboard Motif" subtitle="Arco concêntrico, barras ascendentes e trajetória — estilo painel de dados">
+          <DCArtboard id="broad-a-banner" label="Banner · 1584×396 · dashboard" width={1584} height={396}>
+            <BannerBroadsheetDashboard showSafe={safe} palette={palette} />
+          </DCArtboard>
+          <DCArtboard id="broad-a-preview" label="On LinkedIn — preview" width={1584} height={560}>
+            <LinkedInPreview>
+              <BannerBroadsheetDashboard showSafe={false} palette={palette} />
+            </LinkedInPreview>
+          </DCArtboard>
+          <DCArtboard id="broad-a-rationale" label="Rationale" width={1584} height={210}>
+            <div className="rationale" style={{ height: 210 }}>
+              <h4>Concept 4A · Broadsheet + Dashboard</h4>
+              <p><em>O que mudou:</em> o nome <strong>Eliana Correa Faria Lima</strong> agora aparece em um único estilo consistente — sem alternância entre romano e itálico. Incluído <strong>Health Governance / Governança em Saúde</strong> na lista de posicionamento. Atrás do conteúdo, um motivo gráfico sutil de painel: arco concêntrico com marcas de escala, barras crescentes e uma linha diagonal ascendente — em fio de ouro com opacidade reduzida, decorativo, não literal.</p>
+              <p><em>Indicado para:</em> quem quer transmitir domínio técnico e leitura de indicadores fiscais — um <em>data-driven editorial</em>.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* CONCEPT 4B — BROADSHEET + SKYLINE MOTIF */}
+        <DCSection id="broad-b" title="Concept 4B — Broadsheet + Skyline Motif" subtitle="Edifício clássico, torres modernas e barras ascendentes — estilo cidade-instituição">
+          <DCArtboard id="broad-b-banner" label="Banner · 1584×396 · skyline" width={1584} height={396}>
+            <BannerBroadsheetSkyline showSafe={safe} palette={palette} />
+          </DCArtboard>
+          <DCArtboard id="broad-b-preview" label="On LinkedIn — preview" width={1584} height={560}>
+            <LinkedInPreview>
+              <BannerBroadsheetSkyline showSafe={false} palette={palette} />
+            </LinkedInPreview>
+          </DCArtboard>
+          <DCArtboard id="broad-b-rationale" label="Rationale" width={1584} height={210}>
+            <div className="rationale" style={{ height: 210 }}>
+              <h4>Concept 4B · Broadsheet + Skyline</h4>
+              <p><em>O que mudou:</em> mesma padronização do nome — <strong>Eliana Correa Faria Lima</strong> em estilo único, sem itálico em "Faria". Mesma inclusão de <strong>Health Governance / Governança em Saúde</strong>. À direita, um motivo gráfico sutil combinando um edifício clássico com colunas (referência institucional/pública), torres modernas com grelha de janelas e pequenas barras crescentes — tudo em fio de ouro, sem preenchimento, como ilustração de jornal.</p>
+              <p><em>Indicado para:</em> quem quer evocar a dimensão urbana e institucional do setor público — administração municipal, governança pública, infraestrutura.</p>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+      </DesignCanvas>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>
