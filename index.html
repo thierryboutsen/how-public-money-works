@@ -680,6 +680,109 @@
       justify-content: flex-start;
     }
   }
+
+  @media (max-width: 640px) {
+    .hero-civic {
+      padding: 38px 0 56px;
+    }
+
+    .hero-civic .inner,
+    .blog-civic .head,
+    .blog-civic .insights,
+    .about-civic .inner {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .hero-civic h1,
+    .blog-civic h2,
+    .about-civic h2 {
+      word-break: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-civic .actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .hero-civic .actions .btn {
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      text-align: center;
+    }
+
+    .hero-civic .strip {
+      gap: 12px;
+      align-items: flex-start;
+      flex-direction: column;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-civic .strip .sep {
+      display: none;
+    }
+
+    .hero-civic .image-wrap {
+      height: 340px;
+    }
+
+    .hero-civic .image-card {
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      max-width: none;
+      padding: 18px;
+    }
+
+    .areas-civic,
+    .featured-civic,
+    .blog-civic,
+    .about-civic,
+    .resources-civic,
+    .contact-civic {
+      padding: 54px 0;
+    }
+
+    .area-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .area-row .num,
+    .area-row h3,
+    .area-row p,
+    .area-row .more {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    .featured-civic .photo-slot,
+    .about-civic .image-stack {
+      height: 320px;
+    }
+
+    .blog-civic .head {
+      margin-bottom: 28px;
+    }
+
+    .blog-civic .head .right p {
+      max-width: none;
+    }
+
+    .ic-card .body,
+    .contact-civic .card {
+      padding: 22px;
+    }
+
+    .trust-items {
+      gap: 14px;
+      letter-spacing: 0.12em;
+    }
+  }
 </style>
 </head>
 <body>

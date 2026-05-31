@@ -295,6 +295,7 @@ p { margin: 0 0 1em; }
   }
   .nav {
     padding: 16px 24px;
+    gap: 16px;
   }
   .nav-links {
     position: absolute;
@@ -319,6 +320,71 @@ p { margin: 0 0 1em; }
   }
   .lang-switch {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  html, body {
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  h1, .h1 {
+    font-size: clamp(38px, 13vw, 54px);
+    line-height: 0.98;
+  }
+
+  h2, .h2 {
+    font-size: clamp(30px, 9vw, 40px);
+  }
+
+  .lede {
+    font-size: 17px;
+  }
+
+  .nav {
+    min-height: 64px;
+    padding: 14px 18px;
+  }
+
+  .nav .brand {
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .nav .brand-mark {
+    font-size: 22px;
+  }
+
+  .nav .brand-name {
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .lang-switch {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    gap: 4px;
+  }
+
+  .nav-links {
+    padding: 24px 18px 28px;
+    gap: 18px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+
+  .btn,
+  .btn-link,
+  .article-card .ac-foot {
+    letter-spacing: 0.16em;
   }
 }
 
@@ -370,6 +436,30 @@ p { margin: 0 0 1em; }
     flex-direction: column;
     gap: 12px;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .foot {
+    padding: 44px 18px 30px;
+  }
+
+  .foot-top {
+    gap: 28px;
+  }
+
+  .foot h5,
+  .foot-bottom {
+    letter-spacing: 0.2em;
+  }
+
+  .photo-slot .caption {
+    left: 14px;
+    right: 14px;
+    bottom: 12px;
+    padding-left: 20px;
+    letter-spacing: 0.18em;
+    line-height: 1.4;
   }
 }
 

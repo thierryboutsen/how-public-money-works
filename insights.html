@@ -407,6 +407,7 @@
     .featured-essay .inner {
       grid-template-columns: 1fr;
       gap: 40px;
+      padding: 0 24px;
     }
     .featured-essay .photo-slot {
       height: 320px;
@@ -419,13 +420,116 @@
       align-items: flex-start;
       gap: 12px;
       margin-bottom: 32px;
+      padding: 0 24px;
     }
     .all-essays .grid {
       grid-template-columns: 1fr;
       gap: 24px;
+      padding: 0 24px;
     }
     .essay-card .photo-slot {
       height: 180px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .pub-masthead {
+      padding: 54px 0 58px;
+    }
+
+    .pub-masthead .inner,
+    .filter-bar .inner,
+    .featured-essay .inner,
+    .all-essays .head,
+    .all-essays .grid,
+    .newsletter .inner {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .pub-masthead .pre {
+      gap: 10px;
+      letter-spacing: 0.22em;
+      line-height: 1.5;
+    }
+
+    .pub-masthead .pre::before,
+    .pub-masthead .pre::after {
+      width: 18px;
+    }
+
+    .pub-masthead h1 {
+      font-size: clamp(42px, 15vw, 58px);
+    }
+
+    .pub-masthead .tagline {
+      font-size: 19px;
+      margin-bottom: 26px;
+    }
+
+    .pub-masthead .meta {
+      gap: 12px;
+      letter-spacing: 0.16em;
+      line-height: 1.5;
+    }
+
+    .filter-bar {
+      position: static;
+      padding: 18px 0;
+    }
+
+    .filter-bar .label,
+    .filter-bar .cat,
+    .essay-card .meta-row,
+    .essay-card .card-foot {
+      letter-spacing: 0.16em;
+    }
+
+    .filter-bar .cats {
+      padding-bottom: 4px;
+    }
+
+    .filter-bar .cat {
+      padding: 10px 12px;
+    }
+
+    .featured-essay,
+    .all-essays,
+    .newsletter {
+      padding: 54px 0;
+    }
+
+    .featured-essay .photo-slot,
+    .essay-card .photo-slot {
+      height: 220px;
+    }
+
+    .featured-essay .meta,
+    .essay-card .meta-row,
+    .essay-card .card-foot {
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .all-essays .head {
+      margin-bottom: 24px;
+    }
+
+    .all-essays h2 {
+      font-size: 32px;
+    }
+
+    .essay-card .body {
+      padding: 22px;
+    }
+
+    .newsletter form {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .newsletter input {
+      border-right: 1px solid #D8D2C2;
     }
   }
 </style>
