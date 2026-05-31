@@ -41,3 +41,7 @@ To keep the site clean, fast, and simple to deploy, we have chosen the following
 ## 5. Performance and Hosting
 * **Decision**: The entire site is static and can be served directly from GitHub Pages, Vercel, Netlify, or a basic Apache/Nginx web server. 
 * No build process is required, making loading instantaneous and ensuring perfect SEO tags and semantic markup work right out of the box.
+
+## 6. Evolução para Lumina Smart Strategies (B2B)
+* **Problem**: O site original focava no perfil pessoal de Eliana Faria Lima.
+* **Decision**: A página principal (`index.html`) foi transformada no hub corporativo da Lumina Smart Strategies LLC, promovendo serviços de modernização fiscal e auditoria (conforme o Business Plan). O blog "How Public Money Works" foi isolado em uma seção exclusiva (`insights.html`), mantendo as raízes educacionais de Eliana mas separando claramente o funil de aquisição corporativo do consumo de conteúdo editorial.

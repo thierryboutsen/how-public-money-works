@@ -288,7 +288,7 @@
     <span class="title">How Public Money Works · Admin Portal</span>
   </div>
   <div class="admin-actions">
-    <button class="btn-outline" onclick="showHtmlExport()">Export Complete HTML</button>
+    <button class="btn-outline" onclick="showHtmlExport()">Export Markdown Post</button>
     <button class="btn-gold" onclick="showCardHtmlExport()">Copy Listing Card HTML</button>
   </div>
 </div>
@@ -433,28 +433,13 @@
     <div class="code-output" id="modal-code"></div>
     <div style="display: flex; gap: 12px; justify-content: flex-end;">
       <button class="btn-outline" onclick="copyModalCode()">Copy Code to Clipboard</button>
-      <button class="btn-gold" id="download-btn" style="display:none;" onclick="triggerHtmlDownload()">Download .html File</button>
+      <button class="btn-gold" id="download-btn" style="display:none;" onclick="triggerMarkdownDownload()">Download .md File</button>
     </div>
   </div>
 </div>
 
 <script>
-// Simple client passcode security to protect it in staging/production
-const savedPass = localStorage.getItem("eliana-admin-auth");
-if (savedPass !== "Eliana2026") {
-  const attempt = prompt("Enter Administration Portal Passcode:");
-  if (attempt === "Eliana2026") {
-    localStorage.setItem("eliana-admin-auth", "Eliana2026");
-  } else {
-    document.body.innerHTML = `
-      <div style="background:#0C1A2C; color:#FBF7EC; font-family:sans-serif; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px;">
-        <h1 style="color:#A88752; font-family:serif; font-size:36px; font-weight:400; margin-bottom:12px;">Access Denied</h1>
-        <p style="font-size:15px; color:#c5bdad; margin-bottom:20px;">You are not authorized to view the How Public Money Works authoring portal.</p>
-        <button onclick="window.location.reload()" style="background:#A88752; color:#0C1A2C; border:none; padding:10px 20px; font-size:12px; letter-spacing:0.15em; text-transform:uppercase; font-weight:bold; cursor:pointer;">Retry Access</button>
-      </div>
-    `;
-    throw new Error("Unauthorized Access Attempt");
-  }
+// Removed hardcoded password as this is now a local-only tool.
 }
 
 // Default article body on load matching user's requirement
@@ -765,7 +750,7 @@ function showCardHtmlExport() {
   );
 }
 
-function generateCompleteHtml() {
+function generateMarkdown() {
   const title = document.getElementById('post-title').value;
   const subtitle = document.getElementById('post-subtitle').value;
   const category = document.getElementById('post-category').value;
@@ -1227,16 +1212,15 @@ function generateCompleteHtml() {
 
 <nav class="nav civic">
   <div class="brand">
-    <span class="brand-mark" style="color: var(--gold-deep);">ecfl</span>
-    <span class="brand-name">Eliana Faria Lima</span>
+    <span class="brand-mark" style="color: var(--gold-deep);">L</span>
+    <span class="brand-name">Lumina Smart Strategies</span>
   </div>
   <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#disciplines">Focus</a>
-    <a href="insights.html" class="active">Insights</a>
-    <a href="index.html#resources">Resources</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="index.html" data-translate="nav-home">Home</a>
+    <a href="index.html#services" data-translate="nav-services">Services</a>
+    <a href="index.html#about" data-translate="nav-about">About Us</a>
+    <a href="insights.html" class="active" data-translate="nav-blog">Eliana's Blog</a>
+    <a href="index.html#contact" data-translate="nav-contact">Contact</a>
   </div>
   <div class="lang-switch">
     <span data-lang="EN" class="on">EN</span>
@@ -1394,7 +1378,7 @@ function generateCompleteHtml() {
 }
 
 function showHtmlExport() {
-  const htmlContent = generateCompleteHtml();
+  const htmlContent = generateMarkdown();
   const slug = document.getElementById('post-slug').value || 'new-article';
   
   openModal(
@@ -1405,8 +1389,8 @@ function showHtmlExport() {
   );
 }
 
-function triggerHtmlDownload() {
-  const htmlContent = generateCompleteHtml();
+function triggerMarkdownDownload() {
+  const htmlContent = generateMarkdown();
   const slug = document.getElementById('post-slug').value || 'new-article';
   const blob = new Blob([htmlContent], { type: 'text/html' });
   const a = document.createElement('a');

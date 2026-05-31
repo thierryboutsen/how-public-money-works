@@ -2,14 +2,9 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "headers": [
-    {
-      "source": "/admin-editor",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
-        { "key": "Cache-Control", "value": "no-store" }
-      ]
-    },
     {
       "source": "/(.*)",
       "headers": [
@@ -32,7 +27,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/insights", "destination": "/insights.html" },
-    { "source": "/article-city-budget", "destination": "/article-city-budget.html" }
+    { "source": "/insights", "destination": "/insights.html" }
   ]
 }

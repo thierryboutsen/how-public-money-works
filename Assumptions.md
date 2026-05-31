@@ -37,3 +37,6 @@ The production website will consist of:
 * A client-side passcode gate (`localStorage` token) is implemented to prevent casual access.
 * For production: add HTTP Basic Auth or move to a password-protected subdirectory at the server level.
 
+
+* Assumed the premium editorial color palette (gold, navy, ivory) and modern aesthetics are completely suitable for the corporate identity of Lumina Smart Strategies.
+* Assumed the blog will continue to use the title "How Public Money Works" under Eliana's direct authorship, while the consulting work is presented under the Lumina umbrella.

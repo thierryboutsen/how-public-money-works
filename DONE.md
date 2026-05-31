@@ -14,3 +14,10 @@ Tasks completed for Eliana Faria Lima's premium website:
 - [x] Implement blog category filtering and live search script.
 - [x] Test website responsiveness and interactive elements.
 - [x] Complete project documentation updates.
+
+- [x] Analisar o Business Plan "Lumina Smart Strategies".
+- [x] Separar a marca corporativa (Lumina) da pessoal (Blog da Eliana).
+- [x] Atualizar a navegação global, Hero, Serviços (6 áreas) e Sobre em `index.html`.
+- [x] Adaptar `insights.html` para ser o hub exclusivo do Blog da Eliana.
+- [x] Atualizar copys em `article-city-budget.html` e `admin-editor.html`.
+- [x] Atualizar documentação técnica e de projeto.

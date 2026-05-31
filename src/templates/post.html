@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>What Is a City Budget and Why Should You Care? — How Public Money Works</title>
+<title>{{seoTitle}} — How Public Money Works</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="A plain-English guide to how local budget choices shape streets, services, and public life. Essay N.º 01 of How Public Money Works by Eliana Faria Lima." />
+<meta name="description" content="{{metaDescription}}" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://elianafariasima.com/article-city-budget.html" />
 <!-- Open Graph (article) -->
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://elianafariasima.com/article-city-budget.html" />
-<meta property="og:title" content="What Is a City Budget and Why Should You Care?" />
-<meta property="og:description" content="A plain-English guide to how local budget choices shape streets, services, and public life. Written for citizens, not accountants." />
+<meta property="og:url" content="https://www.luminasmart.company/{{slug}}.html" />
+<meta property="og:title" content="{{seoTitle}}" />
+<meta property="og:description" content="{{metaDescription}}" />
 <meta property="og:image" content="https://elianafariasima.com/assets/eliana-portrait.jpeg" />
 <meta property="og:site_name" content="How Public Money Works" />
 <meta property="og:locale" content="en_US" />
@@ -21,8 +21,8 @@
 <meta property="article:tag" content="city budget, local government, civic education, public finance" />
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="What Is a City Budget and Why Should You Care?" />
-<meta name="twitter:description" content="A plain-English guide to how local budget choices shape streets, services, and public life." />
+<meta name="twitter:title" content="{{seoTitle}}" />
+<meta name="twitter:description" content="{{metaDescription}}" />
 <meta name="twitter:image" content="https://elianafariasima.com/assets/eliana-portrait.jpeg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -654,20 +654,46 @@
     }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.luminasmart.company/{{slug}}.html"
+  },
+  "headline": "{{seoTitle}}",
+  "description": "{{metaDescription}}",
+  "image": "https://www.luminasmart.company{{featuredImage}}",  
+  "author": {
+    "@type": "Person",
+    "name": "{{author}}",
+    "url": "https://www.luminasmart.company/index.html#about"
+  },  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lumina Smart Strategies",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.luminasmart.company/assets/eliana-portrait.jpeg"
+    }
+  },
+  "datePublished": "{{date}}"
+}
+</script>
 </head>
 <body>
 
 <nav class="nav civic">
   <div class="brand">
-    <span class="brand-mark" style="color: var(--gold-deep);">ecfl</span>
-    <span class="brand-name">Eliana Faria Lima</span>
+    <span class="brand-mark" style="color: var(--gold-deep);">L</span>
+    <span class="brand-name">Lumina Smart Strategies</span>
   </div>
   <div class="nav-links">
     <a href="index.html" data-translate="nav-home">Home</a>
-    <a href="index.html#about" data-translate="nav-about">About</a>
-    <a href="index.html#disciplines" data-translate="nav-focus">Focus</a>
-    <a href="insights.html" class="active" data-translate="nav-insights">Insights</a>
-    <a href="index.html#resources" data-translate="nav-resources">Resources</a>
+    <a href="index.html#services" data-translate="nav-services">Services</a>
+    <a href="index.html#about" data-translate="nav-about">About Us</a>
+    <a href="insights.html" class="active" data-translate="nav-blog">Eliana's Blog</a>
     <a href="index.html#contact" data-translate="nav-contact">Contact</a>
   </div>
   <div class="lang-switch">
@@ -706,8 +732,12 @@
       <span class="sep"></span>
       <span data-translate="blog-sec-tagline">Bringing clarity to public finance</span>
     </div>
-    <h1 data-translate="featured-essay-title">What Is a City Budget <span class="italic" data-translate="featured-essay-title-accent">— and Why Should You Care?</span></h1>
-    <div class="subtitle" data-translate="featured-essay-excerpt-1">A plain-language walk through the document that shapes your streets, your schools, and your local services — and how to read one without a degree in accounting.</div>
+    <h1 data-translate="featured-essay-title">
+          {{title}}
+        </h1>
+    <div class="subtitle" data-translate="featured-essay-excerpt-1">
+          {{subtitle}}
+        </div>
 
     <div class="byline">
       <div class="byline-avatar"></div>
@@ -728,7 +758,7 @@
 <!-- ========== HERO ========== -->
 <section class="article-hero">
   <div class="inner">
-    <div class="photo-slot light photo-illus" style="background-image: url('assets/article-city-budget-hero.jpg'); background-size: cover; background-position: center;">
+    <div class="photo-slot light photo-illus" style="background-image: url('{{featuredImage}}'); background-size: cover; background-position: center;">
       <div class="cap" data-translate="art-hero-cap">A budget is a public document. The question is not whether it can be read; it is whether it will be.</div>
     </div>
   </div>
@@ -737,170 +767,12 @@
 <!-- ========== BODY ========== -->
 <article class="article-body">
   <div class="inner">
+        {{body}}
 
-    <p class="lede">
-      Every year, your city decides how to spend hundreds of millions of dollars — on streets, schools, libraries, parks, fire trucks, water lines, animal control, building inspections, and a long list of other things. That decision is called a <em>budget</em>.
-    </p>
-
-    <p>
-      <span class="dropcap">A</span>
-      budget is not a technical document for accountants. It is the most important public document your city produces in any given year. It is, in plain terms, a statement of priorities written in numbers — a written answer to the question, <em>what do we, together, choose to pay for?</em>
-    </p>
-
-    <p>
-      And yet most people never read one. Budgets are long. They are full of unfamiliar vocabulary. They are usually published as a PDF, with no real introduction, on a city website. Even motivated citizens often open a budget document, scroll a few pages, and close it again.
-    </p>
-
-    <p>
-      The purpose of this essay is to make that act less intimidating. We will not learn government accounting. We will learn just enough to read a budget the way a citizen needs to — with patience, and with the right questions.
-    </p>
-
-    <h2><span class="num">§ I.</span> What a budget actually is</h2>
-
-    <p>
-      A city budget is two things at once. It is a <em>plan</em>: a public statement of what the city intends to do in the coming year, and what those things will cost. And it is a <em>permission</em>: once it is adopted, it is the legal authority the city government has to spend public money. Without an adopted budget, in most American cities, the government cannot operate.
-    </p>
-
-    <div class="key-term">
-      <div class="label">Key Term</div>
-      <div class="term">Appropriation</div>
-      <p class="definition">A legal authorization, set by the city council, that allows a specific amount of money to be spent on a specific purpose during a specific period — usually one fiscal year.</p>
-    </div>
-
-    <p>
-      That word — <em>appropriation</em> — is the workhorse of public finance. When you read a budget, almost every dollar in it is an appropriation: a permission, granted by the elected body, for the government to spend on something the public has agreed to fund.
-    </p>
-
-    <h2><span class="num">§ II.</span> Where the money comes from</h2>
-
-    <p>
-      Before you can spend, you have to raise. Every city budget starts with a <em>revenue</em> side: the money the city expects to receive in the coming year. For most American cities, that revenue comes from a familiar handful of sources.
-    </p>
-
-    <ol class="numbered-list">
-      <li><strong>Property taxes,</strong> paid by people who own land or buildings inside the city.</li>
-      <li><strong>Sales taxes and other local taxes,</strong> collected when residents or visitors buy things.</li>
-      <li><strong>Fees and charges</strong> — for permits, parking, water service, garbage collection, building inspections, and many other things the city does.</li>
-      <li><strong>Transfers from state or federal government,</strong> often tied to specific programs.</li>
-      <li><strong>Borrowing,</strong> typically through municipal bonds, for long-term investments like roads or buildings.</li>
-    </ol>
-
-    <p>
-      A useful first question, when you open a budget, is therefore simply: <em>where does this city's money come from?</em> The answer often surprises new readers. The mix is rarely what people assume, and it varies a great deal from city to city.
-    </p>
-
-    <div class="diagram">
-      <div class="label">A Reader's Diagram</div>
-      <h4>The Two Sides of a Budget</h4>
-      <svg width="100%" height="260" viewBox="0 0 560 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Two columns labelled "Revenue" and "Expenditure" with arrow -->
-        <g>
-          <!-- Revenue side -->
-          <rect x="20" y="40" width="200" height="180" stroke="#A88752" stroke-width="1"/>
-          <text x="120" y="32" text-anchor="middle" font-family="Inter" font-size="10" letter-spacing="3" fill="#A88752" font-weight="600">REVENUE — IN</text>
-          <g font-family="Libre Caslon Text" font-size="13" fill="#1A1F2E">
-            <text x="40" y="68">Property tax</text>
-            <text x="40" y="92">Sales tax</text>
-            <text x="40" y="116">Fees &amp; charges</text>
-            <text x="40" y="140">State transfers</text>
-            <text x="40" y="164">Federal transfers</text>
-            <text x="40" y="188">Borrowing</text>
-            <text x="40" y="212" font-style="italic" fill="#6F7480">…and others</text>
-          </g>
-          <!-- Arrow -->
-          <g stroke="#A88752" stroke-width="1.5">
-            <line x1="240" y1="130" x2="320" y2="130"/>
-            <polyline points="310,122 320,130 310,138" fill="none"/>
-          </g>
-          <!-- Expenditure side -->
-          <rect x="340" y="40" width="200" height="180" stroke="#A88752" stroke-width="1"/>
-          <text x="440" y="32" text-anchor="middle" font-family="Inter" font-size="10" letter-spacing="3" fill="#A88752" font-weight="600">EXPENDITURE — OUT</text>
-          <g font-family="Libre Caslon Text" font-size="13" fill="#1A1F2E">
-            <text x="360" y="68">Streets &amp; transport</text>
-            <text x="360" y="92">Public safety</text>
-            <text x="360" y="116">Schools &amp; libraries</text>
-            <text x="360" y="140">Health &amp; sanitation</text>
-            <text x="360" y="164">Parks &amp; recreation</text>
-            <text x="360" y="188">Administration</text>
-            <text x="360" y="212" font-style="italic" fill="#6F7480">…and others</text>
-          </g>
-        </g>
-      </svg>
-      <div class="caption">A budget can always be read as two columns. The left one is what the city expects to receive. The right is what it intends to spend. They must, by law, balance.</div>
-    </div>
-
-    <h2><span class="num">§ III.</span> Where the money goes</h2>
-
-    <p>
-      The other side of the budget — the <em>expenditure</em> side — is where most readers find the questions they actually care about. How much do we spend on public safety? On parks? On schools? How much goes to administration? How much is paying off debt from past projects?
-    </p>
-
-    <p>
-      Cities organize this side in different ways. Some group it by <em>department</em>: police, fire, public works, parks, planning, finance. Others organize it by <em>function</em>: public safety, transportation, culture, general government. A few group it by <em>program</em>: street paving, after-school programs, food inspections, library hours.
-    </p>
-
-    <p>
-      It is worth knowing, when you read your own city's budget, which of these structures it uses. Once you do, you can read almost any line in the document with the same simple question — <em>what is this paying for, and is it the right amount?</em>
-    </p>
-
-    <div class="pull-quote">
-      <blockquote>A budget is the most honest piece of writing a city produces. Whatever the speeches say, the budget says what was actually done.</blockquote>
-      <div class="attr">— A working definition</div>
-    </div>
-
-    <h2><span class="num">§ IV.</span> Why you should care</h2>
-
-    <p>
-      Here is the practical answer, in three parts.
-    </p>
-
-    <p>
-      <strong>First, the budget affects you directly.</strong> The fire department that responds to a call on your block is funded in the budget. The library hours, the park you walk to, the speed at which your street is repaved after a winter — all of it is a line, somewhere, in this document.
-    </p>
-
-    <p>
-      <strong>Second, the budget is where political promises become real.</strong> Politicians say many things in campaign season. The budget shows which of those things were funded, at what level, and which were quietly set aside.
-    </p>
-
-    <p>
-      <strong>Third, the budget is the document where your voice is, by law, allowed to be heard.</strong> Most American cities hold a public hearing — sometimes several — before the budget is adopted. Anyone, including you, can speak. Very few people do. The result is that the citizens who do show up have, in practice, a great deal of influence over what gets funded and what gets cut.
-    </p>
-
-    <h2><span class="num">§ V.</span> How to read one, in practice</h2>
-
-    <p>
-      You do not need to read a budget cover to cover. A useful first reading takes about an hour, and it goes roughly like this.
-    </p>
-
-    <ol class="numbered-list">
-      <li>Find the <em>budget message</em> or <em>executive summary</em> — usually the first ten pages. The mayor or city manager explains the year's priorities in plain language.</li>
-      <li>Find the <em>revenue summary</em>. Note the three or four biggest sources of money. Ask: are any of them growing? Are any falling?</li>
-      <li>Find the <em>expenditure summary</em> by department or function. Note the five biggest spending areas.</li>
-      <li>Compare to last year. Most budgets show the prior year next to the current one. The differences — what went up, what went down — tell the real story.</li>
-      <li>Note one thing that surprises you. Write down the question. Bring it to the next public hearing, or send it to your council member.</li>
-    </ol>
-
-    <p>
-      That is the entire method. It will not make you an accountant. It will make you a reader of public finance — which is, in any community, a small and useful minority.
-    </p>
-
-    <h2><span class="num">§ VI.</span> A final note</h2>
-
-    <p>
-      Public money is, in the simplest and most literal sense, our money — pooled together, given over to a small number of people we elect, and spent on things we have decided, together, we want as a community. The budget is the document where that decision is written down.
-    </p>
-
-    <p>
-      If you read your city's budget once a year, with patience and the right questions, you will know more about how your community actually works than ninety-nine percent of your neighbors. That is not a small civic achievement.
-    </p>
-
-    <p>
-      It is, in fact, what democracy is for.
-    </p>
-
-    <div class="end-mark"></div>
-
-  </div>
+<div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #E8DFC9; font-family: var(--font-editorial); font-size: 13.5px; color: var(--muted); line-height: 1.6;">
+<b>Educational Disclaimer:</b> The content provided on "How Public Money Works" is intended strictly for civic educational purposes. It does not constitute legal, financial, accounting, or political advice. Local government structures, laws, and public finance practices vary significantly by state, county, city, and special district. Always consult your local government\'s official documents and qualified professionals for guidance specific to your jurisdiction.
+</div>
+      </div>
 </article>
 
 <!-- ========== ARTICLE FOOTER ========== -->
@@ -1014,7 +886,7 @@
     </div>
   </div>
   <div class="foot-bottom">
-    <span data-translate="foot-copyright">© MMXXVI Eliana Faria Lima</span>
+    <span data-translate="foot-copyright">© MMXXVI Lumina Smart Strategies LLC</span>
     <span data-translate="foot-tagline">Bringing clarity to public finance.</span>
   </div>
 </footer>
