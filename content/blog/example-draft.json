@@ -1,0 +1,13 @@
+{
+  "status": "draft",
+  "approved": false,
+  "title": "Example Draft Article",
+  "slug": "example-draft-article",
+  "excerpt": "This file documents the JSON shape. It will not publish until status is approved and approved is true.",
+  "category": "Civic Education",
+  "published_date": "2026-05-31",
+  "tags": ["Public Finance", "Civic Education"],
+  "body_markdown": "This is a draft example.\n\n## Section title\n\nReplace this with the approved article body.",
+  "approved_by": "",
+  "approved_at": ""
+}
