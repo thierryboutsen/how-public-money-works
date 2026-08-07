@@ -1,0 +1,29 @@
+# Histórico de artigos que chegaram ao fluxo editorial.
+# Novos artigos só entram como registro oficial após aprovação humana.
+# Vocabulário: docs/editorial/STATUS_VOCABULARY.md
+
+rules:
+  newArticlesRequireHumanApproval: true
+  onlyApprovedArticlesMayEnterPosts: true
+  draftsMustRemainOutsidePosts: true
+  reviewItemsMustRemainOutsidePosts: true
+  publishedIsReservedForLiveApprovedContent: true
+  duplicateCheckRequiredBeforeApproval: true
+  futureTopicsAreNotOfficiallyScheduled: true
+
+articles:
+  - slug: "what-is-a-city-budget-and-why-should-you-care"
+    title: "What Is a City Budget — and Why Should You Care?"
+    status: published
+    publishDate: "2026-03-01"
+    category: "Civic Education"
+    tags:
+      - public finance
+      - local government
+      - budget
+    contentAngle: "Introduces city budgets through everyday services, choices, and trade-offs."
+    duplicateCheckSignature: "city-budget|civic-education|resident-introduction|everyday-services"
+    precisionRisk: "medium"
+    relatedPosts: []
+    sourceLevel: "evergreen"
+    lastReviewed: "2026-08-07"

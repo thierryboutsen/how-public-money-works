@@ -1,0 +1,97 @@
+# Política editorial dinâmica.
+# Este arquivo define cadência e processo; não fixa artigos futuros.
+# Vocabulário dos slots: docs/editorial/STATUS_VOCABULARY.md
+
+cadence:
+  postsPerWeek: 2
+  preferredDays:
+    - Tuesday
+    - Thursday
+  planningWindowWeeks: 2
+  minimumApprovedBuffer: 4
+
+generationPolicy:
+  mode: ai_assisted
+  topicsAreGeneratedDynamically: true
+  fixedCalendar: false
+  humanApprovalRequired: true
+  publishAutomatically: false
+
+weeklyWorkflow:
+  Monday: "Generate or review ideas, choose weekly topics, prepare briefs"
+  Tuesday: "Publish approved article A manually after preview"
+  Wednesday: "Review article B and prepare final package"
+  Thursday: "Publish approved article B manually after preview"
+  Friday: "Review performance, update registry, prepare next cycle"
+
+slots:
+  # status válido para slots: open, selected, skipped, filled
+  - slot: Tuesday
+    status: open
+    articleSlug: null
+    selectionRule: "AI proposes a topic after checking article registry and topic registry"
+  - slot: Thursday
+    status: open
+    articleSlug: null
+    selectionRule: "AI proposes a complementary topic with a different angle"
+
+rules:
+  - "No topic is final until approved by a human"
+  - "No draft moves to content/posts until approved"
+  - "No article may repeat an existing topic-angle signature"
+  - "The AI must check article-registry and topic-registry before proposing a new article"
+  - "If quality is not high enough, skip the slot instead of publishing weak content"
+  - "A slot may remain open when no sufficiently strong topic is approved"
+  - "Public content must be written in English"
+
+# Sementes de geração, não calendário final.
+# Podem ser ignoradas, substituídas, combinadas ou reformuladas após a checagem dos registros.
+seedIdeas:
+  - title: "Where Do Your Local Taxes Actually Go?"
+    category: "Your Tax Dollars"
+  - title: "Property Taxes Explained in Plain English"
+    category: "Your Tax Dollars"
+  - title: "Taxes, Fees, and Fines: What’s the Difference?"
+    category: "Public Finance Basics"
+  - title: "What Is a Public Budget Hearing?"
+    category: "Citizen Participation"
+  - title: "City, County, and School District Budgets: What’s the Difference?"
+    category: "Local Government Explained"
+  - title: "How Local Governments Pay for Roads, Schools, and Public Safety"
+    category: "Public Services & Infrastructure"
+  - title: "What Is Fiscal Transparency?"
+    category: "Transparency & Accountability"
+  - title: "How to Read a Local Government Budget Without Being an Accountant"
+    category: "Public Finance Basics"
+  - title: "What Is a Government Fund?"
+    category: "Public Finance Basics"
+  - title: "What Is a Capital Improvement Plan?"
+    category: "Public Services & Infrastructure"
+  - title: "Why Public Finance Matters Even If You Don’t Work in Government"
+    category: "Public Finance Basics"
+  - title: "What Is a Local Government Audit?"
+    category: "Transparency & Accountability"
+  - title: "How Grants Help Fund Local Public Services"
+    category: "Public Services & Infrastructure"
+  - title: "What Is a Rainy Day Fund in Local Government?"
+    category: "Public Finance Basics"
+  - title: "Why Public Infrastructure Costs So Much"
+    category: "Public Services & Infrastructure"
+  - title: "What Is a School District Budget?"
+    category: "Local Government Explained"
+  - title: "How Local Governments Plan for Emergencies"
+    category: "Public Services & Infrastructure"
+  - title: "What Is Debt Service in a City Budget?"
+    category: "Public Finance Basics"
+  - title: "How Citizens Can Participate in Budget Decisions"
+    category: "Citizen Participation"
+  - title: "What Makes a Budget Transparent?"
+    category: "Transparency & Accountability"
+  - title: "How Public Procurement Works in Plain English"
+    category: "Transparency & Accountability"
+  - title: "What Is a Special District?"
+    category: "Local Government Explained"
+  - title: "How to Find Your City’s Budget Online"
+    category: "Citizen Participation"
+  - title: "What Is a Financial Report in Local Government?"
+    category: "Transparency & Accountability"

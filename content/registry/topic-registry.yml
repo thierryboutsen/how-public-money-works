@@ -1,0 +1,166 @@
+# Registro dinâmico de cobertura e sugestões.
+# Seed topics são insumos de geração, não compromissos editoriais.
+# Status válidos: covered, seed, blocked, retired.
+# Vocabulário completo: docs/editorial/STATUS_VOCABULARY.md
+
+coveredTopics:
+  - topic: "City budget"
+    subtopic: "Core definition and public choices"
+    angle: "Resident introduction through everyday services"
+    status: covered
+    relatedSlug: "what-is-a-city-budget-and-why-should-you-care"
+    notes: "Não repetir a introdução geral; novos textos precisam de subtema e ângulo distintos."
+
+seedTopics:
+  - topic: "Local taxes"
+    subtopic: "Revenue destination"
+    angle: "How tax revenue connects to local services"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; exigir distinção entre fontes locais, estaduais e federais."
+  - topic: "Property tax"
+    subtopic: "Assessment, levy, rate, and bill"
+    angle: "Plain-English explainer"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; alta variação jurisdicional."
+  - topic: "Public charges"
+    subtopic: "Taxes, fees, and fines"
+    angle: "Side-by-side comparison"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; não usar definições legais como universais."
+  - topic: "Budget process"
+    subtopic: "Public hearings"
+    angle: "Practical resident participation"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; confirmar notice, hearing e approval na jurisdição escolhida."
+  - topic: "Government structure"
+    subtopic: "City, county, and school district"
+    angle: "Compare responsibilities and budgets"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; exigir exemplos de variação entre estados."
+  - topic: "Public services funding"
+    subtopic: "Roads, schools, and public safety"
+    angle: "Follow the money across governments"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; evitar atribuir cada serviço a uma única esfera de governo."
+  - topic: "Transparency"
+    subtopic: "Fiscal transparency"
+    angle: "Clear, timely, usable information"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; separar transparência de concordância política."
+  - topic: "Budget literacy"
+    subtopic: "Reading a budget"
+    angle: "Reader workflow for non-accountants"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; não repetir a definição geral já publicada."
+  - topic: "Government accounting"
+    subtopic: "Funds"
+    angle: "Why governments separate money"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; diferenciar fund accounting de contas bancárias."
+  - topic: "Infrastructure planning"
+    subtopic: "Capital improvement plans"
+    angle: "Planning long-lived investments"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; diferenciar plano, orçamento e appropriation."
+  - topic: "Public finance literacy"
+    subtopic: "Why it matters"
+    angle: "Everyday relevance for residents"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; manter foco educativo e concreto."
+  - topic: "Accountability"
+    subtopic: "Local government audits"
+    angle: "What audits examine and cannot guarantee"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; diferenciar auditoria financeira, de conformidade e de desempenho."
+  - topic: "Intergovernmental revenue"
+    subtopic: "Grants"
+    angle: "Restrictions, matching, and reporting"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; não tratar grant como receita irrestrita."
+  - topic: "Reserves"
+    subtopic: "Rainy day funds"
+    angle: "Saving for uncertainty"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; confirmar a política específica em qualquer exemplo."
+  - topic: "Infrastructure costs"
+    subtopic: "Why projects cost more than expected"
+    angle: "Cost components and lifecycle"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; não transformar um caso em regra geral."
+  - topic: "School finance"
+    subtopic: "School district budgets"
+    angle: "Basic structure and decision points"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; alta variação por estado."
+  - topic: "Emergency planning"
+    subtopic: "Preparedness and recovery"
+    angle: "How governments plan financially and operationally"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; usar informação durável."
+  - topic: "Municipal debt"
+    subtopic: "Debt service"
+    angle: "Principal, interest, and future budgets"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; exigir precisão financeira."
+  - topic: "Citizen participation"
+    subtopic: "Budget decisions"
+    angle: "Practical ways residents can participate"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; confirmar canais locais antes de citar procedimentos."
+  - topic: "Transparency"
+    subtopic: "Transparent budgets"
+    angle: "Test for clarity, completeness, and timeliness"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; manter distinto da definição de fiscal transparency."
+  - topic: "Procurement"
+    subtopic: "Purchasing goods and services"
+    angle: "Plain-English process overview"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; não generalizar thresholds ou procedimentos."
+  - topic: "Government structure"
+    subtopic: "Special districts"
+    angle: "Single-purpose local governments"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; definições e poderes variam por estado."
+  - topic: "Public records navigation"
+    subtopic: "Finding a city budget"
+    angle: "Repeatable online search method"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; não depender de um único site municipal."
+  - topic: "Financial reporting"
+    subtopic: "Local government financial reports"
+    angle: "Budget versus year-end reporting"
+    status: seed
+    relatedSlug: null
+    notes: "Sugestão; diferenciar relatório financeiro de orçamento aprovado."
+
+blockedOrAvoidedDuplicates:
+  - topic: "City budget"
+    subtopic: "Core definition and public choices"
+    angle: "Resident introduction through everyday services"
+    status: blocked
+    relatedSlug: "what-is-a-city-budget-and-why-should-you-care"
+    reason: "Já coberto pelo artigo publicado; só reutilizar com novo subtema e novo ângulo claramente justificados."
