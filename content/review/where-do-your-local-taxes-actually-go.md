@@ -47,7 +47,7 @@ The exact arrangement depends on state law, local government structure, tax rule
 
 This is why a careful explanation should identify the government involved before drawing conclusions. A service that people experience in the same place may be funded or administered by more than one public entity.
 
-For example, a resident may think of “the local government” as one organization. In practice, the city, county, school district, and a special district may each make separate decisions about money and services. A special district is a local government created for a particular purpose, but its powers and responsibilities vary by state and by district.
+For example, a resident may think of “the local government” as one organization. In practice, the city, county, school district, and a special district may each make separate decisions about money and services. In some states, a special district is a type of local government created for a particular purpose; its legal status, powers, and responsibilities vary by state and by district.
 
 ## Taxes, fees, fines, grants, and transfers are different
 
@@ -81,7 +81,7 @@ A general fund is commonly used for many ordinary government operations. Dependi
 
 A restricted fund, sometimes called a special-revenue fund or another locally defined fund, has limits on how the money may be used. The restriction may come from law, a voter-approved measure, a grant agreement, a bond document, an ordinance, or another governing decision.
 
-These labels are not interchangeable, and fund names can differ from one government to another. A reader should look for the budget's definitions and notes rather than assume that every fund works the same way.
+These labels are not interchangeable, and fund names can differ from one government to another. Neither label has an identical meaning or structure nationwide. A reader should look for the local budget's definitions and notes rather than assume that every fund works the same way.
 
 The difference helps explain why a local government may have money on its books but still be unable to use it for every need. Money can exist within the public system while remaining unavailable for a particular purpose.
 
@@ -91,7 +91,7 @@ It is tempting to ask, “Which tax pays for this service?” Sometimes an offic
 
 A public service may involve operating costs, staff, contracts, equipment, maintenance, facilities, and long-term investments. Different parts of that work may be paid from different sources. A service may also be shared across governments or supported by grants and transfers in addition to local revenue.
 
-An illustrative example might involve a community facility. One government could operate it through a general fund. A grant could support a specific program. A restricted fund could pay for an improvement. A separate district could handle a related infrastructure responsibility. That example describes a possible structure, not a universal rule.
+The following is a conceptual illustration, not a description of every jurisdiction. One government could operate a community facility through a general fund. A grant could support a specific program. A restricted fund could pay for an improvement. A separate district could handle a related infrastructure responsibility. The actual arrangement would need to be confirmed in local documents.
 
 The same caution applies to property taxes and schools. Property taxes may contribute to public education in some places, but the exact relationship depends on the state, the school district, local arrangements, and other funding sources. It is not accurate to say that property taxes always fund schools.
 
@@ -107,9 +107,11 @@ When you open an official budget or revenue document, begin with the source rath
 4. **Is the money unrestricted or restricted?** Look for the fund, legal purpose, grant condition, or other limitation.
 5. **What does the budget say it supports?** Check the department, program, project, or service description, and note whether the document describes a direct or shared responsibility.
 
-Useful documents may include an adopted budget, revenue schedule, fund summary, capital plan, annual financial report, grant description, or official budget glossary. The relevant document depends on the question and the jurisdiction.
+Useful documents may include an adopted budget, revenue schedule, fund summary, capital plan, annual financial report, grant description, or official budget glossary. An adopted budget describes planned authority and spending, while an annual financial report generally describes reported results after the period; they should not be treated as the same document. The relevant document depends on the question and the jurisdiction.
 
 For a broader introduction, see [What Is a City Budget — and Why Should You Care?](/insights/what-is-a-city-budget-and-why-should-you-care).
+
+For more plain-English civic explainers, visit the [Insights](/insights) page.
 
 ## What this article cannot tell you without local documents
 
@@ -117,7 +119,7 @@ This article explains a way to think about local revenue. It does not identify t
 
 It also cannot tell you where every dollar from your own tax bill goes. A tax bill may combine charges from different authorities, and the public budget may organize money by government, fund, program, or legal purpose rather than by individual taxpayer.
 
-To make a precise claim, you would need to identify the jurisdiction, the relevant fiscal year, the revenue source, and the official documents that describe it. Any percentage, dollar amount, deadline, exemption, or distribution rule should be checked against an authoritative source for that place and period.
+To make a precise claim, you would need to identify the jurisdiction, the relevant fiscal year, the revenue source, and the official documents that describe it. Any specific example, number, percentage, or real document used in a future version must be validated against an authoritative source before publication. The same applies to deadlines, exemptions, distribution rules, and claims about who controls a fund or service.
 
 Local structures change. States organize local government differently. Cities and counties may have different responsibilities. School districts and special districts may operate under separate rules. Even two nearby communities may use different terms, funds, or budget procedures.
 
