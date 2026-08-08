@@ -257,10 +257,14 @@ p { margin: 0 0 1em; }
   gap: 6px;
   cursor: pointer;
 }
-.lang-switch span {
+.lang-switch span,
+.lang-switch a {
   transition: color 0.2s ease;
+  color: inherit;
+  text-decoration: none;
 }
-.lang-switch span:hover {
+.lang-switch span:hover,
+.lang-switch a:hover {
   color: var(--ink);
 }
 .lang-switch .on { color: var(--gold); font-weight: 600; }

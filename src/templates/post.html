@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{htmlLanguage}}">
 <head>
 <meta charset="UTF-8" />
 <title>{{documentTitle}}</title>
@@ -7,6 +7,7 @@
 <meta name="description" content="{{metaDescription}}" />
 <meta name="robots" content="{{robotsDirective}}" />
 {{canonicalLink}}
+{{alternateLinks}}
 <!-- Open Graph (article) -->
 <meta property="og:type" content="article" />
 {{ogUrlMeta}}
@@ -14,7 +15,8 @@
 <meta property="og:description" content="{{metaDescription}}" />
 {{ogImageMeta}}
 <meta property="og:site_name" content="{{siteName}}" />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content="{{ogLocale}}" />
+{{ogAlternateLocaleMeta}}
 <meta property="article:author" content="Eliana Faria Lima" />
 {{articlePublishedTimeMeta}}
 {{articleSectionMeta}}
@@ -27,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="shared/base.css" />
+<link rel="stylesheet" href="/shared/base.css" />
 <style>
   body {
     background: #FBF7EC;
@@ -124,7 +126,7 @@
   .byline-avatar {
     width: 52px; height: 52px;
     border-radius: 50%;
-    background-image: url('assets/eliana-portrait.jpeg');
+    background-image: url('/assets/eliana-portrait.jpeg');
     background-size: cover;
     background-position: 50% 30%;
     border: 1px solid #D8D2C2;
@@ -439,7 +441,7 @@
   .author-block .a-avatar {
     width: 80px; height: 80px;
     border-radius: 50%;
-    background-image: url('assets/eliana-portrait.jpeg');
+    background-image: url('/assets/eliana-portrait.jpeg');
     background-size: cover;
     background-position: 50% 30%;
     border: 1px solid #D8D2C2;
@@ -669,7 +671,7 @@
 </style>
 {{jsonLdScript}}
 </head>
-<body>
+<body data-content-language="{{uiLanguage}}">
 
 <nav class="nav civic">
   <div class="brand">
@@ -677,19 +679,15 @@
     <span class="brand-name">Lumina Smart Strategies</span>
   </div>
   <div class="nav-links">
-    <a href="/" data-translate="nav-home">Home</a>
-    <a href="/#services" data-translate="nav-services">Services</a>
-    <a href="/#about" data-translate="nav-about">About Us</a>
-    <a href="/insights" class="active" data-translate="nav-blog">Eliana's Blog</a>
-    <a href="/#contact" data-translate="nav-contact">Contact</a>
+    <a href="/">{{navHome}}</a>
+    <a href="/#services">{{navServices}}</a>
+    <a href="/#about">{{navAbout}}</a>
+    <a href="/insights" class="active">{{navBlog}}</a>
+    <a href="/#contact">{{navContact}}</a>
   </div>
-  <div class="lang-switch">
-    <span data-lang="EN" class="on">EN</span>
-    <span>/</span>
-    <span data-lang="PT">PT</span>
-  </div>
-  <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})" data-translate="nav-subscribe">Subscribe</button>
-  <button class="menu-toggle" aria-label="Toggle Menu">
+  {{languageSwitchHtml}}
+  <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})">{{navSubscribe}}</button>
+  <button class="menu-toggle" aria-label="{{navMenuLabel}}">
     <span></span>
     <span></span>
     <span></span>
@@ -699,9 +697,9 @@
 <!-- ========== BREADCRUMB ========== -->
 <div class="breadcrumb">
   <div class="inner">
-    <a href="/" data-translate="nav-home">Home</a>
+    <a href="/">{{navHome}}</a>
     <span class="sep">/</span>
-    <a href="/insights" data-translate="nav-insights">Insights</a>
+    <a href="/insights">{{insightsLabel}}</a>
     <span class="sep">/</span>
     <a href="/insights">{{category}}</a>
     <span class="sep">/</span>
@@ -715,9 +713,9 @@
     <div class="meta">
       <span class="cat">{{category}}</span>
       <span class="sep"></span>
-      <span class="num">Essay N.º {{essayNumber}}</span>
+      <span class="num">{{essayLabel}} N.º {{essayNumber}}</span>
       <span class="sep"></span>
-      <span data-translate="blog-sec-tagline">Bringing clarity to public finance</span>
+      <span>{{publicFinanceTagline}}</span>
     </div>
     <h1>
           {{title}}
@@ -729,13 +727,13 @@
     <div class="byline">
       <div class="byline-avatar"></div>
       <div class="byline-info">
-        <div class="by" data-translate="art-by">By</div>
+        <div class="by">{{byLabel}}</div>
         <div class="name">{{author}}</div>
-        <div class="role" data-translate="art-role">Senior Practice, Public Finance</div>
+        <div class="role">{{authorRole}}</div>
       </div>
       <div class="stats">
         <span>{{readingTime}}</span>
-        <span>{{wordCount}} words</span>
+        <span>{{wordCount}} {{wordCountLabel}}</span>
         {{dateDisplayHtml}}
       </div>
     </div>
@@ -751,7 +749,7 @@
         {{body}}
 
 <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #E8DFC9; font-family: var(--font-editorial); font-size: 13.5px; color: var(--muted); line-height: 1.6;">
-<b>Educational Disclaimer:</b> The content provided on "{{siteName}}" is intended strictly for civic educational purposes. It does not constitute legal, financial, accounting, or political advice. Local government structures, laws, and public finance practices vary significantly by state, county, city, and special district. Always consult your local government's official documents and qualified professionals for guidance specific to your jurisdiction.
+{{educationalDisclaimerHtml}}
 </div>
       </div>
 </article>
@@ -762,19 +760,19 @@
     <div class="meta-foot">
       {{tagsHtml}}
       <div class="share">
-        <span>Share —</span>
-        <a href="#" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!'); return false;">Copy link</a>
+        <span>{{shareLabel}}</span>
+        <a href="#" onclick="navigator.clipboard.writeText(window.location.href); return false;">{{copyLinkLabel}}</a>
         <a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>LinkedIn</a>
-        <a href="#" onclick="window.print(); return false;">Print</a>
+        <a href="#" onclick="window.print(); return false;">{{printLabel}}</a>
       </div>
     </div>
 
     <div class="author-block">
       <div class="a-avatar"></div>
       <div>
-        <div class="label" data-translate="art-author-title">About the author</div>
+        <div class="label">{{authorTitle}}</div>
         <div class="name">{{author}}</div>
-        <p data-translate="art-author-desc">A senior practice in public finance, government budgeting, and health governance. Editor of <em>How Public Money Works</em>, a publication that brings plain-language clarity to the workings of American public money — from city hall to state capitol.</p>
+        <p>{{authorDescription}}</p>
       </div>
     </div>
 
@@ -793,32 +791,30 @@
         <span style="font-family:var(--font-display); font-style:italic; font-size:28px; color:var(--gold-soft);">ecfl</span>
         <span style="font-family:var(--font-display); font-size:22px; color:var(--ivory);">Eliana Faria Lima</span>
       </div>
-      <p style="font-family:var(--font-editorial); font-style:italic; font-size:15px; color:var(--ivory-soft); max-width:340px; line-height:1.5;" data-translate="foot-desc">
-        Bringing clarity to public finance — for citizens, communities, and the institutions that serve them.
-      </p>
+      <p style="font-family:var(--font-editorial); font-style:italic; font-size:15px; color:var(--ivory-soft); max-width:340px; line-height:1.5;">{{footerDescription}}</p>
     </div>
     <div>
-      <h5 data-translate="foot-header-read">Read</h5>
+      <h5>{{footerRead}}</h5>
       <ul>
         <li><a href="/insights">How Public Money Works</a></li>
-        <li><a href="/insights">Featured Essay</a></li>
-        <li><a href="/insights">By Category</a></li>
-        <li><a href="/insights">Glossary</a></li>
+        <li><a href="/insights">{{footerFeatured}}</a></li>
+        <li><a href="/insights">{{footerCategory}}</a></li>
+        <li><a href="/insights">{{footerGlossary}}</a></li>
       </ul>
     </div>
     <div>
-      <h5 data-translate="foot-header-practice">Practice</h5>
+      <h5>{{footerPractice}}</h5>
       <ul>
-        <li><a href="/#about">About</a></li>
-        <li><a href="/#disciplines">Areas of Focus</a></li>
-        <li><a href="/#resources">Resources</a></li>
-        <li><a href="/#contact">Speaking</a></li>
+        <li><a href="/#about">{{navAbout}}</a></li>
+        <li><a href="/#disciplines">{{footerFocus}}</a></li>
+        <li><a href="/#resources">{{footerResources}}</a></li>
+        <li><a href="/#contact">{{footerSpeaking}}</a></li>
       </ul>
     </div>
     <div>
-      <h5 data-translate="foot-header-connect">Connect</h5>
+      <h5>{{footerConnect}}</h5>
       <ul>
-        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/#contact">{{navContact}}</a></li>
         <li><a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         <li><a href="#newsletter-section">Newsletter</a></li>
         <li><a href="#">RSS</a></li>
@@ -826,11 +822,11 @@
     </div>
   </div>
   <div class="foot-bottom">
-    <span data-translate="foot-copyright">© MMXXVI Lumina Smart Strategies LLC</span>
-    <span data-translate="foot-tagline">Bringing clarity to public finance.</span>
+    <span>© MMXXVI Lumina Smart Strategies LLC</span>
+    <span>{{footerTagline}}</span>
   </div>
 </footer>
 
-<script src="shared/main.js"></script>
+<script src="/shared/main.js"></script>
 </body>
 </html>

@@ -5,6 +5,12 @@ module.exports = Object.freeze({
   siteOrigin: 'https://www.luminasmart.company',
   publisherName: 'Lumina Smart Strategies',
   defaultAuthor: 'Eliana Faria Lima',
+  defaultLanguage: 'en',
+  supportedLanguages: ['en', 'pt-BR'],
+  localeByLanguage: {
+    en: 'en_US',
+    'pt-BR': 'pt_BR'
+  },
   defaultSocialImage: '/assets/eliana-portrait.jpeg',
   authorPath: '/#about',
   contentCategories: [
@@ -17,6 +23,9 @@ module.exports = Object.freeze({
   ],
   legacyCategories: [
     'Civic Education'
+  ],
+  localizedCategories: [
+    'Seus Impostos'
   ],
   publicationStatuses: [
     'draft',

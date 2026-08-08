@@ -100,3 +100,6 @@ Os status e suas diferenças por contexto estão definidos em [`STATUS_VOCABULAR
 - [ ] Canonical, Open Graph, Twitter e JSON-LD usam o `siteOrigin` central.
 - [ ] O sitemap não contém conteúdo de `content/review/`.
 - [ ] `publicationApproval` e `publishAllowed` não foram alterados pelo validator, build ou preview.
+- [ ] Idioma, canonical, locale Open Graph e `inLanguage` do JSON-LD são coerentes.
+- [ ] Relações de tradução são recíprocas e os alternates `hreflang` incluem `x-default`.
+- [ ] O seletor EN/PT-BR aponta diretamente para a tradução correspondente sem gerar 404.

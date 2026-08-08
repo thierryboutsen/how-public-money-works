@@ -350,7 +350,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 2. Setup Bilingual Language System
   const langSwitch = document.querySelector(".lang-switch");
-  let currentLang = localStorage.getItem("eliana-site-lang") || "en";
+  const pageLanguage = document.body.getAttribute("data-content-language");
+  let currentLang = pageLanguage || localStorage.getItem("eliana-site-lang") || "en";
 
   const applyLanguage = (lang) => {
     currentLang = lang;
@@ -358,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update switcher visuals
     if (langSwitch) {
-      langSwitch.querySelectorAll("span").forEach(el => el.classList.remove("on"));
+      langSwitch.querySelectorAll("[data-lang]").forEach(el => el.classList.remove("on"));
       const activeSpan = langSwitch.querySelector(`span[data-lang="${lang.toUpperCase()}"]`);
       if (activeSpan) activeSpan.classList.add("on");
     }

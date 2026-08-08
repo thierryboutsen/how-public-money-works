@@ -24,6 +24,14 @@
 - Usar um único domínio oficial.
 - A geração de conteúdo pode sugerir canonical, mas a canonical final só é confirmada após aprovação humana.
 - A canonical deve apontar para a URL final escolhida para o artigo.
+- Versões traduzidas têm canonicals próprios. Não apontar a canonical PT-BR para a versão EN.
+
+## Idioma e hreflang
+
+- Usar `language: en` para inglês e `language: pt-BR` para português brasileiro.
+- Relacionar traduções com `translationKey` compartilhado e mapas `translations` recíprocos.
+- Gerar alternates `en`, `pt-BR` e `x-default` no HTML e no sitemap.
+- `x-default` deve apontar para a versão inglesa quando ela existir.
 - A mesma URL deve ser usada no sitemap, Open Graph, Schema.org e links principais.
 - Não manter referências a domínios antigos ou alternativos.
 

@@ -83,6 +83,7 @@ Gerar um preview controlado e conferir:
 - canonical, Open Graph e Twitter Card;
 - links internos;
 - sitemap e robots quando forem implementados.
+- canonical próprio, `hreflang`, locale e navegação entre versões quando houver tradução.
 
 ## 8. Build
 

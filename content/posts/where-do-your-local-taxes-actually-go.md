@@ -2,6 +2,10 @@
 title: "Where Do Your Local Taxes Actually Go?"
 subtitle: "A plain-English guide to how local public money moves from residents to services, funds, and decisions."
 slug: "where-do-your-local-taxes-actually-go"
+language: "en"
+translationKey: "local-taxes-revenue-pathways"
+translations:
+  pt-BR: "/pt-br/para-onde-vao-os-seus-impostos-locais"
 date: "2026-08-08"
 author: "Eliana Faria Lima"
 category: "Your Tax Dollars"

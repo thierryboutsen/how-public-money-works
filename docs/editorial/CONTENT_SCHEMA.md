@@ -20,6 +20,9 @@ Todo artigo deve fornecer:
 - `featuredImageAlt`: descrição obrigatória quando houver imagem;
 - `date`: data `YYYY-MM-DD`, obrigatória para conteúdo publicado;
 - `status`: status de publicação definido em `STATUS_VOCABULARY.md`.
+- `language`: idioma público aceito (`en` ou `pt-BR`);
+- `translationKey`: identificador compartilhado pelas versões traduzidas;
+- `translations`: mapa recíproco entre idioma e rota pública correspondente.
 
 O build usa `title`, `subtitle`, `slug`, `seoTitle`, `metaDescription`, `excerpt`, `category`, `tags`, `date`, `author`, `readingTime`, `featuredImage` e `featuredImageAlt`. Não usar `publishDate`; o campo técnico atual é `date`.
 
@@ -60,7 +63,10 @@ O validator nunca altera esses campos. O artigo publicado anterior ao pipeline e
 - Homepage: `/`;
 - índice: `/insights`;
 - artigo: `/{slug}`;
+- artigo PT-BR: `/pt-br/{slug}`;
 - canonical, Open Graph, Twitter e JSON-LD usam `siteOrigin` de `site.config.js`;
+- cada tradução tem canonical próprio, `hreflang`, locale Open Graph e `inLanguage` no JSON-LD;
+- traduções devem apontar uma para a outra com o mesmo `translationKey`;
 - o build gera `sitemap.xml` e `robots.txt` apenas a partir de conteúdo publicado.
 
 ## Comandos

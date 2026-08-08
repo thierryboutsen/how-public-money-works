@@ -6,7 +6,8 @@ const {
   ROOT_DIR,
   listMarkdownFiles,
   loadMarkdownFile,
-  validateDocuments
+  validateDocuments,
+  publicPathForDocument
 } = require('./content-utils');
 const { renderPostPage, copyRecursiveSync } = require('../build');
 
@@ -35,9 +36,12 @@ function main() {
   copyRecursiveSync(distDirectory, previewDirectory);
 
   const postTemplate = fs.readFileSync(path.join(ROOT_DIR, 'src', 'templates', 'post.html'), 'utf8');
-  const posts = [reviewDocument.data, ...publishedDocuments.map((document) => document.data)];
+  const posts = [reviewDocument.data, ...publishedDocuments.map((document) => document.data)]
+    .filter((post) => post.language === reviewDocument.data.language);
   const html = renderPostPage(reviewDocument, posts, postTemplate, posts.length, { mode: 'preview' });
-  const outputPath = path.join(previewDirectory, `${reviewDocument.data.slug}.html`);
+  const relativeOutputPath = `${publicPathForDocument(reviewDocument).replace(/^\//, '')}.html`;
+  const outputPath = path.join(previewDirectory, relativeOutputPath);
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, html);
 
   console.log(`Review preview generated without publication-state changes: ${path.relative(ROOT_DIR, outputPath)}`);

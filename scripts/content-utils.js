@@ -26,6 +26,10 @@ function loadMarkdownFile(filePath) {
   data.seoTitle = data.seoTitle || data.title;
   data.metaDescription = data.metaDescription || data.excerpt;
   data.tags = Array.isArray(data.tags) ? data.tags : [];
+  data.language = data.language || data.publicLanguage || siteConfig.defaultLanguage;
+  data.translations = data.translations && typeof data.translations === 'object' && !Array.isArray(data.translations)
+    ? data.translations
+    : {};
   return {
     filePath: path.resolve(filePath),
     relativePath: path.relative(ROOT_DIR, filePath).replace(/\\/g, '/'),
@@ -42,6 +46,11 @@ function isValidDate(value) {
 
 function publicPathForSlug(slug) {
   return `/${slug}`;
+}
+
+function publicPathForDocument(documentOrData) {
+  const data = documentOrData.data || documentOrData;
+  return data.language === 'pt-BR' ? `/pt-br/${data.slug}` : publicPathForSlug(data.slug);
 }
 
 function absoluteUrl(publicPath) {
@@ -72,17 +81,22 @@ function normalizeInternalRoute(link) {
 function validateDocuments(documents, options = {}) {
   const errors = [];
   const warnings = [];
-  const allowedCategories = new Set([...siteConfig.contentCategories, ...siteConfig.legacyCategories]);
+  const allowedCategories = new Set([...siteConfig.contentCategories, ...siteConfig.legacyCategories, ...siteConfig.localizedCategories]);
   const knownRoutes = new Set([
     '/',
     '/insights',
     ...documents
       .filter((doc) => doc.data.status === 'published')
-      .map((doc) => publicPathForSlug(doc.data.slug))
+      .map((doc) => publicPathForDocument(doc))
   ]);
   const slugOwners = new Map();
   const titleOwners = new Map();
   const angleOwners = new Map();
+  const canonicalOwners = new Map();
+  const translationOwners = new Map();
+  const routeOwners = new Map(documents
+    .filter((doc) => doc.data.status === 'published')
+    .map((doc) => [publicPathForDocument(doc), doc]));
 
   function error(doc, message) {
     errors.push(`${doc.relativePath}: ${message}`);
@@ -101,6 +115,7 @@ function validateDocuments(documents, options = {}) {
 
     if (!SAFE_SLUG.test(data.slug || '')) error(doc, `unsafe slug: ${JSON.stringify(data.slug)}`);
     if (!siteConfig.publicationStatuses.includes(data.status)) error(doc, `invalid status: ${JSON.stringify(data.status)}`);
+    if (!siteConfig.supportedLanguages.includes(data.language)) error(doc, `unsupported language: ${JSON.stringify(data.language)}`);
     if (!allowedCategories.has(data.category)) error(doc, `unsupported category: ${JSON.stringify(data.category)}`);
     if (!data.author) error(doc, 'author is missing and no default author is configured');
 
@@ -139,6 +154,16 @@ function validateDocuments(documents, options = {}) {
       error(doc, 'review content must not use status: published');
     }
 
+    const canonicalPath = publicPathForDocument(doc);
+    if (canonicalOwners.has(canonicalPath)) error(doc, `duplicate canonical path with ${canonicalOwners.get(canonicalPath)}`);
+    else canonicalOwners.set(canonicalPath, doc.relativePath);
+
+    if (data.translationKey) {
+      const translationIdentity = `${data.translationKey}|${data.language}`;
+      if (translationOwners.has(translationIdentity)) error(doc, `duplicate translationKey/language with ${translationOwners.get(translationIdentity)}`);
+      else translationOwners.set(translationIdentity, doc.relativePath);
+    }
+
     for (const link of extractInternalLinks(doc.content)) {
       const route = normalizeInternalRoute(link);
       if (!knownRoutes.has(route)) error(doc, `internal link does not match a known route: ${link}`);
@@ -156,6 +181,33 @@ function validateDocuments(documents, options = {}) {
     }
 
     if (doc.content.match(/^#\s+/gm)?.length > 1) warning(doc, 'body contains more than one H1; rendered articles use the template H1');
+  }
+
+  for (const doc of documents) {
+    const currentRoute = publicPathForDocument(doc);
+    for (const [language, translationRoute] of Object.entries(doc.data.translations)) {
+      if (!siteConfig.supportedLanguages.includes(language)) {
+        error(doc, `translation uses unsupported language: ${JSON.stringify(language)}`);
+        continue;
+      }
+      if (typeof translationRoute !== 'string' || !translationRoute.startsWith('/')) {
+        error(doc, `translation route must be an absolute site path: ${JSON.stringify(translationRoute)}`);
+        continue;
+      }
+      const normalizedRoute = normalizeInternalRoute(translationRoute);
+      const target = routeOwners.get(normalizedRoute);
+      if (!target) {
+        error(doc, `translation route does not match published content: ${translationRoute}`);
+        continue;
+      }
+      if (target.data.language !== language) error(doc, `translation route language mismatch for ${translationRoute}`);
+      if (!doc.data.translationKey || target.data.translationKey !== doc.data.translationKey) {
+        error(doc, `translationKey does not match ${target.relativePath}`);
+      }
+      if (target.data.translations[doc.data.language] !== currentRoute) {
+        error(doc, `translation relationship is not reciprocal with ${target.relativePath}`);
+      }
+    }
   }
 
   if (options.requireReviewApproval) {
@@ -187,6 +239,7 @@ module.exports = {
   loadMarkdownFile,
   isValidDate,
   publicPathForSlug,
+  publicPathForDocument,
   absoluteUrl,
   sourceAssetPath,
   extractInternalLinks,

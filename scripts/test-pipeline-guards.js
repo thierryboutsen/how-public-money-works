@@ -68,6 +68,29 @@ function diagramRegressionTest() {
   assert(html.includes('How money moves'), '[diagram] must preserve its label');
 }
 
+function translationGuardTests() {
+  const documents = listMarkdownFiles(path.join(ROOT_DIR, 'content', 'posts')).map(loadMarkdownFile);
+  const englishIndex = documents.findIndex((document) => document.data.slug === 'where-do-your-local-taxes-actually-go');
+  assert(englishIndex >= 0, 'English translation source must exist');
+
+  const unsupportedLanguage = documents.map((document, index) => index === englishIndex
+    ? { ...document, data: { ...document.data, language: 'xx' } }
+    : document);
+  assert(validateDocuments(unsupportedLanguage).errors.some((error) => error.includes('unsupported language')), 'unsupported language must fail');
+
+  const missingTranslation = documents.map((document, index) => index === englishIndex
+    ? { ...document, data: { ...document.data, translations: { 'pt-BR': '/pt-br/missing-translation' } } }
+    : document);
+  assert(validateDocuments(missingTranslation).errors.some((error) => error.includes('translation route does not match published content')), 'missing translation route must fail');
+
+  const duplicateCanonical = {
+    ...documents[englishIndex],
+    relativePath: 'content/posts/duplicate-canonical-test.md',
+    data: { ...documents[englishIndex].data, title: 'Duplicate canonical test' }
+  };
+  assert(validateDocuments([...documents, duplicateCanonical]).errors.some((error) => error.includes('duplicate canonical path')), 'duplicate canonical must fail');
+}
+
 function leakAuditTest() {
   const distDirectory = path.join(ROOT_DIR, 'dist');
   assert(fs.existsSync(distDirectory), 'dist/ must exist; run npm run build first');
@@ -94,5 +117,6 @@ function leakAuditTest() {
 
 publicationGateTests();
 diagramRegressionTest();
+translationGuardTests();
 leakAuditTest();
-console.log('Pipeline guard tests passed: publication gates, diagram rendering, and unauthorized-output detection.');
+console.log('Pipeline guard tests passed: publication gates, translations, diagram rendering, and unauthorized-output detection.');

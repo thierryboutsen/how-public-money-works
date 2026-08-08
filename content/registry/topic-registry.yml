@@ -15,6 +15,8 @@ coveredTopics:
     angle: "Revenue pathways across governments, funds, restrictions, and services"
     status: covered
     relatedSlug: "where-do-your-local-taxes-actually-go"
+    translations:
+      pt-BR: "/pt-br/para-onde-vao-os-seus-impostos-locais"
     notes: "Cobertura conceitual e evergreen; novos textos devem escolher uma etapa, receita ou jurisdição claramente distinta e usar fontes oficiais quando houver exemplos específicos."
 
 seedTopics:

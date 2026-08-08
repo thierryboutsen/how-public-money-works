@@ -29,6 +29,9 @@ articles:
     lastReviewed: "2026-08-07"
   - slug: "where-do-your-local-taxes-actually-go"
     title: "Where Do Your Local Taxes Actually Go?"
+    language: en
+    translations:
+      pt-BR: "/pt-br/para-onde-vao-os-seus-impostos-locais"
     status: published
     publishDate: "2026-08-08"
     category: "Your Tax Dollars"
@@ -42,5 +45,26 @@ articles:
     precisionRisk: "high"
     relatedPosts:
       - "what-is-a-city-budget-and-why-should-you-care"
+    sourceLevel: "conceptual-institutionally-validated"
+    lastReviewed: "2026-08-08"
+  - slug: "para-onde-vao-os-seus-impostos-locais"
+    title: "Para Onde Vão os Seus Impostos Locais?"
+    language: pt-BR
+    translationOf: "where-do-your-local-taxes-actually-go"
+    translations:
+      en: "/where-do-your-local-taxes-actually-go"
+    status: published
+    publishDate: "2026-08-08"
+    category: "Seus Impostos"
+    tags:
+      - impostos locais
+      - finanças públicas
+      - governo local
+      - serviços públicos
+    contentAngle: "Versão PT-BR fiel do artigo conceitual sobre os caminhos da receita local entre governos, fundos, restrições e serviços."
+    duplicateCheckSignature: "local-taxes|revenue-destination|revenue-pathways-and-service-connection|pt-br-translation"
+    precisionRisk: "high"
+    relatedPosts:
+      - "where-do-your-local-taxes-actually-go"
     sourceLevel: "conceptual-institutionally-validated"
     lastReviewed: "2026-08-08"

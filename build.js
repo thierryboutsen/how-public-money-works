@@ -8,7 +8,7 @@ const {
   ROOT_DIR,
   listMarkdownFiles,
   loadMarkdownFile,
-  publicPathForSlug,
+  publicPathForDocument,
   absoluteUrl,
   validateDocuments,
   stripLeadingArticleH1
@@ -56,9 +56,9 @@ function parseMarkdownWithShortcodes(markdown) {
   return marked.parse(processed);
 }
 
-function formatDate(dateString) {
+function formatDate(dateString, language = siteConfig.defaultLanguage) {
   if (!dateString) return '';
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat(language === 'pt-BR' ? 'pt-BR' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -107,7 +107,7 @@ function renderPostNavigation(post, posts) {
   const newer = index > 0 ? posts[index - 1] : null;
   const older = index < posts.length - 1 ? posts[index + 1] : null;
   const card = (label, item, extraClass = '') => item ? `
-    <a class="pn-card ${extraClass}" href="${escapeHtml(publicPathForSlug(item.slug))}">
+    <a class="pn-card ${extraClass}" href="${escapeHtml(publicPathForDocument(item))}">
       <div class="pn-label">${label}</div>
       <div class="pn-cat">${escapeHtml(item.category)}</div>
       <h4>${escapeHtml(item.title)}</h4>
@@ -125,7 +125,7 @@ function renderRelatedPosts(post, posts) {
     <a class="btn btn-gold" href="/insights">Browse all essays <span>→</span></a>
   </div>
   <div class="grid">
-    ${related.map((item) => `<a class="card" href="${escapeHtml(publicPathForSlug(item.slug))}"><div class="cat">${escapeHtml(item.category)}</div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.excerpt)}</p></a>`).join('\n')}
+    ${related.map((item) => `<a class="card" href="${escapeHtml(publicPathForDocument(item))}"><div class="cat">${escapeHtml(item.category)}</div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.excerpt)}</p></a>`).join('\n')}
   </div>
 </section>`;
 }
@@ -140,6 +140,7 @@ function buildJsonLd(post, canonicalUrl, socialImagePath) {
     },
     headline: post.seoTitle,
     description: post.metaDescription,
+    inLanguage: post.language,
     author: {
       '@type': 'Person',
       name: post.author,
@@ -161,21 +162,107 @@ function buildJsonLd(post, canonicalUrl, socialImagePath) {
   return JSON.stringify(schema, null, 2).replace(/</g, '\\u003c');
 }
 
+function renderAlternateLinks(post) {
+  const entries = new Map([[post.language, publicPathForDocument(post)], ...Object.entries(post.translations)]);
+  const englishPath = entries.get('en') || publicPathForDocument(post);
+  const links = [...entries.entries()].map(([language, publicPath]) =>
+    `<link rel="alternate" hreflang="${escapeHtml(language)}" href="${escapeHtml(absoluteUrl(publicPath))}" />`
+  );
+  links.push(`<link rel="alternate" hreflang="x-default" href="${escapeHtml(absoluteUrl(englishPath))}" />`);
+  return links.join('\n');
+}
+
+function renderLanguageSwitch(post) {
+  const currentPath = publicPathForDocument(post);
+  const englishPath = post.language === 'en' ? currentPath : (post.translations.en || '/insights');
+  const portuguesePath = post.language === 'pt-BR' ? currentPath : (post.translations['pt-BR'] || '/insights');
+  return `<div class="lang-switch" aria-label="Article language">
+    <a href="${escapeHtml(englishPath)}" hreflang="en" lang="en" data-lang="EN"${post.language === 'en' ? ' class="on" aria-current="page"' : ''}>EN</a>
+    <span aria-hidden="true">/</span>
+    <a href="${escapeHtml(portuguesePath)}" hreflang="pt-BR" lang="pt-BR" data-lang="PT"${post.language === 'pt-BR' ? ' class="on" aria-current="page"' : ''}>PT-BR</a>
+  </div>`;
+}
+
+function getPostUi(language) {
+  if (language === 'pt-BR') {
+    return {
+      navHome: 'Início',
+      navServices: 'Serviços',
+      navAbout: 'Sobre',
+      navBlog: 'Blog da Eliana',
+      navContact: 'Contato',
+      navSubscribe: 'Assinar',
+      navMenuLabel: 'Abrir menu',
+      insightsLabel: 'Publicações',
+      essayLabel: 'Artigo',
+      publicFinanceTagline: 'Trazendo clareza às finanças públicas',
+      byLabel: 'Por',
+      authorRole: 'Especialista Sênior, Finanças Públicas',
+      authorTitle: 'Sobre a autora',
+      authorDescription: 'Especialista sênior em finanças públicas, orçamento governamental e governança da saúde. Editora do <em>How Public Money Works</em>, uma publicação que explica em linguagem clara o funcionamento do dinheiro público nos Estados Unidos — da prefeitura ao governo estadual.',
+      footerDescription: 'Trazendo clareza às finanças públicas — para cidadãos, comunidades e as instituições que os atendem.',
+      footerRead: 'Leia',
+      footerFeatured: 'Artigo em destaque',
+      footerCategory: 'Por categoria',
+      footerGlossary: 'Glossário',
+      footerPractice: 'Atuação',
+      footerFocus: 'Áreas de atuação',
+      footerResources: 'Recursos',
+      footerSpeaking: 'Palestras',
+      footerConnect: 'Contato',
+      footerTagline: 'Trazendo clareza às finanças públicas.'
+    };
+  }
+  return {
+    navHome: 'Home',
+    navServices: 'Services',
+    navAbout: 'About Us',
+    navBlog: "Eliana's Blog",
+    navContact: 'Contact',
+    navSubscribe: 'Subscribe',
+    navMenuLabel: 'Toggle Menu',
+    insightsLabel: 'Insights',
+    essayLabel: 'Essay',
+    publicFinanceTagline: 'Bringing clarity to public finance',
+    byLabel: 'By',
+    authorRole: 'Senior Practice, Public Finance',
+    authorTitle: 'About the author',
+    authorDescription: 'A senior practice in public finance, government budgeting, and health governance. Editor of <em>How Public Money Works</em>, a publication that brings plain-language clarity to the workings of American public money — from city hall to state capitol.',
+    footerDescription: 'Bringing clarity to public finance — for citizens, communities, and the institutions that serve them.',
+    footerRead: 'Read',
+    footerFeatured: 'Featured Essay',
+    footerCategory: 'By Category',
+    footerGlossary: 'Glossary',
+    footerPractice: 'Practice',
+    footerFocus: 'Areas of Focus',
+    footerResources: 'Resources',
+    footerSpeaking: 'Speaking',
+    footerConnect: 'Connect',
+    footerTagline: 'Bringing clarity to public finance.'
+  };
+}
+
 function renderPostPage(document, posts, template, essayNumber, options = {}) {
   const post = document.data;
   const isPreview = options.mode === 'preview';
-  const canonicalUrl = absoluteUrl(publicPathForSlug(post.slug));
+  const canonicalUrl = absoluteUrl(publicPathForDocument(post));
   const socialImagePath = post.featuredImage || siteConfig.defaultSocialImage;
   const bodyMarkdown = stripLeadingArticleH1(document.content, post.title);
   const body = parseMarkdownWithShortcodes(bodyMarkdown);
   const wordCount = bodyMarkdown.trim() ? bodyMarkdown.trim().split(/\s+/).length : 0;
+  const ui = getPostUi(post.language);
 
   return replaceTokens(template, {
     documentTitle: escapeHtml(`${post.seoTitle} — ${siteConfig.siteName}`),
+    htmlLanguage: escapeHtml(post.language),
+    uiLanguage: post.language === 'pt-BR' ? 'pt' : 'en',
     metaDescription: escapeHtml(post.metaDescription),
     robotsDirective: isPreview ? 'noindex,nofollow' : 'index, follow',
     canonicalLink: isPreview ? '' : `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
     ogUrlMeta: isPreview ? '' : `<meta property="og:url" content="${escapeHtml(canonicalUrl)}" />`,
+    alternateLinks: isPreview ? '' : renderAlternateLinks(post),
+    ogLocale: escapeHtml(siteConfig.localeByLanguage[post.language]),
+    ogAlternateLocaleMeta: Object.keys(post.translations).map((language) => `<meta property="og:locale:alternate" content="${escapeHtml(siteConfig.localeByLanguage[language])}" />`).join('\n'),
     seoTitle: escapeHtml(post.seoTitle),
     ogImageMeta: renderImageMeta('og:image', socialImagePath),
     twitterImageMeta: renderImageMeta('twitter:image', socialImagePath),
@@ -190,7 +277,16 @@ function renderPostPage(document, posts, template, essayNumber, options = {}) {
     essayNumber: String(essayNumber).padStart(2, '0'),
     readingTime: escapeHtml(post.readingTime),
     wordCount: wordCount.toLocaleString('en-US'),
-    dateDisplayHtml: post.date ? `<span>${escapeHtml(formatDate(post.date))}</span>` : '',
+    dateDisplayHtml: post.date ? `<span>${escapeHtml(formatDate(post.date, post.language))}</span>` : '',
+    wordCountLabel: post.language === 'pt-BR' ? 'palavras' : 'words',
+    languageSwitchHtml: renderLanguageSwitch(post),
+    ...Object.fromEntries(Object.entries(ui).map(([key, value]) => [key, key === 'authorDescription' ? value : escapeHtml(value)])),
+    shareLabel: post.language === 'pt-BR' ? 'Compartilhar —' : 'Share —',
+    copyLinkLabel: post.language === 'pt-BR' ? 'Copiar link' : 'Copy link',
+    printLabel: post.language === 'pt-BR' ? 'Imprimir' : 'Print',
+    educationalDisclaimerHtml: post.language === 'pt-BR'
+      ? `<b>Aviso educacional:</b> O conteúdo de "${escapeHtml(siteConfig.siteName)}" tem finalidade exclusivamente educativa e cívica. Não constitui orientação jurídica, financeira, contábil ou política. Estruturas de governo local, leis e práticas de finanças públicas variam significativamente entre estados, condados, cidades e distritos especiais. Consulte sempre os documentos oficiais do seu governo local e profissionais qualificados para obter orientação específica sobre sua jurisdição.`
+      : `<b>Educational Disclaimer:</b> The content provided on "${escapeHtml(siteConfig.siteName)}" is intended strictly for civic educational purposes. It does not constitute legal, financial, accounting, or political advice. Local government structures, laws, and public finance practices vary significantly by state, county, city, and special district. Always consult your local government's official documents and qualified professionals for guidance specific to your jurisdiction.`,
     heroHtml: renderHero(post),
     body,
     tagsHtml: renderTags(post.tags),
@@ -210,7 +306,7 @@ function renderFeaturedPost(post) {
   return `
 <section class="featured-essay">
   <div class="inner">
-    <a href="${escapeHtml(publicPathForSlug(post.slug))}" aria-label="Read ${escapeHtml(post.title)}">
+    <a href="${escapeHtml(publicPathForDocument(post))}" aria-label="Read ${escapeHtml(post.title)}">
       ${renderPostImage(post)}
     </a>
     <div class="text">
@@ -218,7 +314,7 @@ function renderFeaturedPost(post) {
       <h2>${escapeHtml(post.title)}</h2>
       <div class="meta"><span>${escapeHtml(post.category)}</span><span class="dot"></span><span>${escapeHtml(post.readingTime)}</span></div>
       <p class="excerpt">${escapeHtml(post.excerpt)}</p>
-      <a class="btn btn-primary" href="${escapeHtml(publicPathForSlug(post.slug))}">Read the Essay <span>→</span></a>
+      <a class="btn btn-primary" href="${escapeHtml(publicPathForDocument(post))}">Read the Essay <span>→</span></a>
     </div>
   </div>
 </section>`;
@@ -227,14 +323,14 @@ function renderFeaturedPost(post) {
 function renderPostCards(posts) {
   return posts.map((post, index) => `
   <article class="essay-card" data-category="${escapeHtml(post.category.toLowerCase())}">
-    <a href="${escapeHtml(publicPathForSlug(post.slug))}" aria-label="Read ${escapeHtml(post.title)}">
+    <a href="${escapeHtml(publicPathForDocument(post))}" aria-label="Read ${escapeHtml(post.title)}">
       ${renderPostImage(post)}
     </a>
     <div class="body">
       <div class="meta-row"><span class="cat">${escapeHtml(post.category)}</span><span class="num">N.º ${String(posts.length - index).padStart(2, '0')}</span></div>
-      <h3><a href="${escapeHtml(publicPathForSlug(post.slug))}">${escapeHtml(post.title)}</a></h3>
+      <h3><a href="${escapeHtml(publicPathForDocument(post))}">${escapeHtml(post.title)}</a></h3>
       <p>${escapeHtml(post.excerpt)}</p>
-      <div class="card-foot"><span class="time">${escapeHtml(post.readingTime)}</span><a class="read" href="${escapeHtml(publicPathForSlug(post.slug))}">Read →</a></div>
+      <div class="card-foot"><span class="time">${escapeHtml(post.readingTime)}</span><a class="read" href="${escapeHtml(publicPathForDocument(post))}">Read →</a></div>
     </div>
   </article>`).join('\n');
 }
@@ -285,10 +381,17 @@ function generateSitemap(posts) {
   const entries = [
     { url: absoluteUrl('/') },
     { url: absoluteUrl('/insights') },
-    ...posts.map((post) => ({ url: absoluteUrl(publicPathForSlug(post.slug)), lastmod: post.date }))
+    ...posts.map((post) => ({ url: absoluteUrl(publicPathForDocument(post)), lastmod: post.date, post }))
   ];
-  const urls = entries.map((entry) => `  <url>\n    <loc>${escapeXml(entry.url)}</loc>${entry.lastmod ? `\n    <lastmod>${escapeXml(entry.lastmod)}</lastmod>` : ''}\n  </url>`).join('\n');
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+  const urls = entries.map((entry) => {
+    const alternates = entry.post ? new Map([[entry.post.language, publicPathForDocument(entry.post)], ...Object.entries(entry.post.translations)]) : null;
+    const alternateXml = alternates
+      ? [...alternates.entries(), ['x-default', alternates.get('en') || publicPathForDocument(entry.post)]]
+        .map(([language, publicPath]) => `\n    <xhtml:link rel="alternate" hreflang="${escapeXml(language)}" href="${escapeXml(absoluteUrl(publicPath))}" />`).join('')
+      : '';
+    return `  <url>\n    <loc>${escapeXml(entry.url)}</loc>${entry.lastmod ? `\n    <lastmod>${escapeXml(entry.lastmod)}</lastmod>` : ''}${alternateXml}\n  </url>`;
+  }).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`;
 }
 
 function generateRobots() {
@@ -307,6 +410,7 @@ function buildSite() {
   const documents = loadPublishedDocuments();
   documents.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
   const posts = documents.map((document) => document.data);
+  const indexPosts = posts.filter((post) => post.language === siteConfig.defaultLanguage);
 
   const postTemplate = fs.readFileSync(POST_TEMPLATE_PATH, 'utf8');
   const insightsTemplate = fs.readFileSync(INSIGHTS_TEMPLATE_PATH, 'utf8');
@@ -322,12 +426,17 @@ function buildSite() {
   fs.copyFileSync(path.join(SRC_DIR, '404.html'), path.join(resolvedDist, '404.html'));
   fs.writeFileSync(path.join(resolvedDist, 'index.html'), renderIndexPage(indexTemplate));
 
-  documents.forEach((document, index) => {
-    const html = renderPostPage(document, posts, postTemplate, posts.length - index);
-    fs.writeFileSync(path.join(resolvedDist, `${document.data.slug}.html`), html);
+  documents.forEach((document) => {
+    const sameLanguagePosts = posts.filter((post) => post.language === document.data.language);
+    const languageIndex = sameLanguagePosts.findIndex((post) => post.slug === document.data.slug);
+    const html = renderPostPage(document, sameLanguagePosts, postTemplate, sameLanguagePosts.length - languageIndex);
+    const relativeOutputPath = `${publicPathForDocument(document).replace(/^\//, '')}.html`;
+    const outputPath = path.join(resolvedDist, relativeOutputPath);
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.writeFileSync(outputPath, html);
   });
 
-  fs.writeFileSync(path.join(resolvedDist, 'insights.html'), renderInsightsPage(posts, insightsTemplate));
+  fs.writeFileSync(path.join(resolvedDist, 'insights.html'), renderInsightsPage(indexPosts, insightsTemplate));
   fs.writeFileSync(path.join(resolvedDist, 'sitemap.xml'), generateSitemap(posts));
   fs.writeFileSync(path.join(resolvedDist, 'robots.txt'), generateRobots());
 
