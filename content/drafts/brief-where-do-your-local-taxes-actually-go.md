@@ -146,9 +146,9 @@ slugDecision: pending-human-approval
 ## Quality gates
 
 ```yaml
-humanTopicApproval: pending
-humanBriefApproval: pending
-draftAllowed: false
+humanTopicApproval: approved
+humanBriefApproval: approved-with-conditions
+draftAllowed: true
 publishAllowed: false
 skipIfQualityInsufficient: true
 ```
@@ -157,11 +157,31 @@ skipIfQualityInsufficient: true
 
 ```yaml
 reviewer: null
-approvalDecision: pending
-requestedChanges: []
+approvalDecision: approved
+requestedChanges:
+  - "Usar uma jurisdição específica ou um conjunto muito limitado de exemplos."
+  - "Não apresentar exemplos locais como regra nacional."
+  - "Não sugerir que cada imposto financia diretamente um serviço específico."
+  - "Distinguir taxes, fees, fines, grants, transfers, general fund, restricted funds e special districts quando relevante."
+  - "Identificar documentos oficiais antes de usar qualquer valor, percentual ou exemplo."
+  - "Explicar que estruturas fiscais variam entre cidades, condados, school districts e special districts."
+  - "Manter tom educativo, apartidário, cívico e acessível."
+  - "Preservar slug e canonical como pending-human-approval."
+  - "Manter publishAllowed como false."
 approvedAt: null
 ```
 
+## Checklist de pré-draft
+
+- [ ] Escolher jurisdição candidata.
+- [ ] Selecionar documentos oficiais.
+- [ ] Confirmar período fiscal.
+- [ ] Confirmar quais receitas serão usadas como exemplos.
+- [ ] Confirmar quais afirmações exigem citação.
+- [ ] Preparar ressalva contra generalização nacional.
+- [ ] Manter o artigo em inglês.
+- [ ] Manter bastidores fora do conteúdo público.
+
 ## Operational note
 
-Este arquivo permanece em `content/drafts/` como brief não aprovado. Não é artigo nem draft final, não cria URL pública, não define canonical final e não altera `article-registry.yml`, `topic-registry.yml` ou os slots do calendário. Somente aprovação humana explícita do tópico e do brief poderá autorizar um draft posterior em inglês.
+Este arquivo permanece em `content/drafts/` como brief aprovado condicionalmente. Não é artigo nem draft final, não cria URL pública, não define canonical final e não altera `article-registry.yml`, `topic-registry.yml` ou os slots do calendário. Um draft futuro só poderá ser criado respeitando as condições acima e a checklist de pré-draft. `publishAllowed` permanece `false`.
