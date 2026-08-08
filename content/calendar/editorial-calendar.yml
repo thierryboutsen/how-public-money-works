@@ -14,18 +14,20 @@ generationPolicy:
   mode: ai_assisted
   topicsAreGeneratedDynamically: true
   fixedCalendar: false
-  humanApprovalRequired: true
+  humanApprovalRequiredForBriefAndDraftCreation: true
+  humanPublicationReviewPreferred: true
+  autoPublishFallbackAfterCutoff: true
   publishAutomatically: false
 
 weeklyWorkflow:
   Monday: "Generate or review ideas, choose weekly topics, prepare briefs"
-  Tuesday: "Publish approved article A manually after preview"
+  Tuesday: "Run the scheduled publication gate for prepared pair A"
   Wednesday: "Review article B and prepare final package"
-  Thursday: "Publish approved article B manually after preview"
+  Thursday: "Run the scheduled publication gate for prepared pair B"
   Friday: "Review performance, update registry, prepare next cycle"
 
 slots:
-  # status válido para slots: open, selected, skipped, filled
+  # status válido para slots: open, selected, skipped, filled, failed, manually-held, published
   - slot: Tuesday
     status: open
     articleSlug: null
@@ -36,8 +38,9 @@ slots:
     selectionRule: "AI proposes a complementary topic with a different angle"
 
 rules:
-  - "No topic is final until approved by a human"
-  - "No draft moves to content/posts until approved"
+  - "No topic becomes a brief or draft without the required human topic and brief approvals"
+  - "Publication review is preferably human; silence may use the auto-publish fallback only after cutoff and only when every gate passes"
+  - "Human rejection or requested changes always block auto-publish"
   - "No article may repeat an existing topic-angle signature"
   - "The AI must check article-registry and topic-registry before proposing a new article"
   - "If quality is not high enough, skip the slot instead of publishing weak content"

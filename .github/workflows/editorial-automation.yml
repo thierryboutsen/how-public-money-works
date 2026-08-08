@@ -1,0 +1,113 @@
+name: Editorial scheduled publication
+
+on:
+  workflow_dispatch:
+    inputs:
+      article:
+        description: Optional English slug or translationKey to evaluate
+        required: false
+        type: string
+      now:
+        description: Optional ISO timestamp for deterministic dry-run scenarios
+        required: false
+        type: string
+      execute:
+        description: Request production execution; central fail-closed config still applies
+        required: true
+        default: false
+        type: boolean
+
+# Cron is intentionally not active until production secrets are configured and
+# the central config changes from dry-run to enabled.
+# schedule:
+#   - cron: '0 9 * * 2,4'
+#     timezone: 'America/Sao_Paulo'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-automation
+  cancel-in-progress: false
+
+jobs:
+  publication-runner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Verify automation policy and negative tests
+        run: |
+          npm run editorial:status
+          npm run content:test:frontmatter
+          npm run editorial:test
+          npm run editorial:test:transaction
+          npm run editorial:plan-week
+
+      - name: Run fail-closed editorial dry run
+        if: github.event_name != 'schedule' && inputs.execute != true
+        shell: bash
+        env:
+          ARTICLE: ${{ inputs.article }}
+          NOW: ${{ inputs.now }}
+        run: |
+          args=()
+          if [ -n "$ARTICLE" ]; then
+            args+=("$ARTICLE")
+          fi
+          if [ -n "$NOW" ]; then
+            args+=("--now=$NOW")
+          fi
+          npm run editorial:run-slot -- "${args[@]}"
+
+      - name: Install pinned Vercel CLI for an authorized production run
+        if: github.event_name == 'schedule' || inputs.execute == true
+        run: npm install --global vercel@58.9.0
+
+      - name: Run transactional publication adapter
+        if: github.event_name == 'schedule' || inputs.execute == true
+        shell: bash
+        env:
+          ARTICLE: ${{ inputs.article }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          args=("--execute")
+          if [ -n "$ARTICLE" ]; then
+            args+=("$ARTICLE")
+          fi
+          npm run editorial:run-slot -- "${args[@]}"
+
+      - name: Upload non-secret cycle logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-dry-run-logs
+          path: .editorial/logs/*.json
+          if-no-files-found: warn
+
+      - name: Upload post-verification repository sync package
+        if: always() && (github.event_name == 'schedule' || inputs.execute == true)
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-publication-sync-package
+          path: |
+            content/posts/*.md
+            content/registry/*.yml
+            content/calendar/*.yml
+          if-no-files-found: error
+
+# Deployment and repository synchronization remain separate. This workflow
+# never force-pushes, merges, or writes directly to the default branch.

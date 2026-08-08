@@ -12,10 +12,21 @@
     "content:audit": "node scripts/audit-output.js dist",
     "content:audit:preview": "node scripts/audit-output.js .preview",
     "content:test:guards": "node scripts/test-pipeline-guards.js",
+    "content:test:frontmatter": "node scripts/test-frontmatter-parser.js",
+    "editorial:plan-week": "node scripts/editorial/plan-week.js",
+    "editorial:prepare-next": "node scripts/editorial/prepare-next.js",
+    "editorial:validate": "node scripts/editorial/auto-publish-check.js",
+    "editorial:preview": "node scripts/preview-article.js",
+    "editorial:auto-publish-check": "node scripts/editorial/auto-publish-check.js",
+    "editorial:run-slot": "node scripts/editorial/run-slot.js",
+    "editorial:inventory": "node scripts/editorial/inventory.js",
+    "editorial:status": "node scripts/editorial/status.js",
+    "editorial:test": "node scripts/editorial/test-automation.js",
+    "editorial:test:transaction": "node scripts/editorial/test-publication-adapter.js",
     "test": "npm run content:validate"
   },
   "dependencies": {
-    "gray-matter": "^4.0.3",
-    "marked": "^12.0.1"
+    "marked": "^18.0.4",
+    "yaml": "^2.9.0"
   }
 }

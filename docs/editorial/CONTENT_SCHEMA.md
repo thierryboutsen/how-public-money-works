@@ -1,6 +1,6 @@
 # Schema real de conteúdo
 
-O frontmatter Markdown é lido com `gray-matter`. A configuração técnica central está em `site.config.js`; o domínio oficial é `https://www.luminasmart.company`.
+O frontmatter Markdown é lido com `yaml` em modo estrito, sem aliases e com chaves únicas. A configuração técnica central está em `site.config.js`; o domínio oficial é `https://www.luminasmart.company`.
 
 ## Campos renderizados
 
@@ -40,7 +40,10 @@ Os campos abaixo controlam o processo, mas não precisam aparecer no HTML:
 - `slugDecision`;
 - `primaryKeyword`;
 - `secondaryKeywords`;
-- `searchIntent`.
+- `searchIntent`;
+- `translationValidationStatus`;
+- `requestedChanges`;
+- `p1Blockers`, `p2Blockers` e `securityWarnings`.
 
 ## Gates de publicação
 
@@ -57,6 +60,19 @@ status: "published"
 ```
 
 O validator nunca altera esses campos. O artigo publicado anterior ao pipeline está explicitamente registrado como legado na configuração; essa exceção não se aplica a artigos novos.
+
+No fallback automático, `humanDraftApproval` pode permanecer `pending`, mas o pacote publicável precisa registrar adicionalmente:
+
+```yaml
+publicationPath: "auto-publish-fallback"
+humanReviewOutcome: "no-response-by-cutoff"
+autoPublishEligible: true
+requestedChanges: []
+publicationApproval: "approved"
+publishAllowed: true
+```
+
+O fallback é inválido se houver rejeição, alteração solicitada, blocker, alerta não resolvido ou qualquer outro gate falho. Esses valores só podem ser preparados depois do cutoff por um runner de produção aprovado; o validator não os cria.
 
 ## URLs e metadados
 

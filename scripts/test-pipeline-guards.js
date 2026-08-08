@@ -60,6 +60,28 @@ function publicationGateTests() {
     const missing = validateCandidate({ [field]: undefined });
     assert(missing.errors.some((error) => error.includes(expectedMessage)), `missing ${field} should fail with ${expectedMessage}`);
   }
+
+  const autoCandidate = {
+    ...source,
+    relativePath: `content/posts/${source.data.slug}.md`,
+    data: {
+      ...validData,
+      humanDraftApproval: 'pending',
+      publicationPath: 'auto-publish-fallback',
+      humanReviewOutcome: 'no-response-by-cutoff',
+      autoPublishEligible: true,
+      requestedChanges: []
+    }
+  };
+  const validAuto = validateDocuments([...publishedDocuments, autoCandidate]);
+  assert.deepStrictEqual(validAuto.errors, [], `fully gated auto-publish fallback should pass: ${validAuto.errors.join('; ')}`);
+
+  const rejectedAuto = { ...autoCandidate, data: { ...autoCandidate.data, humanDraftApproval: 'rejected' } };
+  assert(validateDocuments([...publishedDocuments, rejectedAuto]).errors.some((error) => error.includes('pending or approved')), 'auto fallback must not override rejection');
+  const changedAuto = { ...autoCandidate, data: { ...autoCandidate.data, requestedChanges: ['Revise scope'] } };
+  assert(validateDocuments([...publishedDocuments, changedAuto]).errors.some((error) => error.includes('requestedChanges: []')), 'auto fallback must not override requested changes');
+  const ineligibleAuto = { ...autoCandidate, data: { ...autoCandidate.data, autoPublishEligible: false } };
+  assert(validateDocuments([...publishedDocuments, ineligibleAuto]).errors.some((error) => error.includes('autoPublishEligible: true')), 'auto fallback must require a recorded passing gate');
 }
 
 function diagramRegressionTest() {
@@ -82,6 +104,54 @@ function translationGuardTests() {
     ? { ...document, data: { ...document.data, translations: { 'pt-BR': '/pt-br/missing-translation' } } }
     : document);
   assert(validateDocuments(missingTranslation).errors.some((error) => error.includes('translation route does not match published content')), 'missing translation route must fail');
+
+
+  const portugueseIndex = documents.findIndex((document) => document.data.translationKey === documents[englishIndex].data.translationKey && document.data.language === 'pt-BR');
+  assert(portugueseIndex >= 0, 'Portuguese translation source must exist');
+  const anglePair = [
+    {
+      ...documents[englishIndex],
+      content: 'Conceptual English test copy.',
+      relativePath: 'content/review/shared-angle-en.md',
+      data: {
+        ...documents[englishIndex].data,
+        slug: 'shared-angle-en',
+        title: 'Shared angle English test',
+        status: 'review',
+        translationKey: 'shared-angle-test',
+        translations: { 'pt-BR': '/pt-br/shared-angle-pt' },
+        topicAngleSignature: 'shared-translation-angle-test'
+      }
+    },
+    {
+      ...documents[portugueseIndex],
+      content: 'Texto conceitual de teste em português.',
+      relativePath: 'content/review/shared-angle-pt.md',
+      data: {
+        ...documents[portugueseIndex].data,
+        slug: 'shared-angle-pt',
+        title: 'Teste em português com ângulo compartilhado',
+        status: 'review',
+        translationKey: 'shared-angle-test',
+        translations: { en: '/shared-angle-en' },
+        topicAngleSignature: 'shared-translation-angle-test'
+      }
+    }
+  ];
+  const pairAngleErrors = validateDocuments([...documents, ...anglePair]).errors.filter((error) => error.includes('topicAngleSignature'));
+  assert.deepStrictEqual(pairAngleErrors, [], `translations may share one topic angle: ${pairAngleErrors.join('; ')}`);
+  const duplicateAngle = {
+    ...anglePair.find((document) => document.data.language === 'en'),
+    relativePath: 'content/review/unrelated-angle-duplicate.md',
+    data: {
+      ...anglePair.find((document) => document.data.language === 'en').data,
+      slug: 'unrelated-angle-duplicate',
+      title: 'Unrelated angle duplicate',
+      translationKey: 'unrelated-angle-duplicate',
+      translations: {}
+    }
+  };
+  assert(validateDocuments([...documents, ...anglePair, duplicateAngle]).errors.some((error) => error.includes('duplicate topicAngleSignature')), 'unrelated content must not reuse an exact topic angle');
 
   const duplicateCanonical = {
     ...documents[englishIndex],

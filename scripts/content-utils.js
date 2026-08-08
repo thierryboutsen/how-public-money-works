@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const matter = require('gray-matter');
+const YAML = require('yaml');
 const siteConfig = require('../site.config');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -19,7 +19,7 @@ function listMarkdownFiles(directory) {
 
 function loadMarkdownFile(filePath) {
   const raw = fs.readFileSync(filePath, 'utf8');
-  const parsed = matter(raw);
+  const parsed = parseMarkdownFrontmatter(raw, filePath);
   const data = { ...parsed.data };
   data.slug = data.slug || path.basename(filePath, '.md');
   data.author = data.author || siteConfig.defaultAuthor;
@@ -36,6 +36,30 @@ function loadMarkdownFile(filePath) {
     data,
     content: parsed.content
   };
+}
+
+function parseMarkdownFrontmatter(raw, filePath = '<markdown>') {
+  const text = raw.replace(/^\uFEFF/, '');
+  const lines = text.split(/\r?\n/);
+  if (lines[0]?.trim() !== '---') throw new Error(`${filePath}: missing opening YAML frontmatter delimiter`);
+  const closingIndex = lines.findIndex((line, index) => index > 0 && line.trim() === '---');
+  if (closingIndex < 0) throw new Error(`${filePath}: missing closing YAML frontmatter delimiter`);
+  const yamlSource = lines.slice(1, closingIndex).join('\n');
+  const document = YAML.parseDocument(yamlSource, {
+    maxAliasCount: 0,
+    prettyErrors: true,
+    strict: true,
+    uniqueKeys: true
+  });
+  if (document.errors.length) throw new Error(`${filePath}: invalid YAML frontmatter: ${document.errors.map((error) => error.message).join('; ')}`);
+  const data = document.toJS({ maxAliasCount: 0 }) || {};
+  if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error(`${filePath}: YAML frontmatter must be a mapping`);
+  return { data, content: lines.slice(closingIndex + 1).join('\n') };
+}
+
+function stringifyMarkdownFrontmatter(data, content) {
+  const yamlSource = YAML.stringify(data, { aliasDuplicateObjects: false, lineWidth: 0 }).trimEnd();
+  return `---\n${yamlSource}\n---\n${content.replace(/^\s*\n/, '\n')}`;
 }
 
 function isValidDate(value) {
@@ -133,7 +157,14 @@ function validateDocuments(documents, options = {}) {
 
     const isLegacyPublished = data.status === 'published' && siteConfig.legacyPublishedSlugs.includes(data.slug);
     if (data.status === 'published' && !isLegacyPublished) {
-      if (data.humanDraftApproval !== 'approved') error(doc, 'published content requires humanDraftApproval: approved');
+      const isAutoPublishFallback = data.publicationPath === 'auto-publish-fallback';
+      if (!isAutoPublishFallback && data.humanDraftApproval !== 'approved') error(doc, 'human-approved publication requires humanDraftApproval: approved');
+      if (isAutoPublishFallback) {
+        if (!['pending', 'approved'].includes(data.humanDraftApproval)) error(doc, 'auto-publish fallback requires humanDraftApproval to be pending or approved');
+        if (data.humanReviewOutcome !== 'no-response-by-cutoff') error(doc, 'auto-publish fallback requires humanReviewOutcome: no-response-by-cutoff');
+        if (data.autoPublishEligible !== true) error(doc, 'auto-publish fallback requires autoPublishEligible: true');
+        if (!Array.isArray(data.requestedChanges) || data.requestedChanges.length) error(doc, 'auto-publish fallback requires requestedChanges: []');
+      }
       if (data.publicationApproval !== 'approved') error(doc, 'published content requires publicationApproval: approved');
       if (data.publishAllowed !== true) error(doc, 'published content requires publishAllowed: true');
       if (data.canonicalDecision !== 'approved') error(doc, 'published content requires canonicalDecision: approved');
@@ -171,13 +202,21 @@ function validateDocuments(documents, options = {}) {
 
     const duplicateFields = [
       ['slug', data.slug, slugOwners],
-      ['title', data.title && data.title.trim().toLowerCase(), titleOwners],
-      ['topicAngleSignature', data.topicAngleSignature, angleOwners]
+      ['title', data.title && data.title.trim().toLowerCase(), titleOwners]
     ];
     for (const [field, value, owners] of duplicateFields) {
       if (!value) continue;
       if (owners.has(value)) error(doc, `duplicate ${field} with ${owners.get(value)}`);
       else owners.set(value, doc.relativePath);
+    }
+    if (data.topicAngleSignature) {
+      const angleOwner = angleOwners.get(data.topicAngleSignature);
+      const isTranslationOfOwner = angleOwner
+        && data.translationKey
+        && angleOwner.data.translationKey === data.translationKey
+        && angleOwner.data.language !== data.language;
+      if (angleOwner && !isTranslationOfOwner) error(doc, `duplicate topicAngleSignature with ${angleOwner.relativePath}`);
+      else if (!angleOwner) angleOwners.set(data.topicAngleSignature, doc);
     }
 
     if (doc.content.match(/^#\s+/gm)?.length > 1) warning(doc, 'body contains more than one H1; rendered articles use the template H1');
@@ -237,6 +276,8 @@ module.exports = {
   DATE_ONLY,
   listMarkdownFiles,
   loadMarkdownFile,
+  parseMarkdownFrontmatter,
+  stringifyMarkdownFrontmatter,
   isValidDate,
   publicPathForSlug,
   publicPathForDocument,

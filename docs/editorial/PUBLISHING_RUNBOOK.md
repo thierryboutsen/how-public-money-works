@@ -82,7 +82,7 @@ Gerar um preview controlado e conferir:
 - mobile;
 - canonical, Open Graph e Twitter Card;
 - links internos;
-- sitemap e robots quando forem implementados.
+- sitemap e robots gerados pelo build.
 - canonical próprio, `hreflang`, locale e navegação entre versões quando houver tradução.
 
 ## 8. Build
@@ -91,9 +91,11 @@ Executar o build somente depois da revisão, da aprovação e do preview planeja
 
 O build gera também `sitemap.xml` e `robots.txt`. Depois do build, executar `npm run content:audit`.
 
-## 9. Deploy manual
+## 9. Deploy manual ou fallback automatizado aprovado
 
-O deploy deve ser uma ação manual e deliberada, feita após a conferência do preview. A rotina editorial não deve publicar automaticamente ao gerar ideias, briefs, drafts, aprovar conteúdo ou preencher um slot.
+O deploy manual deve ser deliberado e feito após a conferência do preview. Gerar ideias, briefs, drafts ou preencher um slot nunca aciona publicação por si só.
+
+O fallback descrito em `AUTOMATED_EDITORIAL_PIPELINE.md` só pode executar deploy depois do cutoff, sem rejeição ou alterações pendentes, com todos os gates verdes e por meio de adapter transacional previamente aprovado. Enquanto adapter, horário, cutoff e secrets não estiverem configurados, o workflow permanece exclusivamente em dry-run.
 
 ## 10. Validação pós-publicação
 

@@ -1,9 +1,12 @@
 # Histórico de artigos que chegaram ao fluxo editorial.
-# Novos artigos só entram como registro oficial após aprovação humana.
+# Novos artigos só entram como registro oficial após publicação autorizada e verificação pública.
 # Vocabulário: docs/editorial/STATUS_VOCABULARY.md
 
 rules:
-  newArticlesRequireHumanApproval: true
+  newBriefsAndDraftsRequireHumanApproval: true
+  publicationReviewIsHumanPreferred: true
+  autoPublishFallbackRequiresAllGates: true
+  humanRejectionOrRequestedChangesBlocksFallback: true
   onlyApprovedArticlesMayEnterPosts: true
   draftsMustRemainOutsidePosts: true
   reviewItemsMustRemainOutsidePosts: true
