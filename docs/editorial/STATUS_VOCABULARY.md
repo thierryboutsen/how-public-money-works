@@ -2,6 +2,13 @@
 
 Este documento define os status válidos por contexto. Um status descreve o estado editorial; nenhum status autoriza autopublicação.
 
+Não usar um campo genérico chamado `decision` quando houver mais de um tipo de decisão no mesmo documento. Usar os campos específicos abaixo:
+
+- `antiRepetitionDecision`: controle de duplicidade de tema e ângulo;
+- `sourceDecision`: viabilidade factual e suficiência do plano de fontes;
+- `approvalDecision`: aprovação humana final;
+- `recommendation`: triagem de ideias.
+
 ## A) Article lifecycle
 
 Usado para acompanhar o ciclo completo de uma pauta ou artigo:
@@ -11,13 +18,15 @@ idea → brief → drafted → reviewed → approved → scheduled → published
 ```
 
 - `idea`: pauta candidata, ainda sem brief aprovado.
-- `brief`: pauta com pergunta central, ângulo e estrutura em preparação ou revisão.
+- `brief`: pauta com pergunta central, ângulo e estrutura em preparação ou revisão. É um status intermediário: não é draft, não é artigo e não é publicação. Autoriza apenas planejamento.
 - `drafted`: draft completo, ainda não aprovado.
 - `reviewed`: draft revisado, aguardando decisão final.
 - `approved`: conteúdo aprovado por uma pessoa responsável.
 - `scheduled`: conteúdo aprovado com slot ou data definida.
 - `published`: conteúdo efetivamente publicado ou pronto em `content/posts/` para publicação controlada.
 - `archived`: conteúdo retirado do ciclo ativo, sem ser apagado do histórico.
+
+Um item em `brief` só pode virar base para draft depois de aprovação humana explícita do tópico e do próprio brief.
 
 ## B) Calendar slot status
 
@@ -39,6 +48,8 @@ Usado para o histórico e a taxonomia em `content/registry/topic-registry.yml`:
 - `blocked`: tema ou combinação de tema e ângulo que deve ser evitada por repetição, risco ou decisão editorial.
 - `retired`: item removido da rotação ativa, preservado apenas para histórico.
 
+`planned` não é status ativo. Sementes podem ser avaliadas, reformuladas ou descartadas, mas não representam planejamento aprovado.
+
 ## D) Publication status
 
 Usado para descrever a situação de publicação do conteúdo:
@@ -55,5 +66,6 @@ Usado para descrever a situação de publicação do conteúdo:
 - `seed` não é compromisso editorial.
 - `open` não é artigo.
 - `skipped` é aceitável quando não houver qualidade suficiente.
+- `skipped` não é falha; é uma decisão editorial aceitável por qualidade, fontes ou timing.
 - Nenhum status autoriza autopublicação.
 - A aprovação humana continua obrigatória antes de mover conteúdo para `content/posts/`.

@@ -4,6 +4,18 @@ Um artigo só pode avançar para `approved` quando todos os itens aplicáveis fo
 
 Os status e suas diferenças por contexto estão definidos em [`STATUS_VOCABULARY.md`](STATUS_VOCABULARY.md).
 
+## Gates específicos do brief
+
+- [ ] O tópico não é duplicado em relação ao article registry.
+- [ ] O ângulo é distinto do conteúdo existente.
+- [ ] O público-alvo está claro.
+- [ ] O plano de fontes é realista e verificável.
+- [ ] SEO foi sugerido, mas não tratado como final.
+- [ ] Slug e canonical permanecem pendentes de aprovação humana.
+- [ ] `draftAllowed` está como `false` até a aprovação humana do brief.
+- [ ] `publishAllowed` está como `false`.
+- [ ] Se a qualidade for insuficiente, o slot será pulado.
+
 ## Gates do fluxo dinâmico
 
 - [ ] Dynamic Topic Check: a pauta foi proposta depois da consulta ao registro de artigos e temas.

@@ -4,6 +4,16 @@ A rotina é dinâmica e assistida por geração de ideias, briefs e drafts. A pu
 
 Os status usados neste runbook estão definidos em [`STATUS_VOCABULARY.md`](STATUS_VOCABULARY.md).
 
+O modelo de brief está em [`BRIEF_TEMPLATE.md`](BRIEF_TEMPLATE.md) e o workflow de pauta está em [`IDEA_GENERATION_WORKFLOW.md`](IDEA_GENERATION_WORKFLOW.md).
+
+## Fluxo de pauta e brief
+
+```text
+idea generation → human topic approval → brief creation → human brief approval → draft creation
+```
+
+O draft só pode ser criado depois da aprovação humana do tópico e do brief. Aprovar uma ideia ou um brief não publica conteúdo e não cria URL pública.
+
 ## 1. idea
 
 O sistema pode gerar ideias sob demanda ou no ciclo semanal. Registrar a ideia candidata no processo com título provisório, categoria, ângulo, risco de precisão e observações.
@@ -74,7 +84,7 @@ O deploy deve ser uma ação manual e deliberada, feita após a conferência do 
 
 Conferir a URL pública, status HTTP, título, descrição, canonical, imagem social, links, sitemap e renderização mobile.
 
-Registrar a data de publicação em `article-registry.yml` e atualizar `topic-registry.yml` de `planned` para `covered` quando aplicável.
+Registrar a data de publicação em `article-registry.yml` e atualizar `topic-registry.yml` de `seed` para `covered` quando aplicável.
 
 ## Estados permitidos
 
