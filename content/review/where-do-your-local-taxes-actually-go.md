@@ -143,4 +143,82 @@ Editorial review notes:
 - Requires human draft approval.
 - Requires final slug/canonical approval.
 - publishAllowed remains false.
+
+Factual validation checklist:
+- claim: "Taxes are compulsory charges imposed under legal authority to raise public revenue."
+  sourceNeeded: "Confirm the plain-English definition and any jurisdictional limits before publication."
+  suggestedSourceType: "Official state or local tax code, revenue guidance, or government glossary."
+  priority: high
+  status: pending
+- claim: "Fees are charges connected to a service, permit, license, facility, or other public function, and their permitted use can vary."
+  sourceNeeded: "Verify the distinction from taxes and the conditions under which fees may be charged or used."
+  suggestedSourceType: "Official fee schedule, local ordinance, adopted budget, or state/local government guidance."
+  priority: high
+  status: pending
+- claim: "Fines are financial penalties connected to a violation or enforcement process and are not simply another name for taxes or fees."
+  sourceNeeded: "Confirm the legal distinction and avoid implying a universal funding treatment for fines."
+  suggestedSourceType: "Official state or local code, court or enforcement guidance, and adopted budget notes where relevant."
+  priority: high
+  status: pending
+- claim: "Grants may support a defined project, program, service, or period of work and may carry conditions."
+  sourceNeeded: "Verify which grant conditions are applicable to any future example and avoid presenting all grants as having the same restrictions."
+  suggestedSourceType: "Official grant agreement, awarding agency guidance, or local budget/grant report."
+  priority: high
+  status: pending
+- claim: "Transfers move money from one government, fund, or public account to another and do not necessarily represent new money entering government as a whole."
+  sourceNeeded: "Confirm the accounting treatment and explain the distinction without conflating intergovernmental transfers with other revenue."
+  suggestedSourceType: "Official budget fund statements, chart of accounts, annual financial report, or governmental accounting guidance."
+  priority: high
+  status: pending
+- claim: "A general fund commonly supports many ordinary government operations, but its contents and rules vary by jurisdiction."
+  sourceNeeded: "Verify the local definition before using the term in a jurisdiction-specific draft."
+  suggestedSourceType: "Official adopted budget, fund summary, budget glossary, or state/local finance guidance."
+  priority: high
+  status: pending
+- claim: "A restricted fund has limits on how money may be used, which may arise from law, a voter-approved measure, a grant agreement, a bond document, an ordinance, or another governing decision."
+  sourceNeeded: "Confirm which restriction applies and whether the local government uses the term restricted fund or another term."
+  suggestedSourceType: "Official fund policy, ordinance, bond or grant document, adopted budget, or annual financial report."
+  priority: high
+  status: pending
+- claim: "In some states, a special district is a type of local government created for a particular purpose, with legal status, powers, and responsibilities that vary."
+  sourceNeeded: "Verify the definition, authority, governance, and service role for any jurisdiction discussed."
+  suggestedSourceType: "State local-government statute, official special-district documentation, or U.S. Census Bureau government-structure material."
+  priority: high
+  status: pending
+- claim: "Cities, counties, school districts, and special districts may have separate revenue sources, budgets, governing bodies, and responsibilities, and may share responsibility for a service."
+  sourceNeeded: "Confirm the allocation of responsibility rather than treating a local service as controlled by one government."
+  suggestedSourceType: "Official jurisdiction websites, adopted budgets, intergovernmental agreements, or state government-structure guidance."
+  priority: high
+  status: pending
+- claim: "Property taxes may contribute to public education in some places, but the relationship depends on state, school-district, local, and other funding arrangements."
+  sourceNeeded: "Verify the funding structure for any school-district example and preserve the non-universal qualification."
+  suggestedSourceType: "Official school-district budget, state school-finance agency guidance, and local revenue documents."
+  priority: high
+  status: pending
+- claim: "Sales-tax revenue may be shared among governments or assigned under local and state rules."
+  sourceNeeded: "Confirm the allocation formula and receiving governments for any specific example."
+  suggestedSourceType: "Official state tax agency guidance, local revenue agreement, adopted budget, or distribution schedule."
+  priority: high
+  status: pending
+- claim: "A tax bill may combine charges from different authorities, and a public budget may organize money by government, fund, program, or legal purpose rather than by individual taxpayer."
+  sourceNeeded: "Verify how the selected jurisdiction presents tax bills and organizes public revenue documents."
+  suggestedSourceType: "Official tax bill guidance, assessor or collector documentation, adopted budget, and fund statements."
+  priority: medium
+  status: pending
+- claim: "An adopted budget describes planned authority and spending, while an annual financial report generally describes reported results after the period."
+  sourceNeeded: "Confirm the terminology and distinction for the jurisdiction and reporting framework used."
+  suggestedSourceType: "Official adopted budget, annual financial report, and governmental accounting guidance."
+  priority: high
+  status: pending
+- claim: "A precise claim about a revenue source, fund, service, rate, amount, percentage, or responsibility requires the jurisdiction, fiscal year, and authoritative documents to be identified."
+  sourceNeeded: "Apply this validation gate to every jurisdiction-specific example or quantitative claim added later."
+  suggestedSourceType: "The relevant official budget, revenue schedule, ordinance, financial report, or agency guidance for the selected jurisdiction and period."
+  priority: high
+  status: pending
+
+Operational note:
+- This draft remains unpublished.
+- Official source validation is required before publication.
+- No jurisdiction-specific example should be added without official documents.
+- publishAllowed remains false.
 -->
