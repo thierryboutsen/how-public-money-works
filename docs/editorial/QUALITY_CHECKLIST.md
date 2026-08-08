@@ -90,3 +90,13 @@ Os status e suas diferenças por contexto estão definidos em [`STATUS_VOCABULAR
 - [ ] O artigo foi revisado por uma pessoa responsável.
 - [ ] A pessoa responsável aprovou título, conteúdo, imagem e data.
 - [ ] O status só foi alterado para publicação após aprovação humana.
+
+## Validação técnica local
+
+- [ ] `npm run content:validate` passou.
+- [ ] O preview isolado foi gerado com `npm run content:preview -- content/review/<arquivo>.md`.
+- [ ] `npm run content:audit:preview` passou.
+- [ ] A imagem referenciada existe e seu alt foi renderizado.
+- [ ] Canonical, Open Graph, Twitter e JSON-LD usam o `siteOrigin` central.
+- [ ] O sitemap não contém conteúdo de `content/review/`.
+- [ ] `publicationApproval` e `publishAllowed` não foram alterados pelo validator, build ou preview.

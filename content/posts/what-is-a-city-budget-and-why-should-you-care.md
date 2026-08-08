@@ -12,6 +12,7 @@ tags:
 readingTime: "8 min read"
 excerpt: "Every year, your city decides how to spend hundreds of millions of dollars — on streets, schools, libraries, parks, fire trucks, water lines. That decision is called a budget."
 featuredImage: "/assets/article-city-budget-hero.jpg"
+featuredImageAlt: "Civic documents and architectural details arranged as an editorial illustration of a city budget."
 status: "published"
 language: "en"
 seoTitle: "What Is a City Budget — and Why Should You Care?"

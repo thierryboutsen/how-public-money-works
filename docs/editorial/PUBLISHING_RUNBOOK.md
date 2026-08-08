@@ -37,13 +37,24 @@ Definir:
 
 ## 3. draft
 
-Gerar o draft em inglês dentro de `content/drafts/`, usando o frontmatter definido em `docs/CONTENT_SCHEMA.md`.
+Gerar o draft em inglês dentro de `content/drafts/`, usando o frontmatter definido em [`CONTENT_SCHEMA.md`](CONTENT_SCHEMA.md).
 
 O draft não deve ser considerado publicado e não deve ser colocado em `content/posts/`.
 
 ## 4. review
 
 Mover manualmente para `content/review/` quando o texto estiver completo. Aplicar integralmente `QUALITY_CHECKLIST.md` e registrar pendências.
+
+Validar e gerar preview isolado sem publicar:
+
+```text
+npm run content:validate:review
+npm run build
+npm run content:preview -- content/review/<arquivo>.md
+npm run content:audit:preview
+```
+
+O preview fica em `.preview/`, usa `noindex,nofollow`, omite canonical, `og:url` e JSON-LD de produção, e não altera `content/posts/`, gates ou status.
 
 ## 5. approval
 
@@ -56,6 +67,7 @@ Somente depois da aprovação humana, transformar o draft em Markdown final e co
 - o slug é único;
 - a imagem existe;
 - o status está correto;
+- `lifecycleStatus`, aprovações de conteúdo/publicação, `publishAllowed`, canonical e slug satisfazem todos os gates descritos em `CONTENT_SCHEMA.md`;
 - a data não publica antes do planejado;
 - nenhum artigo existente será sobrescrito.
 
@@ -75,6 +87,8 @@ Gerar um preview controlado e conferir:
 ## 8. Build
 
 Executar o build somente depois da revisão, da aprovação e do preview planejado. Registrar o resultado e investigar qualquer warning ou diferença inesperada.
+
+O build gera também `sitemap.xml` e `robots.txt`. Depois do build, executar `npm run content:audit`.
 
 ## 9. Deploy manual
 

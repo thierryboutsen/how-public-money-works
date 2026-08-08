@@ -5,7 +5,14 @@
   "main": "build.js",
   "scripts": {
     "build": "node build.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "content:validate": "node scripts/validate-content.js --scope all",
+    "content:validate:review": "node scripts/validate-content.js --scope review",
+    "content:validate:published": "node scripts/validate-content.js --scope published",
+    "content:preview": "node scripts/preview-article.js",
+    "content:audit": "node scripts/audit-output.js dist",
+    "content:audit:preview": "node scripts/audit-output.js .preview",
+    "content:test:guards": "node scripts/test-pipeline-guards.js",
+    "test": "npm run content:validate"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

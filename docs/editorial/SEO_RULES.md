@@ -19,6 +19,8 @@
 
 ## Canonical
 
+- O domínio oficial é definido uma única vez em `site.config.js`; atualmente, `https://www.luminasmart.company`.
+- A rota pública de artigo é `/{slug}` e o índice usa `/insights`.
 - Usar um único domínio oficial.
 - A geração de conteúdo pode sugerir canonical, mas a canonical final só é confirmada após aprovação humana.
 - A canonical deve apontar para a URL final escolhida para o artigo.
@@ -41,6 +43,8 @@ Cada página de artigo deve ter, no mínimo:
 - `twitter:image`.
 
 A imagem deve existir, ser legível em miniatura e ter texto alternativo no conteúdo quando também for exibida na página.
+
+O build usa a featured image do artigo para Open Graph, Twitter e JSON-LD. Quando ela não existir, pode usar somente o fallback real definido em `site.config.js`; o hero público é omitido.
 
 ## Links internos
 

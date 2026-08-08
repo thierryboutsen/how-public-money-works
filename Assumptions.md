@@ -30,7 +30,7 @@ The production website will consist of:
   - Full **Open Graph** tags (`og:type`, `og:url`, `og:title`, `og:description`, `og:image`, `og:site_name`, `og:locale`)
   - Full **Twitter Card** tags (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`)
   - For article pages: additional `article:author`, `article:published_time`, `article:section`, `article:tag` OG properties
-* The assumed production domain is `https://elianafariasima.com` — **update canonical URLs before go-live** if the domain differs.
+* The confirmed production origin is `https://www.luminasmart.company`; runtime metadata must read this value from `site.config.js`.
 
 ## 7. Admin Editor Access Control
 * `admin-editor.html` must **never be indexed or publicly linked**. 

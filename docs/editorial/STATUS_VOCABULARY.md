@@ -69,3 +69,4 @@ Usado para descrever a situação de publicação do conteúdo:
 - `skipped` não é falha; é uma decisão editorial aceitável por qualidade, fontes ou timing.
 - Nenhum status autoriza autopublicação.
 - A aprovação humana continua obrigatória antes de mover conteúdo para `content/posts/`.
+- Para novos artigos, `status: published` só é tecnicamente válido quando `lifecycleStatus: published`, `humanDraftApproval: approved`, `publicationApproval: approved`, `publishAllowed: true`, `canonicalDecision: approved` e `slugDecision: approved` também estiverem presentes. Validators e builds não alteram esses gates automaticamente.
