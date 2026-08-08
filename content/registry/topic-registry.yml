@@ -10,6 +10,12 @@ coveredTopics:
     status: covered
     relatedSlug: "what-is-a-city-budget-and-why-should-you-care"
     notes: "Não repetir a introdução geral; novos textos precisam de subtema e ângulo distintos."
+  - topic: "Local taxes"
+    subtopic: "Revenue destination"
+    angle: "Revenue pathways across governments, funds, restrictions, and services"
+    status: covered
+    relatedSlug: "where-do-your-local-taxes-actually-go"
+    notes: "Cobertura conceitual e evergreen; novos textos devem escolher uma etapa, receita ou jurisdição claramente distinta e usar fontes oficiais quando houver exemplos específicos."
 
 seedTopics:
   - topic: "Local taxes"

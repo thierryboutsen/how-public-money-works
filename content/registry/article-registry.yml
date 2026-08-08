@@ -27,3 +27,20 @@ articles:
     relatedPosts: []
     sourceLevel: "evergreen"
     lastReviewed: "2026-08-07"
+  - slug: "where-do-your-local-taxes-actually-go"
+    title: "Where Do Your Local Taxes Actually Go?"
+    status: published
+    publishDate: "2026-08-08"
+    category: "Your Tax Dollars"
+    tags:
+      - local taxes
+      - public finance
+      - local government
+      - public services
+    contentAngle: "Explains how local revenue moves across governments, funds, restrictions, and shared service responsibilities without promising dollar-level tracing."
+    duplicateCheckSignature: "local-taxes|revenue-destination|revenue-pathways-and-service-connection"
+    precisionRisk: "high"
+    relatedPosts:
+      - "what-is-a-city-budget-and-why-should-you-care"
+    sourceLevel: "conceptual-institutionally-validated"
+    lastReviewed: "2026-08-08"

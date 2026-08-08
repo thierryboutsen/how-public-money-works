@@ -2,6 +2,7 @@
 title: "Where Do Your Local Taxes Actually Go?"
 subtitle: "A plain-English guide to how local public money moves from residents to services, funds, and decisions."
 slug: "where-do-your-local-taxes-actually-go"
+date: "2026-08-08"
 author: "Eliana Faria Lima"
 category: "Your Tax Dollars"
 tags:
@@ -9,22 +10,31 @@ tags:
   - public finance
   - local government
   - public services
+primaryKeyword: "where do local taxes go"
+secondaryKeywords:
+  - "local tax revenue"
+  - "local government funding"
+  - "general fund and restricted resources"
+searchIntent: "informational"
 readingTime: "7 min read"
 excerpt: "Local taxes do not follow one simple path. Learn how to distinguish revenue sources, governments, funds, and services when reading local public documents."
-status: "review"
-lifecycleStatus: "drafted"
+featuredImage: "/assets/article-local-taxes-flow-hero.jpg"
+featuredImageStatus: "ready"
+featuredImageAlt: "Conceptual diagram showing public money moving from residents through local governments and funds to public services."
+status: "published"
+lifecycleStatus: "published"
 publicLanguage: "en"
 internalWorkflowLanguage: "pt-BR"
 sourceLevel: "conceptual-institutionally-validated"
 precisionRisk: "high"
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
+publishAllowed: true
+canonicalDecision: "approved"
+slugDecision: "approved"
 humanDraftApproval: "approved"
-publicationApproval: "pending"
-seoTitle: "Where Do Your Local Taxes Go? A Plain-English Guide"
-metaDescription: "Learn how local tax revenue moves through U.S. city, county, school district, and special-district budgets—and how to check the path yourself."
+publicationApproval: "approved"
+seoTitle: "Where Do Your Local Taxes Go?"
+metaDescription: "Learn how local tax revenue moves through governments, funds, and public services, and why the path varies across U.S. communities and jurisdictions."
 ---
 
 # Where Do Your Local Taxes Actually Go?
@@ -111,7 +121,7 @@ When you open an official budget or revenue document, begin with the source rath
 
 Useful documents may include an adopted budget, revenue schedule, fund summary, capital plan, annual financial report, grant description, or official budget glossary. An adopted budget describes planned authority and spending, while an annual financial report generally describes reported results after the period; they should not be treated as the same document. The relevant document depends on the question and the jurisdiction.
 
-For a broader introduction, see [What Is a City Budget — and Why Should You Care?](/insights/what-is-a-city-budget-and-why-should-you-care).
+For a broader introduction, see [What Is a City Budget — and Why Should You Care?](/what-is-a-city-budget-and-why-should-you-care).
 
 For more plain-English civic explainers, visit the [Insights](/insights) page.
 
@@ -153,10 +163,14 @@ Editorial review notes:
 - Human draft review completed.
 - Editorial and factual review completed for the current conceptual version.
 - No factual validation items remain pending.
-- Draft approved to advance to publication-preparation stage.
-- Publication remains prohibited until separate publication approval.
-- Requires final slug/canonical approval.
-- publishAllowed remains false.
+- Publication approval granted for 2026-08-08 after editorial, factual, and technical validation.
+- Article advanced through the controlled publication workflow.
+- Slug approved for the generated article path.
+- Canonical policy approved using the centrally configured SITE_ORIGIN and the root-level article slug.
+- Publication date set to 2026-08-08 by human approval.
+- Featured image asset and alt text are prepared for the current conceptual version.
+- Open Graph, Twitter, JSON-LD, breadcrumbs, categories, tags, and article metadata are generated dynamically by the local pipeline.
+- publishAllowed is true for this approved published version.
 
 Factual validation checklist:
 - claim: "Taxes are compulsory charges imposed under legal authority to raise public revenue."
@@ -246,8 +260,7 @@ Factual validation checklist:
   status: validated
 
 Operational note:
-- This draft remains unpublished.
-- Official source validation is required before publication.
+- This conceptual article completed official-source validation before publication.
 - No jurisdiction-specific example should be added without official documents.
-- publishAllowed remains false.
+- publishAllowed is true for this approved published version.
 -->
