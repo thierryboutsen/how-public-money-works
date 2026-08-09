@@ -18,6 +18,8 @@ function hooksForFailure(failAt) {
 }
 
 async function main() {
+  assert(TRANSACTION_STAGES.indexOf('publicExposureAudit') > TRANSACTION_STAGES.indexOf('audit'), 'public exposure audit must run after content audit');
+  assert(TRANSACTION_STAGES.indexOf('publicExposureAudit') < TRANSACTION_STAGES.indexOf('deploy'), 'public exposure audit must run before deploy');
   for (const stage of TRANSACTION_STAGES) {
     const { hooks, state } = hooksForFailure(stage);
     const result = await executeTransaction(hooks);

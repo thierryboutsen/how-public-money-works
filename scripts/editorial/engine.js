@@ -340,12 +340,14 @@ async function evaluateAutoPublish(pair, options = {}) {
     pipeline.build = pipeline.validator.pass ? commandResult('npm', ['run', 'build']) : { pass: false, status: null, stderr: 'blocked by validator' };
     pipeline.guards = pipeline.build.pass ? commandResult('npm', ['run', 'content:test:guards']) : { pass: false, status: null, stderr: 'blocked by build' };
     pipeline.publicAudit = pipeline.guards.pass ? commandResult('npm', ['run', 'content:audit']) : { pass: false, status: null, stderr: 'blocked by guards' };
+    pipeline.publicExposureAudit = pipeline.publicAudit.pass ? commandResult('npm', ['run', 'public:exposure-audit']) : { pass: false, status: null, stderr: 'blocked by content audit' };
     const english = pair.find((document) => document.data.language === 'en') || pair[0];
-    pipeline.preview = pipeline.publicAudit.pass ? commandResult('npm', ['run', 'content:preview', '--', english.filePath]) : { pass: false, status: null, stderr: 'blocked by public audit' };
+    pipeline.preview = pipeline.publicExposureAudit.pass ? commandResult('npm', ['run', 'content:preview', '--', english.filePath]) : { pass: false, status: null, stderr: 'blocked by public exposure audit' };
     pipeline.previewAudit = pipeline.preview.pass ? commandResult('npm', ['run', 'content:audit:preview']) : { pass: false, status: null, stderr: 'blocked by preview' };
+    pipeline.previewExposureAudit = pipeline.previewAudit.pass ? commandResult('npm', ['run', 'public:exposure-audit:preview']) : { pass: false, status: null, stderr: 'blocked by preview audit' };
     pipeline.securityAudit = commandResult('npm', ['audit', '--omit=dev']);
   } else {
-    for (const name of ['validator', 'guards', 'build', 'publicAudit', 'preview', 'previewAudit', 'securityAudit']) pipeline[name] = { pass: false, skipped: true };
+    for (const name of ['validator', 'guards', 'build', 'publicAudit', 'publicExposureAudit', 'preview', 'previewAudit', 'previewExposureAudit', 'securityAudit']) pipeline[name] = { pass: false, skipped: true };
   }
   result.pipeline = pipeline;
   result.checks.contentValidator = { pass: pipeline.validator?.pass === true, detail: pipeline.validator };
@@ -353,6 +355,10 @@ async function evaluateAutoPublish(pair, options = {}) {
   result.checks.buildPass = { pass: pipeline.build?.pass === true, detail: pipeline.build };
   result.checks.previewAuditPass = { pass: pipeline.previewAudit?.pass === true, detail: pipeline.previewAudit };
   result.checks.publicLeakAuditPass = { pass: pipeline.publicAudit?.pass === true, detail: pipeline.publicAudit };
+  result.checks.publicExposureAudit = {
+    pass: pipeline.publicExposureAudit?.pass === true && pipeline.previewExposureAudit?.pass === true,
+    detail: { public: pipeline.publicExposureAudit, preview: pipeline.previewExposureAudit }
+  };
   result.checks.noUnresolvedSecurityWarning = {
     pass: result.checks.noUnresolvedSecurityWarning.pass && pipeline.securityAudit?.pass === true,
     detail: { contentMetadata: result.checks.noUnresolvedSecurityWarning.detail, dependencyAudit: pipeline.securityAudit }

@@ -19,7 +19,7 @@ GitHub Actions
 → verifica revisão humana e cutoff
 → executa Auto-Publish Gate
 → promove o par em workspace efêmero
-→ validate → build → audit
+→ validate → build → content audit → public exposure audit
 → deploy Vercel
 → verificação pública
 → atualização pós-verificação de registries/calendário
@@ -79,7 +79,7 @@ Todos os itens precisam passar:
 - imagem e alt text;
 - links internos e externos acessíveis;
 - content validator e publication guards;
-- build, preview audit e public leak audit;
+- build, preview audit, public leak audit e public exposure audit;
 - zero blockers P1/P2;
 - zero alertas editoriais de segurança;
 - `npm audit --omit=dev` sem vulnerabilidade bloqueante.
@@ -96,6 +96,7 @@ PRECHECK
 → VALIDATE
 → BUILD
 → AUDIT
+→ PUBLIC_EXPOSURE_AUDIT
 → DEPLOY
 → PUBLIC_VERIFY
 → REGISTRY_UPDATE
@@ -142,6 +143,8 @@ npm run editorial:test:transaction
 npm run editorial:auto-publish-check -- <slug-en>
 npm run editorial:run-slot -- <slug-en>
 npm run editorial:preview -- <arquivo-en>
+npm run public:exposure-audit
+npm run public:test:exposure-audit
 ```
 
 `editorial:run-slot` é dry-run por padrão. `--execute` falha se `enabled`, `dryRun` ou a confirmação de secrets não permitirem produção.
@@ -159,7 +162,7 @@ npm run editorial:preview -- <arquivo-en>
 - Pausar tudo: `enabled: false` ou remover/commentar o schedule.
 - Desligar fallback: `autoPublishFallback: false`.
 - Forçar retenção humana: registrar rejeição ou `requestedChanges`.
-- Fonte, claim, tradução, imagem, canonical, link ou audit inválido: SKIP.
+- Fonte, claim, tradução, imagem, canonical, link, leak ou exposição pública inválida: SKIP.
 - Rejeição ou mudança solicitada: HOLD.
 - Deploy ambíguo: ABORT.
 - Verificação pública falha: não atualizar registry.

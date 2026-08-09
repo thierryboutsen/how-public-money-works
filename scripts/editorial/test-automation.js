@@ -16,6 +16,7 @@ function passingEvaluation() {
     externalSourceLinksValid: { pass: true }, contentValidator: { pass: true },
     publicationGuards: { pass: true }, buildPass: { pass: true },
     previewAuditPass: { pass: true }, publicLeakAuditPass: { pass: true },
+    publicExposureAudit: { pass: true },
     noP1Blocker: { pass: true }, noP2Blocker: { pass: true }, noUnresolvedSecurityWarning: { pass: true }
   };
   return {
@@ -51,7 +52,7 @@ beforeCutoff.schedule.state = 'before-cutoff';
 assert.strictEqual(runnerDecision(beforeCutoff).decision, 'WOULD_HOLD', 'silence before cutoff must HOLD');
 assert.strictEqual(runnerDecision(allPass).decision, 'WOULD_PUBLISH_AUTO', 'silence after cutoff plus all gates must use auto fallback');
 
-for (const gate of ['factualValidationComplete', 'featuredImageExists', 'duplicateRiskAcceptable', 'canonicalValidation', 'translationValidation', 'contentValidator', 'buildPass', 'noUnresolvedSecurityWarning']) {
+for (const gate of ['factualValidationComplete', 'featuredImageExists', 'duplicateRiskAcceptable', 'canonicalValidation', 'translationValidation', 'contentValidator', 'buildPass', 'publicExposureAudit', 'noUnresolvedSecurityWarning']) {
   assert.strictEqual(runnerDecision(fail(allPass, gate)).decision, 'WOULD_SKIP', `${gate} must produce SKIP`);
 }
 const rejected = JSON.parse(JSON.stringify(allPass));
@@ -62,4 +63,4 @@ changes.human.status = 'changes-requested';
 changes.human.requestedChanges = ['Revise scope'];
 assert.strictEqual(runnerDecision(changes).decision, 'WOULD_HOLD', 'requested changes must HOLD');
 
-console.log('Editorial automation scenarios passed: human approval, cutoff HOLD, auto fallback, rejection, changes, factual, image, duplicate, canonical, translation, validator, build, and security.');
+console.log('Editorial automation scenarios passed: human approval, cutoff HOLD, auto fallback, rejection, changes, factual, image, duplicate, canonical, translation, validator, build, public exposure, and security.');

@@ -13,7 +13,7 @@ const {
   stringifyMarkdownFrontmatter
 } = require('../content-utils');
 
-const TRANSACTION_STAGES = ['precheck', 'promote', 'validate', 'build', 'audit', 'deploy', 'publicVerify', 'registryUpdate'];
+const TRANSACTION_STAGES = ['precheck', 'promote', 'validate', 'build', 'audit', 'publicExposureAudit', 'deploy', 'publicVerify', 'registryUpdate'];
 
 async function executeTransaction(hooks, context = {}) {
   const completed = [];
@@ -216,6 +216,7 @@ function createProductionHooks(pair, evaluation, options) {
       npmRun('content:audit');
       npmCommand(['audit', '--omit=dev'], 'npm audit');
     },
+    publicExposureAudit: () => npmRun('public:exposure-audit'),
     deploy: () => {
       if (!process.env.GITHUB_ACTIONS) throw new Error('Production deploy is restricted to GitHub Actions');
       const missing = config.requiredProductionEnvironmentVariables.filter((name) => !process.env[name]);
