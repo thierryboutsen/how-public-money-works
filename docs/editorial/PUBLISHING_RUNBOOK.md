@@ -91,6 +91,8 @@ Executar o build somente depois da revisão, da aprovação e do preview planeja
 
 O build gera também `sitemap.xml` e `robots.txt`. Depois do build, executar `npm run content:audit`.
 
+Executar também `npm run public:exposure-audit`. Se esse comando falhar, a publicação manual ou automática está bloqueada: não fazer deploy até remover do output público qualquer draft, review, arquivo interno, source map, path local, metadata operacional ou referência inadequada a tooling.
+
 ## 9. Deploy manual ou fallback automatizado aprovado
 
 O deploy manual deve ser deliberado e feito após a conferência do preview. Gerar ideias, briefs, drafts ou preencher um slot nunca aciona publicação por si só.

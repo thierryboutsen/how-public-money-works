@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { marked } = require('marked');
 const siteConfig = require('./site.config');
 const {
@@ -54,6 +55,10 @@ function parseMarkdownWithShortcodes(markdown) {
     .replace(/\[diagram\](.*?)\[\/diagram\]/gs, `<div class="diagram"><div class="label">A Reader's Diagram</div><h4>$1</h4><svg width="100%" height="160" viewBox="0 0 560 160" fill="none" role="img" aria-label="Conceptual diagram blueprint" style="background:#FDFDFD; border:1px solid #E8DFC9;"><rect x="40" y="30" width="200" height="100" stroke="#A88752" stroke-dasharray="4"/><text x="140" y="85" text-anchor="middle" font-family="Playfair Display" font-size="16" fill="#0C1A2C">Diagram Blueprint</text><line x1="240" y1="80" x2="320" y2="80" stroke="#A88752" stroke-width="1.5"/><rect x="320" y="30" width="200" height="100" stroke="#A88752" stroke-dasharray="4"/></svg></div>`)
     .replace(/^## (.*?)$/gm, '<h2><span class="num">§</span> $1</h2>');
   return marked.parse(processed);
+}
+
+function stripInternalHtmlComments(markdown) {
+  return markdown.replace(/<!--[\s\S]*?-->/g, '').trimEnd();
 }
 
 function formatDate(dateString, language = siteConfig.defaultLanguage) {
@@ -247,7 +252,7 @@ function renderPostPage(document, posts, template, essayNumber, options = {}) {
   const isPreview = options.mode === 'preview';
   const canonicalUrl = absoluteUrl(publicPathForDocument(post));
   const socialImagePath = post.featuredImage || siteConfig.defaultSocialImage;
-  const bodyMarkdown = stripLeadingArticleH1(document.content, post.title);
+  const bodyMarkdown = stripInternalHtmlComments(stripLeadingArticleH1(document.content, post.title));
   const body = parseMarkdownWithShortcodes(bodyMarkdown);
   const wordCount = bodyMarkdown.trim() ? bodyMarkdown.trim().split(/\s+/).length : 0;
   const ui = getPostUi(post.language);
@@ -377,6 +382,93 @@ function copyRecursiveSync(source, destination) {
   }
 }
 
+function sanitizeJpegMetadata(buffer, sourceName = '<jpeg>') {
+  if (buffer.length < 4 || buffer[0] !== 0xFF || buffer[1] !== 0xD8) {
+    throw new Error(`${sourceName} is not a valid JPEG file`);
+  }
+  const chunks = [buffer.subarray(0, 2)];
+  let offset = 2;
+  while (offset < buffer.length) {
+    const markerStart = offset;
+    if (buffer[offset] !== 0xFF) throw new Error(`${sourceName} has malformed JPEG metadata`);
+    while (offset < buffer.length && buffer[offset] === 0xFF) offset += 1;
+    const marker = buffer[offset];
+    offset += 1;
+    if (marker === 0xDA || marker === 0xD9) {
+      chunks.push(buffer.subarray(markerStart));
+      return Buffer.concat(chunks);
+    }
+    if (marker === 0x01 || (marker >= 0xD0 && marker <= 0xD7)) {
+      chunks.push(buffer.subarray(markerStart, offset));
+      continue;
+    }
+    if (offset + 2 > buffer.length) throw new Error(`${sourceName} has a truncated JPEG segment`);
+    const segmentLength = buffer.readUInt16BE(offset);
+    const segmentEnd = offset + segmentLength;
+    if (segmentLength < 2 || segmentEnd > buffer.length) throw new Error(`${sourceName} has an invalid JPEG segment length`);
+    const isPrivateMetadata = marker === 0xE1 || marker === 0xED || marker === 0xFE;
+    if (!isPrivateMetadata) chunks.push(buffer.subarray(markerStart, segmentEnd));
+    offset = segmentEnd;
+  }
+  throw new Error(`${sourceName} has no JPEG scan data`);
+}
+
+function copyPublicAsset(publicPath, outputDirectory) {
+  const match = publicPath.match(/^\/assets\/([A-Za-z0-9][A-Za-z0-9._/-]*)$/);
+  if (!match || match[1].split('/').includes('..')) throw new Error(`Unsafe public asset path: ${publicPath}`);
+  const sourceRoot = path.join(SRC_DIR, 'assets');
+  const sourcePath = path.resolve(sourceRoot, ...match[1].split('/'));
+  if (!sourcePath.startsWith(`${sourceRoot}${path.sep}`) || !fs.existsSync(sourcePath) || !fs.statSync(sourcePath).isFile()) {
+    throw new Error(`Referenced public asset does not exist: ${publicPath}`);
+  }
+  const destinationPath = path.join(outputDirectory, 'assets', ...match[1].split('/'));
+  fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+  if (/\.jpe?g$/i.test(sourcePath)) {
+    fs.writeFileSync(destinationPath, sanitizeJpegMetadata(fs.readFileSync(sourcePath), publicPath));
+  } else {
+    fs.copyFileSync(sourcePath, destinationPath);
+  }
+  return destinationPath;
+}
+
+function copyReferencedPublicAssets(outputDirectory) {
+  const assetPaths = new Set();
+  const textFiles = [];
+  const visit = (directory) => {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const fullPath = path.join(directory, entry.name);
+      if (entry.isDirectory()) visit(fullPath);
+      else if (/\.(?:html|css|js|xml)$/i.test(entry.name)) {
+        textFiles.push(fullPath);
+        const text = fs.readFileSync(fullPath, 'utf8');
+        for (const match of text.matchAll(/\/assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) assetPaths.add(match[0]);
+      }
+    }
+  };
+  visit(outputDirectory);
+  const publicAssets = [];
+  for (const assetPath of [...assetPaths].sort()) {
+    const relativeSource = assetPath.replace(/^\/assets\//, '');
+    const sourcePath = path.join(SRC_DIR, 'assets', ...relativeSource.split('/'));
+    if (!fs.existsSync(sourcePath)) throw new Error(`Referenced public asset does not exist: ${assetPath}`);
+    const sourceBuffer = fs.readFileSync(sourcePath);
+    const publicBuffer = /\.jpe?g$/i.test(sourcePath) ? sanitizeJpegMetadata(sourceBuffer, assetPath) : sourceBuffer;
+    const extension = path.extname(relativeSource);
+    const baseName = relativeSource.slice(0, -extension.length);
+    const fingerprint = crypto.createHash('sha256').update(publicBuffer).digest('hex').slice(0, 12);
+    const fingerprintedPath = `/assets/${baseName}.${fingerprint}${extension}`;
+    const destinationPath = path.join(outputDirectory, ...fingerprintedPath.replace(/^\//, '').split('/'));
+    fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+    fs.writeFileSync(destinationPath, publicBuffer);
+    for (const textFile of textFiles) {
+      const text = fs.readFileSync(textFile, 'utf8');
+      if (text.includes(assetPath)) fs.writeFileSync(textFile, text.split(assetPath).join(fingerprintedPath));
+    }
+    publicAssets.push(fingerprintedPath);
+  }
+  return publicAssets;
+}
+
 function generateSitemap(posts) {
   const entries = [
     { url: absoluteUrl('/') },
@@ -421,8 +513,9 @@ function buildSite() {
   if (fs.existsSync(resolvedDist)) fs.rmSync(resolvedDist, { recursive: true, force: true });
   fs.mkdirSync(resolvedDist, { recursive: true });
 
-  copyRecursiveSync(path.join(SRC_DIR, 'assets'), path.join(resolvedDist, 'assets'));
-  copyRecursiveSync(path.join(SRC_DIR, 'shared'), path.join(resolvedDist, 'shared'));
+  fs.mkdirSync(path.join(resolvedDist, 'shared'), { recursive: true });
+  fs.copyFileSync(path.join(SRC_DIR, 'shared', 'base.css'), path.join(resolvedDist, 'shared', 'base.css'));
+  fs.copyFileSync(path.join(SRC_DIR, 'shared', 'main.js'), path.join(resolvedDist, 'shared', 'main.js'));
   fs.copyFileSync(path.join(SRC_DIR, '404.html'), path.join(resolvedDist, '404.html'));
   fs.writeFileSync(path.join(resolvedDist, 'index.html'), renderIndexPage(indexTemplate));
 
@@ -439,9 +532,10 @@ function buildSite() {
   fs.writeFileSync(path.join(resolvedDist, 'insights.html'), renderInsightsPage(indexPosts, insightsTemplate));
   fs.writeFileSync(path.join(resolvedDist, 'sitemap.xml'), generateSitemap(posts));
   fs.writeFileSync(path.join(resolvedDist, 'robots.txt'), generateRobots());
+  const publicAssets = copyReferencedPublicAssets(resolvedDist);
 
-  console.log(`Build complete. Generated ${posts.length} published post(s), sitemap.xml, and robots.txt.`);
-  return { posts, outputDirectory: resolvedDist };
+  console.log(`Build complete. Generated ${posts.length} published post(s), ${publicAssets.length} referenced asset(s), sitemap.xml, and robots.txt.`);
+  return { posts, publicAssets, outputDirectory: resolvedDist };
 }
 
 if (require.main === module) {
@@ -460,5 +554,9 @@ module.exports = {
   generateSitemap,
   generateRobots,
   copyRecursiveSync,
+  copyPublicAsset,
+  copyReferencedPublicAssets,
+  sanitizeJpegMetadata,
+  stripInternalHtmlComments,
   parseMarkdownWithShortcodes
 };

@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const siteConfig = require('../site.config');
 const {
   ROOT_DIR,
   listMarkdownFiles,
@@ -9,7 +10,7 @@ const {
   validateDocuments,
   publicPathForDocument
 } = require('./content-utils');
-const { renderPostPage, copyRecursiveSync } = require('../build');
+const { renderPostPage, copyPublicAsset, copyRecursiveSync } = require('../build');
 
 function main() {
   const input = process.argv[2];
@@ -34,6 +35,8 @@ function main() {
   if (path.resolve(previewDirectory) !== path.join(ROOT_DIR, '.preview')) throw new Error('Unsafe preview path.');
   if (fs.existsSync(previewDirectory)) fs.rmSync(previewDirectory, { recursive: true, force: true });
   copyRecursiveSync(distDirectory, previewDirectory);
+  copyPublicAsset(siteConfig.defaultSocialImage, previewDirectory);
+  if (reviewDocument.data.featuredImage) copyPublicAsset(reviewDocument.data.featuredImage, previewDirectory);
 
   const postTemplate = fs.readFileSync(path.join(ROOT_DIR, 'src', 'templates', 'post.html'), 'utf8');
   const posts = [reviewDocument.data, ...publishedDocuments.map((document) => document.data)]
