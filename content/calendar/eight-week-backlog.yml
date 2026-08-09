@@ -1,0 +1,195 @@
+window:
+  start: "2026-08-11"
+  end: "2026-10-01"
+  weeks: 8
+  slots: 16
+  languages: [en, pt-BR]
+  publicationAuthorized: false
+
+principles:
+  qualityOverCadence: true
+  duplicateAnglesBlocked: true
+  backupRequiresEqualValidation: true
+  skipWhenNoStrongTopic: true
+
+mainBacklog:
+  - order: 1
+    title: "What Is a Local Government Audit?"
+    category: "Transparency & Accountability"
+    format: explainer
+    difficulty: foundational
+    factualRisk: medium
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "local-government-audit|understand-accountability|scope-evidence-findings-and-limitations"
+  - order: 2
+    title: "What Is a Public Budget Hearing?"
+    category: "Citizen Participation"
+    format: practical participation guide
+    difficulty: foundational
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "public-budget-hearing|participate-effectively|notice-testimony-decision-and-local-rules"
+  - order: 3
+    title: "Annual Financial Reports: What They Show After the Budget Year Ends"
+    category: "Transparency & Accountability"
+    format: document-reading guide
+    difficulty: intermediate
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map"
+  - order: 4
+    title: "Property Taxes Explained: From Assessment to Levy to Bill"
+    category: "Your Tax Dollars"
+    format: lifecycle explainer
+    difficulty: intermediate
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain"
+  - order: 5
+    title: "General Fund vs. Special Revenue Funds: A Practical Comparison"
+    category: "Public Finance Basics"
+    format: comparison
+    difficulty: intermediate
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions"
+  - order: 6
+    title: "How Local Governments Pay for Roads and Infrastructure"
+    category: "Public Services & Infrastructure"
+    format: funding walkthrough
+    difficulty: practical
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources"
+  - order: 7
+    title: "What Is a Capital Improvement Plan—and How Should You Read One?"
+    category: "Public Services & Infrastructure"
+    format: document-reading guide
+    difficulty: practical
+    factualRisk: medium
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "capital-improvement-plan|read-long-term-priorities|project-ranking-funding-and-operating-impact"
+  - order: 8
+    title: "Taxes, Fees, and Fines: What's the Difference?"
+    category: "Your Tax Dollars"
+    format: concept comparison
+    difficulty: foundational
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger"
+  - order: 9
+    title: "How Does a Local Government Borrow Money?"
+    category: "Public Finance Basics"
+    format: lifecycle explanation
+    difficulty: intermediate
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure"
+  - order: 10
+    title: "What Does Fund Balance Mean—and Is It Available to Spend?"
+    category: "Public Finance Basics"
+    format: myth-vs-reality explainer
+    difficulty: intermediate
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability"
+  - order: 11
+    title: "What Is a Special District—and Why Might It Be on Your Public-Money Map?"
+    category: "Local Government Explained"
+    format: institutional identity guide
+    difficulty: foundational
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability"
+  - order: 12
+    title: "Who Actually Decides How Local Public Money Is Spent?"
+    category: "Citizen Participation"
+    format: decision-path guide
+    difficulty: practical
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight"
+  - order: 13
+    title: "What Happens When a Local Government Changes Its Budget Midyear?"
+    category: "Transparency & Accountability"
+    format: process walkthrough
+    difficulty: practical
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting"
+  - order: 14
+    title: "How to Find and Understand Your Local Government's Financial Documents"
+    category: "Citizen Participation"
+    format: practical decision guide
+    difficulty: practical
+    factualRisk: medium
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "local-financial-documents|find-authoritative-record|question-entity-period-document-and-version"
+  - order: 15
+    title: "How Local Governments Receive State and Federal Funding"
+    category: "Local Government Explained"
+    format: funding lifecycle explanation
+    difficulty: intermediate
+    factualRisk: high
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting"
+  - order: 16
+    title: "Operating Budget vs. Capital Budget: What Each One Tells You"
+    category: "Public Finance Basics"
+    format: comparison
+    difficulty: intermediate
+    factualRisk: medium
+    sourceFeasibility: strong
+    editorialScore: STRONG
+    topicAngleSignature: "operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact"
+
+reserveBacklog:
+  - title: "What Does a Clean Audit Opinion Actually Mean?"
+    category: "Transparency & Accountability"
+    editorialScore: ACCEPTABLE
+    backupFor: "What Is a Local Government Audit?"
+    topicAngleSignature: "audit-opinion|interpret-assurance|clean-opinion-scope-and-non-guarantees"
+  - title: "How to Read a Local Government Financial Report"
+    category: "Transparency & Accountability"
+    editorialScore: ACCEPTABLE
+    backupFor: "Annual Financial Reports: What They Show After the Budget Year Ends"
+    topicAngleSignature: "financial-report|navigate-statements|reader-route-through-statements-notes-and-schedules"
+  - title: "How Local Governments Plan for Long-Term Infrastructure Costs"
+    category: "Public Services & Infrastructure"
+    editorialScore: ACCEPTABLE
+    backupFor: "What Is a Capital Improvement Plan—and How Should You Read One?"
+    topicAngleSignature: "infrastructure-lifecycle-cost|plan-long-term-affordability|renewal-maintenance-and-replacement"
+  - title: "Why Governments Use Restricted Revenue"
+    category: "Public Finance Basics"
+    editorialScore: ACCEPTABLE
+    backupFor: "General Fund vs. Special Revenue Funds: A Practical Comparison"
+    topicAngleSignature: "restricted-revenue|understand-use-limits|legal-external-and-program-conditions"
+
+rejectedOrMerged:
+  - title: "What Are Municipal Bonds?"
+    decision: merged
+    reason: "Covered as a necessary part of the broader borrowing lifecycle; a separate explainer would repeat the same reader outcome."
+  - title: "What Is a Budget Amendment?"
+    decision: merged
+    reason: "Merged into the midyear-change walkthrough to preserve the process context."
+  - title: "What Happens to Unspent Public Money?"
+    decision: rework
+    reason: "Too broad and prone to overlap with fund balance, encumbrances, restrictions, and timing."
+  - title: "How to Read a Public Budget Summary"
+    decision: reserve-only
+    reason: "Useful only with a sharper document-specific angle; not stronger than the selected document-navigation guide."

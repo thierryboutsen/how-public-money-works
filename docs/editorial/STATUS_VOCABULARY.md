@@ -47,6 +47,7 @@ Usado somente para os slots de cadência em `content/calendar/`:
 Usado para o histórico e a taxonomia em `content/registry/topic-registry.yml`:
 
 - `covered`: tema e ângulo já cobertos por conteúdo publicado.
+- `reserved`: tema e assinatura formalmente selecionados ou mantidos como backup durante preparação; bloqueia duplicidade, mas não significa conteúdo coberto, aprovado ou publicado.
 - `seed`: sugestão de geração; não é compromisso editorial.
 - `blocked`: tema ou combinação de tema e ângulo que deve ser evitada por repetição, risco ou decisão editorial.
 - `retired`: item removido da rotação ativa, preservado apenas para histórico.
@@ -67,6 +68,7 @@ Usado para descrever a situação de publicação do conteúdo:
 
 - `published` só pode aparecer para conteúdo efetivamente publicado ou pronto em `content/posts/`.
 - `seed` não é compromisso editorial.
+- `reserved` protege uma pauta em preparação contra repetição e só vira `covered` depois de publicação e verificação pública.
 - `open` não é artigo.
 - `skipped` é aceitável quando não houver qualidade suficiente.
 - `skipped` não é falha; é uma decisão editorial aceitável por qualidade, fontes ou timing.

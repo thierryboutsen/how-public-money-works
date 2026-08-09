@@ -1,6 +1,6 @@
 # Registro dinâmico de cobertura e sugestões.
 # Seed topics são insumos de geração, não compromissos editoriais.
-# Status válidos: covered, seed, blocked, retired.
+# Status válidos: covered, reserved, seed, blocked, retired.
 # Vocabulário completo: docs/editorial/STATUS_VOCABULARY.md
 
 coveredTopics:
@@ -164,6 +164,29 @@ seedTopics:
     status: seed
     relatedSlug: null
     notes: "Sugestão; diferenciar relatório financeiro de orçamento aprovado."
+
+reservedTopics:
+  # Reservas impedem repetição durante preparação. Não significam covered, approved ou published.
+  - { topic: "Accountability", subtopic: "Local government audit", angle: "Scope, evidence, findings, and limitations", status: reserved, relatedSlug: "what-is-a-local-government-audit", topicAngleSignature: "local-government-audit|understand-accountability|scope-evidence-findings-and-limitations" }
+  - { topic: "Budget process", subtopic: "Public budget hearing", angle: "Notice, testimony, decision, and local rules", status: reserved, relatedSlug: "what-is-a-public-budget-hearing", topicAngleSignature: "public-budget-hearing|participate-effectively|notice-testimony-decision-and-local-rules" }
+  - { topic: "Financial reporting", subtopic: "Annual financial reports", angle: "Budget-report boundaries and reader map", status: reserved, relatedSlug: "annual-financial-report-local-government", topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map" }
+  - { topic: "Property tax", subtopic: "Assessment, levy, and bill", angle: "Bill-formation chain", status: reserved, relatedSlug: "property-taxes-assessment-levy-bill", topicAngleSignature: "property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain" }
+  - { topic: "Government accounting", subtopic: "General and special revenue funds", angle: "Fund types versus resource restrictions", status: reserved, relatedSlug: "general-fund-vs-special-revenue-funds", topicAngleSignature: "governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions" }
+  - { topic: "Infrastructure funding", subtopic: "Local roads", angle: "Ownership, maintenance, capital, and shared sources", status: reserved, relatedSlug: "how-local-governments-pay-for-roads", topicAngleSignature: "local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources" }
+  - { topic: "Infrastructure planning", subtopic: "Capital improvement plans", angle: "Project ranking, funding, and operating impact", status: reserved, relatedSlug: "capital-improvement-plan-explained", topicAngleSignature: "capital-improvement-plan|read-long-term-priorities|project-ranking-funding-and-operating-impact" }
+  - { topic: "Public charges", subtopic: "Taxes, fees, and fines", angle: "Purpose and trigger", status: reserved, relatedSlug: "taxes-fees-and-fines-difference", topicAngleSignature: "public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger" }
+  - { topic: "Municipal debt", subtopic: "Local borrowing lifecycle", angle: "Authorization, security, issuance, repayment, and disclosure", status: reserved, relatedSlug: "how-local-governments-borrow-money", topicAngleSignature: "local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure" }
+  - { topic: "Government accounting", subtopic: "Fund balance", angle: "Cash, constraints, timing, and availability", status: reserved, relatedSlug: "what-does-fund-balance-mean", topicAngleSignature: "fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability" }
+  - { topic: "Government structure", subtopic: "Special districts", angle: "State-law autonomy, boundaries, and accountability", status: reserved, relatedSlug: "what-is-a-special-district", topicAngleSignature: "special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability" }
+  - { topic: "Budget decisions", subtopic: "Spending authority", angle: "Proposal, authorization, administration, and oversight", status: reserved, relatedSlug: "who-decides-local-public-spending", topicAngleSignature: "local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight" }
+  - { topic: "Budget process", subtopic: "Midyear changes", angle: "Trigger, revised authority, record, and final reporting", status: reserved, relatedSlug: "local-budget-changes-midyear", topicAngleSignature: "midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting" }
+  - { topic: "Public records navigation", subtopic: "Local financial documents", angle: "Question, entity, period, document, and version", status: reserved, relatedSlug: "find-local-government-financial-documents", topicAngleSignature: "local-financial-documents|find-authoritative-record|question-entity-period-document-and-version" }
+  - { topic: "Intergovernmental revenue", subtopic: "State and federal funding", angle: "Eligibility, conditions, timing, match, and reporting", status: reserved, relatedSlug: "state-federal-funding-local-governments", topicAngleSignature: "intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting" }
+  - { topic: "Budget structure", subtopic: "Operating and capital budgets", angle: "Service cost, asset investment, and future operating impact", status: reserved, relatedSlug: "operating-budget-vs-capital-budget", topicAngleSignature: "operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact" }
+  - { topic: "Accountability", subtopic: "Clean audit opinion", angle: "Assurance, scope, and non-guarantees", status: reserved, relatedSlug: null, topicAngleSignature: "audit-opinion|interpret-assurance|clean-opinion-scope-and-non-guarantees", backupOnly: true }
+  - { topic: "Financial reporting", subtopic: "Statement navigation", angle: "Route through statements, notes, and schedules", status: reserved, relatedSlug: null, topicAngleSignature: "financial-report|navigate-statements|reader-route-through-statements-notes-and-schedules", backupOnly: true }
+  - { topic: "Infrastructure costs", subtopic: "Lifecycle affordability", angle: "Renewal, maintenance, and replacement", status: reserved, relatedSlug: null, topicAngleSignature: "infrastructure-lifecycle-cost|plan-long-term-affordability|renewal-maintenance-and-replacement", backupOnly: true }
+  - { topic: "Restricted revenue", subtopic: "Use limits", angle: "Legal, external, and program conditions", status: reserved, relatedSlug: null, topicAngleSignature: "restricted-revenue|understand-use-limits|legal-external-and-program-conditions", backupOnly: true }
 
 blockedOrAvoidedDuplicates:
   - topic: "City budget"
