@@ -25,7 +25,12 @@ module.exports = Object.freeze({
     'Civic Education'
   ],
   localizedCategories: [
-    'Seus Impostos'
+    'Fundamentos de Finanças Públicas',
+    'Governo Local Explicado',
+    'Seus Impostos',
+    'Transparência e Prestação de Contas',
+    'Serviços Públicos e Infraestrutura',
+    'Participação Cidadã'
   ],
   publicationStatuses: [
     'draft',
