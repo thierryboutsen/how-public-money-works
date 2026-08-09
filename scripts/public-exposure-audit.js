@@ -143,7 +143,9 @@ function auditText(relativePath, text, assetReferences) {
       }
     }
   }
-  for (const match of text.matchAll(/\/assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) assetReferences.add(match[0].replace(/^\//, ''));
+  for (const match of text.matchAll(/\/?assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) {
+    assetReferences.add(match[0].replace(/^\//, ''));
+  }
   return errors;
 }
 

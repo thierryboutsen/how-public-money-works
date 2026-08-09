@@ -441,7 +441,9 @@ function copyReferencedPublicAssets(outputDirectory) {
       else if (/\.(?:html|css|js|xml)$/i.test(entry.name)) {
         textFiles.push(fullPath);
         const text = fs.readFileSync(fullPath, 'utf8');
-        for (const match of text.matchAll(/\/assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) assetPaths.add(match[0]);
+        for (const match of text.matchAll(/\/?assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) {
+          assetPaths.add(`/${match[0].replace(/^\//, '')}`);
+        }
       }
     }
   };
@@ -462,7 +464,11 @@ function copyReferencedPublicAssets(outputDirectory) {
     fs.writeFileSync(destinationPath, publicBuffer);
     for (const textFile of textFiles) {
       const text = fs.readFileSync(textFile, 'utf8');
-      if (text.includes(assetPath)) fs.writeFileSync(textFile, text.split(assetPath).join(fingerprintedPath));
+      const relativeAssetPath = assetPath.replace(/^\//, '');
+      const rewritten = text
+        .split(assetPath).join(fingerprintedPath)
+        .split(relativeAssetPath).join(fingerprintedPath);
+      if (rewritten !== text) fs.writeFileSync(textFile, rewritten);
     }
     publicAssets.push(fingerprintedPath);
   }

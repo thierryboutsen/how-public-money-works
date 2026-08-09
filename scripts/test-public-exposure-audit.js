@@ -34,6 +34,8 @@ function append(directory, relativePath, content) {
 
 assert(fs.existsSync(DIST_DIR), 'dist/ must exist; run npm run build before public exposure tests');
 assert.deepStrictEqual(auditPublicExposure(DIST_DIR).errors, [], 'clean dist must pass before negative cases');
+const builtIndex = fs.readFileSync(path.join(DIST_DIR, 'index.html'), 'utf8');
+assert(!/(?:href|src)=["']assets\//i.test(builtIndex), 'relative asset references must be rewritten to public fingerprinted paths');
 
 runCase('review', (directory) => write(directory, 'content/review/fictitious.md', '# Internal review'), /outside the public output allowlist/);
 runCase('draft', (directory) => write(directory, 'content/drafts/fictitious.md', '# Internal draft'), /outside the public output allowlist/);
@@ -44,6 +46,7 @@ runCase('local-path', (directory) => append(directory, 'index.html', '<p>C:\\Pro
 runCase('legacy-domain', (directory) => append(directory, 'index.html', '<a href="https:\/\/elianafariasima.com">legacy</a>'), /deprecated domain/);
 runCase('preview-route', (directory) => fs.copyFileSync(path.join(directory, 'index.html'), path.join(directory, 'preview.html')), /unauthorized article\/page|outside the public output allowlist/);
 runCase('internal-comment', (directory) => append(directory, 'index.html', '<!-- TODO: run editorial automation -->'), /internal HTML comment|editorial automation marker/);
+runCase('relative-asset', (directory) => append(directory, 'index.html', '<img src="assets/missing-relative.jpg" alt="test">'), /referenced public asset is missing|broken internal href\/src/);
 
 const jpegWithExif = Buffer.from([
   0xFF, 0xD8,
@@ -52,4 +55,4 @@ const jpegWithExif = Buffer.from([
 ]);
 assert(inspectJpegMetadata(jpegWithExif).includes('APP1-EXIF-or-XMP'), 'EXIF metadata must be detected');
 
-console.log('Public exposure negative tests passed: review, draft, source map, markdown, tooling marker, local path, legacy domain, preview route, internal comment, and EXIF metadata.');
+console.log('Public exposure negative tests passed: review, draft, source map, markdown, tooling marker, local path, legacy domain, preview route, internal comment, relative asset, and EXIF metadata.');

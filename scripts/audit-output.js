@@ -129,9 +129,9 @@ function auditHtmlFile(filePath, outputDirectory, options = {}) {
     if (!/\balt=["'][^"']+["']/i.test(image)) errors.push(`image missing non-empty alt: ${image.slice(0, 100)}`);
   }
 
-  for (const match of html.matchAll(/href=["']([^"']+)["']/gi)) {
+  for (const match of html.matchAll(/(?:href|src)=["']([^"']+)["']/gi)) {
     const target = localTarget(outputDirectory, match[1]);
-    if (target && !fs.existsSync(target)) errors.push(`broken internal href: ${match[1]}`);
+    if (target && !fs.existsSync(target)) errors.push(`broken internal href/src: ${match[1]}`);
   }
 
   for (const match of html.matchAll(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi)) {
