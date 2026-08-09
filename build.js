@@ -94,7 +94,7 @@ function renderHero(post) {
 <section class="article-hero">
   <div class="inner">
     <figure class="photo-slot light photo-illus">
-      <img src="${escapeHtml(post.featuredImage)}" alt="${escapeHtml(post.featuredImageAlt)}" />
+      <img src="${escapeHtml(post.featuredImage)}" alt="${escapeHtml(post.featuredImageAlt)}" decoding="async" fetchpriority="high" />
       ${caption}
     </figure>
   </div>
@@ -301,9 +301,11 @@ function renderPostPage(document, posts, template, essayNumber, options = {}) {
   }, 'src/templates/post.html');
 }
 
-function renderPostImage(post, className = 'photo-slot light photo-illus') {
+function renderPostImage(post, className = 'photo-slot light photo-illus', options = {}) {
   if (!post.featuredImage) return `<div class="${className}" aria-hidden="true"></div>`;
-  return `<div class="${className}"><img src="${escapeHtml(post.featuredImage)}" alt="${escapeHtml(post.featuredImageAlt)}" loading="lazy" /></div>`;
+  const loading = options.loading === 'eager' ? 'eager' : 'lazy';
+  const fetchPriority = options.fetchPriority ? ` fetchpriority="${escapeHtml(options.fetchPriority)}"` : '';
+  return `<div class="${className}"><img src="${escapeHtml(post.featuredImage)}" alt="${escapeHtml(post.featuredImageAlt)}" loading="${loading}" decoding="async"${fetchPriority} /></div>`;
 }
 
 function renderFeaturedPost(post) {
@@ -312,7 +314,7 @@ function renderFeaturedPost(post) {
 <section class="featured-essay">
   <div class="inner">
     <a href="${escapeHtml(publicPathForDocument(post))}" aria-label="Read ${escapeHtml(post.title)}">
-      ${renderPostImage(post)}
+      ${renderPostImage(post, 'photo-slot light photo-illus', { loading: 'eager', fetchPriority: 'high' })}
     </a>
     <div class="text">
       <div class="badge">Featured Essay</div>
@@ -335,7 +337,7 @@ function renderPostCards(posts) {
       <div class="meta-row"><span class="cat">${escapeHtml(post.category)}</span><span class="num">N.º ${String(posts.length - index).padStart(2, '0')}</span></div>
       <h3><a href="${escapeHtml(publicPathForDocument(post))}">${escapeHtml(post.title)}</a></h3>
       <p>${escapeHtml(post.excerpt)}</p>
-      <div class="card-foot"><span class="time">${escapeHtml(post.readingTime)}</span><a class="read" href="${escapeHtml(publicPathForDocument(post))}">Read →</a></div>
+      <div class="card-foot"><span class="time">${escapeHtml(post.readingTime)}</span><a class="read" href="${escapeHtml(publicPathForDocument(post))}">Read article →</a></div>
     </div>
   </article>`).join('\n');
 }

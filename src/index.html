@@ -254,6 +254,13 @@
   .featured-civic .photo-slot {
     height: 600px;
   }
+  .featured-civic .photo-slot img,
+  .ic-card .photo-slot img,
+  .about-civic .photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .featured-civic .badge {
     display: inline-flex; align-items: center; gap: 14px;
     font-family: var(--font-ui);
@@ -328,6 +335,7 @@
     transition: all 220ms ease;
     display: flex; flex-direction: column;
   }
+  .ic-card .card-link { display: flex; flex-direction: column; min-height: 100%; }
   .ic-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(12,26,44,0.08); }
   .ic-card .photo-slot { height: 220px; }
   .ic-card .body { padding: 26px 28px 28px; flex: 1; display: flex; flex-direction: column; }
@@ -680,11 +688,147 @@
       justify-content: flex-start;
     }
   }
+
+  @media (max-width: 767px) {
+    .hero-civic { padding: 48px 0; }
+    .hero-civic .inner,
+    .trust-strip .inner,
+    .areas-civic .head,
+    .areas-list,
+    .featured-civic .inner,
+    .blog-civic .head,
+    .blog-civic .insights,
+    .about-civic .inner,
+    .resources-civic .head,
+    .resources-civic .grid,
+    .contact-civic .inner,
+    .newsletter .inner { padding-inline: 20px; }
+    .hero-civic .inner { gap: 28px; }
+    .hero-civic .eyebrow { margin-bottom: 20px; font-size: 9.5px; letter-spacing: 0.28em; }
+    .hero-civic h1 { font-size: clamp(38px, 12vw, 48px); margin-bottom: 20px; }
+    .hero-civic .lede { font-size: 17px; line-height: 1.55; margin-bottom: 26px; }
+    .hero-civic .actions {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .hero-civic .actions .btn,
+    .hero-civic .actions .btn-link { justify-content: center; min-height: 44px; }
+    .hero-civic .strip { gap: 12px 16px; padding-top: 20px; font-size: 9.5px; letter-spacing: 0.18em; }
+    .hero-civic .strip .sep { width: 12px; }
+    .hero-civic .image-wrap { height: clamp(320px, 105vw, 410px); }
+    .hero-civic .image-card {
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      max-width: none;
+      padding: 18px 20px;
+    }
+    .hero-civic .image-card .quote { font-size: 19px; }
+    .hero-civic .image-card .by { letter-spacing: 0.2em; }
+
+    .trust-strip { padding: 28px 0; }
+    .trust-strip .inner { gap: 18px; }
+    .trust-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 18px;
+      width: 100%;
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+    }
+
+    .areas-civic,
+    .featured-civic,
+    .blog-civic,
+    .about-civic,
+    .resources-civic,
+    .contact-civic { padding: 56px 0; }
+    .areas-civic .head { margin-bottom: 28px; }
+    .areas-civic h2,
+    .blog-civic h2,
+    .about-civic h2,
+    .resources-civic h2,
+    .contact-civic h2 { font-size: clamp(32px, 10vw, 42px); }
+    .area-row { grid-template-columns: 32px minmax(0, 1fr); gap: 10px 14px; padding: 20px 0; }
+    .area-row h3 { font-size: 20px; }
+    .area-row p { font-size: 14.5px; }
+    .featured-civic .inner { gap: 28px; }
+    .featured-civic .photo-slot { height: auto; aspect-ratio: 16 / 10; }
+    .featured-civic h2 { font-size: clamp(31px, 9vw, 40px); }
+    .featured-civic .excerpt { font-size: 16px; line-height: 1.55; }
+
+    .blog-civic .head { gap: 18px; margin-bottom: 30px; }
+    .blog-civic .tagline { font-size: 19px; }
+    .blog-civic .insights { gap: 18px; }
+    .ic-card .photo-slot { height: auto !important; aspect-ratio: 16 / 9; }
+    .ic-card .body { padding: 20px; }
+    .ic-card .cat { margin-bottom: 10px; letter-spacing: 0.25em; }
+    .ic-card h3 { font-size: clamp(20px, 6vw, 23px); }
+    .ic-card p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .ic-card .foot { min-height: 44px; gap: 12px; font-size: 10px; letter-spacing: 0.18em; }
+    .ic-card .foot .time,
+    .ic-card .foot .read { white-space: nowrap; }
+
+    .about-civic .inner { display: flex; flex-direction: column; gap: 30px; }
+    .about-civic .image-stack {
+      order: -1;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      max-height: 520px;
+    }
+    .about-civic .image-stack .photo-slot.main {
+      position: relative !important;
+      inset: auto;
+      width: 100%;
+      height: 100%;
+    }
+    .about-civic .image-stack .photo-slot.main img { object-position: 64% 35% !important; }
+    .about-civic .image-stack .photo-slot.accent { display: none; }
+    .about-civic h2 { margin-bottom: 24px; }
+    .about-civic p { font-size: 16px; line-height: 1.6; margin-bottom: 18px; }
+    .about-civic .btn { min-height: 44px; margin-top: 18px !important; }
+
+    .resources-civic .head { margin-bottom: 30px; }
+    .resources-civic .grid { gap: 16px; }
+    .res-tile { padding: 24px 22px; }
+    .contact-civic .inner { gap: 30px; }
+    .contact-civic .card { padding: 22px; }
+    .newsletter { padding: 56px 0; }
+    .newsletter form { flex-direction: column; gap: 10px; }
+    .newsletter input,
+    .newsletter button { min-height: 48px; border: 1px solid #D8D2C2; }
+    .newsletter button { border-color: #0C1A2C; }
+  }
+
+  @media (max-width: 340px) {
+    .hero-civic .inner,
+    .trust-strip .inner,
+    .areas-civic .head,
+    .areas-list,
+    .featured-civic .inner,
+    .blog-civic .head,
+    .blog-civic .insights,
+    .about-civic .inner,
+    .resources-civic .head,
+    .resources-civic .grid,
+    .contact-civic .inner,
+    .newsletter .inner { padding-inline: 16px; }
+    .trust-items { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<nav class="nav civic">
+<nav class="nav civic" aria-label="Primary navigation">
   <div class="brand">
     <span class="brand-mark" style="color: var(--gold-deep);">L</span>
     <span class="brand-name">Lumina Smart Strategies</span>
@@ -696,13 +840,13 @@
     <a href="insights.html" data-translate="nav-blog">Eliana's Blog</a>
     <a href="#contact" data-translate="nav-contact">Contact</a>
   </div>
-  <div class="lang-switch">
+  <div class="lang-switch" aria-label="Language selection">
     <span data-lang="EN" class="on">EN</span>
     <span>/</span>
     <span data-lang="PT">PT</span>
   </div>
   <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})" data-translate="nav-subscribe">Subscribe</button>
-  <button class="menu-toggle" aria-label="Toggle Menu">
+  <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
     <span></span>
     <span></span>
     <span></span>
@@ -831,14 +975,15 @@
       <button class="btn btn-primary" onclick="window.location.href='/what-is-a-city-budget-and-why-should-you-care'" data-translate="featured-essay-btn">Read the article <span>→</span></button>
     </div>
 
-    <div class="photo-slot light photo-illus" style="background-image: url('assets/featured-essay-cover.jpg'); background-size: cover; background-position: center;">
+    <div class="photo-slot light photo-illus">
+      <img src="assets/featured-essay-cover.jpg" alt="Civic public architecture represented in an editorial composition" width="1024" height="1024" loading="lazy" decoding="async" />
       <div class="caption" data-translate="featured-caption">City hall · civic public architecture</div>
     </div>
   </div>
 </section>
 
 <!-- ========== BLOG ========== -->
-<section class="blog-civic">
+<section class="blog-civic" id="insights-preview">
   <div class="head">
     <div class="left">
       <div class="eyebrow" style="color:var(--gold-deep); margin-bottom:18px; display:inline-flex; align-items:center; gap:14px;">
@@ -855,8 +1000,9 @@
   </div>
 
   <div class="insights">
-    <article class="ic-card" onclick="window.location.href='/what-is-a-city-budget-and-why-should-you-care'">
-      <div class="photo-slot light photo-illus" style="height:220px; background-image: url('assets/article-city-budget-hero.jpg'); background-size: cover; background-position: center;"></div>
+    <article class="ic-card">
+      <a class="card-link" href="/what-is-a-city-budget-and-why-should-you-care" aria-label="Read What Is a City Budget and Why Should You Care?">
+      <div class="photo-slot light photo-illus"><img src="assets/article-city-budget-hero.jpg" alt="Civic documents arranged as an editorial illustration of a city budget" width="1024" height="1024" loading="lazy" decoding="async" /></div>
       <div class="body">
         <div class="cat"><span data-translate="featured-essay-category">Civic Education</span> · N.º 01</div>
         <h3 data-translate="featured-essay-title">What Is a City Budget and Why Should You Care?</h3>
@@ -866,10 +1012,12 @@
           <span class="read" data-translate="blog-sec-read-article">Read article →</span>
         </div>
       </div>
+      </a>
     </article>
 
-    <article class="ic-card" onclick="window.location.href='insights.html'">
-      <div class="photo-slot light photo-illus" style="height:220px; background-image: url('assets/insights-cover-civic.jpg'); background-size: cover; background-position: center;"></div>
+    <article class="ic-card">
+      <a class="card-link" href="insights.html" aria-label="Browse the property tax essay in Insights">
+      <div class="photo-slot light photo-illus"><img src="assets/article-local-taxes-flow-hero.jpg" alt="Editorial diagram of local tax revenue flowing toward public services" width="1536" height="1024" loading="lazy" decoding="async" /></div>
       <div class="body">
         <div class="cat" data-translate="res-03-title">Property Tax · N.º 02</div>
         <h3 data-translate="res-03-title">Where Does My Property Tax Actually Go?</h3>
@@ -879,10 +1027,12 @@
           <span class="read" data-translate="blog-sec-read-article">Read article →</span>
         </div>
       </div>
+      </a>
     </article>
 
-    <article class="ic-card" onclick="window.location.href='insights.html'">
-      <div class="photo-slot light photo-illus" style="height:220px; background-image: url('assets/insights-cover-civic.jpg'); background-size: cover; background-position: 50% 70%;"></div>
+    <article class="ic-card">
+      <a class="card-link" href="insights.html" aria-label="Browse the government financial report essay in Insights">
+      <div class="photo-slot light photo-illus"><img src="assets/insights-cover-civic.jpg" alt="Editorial civic finance composition for public accountability insights" width="1024" height="1024" loading="lazy" decoding="async" style="object-position:50% 70%;" /></div>
       <div class="body">
         <div class="cat">Transparency · N.º 03</div>
         <h3 data-translate="res-02-title">Reading a Government Financial Report Without a Degree</h3>
@@ -892,6 +1042,7 @@
           <span class="read" data-translate="blog-sec-read-article">Read article →</span>
         </div>
       </div>
+      </a>
     </article>
   </div>
 </section>
@@ -920,11 +1071,13 @@
     <div class="image-stack">
       <div class="photo-slot main" style="position:relative; background:#0C1A2C; overflow:hidden;">
         <img src="assets/eliana-portrait.jpeg" alt="Eliana Faria Lima"
+          width="400" height="400" loading="lazy" decoding="async"
           style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 35%;" />
         <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 60%, rgba(12,26,44,0.45) 100%); pointer-events:none;"></div>
         <div class="caption" style="color:#F1E9D2; z-index:2;" data-translate="about-caption-1">Eliana Faria Lima · Founder</div>
       </div>
-      <div class="photo-slot light photo-illus accent" style="border-color: #F2EBD9; background-image: url('assets/article-city-budget-hero.jpg'); background-size: cover; background-position: center;">
+      <div class="photo-slot light photo-illus accent" style="border-color: #F2EBD9;">
+        <img src="assets/article-city-budget-hero.jpg" alt="Editorial composition representing public finance strategy" width="1024" height="1024" loading="lazy" decoding="async" />
         <div class="caption" data-translate="about-caption-2">Lumina Consulting · Strategy</div>
       </div>
     </div>

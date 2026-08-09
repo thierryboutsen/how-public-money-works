@@ -25,7 +25,7 @@ const TRANSLATIONS = {
     "hero-strip-1": "13+ years · public-sector practice",
     "hero-strip-2": "How Public Money Works · ongoing publication",
     "hero-strip-3": "EN / PT · bilingual practice",
-    "hero-caption": "Documentary editorial photography · placeholder",
+    "hero-caption": "Lumina Smart Strategies · Public finance consulting",
     "hero-card-label": "From the editor",
     "hero-card-quote": "A budget is a city's most honest piece of writing.",
     "hero-card-author": "— Eliana Faria Lima",
@@ -59,7 +59,7 @@ const TRANSLATIONS = {
     "featured-essay-excerpt-1": "Every year, your city decides how to spend hundreds of millions of dollars — on streets, schools, libraries, parks, fire trucks, water lines. That decision is called a budget. It is not a technical document for accountants. It is a public statement of priorities, written in numbers.",
     "featured-essay-excerpt-2": "This essay walks through how a city budget is built, who has a voice in it, and what a citizen can actually see by reading one.",
     "featured-essay-btn": "Read the article",
-    "featured-caption": "Town hall · budget hearing · placeholder",
+    "featured-caption": "City hall · civic public architecture",
     
     // Blog section homepage
     "blog-sec-eyebrow": "A publication by Eliana Faria Lima",
@@ -79,8 +79,8 @@ const TRANSLATIONS = {
     "about-p2": "Her current work focuses on bringing American public-finance literacy into reach of the people it most affects: residents, small-business owners, students, civic organizations, and community leaders who live with the consequences of how budgets are written.",
     "about-quote": "The goal is simple, and the method is patient: clear language, plain numbers, and the conviction that public money belongs to the public.",
     "about-btn": "Read full biography",
-    "about-caption-1": "Eliana Faria Lima · Portrait",
-    "about-caption-2": "Context · placeholder",
+    "about-caption-1": "Eliana Faria Lima · Founder",
+    "about-caption-2": "Lumina Consulting · Strategy",
     
     // Resources Section
     "res-eyebrow": "Resources",
@@ -186,7 +186,7 @@ const TRANSLATIONS = {
     "hero-strip-1": "13+ anos · prática no setor público",
     "hero-strip-2": "How Public Money Works · publicação contínua",
     "hero-strip-3": "EN / PT · prática bilíngue",
-    "hero-caption": "Fotografia documental editorial · marcador de posição",
+    "hero-caption": "Lumina Smart Strategies · Consultoria em finanças públicas",
     "hero-card-label": "Da editora",
     "hero-card-quote": "Um orçamento é o texto mais honesto que uma cidade produz.",
     "hero-card-author": "— Eliana Faria Lima",
@@ -220,7 +220,7 @@ const TRANSLATIONS = {
     "featured-essay-excerpt-1": "Todos os anos, sua cidade decide como gastar centenas de milhões de dólares — em ruas, escolas, bibliotecas, parques, caminhões de bombeiros, redes de água. Essa decisão se chama orçamento. Não é um documento técnico para contadores. É uma declaração pública de prioridades, escrita em números.",
     "featured-essay-excerpt-2": "Este artigo detalha como um orçamento municipal é construído, quem tem voz nele e o que um cidadão pode de fato ver ao ler um.",
     "featured-essay-btn": "Ler o artigo",
-    "featured-caption": "Reunião comunitária · audiência pública · marcador de posição",
+    "featured-caption": "Prefeitura · arquitetura pública cívica",
     
     // Blog section homepage
     "blog-sec-eyebrow": "Uma publicação de Eliana Faria Lima",
@@ -240,8 +240,8 @@ const TRANSLATIONS = {
     "about-p2": "Seu trabalho atual foca em trazer a alfabetização em finanças públicas ao alcance das pessoas que ela mais afeta: moradores, pequenos empresários, estudantes, organizações cívicas e líderes comunitários que vivem com as consequências de como os orçamentos são escritos.",
     "about-quote": "O objetivo é simples, e o método é paciente: linguagem clara, números simples e a convicção de que o dinheiro público pertence ao público.",
     "about-btn": "Ler biografia completa",
-    "about-caption-1": "Eliana Faria Lima · Retrato",
-    "about-caption-2": "Contexto · marcador de posição",
+    "about-caption-1": "Eliana Faria Lima · Fundadora",
+    "about-caption-2": "Lumina Consulting · Estratégia",
     
     // Resources Section
     "res-eyebrow": "Recursos",
@@ -337,6 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (toggleBtn && navLinks) {
     toggleBtn.addEventListener("click", () => {
       navLinks.classList.toggle("open");
+      toggleBtn.setAttribute("aria-expanded", String(navLinks.classList.contains("open")));
     });
   }
 
@@ -345,6 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
   navItems.forEach(item => {
     item.addEventListener("click", () => {
       if (navLinks) navLinks.classList.remove("open");
+      if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false");
     });
   });
 

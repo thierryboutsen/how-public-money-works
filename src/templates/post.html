@@ -581,6 +581,7 @@
 
   /* Responsive Mobile/Tablet Adjustments */
   @media (max-width: 991px) {
+    .nav.civic { padding: 16px 24px; gap: 18px; }
     .breadcrumb .inner {
       padding: 0 24px;
       overflow-x: auto;
@@ -668,12 +669,51 @@
       padding: 0 24px;
     }
   }
+
+  @media (max-width: 540px) {
+    .nav.civic { padding: 3px 16px; gap: 4px 12px; }
+    .nav.civic .nav-cta { display: block; }
+  }
+
+  @media (max-width: 767px) {
+    .breadcrumb { padding: 10px 0; }
+    .breadcrumb .inner,
+    .article-header .inner,
+    .article-hero .cap,
+    .article-body .inner,
+    .article-foot .inner,
+    .related .head,
+    .related .grid { padding-inline: 20px; }
+    .article-header { padding: 32px 0; }
+    .article-header .meta { gap: 10px 12px; margin-bottom: 24px; font-size: 9.5px; letter-spacing: 0.22em; }
+    .article-header h1 { font-size: clamp(34px, 11vw, 44px); line-height: 1.08; margin-bottom: 18px; }
+    .article-header .subtitle { font-size: 17px; margin-bottom: 28px; }
+    .byline { gap: 14px; padding-top: 22px; }
+    .byline .stats { flex-direction: row; flex-wrap: wrap; gap: 10px 16px; }
+    .article-hero .photo-slot { height: auto; aspect-ratio: 16 / 10; }
+    .article-body { padding: 36px 0; }
+    .article-body p { font-size: 17px; line-height: 1.72; }
+    .article-body p.lede { font-size: 18px; }
+    .article-body h2 { font-size: clamp(28px, 8vw, 36px); }
+    .diagram svg { width: 500px; }
+  }
+
+  @media (max-width: 340px) {
+    .nav.civic { padding: 3px 12px; gap: 5px 8px; }
+    .breadcrumb .inner,
+    .article-header .inner,
+    .article-hero .cap,
+    .article-body .inner,
+    .article-foot .inner,
+    .related .head,
+    .related .grid { padding-inline: 16px; }
+  }
 </style>
 {{jsonLdScript}}
 </head>
 <body data-content-language="{{uiLanguage}}">
 
-<nav class="nav civic">
+<nav class="nav civic" aria-label="Primary navigation">
   <div class="brand">
     <span class="brand-mark" style="color: var(--gold-deep);">L</span>
     <span class="brand-name">Lumina Smart Strategies</span>
@@ -687,7 +727,7 @@
   </div>
   {{languageSwitchHtml}}
   <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})">{{navSubscribe}}</button>
-  <button class="menu-toggle" aria-label="{{navMenuLabel}}">
+  <button class="menu-toggle" aria-label="{{navMenuLabel}}" aria-expanded="false">
     <span></span>
     <span></span>
     <span></span>

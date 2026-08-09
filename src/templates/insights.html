@@ -441,11 +441,106 @@
       height: 180px;
     }
   }
+
+  @media (max-width: 767px) {
+    .pub-masthead { padding: 52px 0 56px; }
+    .pub-masthead .inner,
+    .filter-bar .inner,
+    .featured-essay .inner,
+    .all-essays .head,
+    .all-essays .grid,
+    .newsletter .inner { padding-inline: 20px; }
+    .pub-masthead .pre {
+      gap: 10px;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      margin-bottom: 18px;
+    }
+    .pub-masthead .pre::before,
+    .pub-masthead .pre::after { width: 20px; }
+    .pub-masthead h1 { font-size: clamp(42px, 14vw, 58px); margin-bottom: 14px; }
+    .pub-masthead .tagline { font-size: 19px; line-height: 1.35; margin-bottom: 26px; }
+    .pub-masthead .meta { gap: 10px 16px; font-size: 9.5px; letter-spacing: 0.2em; }
+
+    .filter-bar { top: 99px; }
+    .filter-bar .inner { gap: 12px; padding-block: 12px; }
+    .filter-bar .label { font-size: 9px; letter-spacing: 0.24em; }
+    .filter-bar .cats { gap: 16px; }
+    .filter-bar .cat {
+      min-height: 44px;
+      flex: 0 0 auto;
+      padding-block: 10px;
+      font-size: 9px;
+      letter-spacing: 0.17em;
+    }
+    .filter-bar .search input { min-height: 44px; font-size: 13px; }
+
+    .featured-essay { padding: 48px 0; }
+    .featured-essay .inner { gap: 24px; }
+    .featured-essay .photo-slot { height: auto; aspect-ratio: 16 / 10; }
+    .featured-essay .badge { margin-bottom: 16px; letter-spacing: 0.3em; }
+    .featured-essay h2 { font-size: clamp(30px, 9vw, 40px); margin-bottom: 16px; }
+    .featured-essay .meta { gap: 10px; margin-bottom: 18px; font-size: 9.5px; letter-spacing: 0.18em; }
+    .featured-essay .excerpt {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+      overflow: hidden;
+      font-size: 16px;
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+    .featured-essay .btn { min-height: 44px; }
+
+    .all-essays { padding: 48px 0 56px; }
+    .all-essays .head { margin-bottom: 24px; }
+    .all-essays h2 { font-size: clamp(30px, 9vw, 38px); }
+    .all-essays .grid { gap: 18px; }
+    .essay-card .photo-slot { height: auto; aspect-ratio: 16 / 9; }
+    .essay-card .body { padding: 18px 20px 20px; }
+    .essay-card .meta-row { margin-bottom: 12px; font-size: 9px; letter-spacing: 0.22em; gap: 12px; }
+    .essay-card h3 { font-size: clamp(20px, 6vw, 23px); margin-bottom: 10px; }
+    .essay-card p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .essay-card .card-foot {
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+      padding-top: 10px;
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+    }
+    .essay-card .time,
+    .essay-card .read { white-space: nowrap; }
+    .essay-card .read { display: inline-flex; align-items: center; min-height: 44px; }
+
+    .newsletter { padding: 56px 0; }
+    .newsletter form { flex-direction: column; gap: 10px; }
+    .newsletter input,
+    .newsletter button { min-height: 48px; border: 1px solid #D8D2C2; }
+    .newsletter button { border-color: #0C1A2C; }
+  }
+
+  @media (max-width: 340px) {
+    .pub-masthead .inner,
+    .filter-bar .inner,
+    .featured-essay .inner,
+    .all-essays .head,
+    .all-essays .grid,
+    .newsletter .inner { padding-inline: 16px; }
+    .filter-bar { top: 98px; }
+    .essay-card .body { padding-inline: 16px; }
+  }
 </style>
 </head>
 <body>
 
-<nav class="nav civic">
+<nav class="nav civic" aria-label="Primary navigation">
   <div class="brand">
     <span class="brand-mark" style="color: var(--gold-deep);">L</span>
     <span class="brand-name">Lumina Smart Strategies</span>
@@ -457,13 +552,13 @@
     <a href="insights.html" class="active" data-translate="nav-blog">Eliana's Blog</a>
     <a href="index.html#contact" data-translate="nav-contact">Contact</a>
   </div>
-  <div class="lang-switch">
+  <div class="lang-switch" aria-label="Language selection">
     <span data-lang="EN" class="on">EN</span>
     <span>/</span>
     <span data-lang="PT">PT</span>
   </div>
   <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})" data-translate="nav-subscribe">Subscribe</button>
-  <button class="menu-toggle" aria-label="Toggle Menu">
+  <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
     <span></span>
     <span></span>
     <span></span>
@@ -504,7 +599,7 @@
 {{featuredPostHtml}}
 
 <!-- ========== ALL ESSAYS ========== -->
-<section class="all-essays">
+<section class="all-essays" id="all-essays">
   <div class="head">
     <h2 data-translate="blog-all-essays">All Essays</h2>
     <div class="count">— {{postCount}} published essay(s)</div>
