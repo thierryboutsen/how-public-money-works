@@ -7,6 +7,7 @@ translationKey: "local-government-audit-reader-guide"
 translations:
   en: "/what-is-a-local-government-audit"
 targetPublicationDate: "2026-08-11"
+date: "2026-08-11"
 author: "Eliana Faria Lima"
 category: "Transparência e Prestação de Contas"
 tags:
@@ -26,18 +27,21 @@ excerpt: "Uma auditoria de governo local tem objetivo e escopo definidos. Entend
 featuredImage: "/assets/article-local-government-audit-hero.jpg"
 featuredImageStatus: "ready"
 featuredImageAlt: "Ilustração conceitual de um relatório de auditoria, pastas de evidências, gráficos e uma lupa."
-status: "review"
-lifecycleStatus: "drafted"
+status: "published"
+lifecycleStatus: "published"
 publicLanguage: "pt-BR"
 internalWorkflowLanguage: "pt-BR"
 sourceLevel: "conceptual-institutionally-validated"
 precisionRisk: "medium"
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
+publishAllowed: true
+canonicalDecision: "approved"
+slugDecision: "approved"
+humanDraftApproval: "approved"
+publicationApproval: "approved"
+publicationPath: "human-approved"
+autoPublishEligible: true
+topicAngleSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits"
 translationValidationStatus: "validated"
 requestedChanges: []
 p1Blockers: []
@@ -183,12 +187,10 @@ Essas perguntas mantêm o relatório em perspectiva. Elas permitem usar a audito
 
 <!--
 Editorial review notes:
-- Esta é uma versão PT-BR para revisão humana, adaptada da versão EN.
-- Data editorial pretendida: 2026-08-11; não constitui autorização de publicação.
-- Human draft approval is pending.
-- Publication approval is pending.
-- Canonical and slug decisions remain pending human approval.
-- publishAllowed remains false.
+- Human draft and publication review completed for the current conceptual version.
+- Publication was explicitly authorized for 2026-08-11.
+- Canonical and slug decisions are approved.
+- publishAllowed is true for this approved publication only.
 
 Factual validation checklist:
 - claim: Auditorias governamentais podem ter objetivos financeiros, de desempenho, conformidade/prestação de contas e recursos federais.

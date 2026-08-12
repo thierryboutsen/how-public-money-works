@@ -7,6 +7,7 @@ translationKey: "local-government-audit-reader-guide"
 translations:
   pt-BR: "/pt-br/o-que-e-uma-auditoria-de-governo-local"
 targetPublicationDate: "2026-08-11"
+date: "2026-08-11"
 author: "Eliana Faria Lima"
 category: "Transparency & Accountability"
 tags:
@@ -26,18 +27,21 @@ excerpt: "A local government audit has a defined objective and scope. Learn how 
 featuredImage: "/assets/article-local-government-audit-hero.jpg"
 featuredImageStatus: "ready"
 featuredImageAlt: "Conceptual illustration of an audit report, evidence folders, charts, and a magnifying glass."
-status: "review"
-lifecycleStatus: "drafted"
+status: "published"
+lifecycleStatus: "published"
 publicLanguage: "en"
 internalWorkflowLanguage: "pt-BR"
 sourceLevel: "conceptual-institutionally-validated"
 precisionRisk: "medium"
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
+publishAllowed: true
+canonicalDecision: "approved"
+slugDecision: "approved"
+humanDraftApproval: "approved"
+publicationApproval: "approved"
+publicationPath: "human-approved"
+autoPublishEligible: true
+topicAngleSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits"
 translationValidationStatus: "validated"
 requestedChanges: []
 p1Blockers: []
@@ -183,12 +187,10 @@ Those questions keep the report in proportion. They help you use an audit as a s
 
 <!--
 Editorial review notes:
-- This is a draft for human review.
-- Intended editorial date: 2026-08-11; this is not publication authorization.
-- Human draft approval is pending.
-- Publication approval is pending.
-- Canonical and slug decisions remain pending human approval.
-- publishAllowed remains false.
+- Human draft and publication review completed for the current conceptual version.
+- Publication was explicitly authorized for 2026-08-11.
+- Canonical and slug decisions are approved.
+- publishAllowed is true for this approved publication only.
 
 Factual validation checklist:
 - claim: Government audits can include financial, performance, compliance/accountability, and federal-award work with different objectives.
