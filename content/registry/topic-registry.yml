@@ -18,6 +18,15 @@ coveredTopics:
     translations:
       pt-BR: "/pt-br/para-onde-vao-os-seus-impostos-locais"
     notes: "Cobertura conceitual e evergreen; novos textos devem escolher uma etapa, receita ou jurisdição claramente distinta e usar fontes oficiais quando houver exemplos específicos."
+  - topic: "Accountability"
+    subtopic: "Local government audit"
+    angle: "Scope, opinions, findings, follow-up, and limitations"
+    status: covered
+    relatedSlug: "what-is-a-local-government-audit"
+    translations:
+      pt-BR: "/pt-br/o-que-e-uma-auditoria-de-governo-local"
+    topicAngleSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits"
+    notes: "Publicado e verificado em 2026-08-11; novos conteúdos sobre auditoria devem escolher objeto ou etapa claramente distinta."
 
 seedTopics:
   - topic: "Local taxes"
@@ -86,12 +95,6 @@ seedTopics:
     status: seed
     relatedSlug: null
     notes: "Sugestão; manter foco educativo e concreto."
-  - topic: "Accountability"
-    subtopic: "Local government audits"
-    angle: "What audits examine and cannot guarantee"
-    status: seed
-    relatedSlug: null
-    notes: "Sugestão; diferenciar auditoria financeira, de conformidade e de desempenho."
   - topic: "Intergovernmental revenue"
     subtopic: "Grants"
     angle: "Restrictions, matching, and reporting"
@@ -167,7 +170,6 @@ seedTopics:
 
 reservedTopics:
   # Reservas impedem repetição durante preparação. Não significam covered, approved ou published.
-  - { topic: "Accountability", subtopic: "Local government audit", angle: "Scope, evidence, findings, and limitations", status: reserved, relatedSlug: "what-is-a-local-government-audit", topicAngleSignature: "local-government-audit|understand-accountability|scope-evidence-findings-and-limitations" }
   - { topic: "Budget process", subtopic: "Public budget hearing", angle: "Notice, testimony, decision, and local rules", status: reserved, relatedSlug: "what-is-a-public-budget-hearing", topicAngleSignature: "public-budget-hearing|participate-effectively|notice-testimony-decision-and-local-rules" }
   - { topic: "Financial reporting", subtopic: "Annual financial reports", angle: "Budget-report boundaries and reader map", status: reserved, relatedSlug: "annual-financial-report-local-government", topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map" }
   - { topic: "Property tax", subtopic: "Assessment, levy, and bill", angle: "Bill-formation chain", status: reserved, relatedSlug: "property-taxes-assessment-levy-bill", topicAngleSignature: "property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain" }

@@ -71,3 +71,47 @@ articles:
       - "where-do-your-local-taxes-actually-go"
     sourceLevel: "conceptual-institutionally-validated"
     lastReviewed: "2026-08-08"
+  - slug: "what-is-a-local-government-audit"
+    title: "What Is a Local Government Audit?"
+    language: en
+    translations:
+      pt-BR: "/pt-br/o-que-e-uma-auditoria-de-governo-local"
+    status: published
+    publishDate: "2026-08-11"
+    category: "Transparency & Accountability"
+    tags:
+      - local government audit
+      - accountability
+      - financial reporting
+      - public records
+    contentAngle: "Explains audit scope, opinions, findings, follow-up, and the limits of the conclusions a reader can draw."
+    duplicateCheckSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits"
+    precisionRisk: "medium"
+    relatedPosts:
+      - "what-is-a-city-budget-and-why-should-you-care"
+      - "where-do-your-local-taxes-actually-go"
+    sourceLevel: "conceptual-institutionally-validated"
+    publicationPath: "human-approved"
+    lastReviewed: "2026-08-11"
+  - slug: "o-que-e-uma-auditoria-de-governo-local"
+    title: "O Que É uma Auditoria de Governo Local?"
+    language: pt-BR
+    translationOf: "what-is-a-local-government-audit"
+    translations:
+      en: "/what-is-a-local-government-audit"
+    status: published
+    publishDate: "2026-08-11"
+    category: "Transparência e Prestação de Contas"
+    tags:
+      - auditoria de governo local
+      - prestação de contas
+      - relatório financeiro
+      - documentos públicos
+    contentAngle: "Versão PT-BR do guia sobre escopo, opiniões, achados, acompanhamento e limites de auditorias de governos locais."
+    duplicateCheckSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits|pt-br-translation"
+    precisionRisk: "medium"
+    relatedPosts:
+      - "para-onde-vao-os-seus-impostos-locais"
+    sourceLevel: "conceptual-institutionally-validated"
+    publicationPath: "human-approved"
+    lastReviewed: "2026-08-11"

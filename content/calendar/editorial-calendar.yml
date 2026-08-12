@@ -31,12 +31,15 @@ slots:
   # status permanece selected até que os gates e a decisão humana aplicável permitam avanço.
   - date: "2026-08-11"
     slot: Tuesday
-    status: selected
+    status: published
     plannedTopic: "What Is a Local Government Audit?"
     articleSlug: "what-is-a-local-government-audit"
     backupTopic: "What Does a Clean Audit Opinion Actually Mean?"
-    readiness: awaiting-human-review
-    publicationDecision: pending
+    readiness: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    publishedAt: "2026-08-11"
   - date: "2026-08-13"
     slot: Thursday
     status: selected
