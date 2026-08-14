@@ -18,6 +18,7 @@ Todo artigo deve fornecer:
 - `readingTime`: texto de tempo de leitura;
 - `featuredImage`: caminho `/assets/...` para um arquivo existente;
 - `featuredImageAlt`: descrição obrigatória quando houver imagem;
+- `featuredImageReuseOverride`: exceção opcional e explícita, aceita somente como objeto com `approved: true`, `duplicateOf: <slug>` e `reason` editorial documentado;
 - `date`: data `YYYY-MM-DD`, obrigatória para conteúdo publicado;
 - `status`: status de publicação definido em `STATUS_VOCABULARY.md`.
 - `language`: idioma público aceito (`en` ou `pt-BR`);
@@ -25,6 +26,10 @@ Todo artigo deve fornecer:
 - `translations`: mapa recíproco entre idioma e rota pública correspondente.
 
 O build usa `title`, `subtitle`, `slug`, `seoTitle`, `metaDescription`, `excerpt`, `category`, `tags`, `date`, `author`, `readingTime`, `featuredImage` e `featuredImageAlt`. Não usar `publishDate`; o campo técnico atual é `date`.
+
+## Unicidade da featured image
+
+O gate `featuredImageUnique` calcula SHA-256 do arquivo e compara conjuntamente `content/posts/` e `content/review/` (incluindo pares preparados). Traduções com o mesmo `translationKey` são tratadas como a mesma publicação e podem compartilhar a imagem. Qualquer reutilização entre artigos diferentes falha antes da publicação. O override só é válido quando cada documento afetado registra `approved: true`, o slug original em `duplicateOf` e um `reason` com pelo menos 10 caracteres; um booleano ou justificativa vazia não contorna o gate.
 
 ## Campos editoriais
 
@@ -99,3 +104,4 @@ npm run content:test:guards
 ```
 
 O preview é escrito em `.preview/`, ignorado pelo Git. Ele não move conteúdo, não altera gates e não publica. A página exclusiva de preview usa `noindex,nofollow` e omite canonical, `og:url` e JSON-LD de produção.
+Drafts em `content/review/` podem ser pré-visualizados enquanto `humanDraftApproval` está `pending`; os gates completos continuam obrigatórios para qualquer conteúdo em `content/posts/` com status `published`.

@@ -55,6 +55,7 @@ npm run content:audit:preview
 ```
 
 O preview fica em `.preview/`, usa `noindex,nofollow`, omite canonical, `og:url` e JSON-LD de produção, e não altera `content/posts/`, gates ou status.
+Ele pode ser gerado com `humanDraftApproval: pending` justamente para apoiar a revisão humana; isso não satisfaz nem contorna os gates exigidos para conteúdo publicado.
 
 ## 5. approval
 
@@ -66,6 +67,7 @@ Somente depois da aprovação humana, transformar o draft em Markdown final e co
 
 - o slug é único;
 - a imagem existe;
+- `featuredImageUnique` passou contra publicados e todo o inventário em review/prepared;
 - o status está correto;
 - `lifecycleStatus`, aprovações de conteúdo/publicação, `publishAllowed`, canonical e slug satisfazem todos os gates descritos em `CONTENT_SCHEMA.md`;
 - a data não publica antes do planejado;

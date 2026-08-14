@@ -1,7 +1,9 @@
 'use strict';
 
 const assert = require('assert');
-const { TRANSACTION_STAGES, executeTransaction } = require('./publication-adapter');
+const fs = require('fs');
+const path = require('path');
+const { DEPLOY_SOURCE_ALLOWLIST, TRANSACTION_STAGES, createCleanDeploymentSource, executeTransaction } = require('./publication-adapter');
 
 function hooksForFailure(failAt) {
   const state = { calls: [], registryWrites: 0, rollbacks: 0 };
@@ -18,6 +20,18 @@ function hooksForFailure(failAt) {
 }
 
 async function main() {
+  const stagingRoot = createCleanDeploymentSource();
+  try {
+    for (const relativePath of DEPLOY_SOURCE_ALLOWLIST) {
+      assert(fs.existsSync(path.join(stagingRoot, relativePath)), `deployment source must include ${relativePath}`);
+    }
+    for (const privatePath of ['.git', '.github', '.editorial', 'content/review', 'content/drafts', 'docs', 'scripts/editorial']) {
+      assert(!fs.existsSync(path.join(stagingRoot, privatePath)), `deployment source must exclude ${privatePath}`);
+    }
+  } finally {
+    fs.rmSync(stagingRoot, { recursive: true, force: true });
+  }
+
   assert(TRANSACTION_STAGES.indexOf('publicExposureAudit') > TRANSACTION_STAGES.indexOf('audit'), 'public exposure audit must run after content audit');
   assert(TRANSACTION_STAGES.indexOf('publicExposureAudit') < TRANSACTION_STAGES.indexOf('deploy'), 'public exposure audit must run before deploy');
   for (const stage of TRANSACTION_STAGES) {

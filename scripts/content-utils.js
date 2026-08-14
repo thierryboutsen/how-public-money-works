@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const YAML = require('yaml');
 const siteConfig = require('../site.config');
 
@@ -84,6 +85,64 @@ function absoluteUrl(publicPath) {
 function sourceAssetPath(publicPath) {
   if (!publicPath || typeof publicPath !== 'string' || !publicPath.startsWith('/assets/')) return null;
   return path.join(ROOT_DIR, 'src', publicPath.replace(/^\//, ''));
+}
+
+function featuredImageArticleIdentity(doc) {
+  return doc.data.translationKey
+    ? `translation:${doc.data.translationKey}`
+    : `document:${doc.relativePath}`;
+}
+
+function validFeaturedImageReuseOverride(doc, ownerSlugs) {
+  const override = doc.data.featuredImageReuseOverride;
+  return Boolean(
+    override
+    && typeof override === 'object'
+    && !Array.isArray(override)
+    && override.approved === true
+    && typeof override.reason === 'string'
+    && override.reason.trim().length >= 10
+    && typeof override.duplicateOf === 'string'
+    && ownerSlugs.has(override.duplicateOf)
+  );
+}
+
+function validateFeaturedImageUniqueness(documents) {
+  const byHash = new Map();
+  const errors = [];
+
+  for (const doc of documents) {
+    if (!doc.data.featuredImage) continue;
+    const assetPath = sourceAssetPath(doc.data.featuredImage);
+    if (!assetPath || !fs.existsSync(assetPath)) continue;
+    const hash = crypto.createHash('sha256').update(fs.readFileSync(assetPath)).digest('hex');
+    if (!byHash.has(hash)) byHash.set(hash, new Map());
+    const byArticle = byHash.get(hash);
+    const identity = featuredImageArticleIdentity(doc);
+    if (!byArticle.has(identity)) byArticle.set(identity, []);
+    byArticle.get(identity).push(doc);
+  }
+
+  for (const [hash, byArticle] of byHash.entries()) {
+    if (byArticle.size < 2) continue;
+    const articleGroups = [...byArticle.values()].sort((left, right) => {
+      const leftPublished = left.some((doc) => doc.data.status === 'published') ? 0 : 1;
+      const rightPublished = right.some((doc) => doc.data.status === 'published') ? 0 : 1;
+      return leftPublished - rightPublished || left[0].relativePath.localeCompare(right[0].relativePath);
+    });
+    const ownerGroup = articleGroups[0];
+    const ownerSlugs = new Set(ownerGroup.map((doc) => doc.data.slug));
+    const ownerLabel = ownerGroup.map((doc) => doc.relativePath).join(', ');
+
+    for (const duplicateGroup of articleGroups.slice(1)) {
+      for (const doc of duplicateGroup) {
+        if (validFeaturedImageReuseOverride(doc, ownerSlugs)) continue;
+        errors.push(`${doc.relativePath}: featuredImageUnique FAIL: ${doc.data.featuredImage} reuses SHA-256 ${hash.slice(0, 12)} from ${ownerLabel}; add a documented featuredImageReuseOverride only when reuse is explicitly approved`);
+      }
+    }
+  }
+
+  return { pass: errors.length === 0, errors };
 }
 
 function extractInternalLinks(markdown) {
@@ -234,7 +293,7 @@ function validateDocuments(documents, options = {}) {
       const normalizedRoute = normalizeInternalRoute(translationRoute);
       const target = routeOwners.get(normalizedRoute);
       if (!target) {
-        error(doc, `translation route does not match published content: ${translationRoute}`);
+        error(doc, `translation route does not match known content: ${translationRoute}`);
         continue;
       }
       if (target.data.language !== language) error(doc, `translation route language mismatch for ${translationRoute}`);
@@ -246,6 +305,8 @@ function validateDocuments(documents, options = {}) {
       }
     }
   }
+
+  errors.push(...validateFeaturedImageUniqueness(documents).errors);
 
   if (options.requireReviewApproval) {
     for (const doc of documents.filter((item) => item.relativePath.startsWith('content/review/'))) {
@@ -281,6 +342,7 @@ module.exports = {
   publicPathForDocument,
   absoluteUrl,
   sourceAssetPath,
+  validateFeaturedImageUniqueness,
   extractInternalLinks,
   normalizeInternalRoute,
   validateDocuments,

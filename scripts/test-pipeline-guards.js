@@ -103,8 +103,12 @@ function translationGuardTests() {
   const missingTranslation = documents.map((document, index) => index === englishIndex
     ? { ...document, data: { ...document.data, translations: { 'pt-BR': '/pt-br/missing-translation' } } }
     : document);
-  assert(validateDocuments(missingTranslation).errors.some((error) => error.includes('translation route does not match published content')), 'missing translation route must fail');
+  assert(validateDocuments(missingTranslation).errors.some((error) => error.includes('translation route does not match known content')), 'missing translation route must fail');
 
+  const reviewDocuments = listMarkdownFiles(path.join(ROOT_DIR, 'content', 'review')).map(loadMarkdownFile);
+  const reviewTranslationErrors = validateDocuments([...documents, ...reviewDocuments]).errors
+    .filter((error) => error.includes('translation'));
+  assert.deepStrictEqual(reviewTranslationErrors, [], `reciprocal review translations should pass: ${reviewTranslationErrors.join('; ')}`);
 
   const portugueseIndex = documents.findIndex((document) => document.data.translationKey === documents[englishIndex].data.translationKey && document.data.language === 'pt-BR');
   assert(portugueseIndex >= 0, 'Portuguese translation source must exist');
@@ -161,6 +165,36 @@ function translationGuardTests() {
   assert(validateDocuments([...documents, duplicateCanonical]).errors.some((error) => error.includes('duplicate canonical path')), 'duplicate canonical must fail');
 }
 
+function featuredImageUniqueGuardTests() {
+  const documents = [
+    ...listMarkdownFiles(path.join(ROOT_DIR, 'content', 'posts')).map(loadMarkdownFile),
+    ...listMarkdownFiles(path.join(ROOT_DIR, 'content', 'review')).map(loadMarkdownFile)
+  ];
+  const baselineErrors = validateDocuments(documents).errors.filter((error) => error.includes('featuredImageUnique'));
+  assert.deepStrictEqual(baselineErrors, [], `translations of the same article may share one image: ${baselineErrors.join('; ')}`);
+
+  const owner = documents.find((document) => document.data.slug === 'what-is-a-city-budget-and-why-should-you-care');
+  const candidateIndex = documents.findIndex((document) => document.data.slug === 'where-do-your-local-taxes-actually-go');
+  assert(owner && candidateIndex >= 0, 'featuredImageUnique fixture articles must exist');
+
+  const duplicated = documents.map((document, index) => index === candidateIndex
+    ? { ...document, data: { ...document.data, featuredImage: owner.data.featuredImage } }
+    : document);
+  const duplicateErrors = validateDocuments(duplicated).errors.filter((error) => error.includes('featuredImageUnique FAIL'));
+  assert(duplicateErrors.length > 0, 'an unrelated article reusing the same image hash must fail featuredImageUnique');
+
+  const invalidOverride = duplicated.map((document, index) => index === candidateIndex
+    ? { ...document, data: { ...document.data, featuredImageReuseOverride: { approved: true, duplicateOf: owner.data.slug, reason: 'short' } } }
+    : document);
+  assert(validateDocuments(invalidOverride).errors.some((error) => error.includes('featuredImageUnique FAIL')), 'an undocumented image reuse override must fail');
+
+  const validOverride = duplicated.map((document, index) => index === candidateIndex
+    ? { ...document, data: { ...document.data, featuredImageReuseOverride: { approved: true, duplicateOf: owner.data.slug, reason: 'Explicit editorial exception approved for this test.' } } }
+    : document);
+  const overrideErrors = validateDocuments(validOverride).errors.filter((error) => error.includes('featuredImageUnique'));
+  assert.deepStrictEqual(overrideErrors, [], `an explicit documented image reuse override should pass: ${overrideErrors.join('; ')}`);
+}
+
 function leakAuditTest() {
   const distDirectory = path.join(ROOT_DIR, 'dist');
   assert(fs.existsSync(distDirectory), 'dist/ must exist; run npm run build first');
@@ -188,5 +222,6 @@ function leakAuditTest() {
 publicationGateTests();
 diagramRegressionTest();
 translationGuardTests();
+featuredImageUniqueGuardTests();
 leakAuditTest();
-console.log('Pipeline guard tests passed: publication gates, translations, diagram rendering, and unauthorized-output detection.');
+console.log('Pipeline guard tests passed: publication gates, translations, featuredImageUnique, diagram rendering, and unauthorized-output detection.');

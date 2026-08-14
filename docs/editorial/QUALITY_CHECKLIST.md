@@ -81,6 +81,7 @@ Os status e suas diferenças por contexto estão definidos em [`STATUS_VOCABULAR
 - [ ] `relatedPosts` contém somente slugs válidos.
 - [ ] A imagem existe em `src/assets`.
 - [ ] A imagem tem dimensões e proporção adequadas.
+- [ ] `featuredImageUnique` passou; traduções podem compartilhar a imagem, artigos diferentes não.
 - [ ] Não há links quebrados ou placeholders.
 
 ## Experiência e aprovação

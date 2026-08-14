@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const config = require('../../editorial.automation.config');
 const { absoluteUrl, publicPathForDocument } = require('../content-utils');
 const { createProductionHooks, executeTransaction } = require('./publication-adapter');
-const { choosePair, evaluateAutoPublish, planWeek, runnerDecision, selectNextPreparedPair, writeLog, zonedParts } = require('./engine');
+const { choosePair, evaluateAutoPublish, planWeek, runnerDecision, selectNextPreparedPair, slotLabelForEvaluation, writeLog, zonedParts } = require('./engine');
 
 async function main() {
   const args = process.argv.slice(2);
@@ -72,7 +72,7 @@ async function main() {
       ? { decision: 'WOULD_HOLD', reason: 'target-publication-date-is-in-the-future' }
       : runnerDecision(evaluation, { cutoffReached: forcedCutoff });
     const result = {
-      slot: config.preferredDays[index] || 'unscheduled',
+      slot: slotLabelForEvaluation(evaluation),
       slugs: evaluation.pair.map((item) => item.slug),
       chosenTopic: pair.find((document) => document.data.language === 'en')?.data.title || pair[0].data.title,
       antiRepetitionResult: {

@@ -13,6 +13,7 @@ const {
   publicPathForDocument,
   absoluteUrl,
   sourceAssetPath,
+  validateFeaturedImageUniqueness,
   validateDocuments
 } = require('../content-utils');
 
@@ -170,6 +171,14 @@ function imageCheck(pair) {
   return { pass: errors.length === 0, errors };
 }
 
+function imageUniqueCheck() {
+  const documents = [
+    ...listMarkdownFiles(POSTS_DIR).map(loadMarkdownFile),
+    ...listMarkdownFiles(REVIEW_DIR).map(loadMarkdownFile)
+  ];
+  return validateFeaturedImageUniqueness(documents);
+}
+
 function internalLinkCheck(pair) {
   const all = [...listMarkdownFiles(POSTS_DIR).map(loadMarkdownFile), ...pair];
   const errors = validateDocuments(all).errors.filter((error) => error.includes('internal link'));
@@ -242,9 +251,27 @@ function reviewWindowForPair(pair, now = new Date()) {
     currentLocal,
     cutoffLocal,
     publicationLocal,
-    slot: current.weekday,
+    slot: publicationWeekday(publicationDate),
     publicationDate
   };
+}
+
+function publicationWeekday(publicationDate) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(publicationDate || '')) return null;
+  return new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' })
+    .format(new Date(`${publicationDate}T12:00:00Z`));
+}
+
+function scheduledDayCheck(targetDate) {
+  const targetDay = publicationWeekday(targetDate);
+  return {
+    pass: Boolean(targetDate) && automationConfig.preferredDays.includes(targetDay),
+    detail: { targetDate, targetDay }
+  };
+}
+
+function slotLabelForEvaluation(evaluation) {
+  return evaluation?.schedule?.slot || 'unscheduled';
 }
 
 function groupReviewPairs() {
@@ -285,6 +312,7 @@ function staticGateEvaluation(pair, overrides = {}) {
   const translation = overrides.translation || translationCheck(pair);
   const canonical = overrides.canonical || canonicalCheck(pair);
   const image = overrides.image || imageCheck(pair);
+  const imageUnique = overrides.imageUnique || imageUniqueCheck();
   const internalLinks = overrides.internalLinks || internalLinkCheck(pair);
   const contentValidation = overrides.contentValidation || (() => {
     const validation = validateDocuments([...listMarkdownFiles(POSTS_DIR).map(loadMarkdownFile), ...pair]);
@@ -292,9 +320,6 @@ function staticGateEvaluation(pair, overrides = {}) {
   })();
   const english = pair.find((document) => document.data.language === 'en') || pair[0];
   const targetDate = english.data.targetPublicationDate;
-  const targetDay = targetDate
-    ? new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${targetDate}T12:00:00Z`))
-    : null;
   const checks = {
     humanDraftNotRejected: { pass: !['rejected', 'changes-requested'].includes(human.status), detail: human.status },
     requestedChangesClear: { pass: human.requestedChanges.length === 0, detail: human.requestedChanges },
@@ -311,10 +336,11 @@ function staticGateEvaluation(pair, overrides = {}) {
     hreflangValidation: { pass: translation.pass && canonical.pass, detail: { translation, canonical } },
     featuredImageExists: { pass: image.pass, detail: image },
     featuredImageAltExists: { pass: image.pass, detail: image },
+    featuredImageUnique: { pass: imageUnique.pass, detail: imageUnique },
     internalLinksValid: { pass: internalLinks.pass, detail: internalLinks },
     contentValidator: { pass: contentValidation.pass, detail: contentValidation },
     publicationGuards: { pass: contentValidation.pass, detail: contentValidation },
-    scheduledDayValid: { pass: Boolean(targetDate) && automationConfig.preferredDays.includes(targetDay), detail: { targetDate, targetDay } },
+    scheduledDayValid: scheduledDayCheck(targetDate),
     noP1Blocker: { pass: pair.every((document) => Array.isArray(document.data.p1Blockers) && document.data.p1Blockers.length === 0), detail: pair.map((document) => document.data.p1Blockers) },
     noP2Blocker: { pass: pair.every((document) => Array.isArray(document.data.p2Blockers) && document.data.p2Blockers.length === 0), detail: pair.map((document) => document.data.p2Blockers) },
     noUnresolvedSecurityWarning: { pass: pair.every((document) => Array.isArray(document.data.securityWarnings) && document.data.securityWarnings.length === 0), detail: pair.map((document) => document.data.securityWarnings) }
@@ -535,9 +561,12 @@ module.exports = {
   humanReviewState,
   inventory,
   planWeek,
+  publicationWeekday,
   runnerDecision,
   reviewWindowForPair,
+  scheduledDayCheck,
   selectNextPreparedPair,
+  slotLabelForEvaluation,
   staticGateEvaluation,
   voiceCheck,
   writeLog,

@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const YAML = require('yaml');
@@ -43,7 +44,7 @@ async function executeTransaction(hooks, context = {}) {
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, {
-    cwd: ROOT_DIR,
+    cwd: options.cwd || ROOT_DIR,
     encoding: 'utf8',
     shell: false,
     env: { ...process.env, ...(options.env || {}) }
@@ -52,6 +53,32 @@ function run(command, args, options = {}) {
     throw new Error(`${options.label || command} failed: ${result.error?.message || (result.stderr || '').trim() || `exit ${result.status}`}`);
   }
   return (result.stdout || '').trim();
+}
+
+const DEPLOY_SOURCE_ALLOWLIST = Object.freeze([
+  'build.js',
+  'package.json',
+  'package-lock.json',
+  'site.config.js',
+  'vercel.json',
+  'src',
+  path.join('content', 'posts'),
+  path.join('scripts', 'content-utils.js')
+]);
+
+function createCleanDeploymentSource() {
+  const stagingRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'hpwm-vercel-source-'));
+  for (const relativePath of DEPLOY_SOURCE_ALLOWLIST) {
+    const sourcePath = path.join(ROOT_DIR, relativePath);
+    if (!fs.existsSync(sourcePath)) {
+      fs.rmSync(stagingRoot, { recursive: true, force: true });
+      throw new Error(`Required deployment source is missing: ${relativePath}`);
+    }
+    const destinationPath = path.join(stagingRoot, relativePath);
+    fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+    fs.cpSync(sourcePath, destinationPath, { recursive: true });
+  }
+  return stagingRoot;
 }
 
 function npmCommand(args, label) {
@@ -223,10 +250,15 @@ function createProductionHooks(pair, evaluation, options) {
       if (missing.length) throw new Error(`Missing required production environment variable names: ${missing.join(', ')}`);
       const vercel = process.platform === 'win32' ? 'vercel.cmd' : 'vercel';
       const token = process.env.VERCEL_TOKEN;
-      run(vercel, ['pull', '--yes', '--environment=production', `--token=${token}`], { label: 'vercel pull' });
-      run(vercel, ['build', '--prod', `--token=${token}`], { label: 'vercel build' });
-      deploymentUrl = run(vercel, ['deploy', '--prebuilt', '--prod', `--token=${token}`], { label: 'vercel deploy' }).split(/\r?\n/).pop();
-      if (!/^https:\/\//.test(deploymentUrl)) throw new Error('Vercel did not return a deployment URL');
+      const stagingRoot = createCleanDeploymentSource();
+      try {
+        run(vercel, ['pull', '--yes', '--environment=production', `--token=${token}`], { cwd: stagingRoot, label: 'vercel pull' });
+        run(vercel, ['build', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel build' });
+        deploymentUrl = run(vercel, ['deploy', '--prebuilt', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel deploy' }).split(/\r?\n/).pop();
+        if (!/^https:\/\//.test(deploymentUrl)) throw new Error('Vercel did not return a deployment URL');
+      } finally {
+        fs.rmSync(stagingRoot, { recursive: true, force: true });
+      }
     },
     publicVerify: async () => {
       const deploymentResponse = await fetch(deploymentUrl, { method: 'HEAD', redirect: 'follow' });
@@ -241,6 +273,8 @@ function createProductionHooks(pair, evaluation, options) {
 
 module.exports = {
   TRANSACTION_STAGES,
+  DEPLOY_SOURCE_ALLOWLIST,
+  createCleanDeploymentSource,
   createProductionHooks,
   executeTransaction,
   promotedData,

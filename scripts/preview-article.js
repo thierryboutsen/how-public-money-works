@@ -22,9 +22,11 @@ function main() {
   if (!fs.existsSync(articlePath)) throw new Error(`Review article not found: ${input}`);
 
   const publishedDocuments = listMarkdownFiles(path.join(ROOT_DIR, 'content', 'posts')).map(loadMarkdownFile);
-  const reviewDocument = loadMarkdownFile(articlePath);
-  const documents = [...publishedDocuments, reviewDocument];
-  const validation = validateDocuments(documents, { requireReviewApproval: true });
+  const reviewDocuments = listMarkdownFiles(path.join(ROOT_DIR, 'content', 'review')).map(loadMarkdownFile);
+  const reviewDocument = reviewDocuments.find((document) => document.filePath === articlePath);
+  if (!reviewDocument) throw new Error(`Review article could not be loaded: ${input}`);
+  const documents = [...publishedDocuments, ...reviewDocuments];
+  const validation = validateDocuments(documents, { requireReviewApproval: false });
   for (const warning of validation.warnings) console.warn(`Warning: ${warning}`);
   if (validation.errors.length) throw new Error(`Preview validation failed:\n- ${validation.errors.join('\n- ')}`);
 
@@ -36,18 +38,23 @@ function main() {
   if (fs.existsSync(previewDirectory)) fs.rmSync(previewDirectory, { recursive: true, force: true });
   copyRecursiveSync(distDirectory, previewDirectory);
   copyPublicAsset(siteConfig.defaultSocialImage, previewDirectory);
-  if (reviewDocument.data.featuredImage) copyPublicAsset(reviewDocument.data.featuredImage, previewDirectory);
 
   const postTemplate = fs.readFileSync(path.join(ROOT_DIR, 'src', 'templates', 'post.html'), 'utf8');
-  const posts = [reviewDocument.data, ...publishedDocuments.map((document) => document.data)]
-    .filter((post) => post.language === reviewDocument.data.language);
-  const html = renderPostPage(reviewDocument, posts, postTemplate, posts.length, { mode: 'preview' });
-  const relativeOutputPath = `${publicPathForDocument(reviewDocument).replace(/^\//, '')}.html`;
-  const outputPath = path.join(previewDirectory, relativeOutputPath);
-  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, html);
+  const previewDocuments = reviewDocument.data.translationKey
+    ? reviewDocuments.filter((document) => document.data.translationKey === reviewDocument.data.translationKey)
+    : [reviewDocument];
 
-  console.log(`Review preview generated without publication-state changes: ${path.relative(ROOT_DIR, outputPath)}`);
+  for (const previewDocument of previewDocuments) {
+    if (previewDocument.data.featuredImage) copyPublicAsset(previewDocument.data.featuredImage, previewDirectory);
+    const posts = [previewDocument.data, ...publishedDocuments.map((document) => document.data)]
+      .filter((post) => post.language === previewDocument.data.language);
+    const html = renderPostPage(previewDocument, posts, postTemplate, posts.length, { mode: 'preview' });
+    const relativeOutputPath = `${publicPathForDocument(previewDocument).replace(/^\//, '')}.html`;
+    const outputPath = path.join(previewDirectory, relativeOutputPath);
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.writeFileSync(outputPath, html);
+    console.log(`Review preview generated without publication-state changes: ${path.relative(ROOT_DIR, outputPath)}`);
+  }
 }
 
 try {

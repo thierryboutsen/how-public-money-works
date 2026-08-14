@@ -117,6 +117,8 @@ vercel build --prod
 vercel deploy --prebuilt --prod
 ```
 
+O adapter executa esse fluxo em uma staging efêmera criada por allowlist, sem `.git`, reviews, drafts, briefs, documentação interna ou tooling editorial. A staging contém somente o código e o conteúdo publicado necessários ao build e é removida depois da tentativa de deploy.
+
 Secrets necessários no GitHub:
 
 - `VERCEL_TOKEN`;
