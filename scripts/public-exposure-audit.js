@@ -11,9 +11,7 @@ const EXACT_PUBLIC_FILES = new Set([
   'insights.html',
   '404.html',
   'sitemap.xml',
-  'robots.txt',
-  'shared/base.css',
-  'shared/main.js'
+  'robots.txt'
 ]);
 const PUBLIC_ASSET_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.svg', '.ico', '.woff', '.woff2']);
 const TEXT_EXTENSIONS = new Set(['.html', '.css', '.js', '.xml', '.txt', '.svg']);
@@ -32,9 +30,9 @@ const PROHIBITED_PUBLIC_PATTERNS = [
 const INTERNAL_ROUTE_PATTERN = /(?:href|src)=["']\/?(?:\.github|docs|scripts|content|review|drafts|editorial|logs|tests|tools|node_modules)(?:\/|["'])/i;
 const INTERNAL_COMMENT_PATTERN = /\b(?:TODO|FIXME|DEBUG|Codex|ChatGPT|OpenAI|prompt|automation|workflow|dry[ -]?run|publication gate|review gate|npm run|git branch|commit hash)\b|[A-Za-z]:\\/i;
 const JSON_LD_KEYS = new Set([
-  '@context', '@type', '@id', 'mainEntityOfPage', 'headline', 'description', 'inLanguage',
+  '@context', '@graph', '@type', '@id', 'mainEntityOfPage', 'headline', 'description', 'inLanguage',
   'author', 'publisher', 'name', 'url', 'logo', 'datePublished', 'dateModified', 'image',
-  'articleSection', 'keywords'
+  'articleSection', 'keywords', 'sameAs'
 ]);
 
 function listFiles(directory, root = directory) {
@@ -49,6 +47,7 @@ function listFiles(directory, root = directory) {
 
 function isAllowedPublicFile(relativePath) {
   if (EXACT_PUBLIC_FILES.has(relativePath)) return true;
+  if (/^shared\/(?:base|main)\.[a-f0-9]{12}\.(?:css|js)$/.test(relativePath)) return true;
   if (relativePath.endsWith('.html')) return true;
   if (relativePath.startsWith('assets/')) return PUBLIC_ASSET_EXTENSIONS.has(path.extname(relativePath).toLowerCase());
   return false;

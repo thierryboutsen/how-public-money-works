@@ -6,7 +6,7 @@ const os = require('os');
 const path = require('path');
 const { ROOT_DIR } = require('./content-utils');
 const { copyRecursiveSync } = require('../build');
-const { auditPublicExposure, inspectJpegMetadata } = require('./public-exposure-audit');
+const { auditPublicExposure, inspectJpegMetadata, isAllowedPublicFile } = require('./public-exposure-audit');
 
 const DIST_DIR = path.join(ROOT_DIR, 'dist');
 
@@ -36,6 +36,10 @@ assert(fs.existsSync(DIST_DIR), 'dist/ must exist; run npm run build before publ
 assert.deepStrictEqual(auditPublicExposure(DIST_DIR).errors, [], 'clean dist must pass before negative cases');
 const builtIndex = fs.readFileSync(path.join(DIST_DIR, 'index.html'), 'utf8');
 assert(!/(?:href|src)=["']assets\//i.test(builtIndex), 'relative asset references must be rewritten to public fingerprinted paths');
+assert(isAllowedPublicFile('shared/base.0123456789ab.css'), 'hashed shared CSS must be allowed');
+assert(isAllowedPublicFile('shared/main.0123456789ab.js'), 'hashed shared JS must be allowed');
+assert(!isAllowedPublicFile('shared/base.css'), 'unversioned shared CSS must be rejected');
+assert(!isAllowedPublicFile('shared/main.js'), 'unversioned shared JS must be rejected');
 
 runCase('review', (directory) => write(directory, 'content/review/fictitious.md', '# Internal review'), /outside the public output allowlist/);
 runCase('draft', (directory) => write(directory, 'content/drafts/fictitious.md', '# Internal draft'), /outside the public output allowlist/);

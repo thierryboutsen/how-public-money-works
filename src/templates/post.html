@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/shared/base.css" />
+<link rel="stylesheet" href="{{sharedCssPath}}" />
 <style>
   body {
     background: #FBF7EC;
@@ -420,11 +420,23 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-  .article-foot .share a {
+  .article-foot .share a,
+  .article-foot .share button {
     color: var(--gold-deep);
     border-bottom: 1px solid currentColor;
     padding-bottom: 2px;
     font-weight: 500;
+  }
+  .article-foot .share button {
+    appearance: none;
+    background: none;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
   }
 
   /* Author bio block */
@@ -726,7 +738,7 @@
     <a href="/#contact">{{navContact}}</a>
   </div>
   {{languageSwitchHtml}}
-  <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})">{{navSubscribe}}</button>
+  <a class="nav-cta" href="/#newsletter-section">{{navSubscribe}}</a>
   <button class="menu-toggle" aria-label="{{navMenuLabel}}" aria-expanded="false">
     <span></span>
     <span></span>
@@ -801,9 +813,9 @@
       {{tagsHtml}}
       <div class="share">
         <span>{{shareLabel}}</span>
-        <a href="#" onclick="navigator.clipboard.writeText(window.location.href); return false;">{{copyLinkLabel}}</a>
+        <button type="button" onclick="navigator.clipboard.writeText(window.location.href)">{{copyLinkLabel}}</button>
         <a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>LinkedIn</a>
-        <a href="#" onclick="window.print(); return false;">{{printLabel}}</a>
+        <button type="button" onclick="window.print()">{{printLabel}}</button>
       </div>
     </div>
 
@@ -839,14 +851,14 @@
         <li><a href="/insights">How Public Money Works</a></li>
         <li><a href="/insights">{{footerFeatured}}</a></li>
         <li><a href="/insights">{{footerCategory}}</a></li>
-        <li><a href="/insights">{{footerGlossary}}</a></li>
+        <li><span>{{footerGlossary}}</span></li>
       </ul>
     </div>
     <div>
       <h5>{{footerPractice}}</h5>
       <ul>
         <li><a href="/#about">{{navAbout}}</a></li>
-        <li><a href="/#disciplines">{{footerFocus}}</a></li>
+        <li><a href="/#services">{{footerFocus}}</a></li>
         <li><a href="/#resources">{{footerResources}}</a></li>
         <li><a href="/#contact">{{footerSpeaking}}</a></li>
       </ul>
@@ -856,8 +868,7 @@
       <ul>
         <li><a href="/#contact">{{navContact}}</a></li>
         <li><a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="#newsletter-section">Newsletter</a></li>
-        <li><a href="#">RSS</a></li>
+        <li><a href="/#newsletter-section">{{footerUpdates}}</a></li>
       </ul>
     </div>
   </div>
@@ -867,6 +878,6 @@
   </div>
 </footer>
 
-<script src="/shared/main.js"></script>
+<script src="{{sharedJsPath}}"></script>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="shared/base.css" />
+<link rel="stylesheet" href="{{sharedCssPath}}" />
 <style>
   body { background: #FBF7EC; }
 
@@ -393,6 +393,18 @@
     margin-top: 18px;
     letter-spacing: 0.04em;
   }
+  .newsletter .updates-status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 12px 18px;
+    border: 1px solid var(--gold);
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
 
   /* Responsive Overrides */
   @media (max-width: 991px) {
@@ -541,23 +553,23 @@
 <body>
 
 <nav class="nav civic" aria-label="Primary navigation">
-  <div class="brand">
+  <a class="brand" href="/" aria-label="Lumina Smart Strategies home">
     <span class="brand-mark" style="color: var(--gold-deep);">L</span>
     <span class="brand-name">Lumina Smart Strategies</span>
-  </div>
+  </a>
   <div class="nav-links">
-    <a href="index.html" data-translate="nav-home">Home</a>
-    <a href="index.html#services" data-translate="nav-services">Services</a>
-    <a href="index.html#about" data-translate="nav-about">About Us</a>
-    <a href="insights.html" class="active" data-translate="nav-blog">Eliana's Blog</a>
-    <a href="index.html#contact" data-translate="nav-contact">Contact</a>
+    <a href="/" data-translate="nav-home">Home</a>
+    <a href="/#services" data-translate="nav-focus">Focus</a>
+    <a href="/#about" data-translate="nav-about">About</a>
+    <a href="/insights" class="active" data-translate="nav-insights">Insights</a>
+    <a href="/#contact" data-translate="nav-contact">Contact</a>
   </div>
   <div class="lang-switch" aria-label="Language selection">
-    <span data-lang="EN" class="on">EN</span>
-    <span>/</span>
-    <span data-lang="PT">PT</span>
+    <button type="button" data-lang="EN" class="on" aria-pressed="true">EN</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-lang="PT" aria-pressed="false">PT</button>
   </div>
-  <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})" data-translate="nav-subscribe">Subscribe</button>
+  <a class="nav-cta" href="#newsletter-section" data-translate="nav-subscribe">Updates</a>
   <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
     <span></span>
     <span></span>
@@ -573,7 +585,7 @@
     <h1><span data-translate="blog-title">How Public Money</span> <span class="italic" data-translate="blog-title-accent">Works.</span></h1>
     <div class="tagline" data-translate="blog-tagline">Bringing clarity to public finance.</div>
     <div class="meta">
-      <span data-translate="blog-vol">Vol. I · Twelve Essays · EN — bilingual editions to follow</span>
+      <span data-translate="blog-vol">An ongoing publication on public money and local government</span>
     </div>
   </div>
 </section>
@@ -602,7 +614,7 @@
 <section class="all-essays" id="all-essays">
   <div class="head">
     <h2 data-translate="blog-all-essays">All Essays</h2>
-    <div class="count">— {{postCount}} published essay(s)</div>
+    <div class="count" data-localize-text data-text-en="— {{postCount}} published essays" data-text-pt="— {{postCount}} artigos publicados">— {{postCount}} published essays</div>
   </div>
 
   <div class="grid">
@@ -613,14 +625,11 @@
 <!-- ========== NEWSLETTER ========== -->
 <section class="newsletter" id="newsletter-section">
   <div class="inner">
-    <div class="eyebrow" data-translate="news-eyebrow">Quietly delivered</div>
-    <h2><span data-translate="news-title">One essay,</span> <span class="italic" data-translate="news-title-accent">once a month.</span></h2>
-    <p data-translate="news-desc">A short, plain-language note from the practice — never more than once a month, never promotional.</p>
-    <form>
-      <input type="email" placeholder="your.email@example.com" required />
-      <button type="submit" data-translate="news-btn">Subscribe</button>
-    </form>
-    <div class="fine" data-translate="news-fine">No tracking, no third parties, no noise.</div>
+    <div class="eyebrow" data-translate="news-eyebrow">Publication updates</div>
+    <h2><span data-translate="news-title">Email updates are</span> <span class="italic" data-translate="news-title-accent">coming soon.</span></h2>
+    <p data-translate="news-desc">There is no subscription form yet. Until a real delivery service is available, new essays remain available in Insights.</p>
+    <div class="updates-status" data-translate="news-status">Coming soon</div>
+    <div class="fine" data-translate="news-fine">No spam. Just occasional updates when this becomes available.</div>
   </div>
 </section>
 
@@ -639,28 +648,27 @@
     <div>
       <h5 data-translate="foot-header-read">Read</h5>
       <ul>
-        <li><a href="insights.html">How Public Money Works</a></li>
-        <li><a href="/insights">Featured Essay</a></li>
-        <li><a href="insights.html">By Category</a></li>
-        <li><a href="insights.html">Glossary</a></li>
+        <li><a href="/insights">How Public Money Works</a></li>
+        <li><a href="/insights" data-translate="foot-featured-link">Latest essays</a></li>
+        <li><a href="/insights" data-translate="foot-category-link">By category</a></li>
+        <li><span data-translate="foot-glossary-soon">Glossary · Coming soon</span></li>
       </ul>
     </div>
     <div>
       <h5 data-translate="foot-header-practice">Practice</h5>
       <ul>
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#disciplines">Areas of Focus</a></li>
-        <li><a href="index.html#resources">Resources</a></li>
-        <li><a href="index.html#contact">Speaking</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#services">Areas of Focus</a></li>
+        <li><a href="/#resources">Resources</a></li>
+        <li><a href="/#contact">Speaking</a></li>
       </ul>
     </div>
     <div>
       <h5 data-translate="foot-header-connect">Connect</h5>
       <ul>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="/#contact">Contact</a></li>
         <li><a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="#newsletter-section">Newsletter</a></li>
-        <li><a href="#">RSS</a></li>
+        <li><a href="#newsletter-section" data-translate="foot-updates-link">Updates · Coming soon</a></li>
       </ul>
     </div>
   </div>
@@ -670,6 +678,6 @@
   </div>
 </footer>
 
-<script src="shared/main.js"></script>
+<script src="{{sharedJsPath}}"></script>
 </body>
 </html>
