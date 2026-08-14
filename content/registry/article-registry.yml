@@ -115,3 +115,47 @@ articles:
     sourceLevel: "conceptual-institutionally-validated"
     publicationPath: "human-approved"
     lastReviewed: "2026-08-11"
+  - slug: "what-is-a-public-budget-hearing"
+    title: "What Is a Public Budget Hearing?"
+    language: en
+    translations:
+      pt-BR: "/pt-br/o-que-e-uma-audiencia-publica-sobre-orcamento"
+    status: published
+    publishDate: "2026-08-14"
+    category: "Citizen Participation"
+    tags:
+      - public budget hearing
+      - citizen participation
+      - local budget process
+      - public meetings
+    contentAngle: "Explains how to identify a public budget hearing's local role, read the proposal, prepare useful questions, and understand what the event does not guarantee."
+    duplicateCheckSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check"
+    precisionRisk: "high"
+    relatedPosts:
+      - "what-is-a-city-budget-and-why-should-you-care"
+      - "where-do-your-local-taxes-actually-go"
+    sourceLevel: "conceptual-institutionally-validated"
+    publicationPath: "human-approved"
+    lastReviewed: "2026-08-14"
+  - slug: "o-que-e-uma-audiencia-publica-sobre-orcamento"
+    title: "O Que É uma Audiência Pública sobre Orçamento?"
+    language: pt-BR
+    translationOf: "what-is-a-public-budget-hearing"
+    translations:
+      en: "/what-is-a-public-budget-hearing"
+    status: published
+    publishDate: "2026-08-14"
+    category: "Participação Cidadã"
+    tags:
+      - audiência pública sobre orçamento
+      - participação cidadã
+      - processo orçamentário local
+      - reuniões públicas
+    contentAngle: "Versão PT-BR do guia para identificar a função local de uma audiência orçamentária, ler a proposta, preparar perguntas e compreender seus limites."
+    duplicateCheckSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check|pt-br-translation"
+    precisionRisk: "high"
+    relatedPosts:
+      - "para-onde-vao-os-seus-impostos-locais"
+    sourceLevel: "conceptual-institutionally-validated"
+    publicationPath: "human-approved"
+    lastReviewed: "2026-08-14"

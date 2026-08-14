@@ -27,6 +27,15 @@ coveredTopics:
       pt-BR: "/pt-br/o-que-e-uma-auditoria-de-governo-local"
     topicAngleSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits"
     notes: "Publicado e verificado em 2026-08-11; novos conteúdos sobre auditoria devem escolher objeto ou etapa claramente distinta."
+  - topic: "Budget process"
+    subtopic: "Public budget hearing"
+    angle: "Resident preparation, local rules, questions, and procedural limits"
+    status: covered
+    relatedSlug: "what-is-a-public-budget-hearing"
+    translations:
+      pt-BR: "/pt-br/o-que-e-uma-audiencia-publica-sobre-orcamento"
+    topicAngleSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check"
+    notes: "Publicado e verificado em 2026-08-14 após o slot original de 2026-08-13; novos conteúdos devem escolher outra etapa ou decisão do processo orçamentário."
 
 seedTopics:
   - topic: "Local taxes"
@@ -47,12 +56,6 @@ seedTopics:
     status: seed
     relatedSlug: null
     notes: "Sugestão; não usar definições legais como universais."
-  - topic: "Budget process"
-    subtopic: "Public hearings"
-    angle: "Practical resident participation"
-    status: seed
-    relatedSlug: null
-    notes: "Sugestão; confirmar notice, hearing e approval na jurisdição escolhida."
   - topic: "Government structure"
     subtopic: "City, county, and school district"
     angle: "Compare responsibilities and budgets"
@@ -170,7 +173,6 @@ seedTopics:
 
 reservedTopics:
   # Reservas impedem repetição durante preparação. Não significam covered, approved ou published.
-  - { topic: "Budget process", subtopic: "Public budget hearing", angle: "Notice, testimony, decision, and local rules", status: reserved, relatedSlug: "what-is-a-public-budget-hearing", topicAngleSignature: "public-budget-hearing|participate-effectively|notice-testimony-decision-and-local-rules" }
   - { topic: "Financial reporting", subtopic: "Annual financial reports", angle: "Budget-report boundaries and reader map", status: reserved, relatedSlug: "annual-financial-report-local-government", topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map" }
   - { topic: "Property tax", subtopic: "Assessment, levy, and bill", angle: "Bill-formation chain", status: reserved, relatedSlug: "property-taxes-assessment-levy-bill", topicAngleSignature: "property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain" }
   - { topic: "Government accounting", subtopic: "General and special revenue funds", angle: "Fund types versus resource restrictions", status: reserved, relatedSlug: "general-fund-vs-special-revenue-funds", topicAngleSignature: "governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions" }

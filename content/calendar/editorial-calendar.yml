@@ -42,12 +42,15 @@ slots:
     publishedAt: "2026-08-11"
   - date: "2026-08-13"
     slot: Thursday
-    status: selected
+    status: published
     plannedTopic: "What Is a Public Budget Hearing?"
     articleSlug: "what-is-a-public-budget-hearing"
     backupTopic: "How to Read a Public Budget Summary"
-    readiness: awaiting-human-review
-    publicationDecision: pending
+    readiness: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    publishedAt: "2026-08-14"
   - date: "2026-08-18"
     slot: Tuesday
     status: selected
