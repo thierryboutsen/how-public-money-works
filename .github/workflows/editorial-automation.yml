@@ -53,6 +53,7 @@ jobs:
           npm run content:test:frontmatter
           npm run editorial:test
           npm run editorial:test:transaction
+          npm run editorial:inventory
           npm run editorial:plan-week
 
       - name: Run fail-closed editorial dry run
