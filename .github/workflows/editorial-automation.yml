@@ -17,11 +17,9 @@ on:
         default: false
         type: boolean
 
-# Cron is intentionally not active until production secrets are configured and
-# the central config changes from dry-run to enabled.
-# schedule:
-#   - cron: '0 9 * * 2,4'
-#     timezone: 'America/Sao_Paulo'
+  schedule:
+    - cron: '0 9 * * 2,4'
+      timezone: 'America/Sao_Paulo'
 
 permissions:
   contents: read

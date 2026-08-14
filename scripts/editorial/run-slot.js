@@ -28,21 +28,15 @@ async function main() {
   const localNow = zonedParts(now);
   let selected = null;
   if (execute && !identifier) {
-    const excluded = new Set();
-    while (true) {
-      const candidate = selectNextPreparedPair(localNow.date, excluded);
-      if (!candidate) break;
+    const candidate = selectNextPreparedPair(localNow.date, new Set(), { exactSlotOnly: true });
+    if (candidate) {
       const english = candidate.find((document) => document.data.language === 'en') || candidate[0];
       const response = await fetch(absoluteUrl(publicPathForDocument(english)), { method: 'HEAD', redirect: 'follow' });
       if (response.status === 404) {
         selected = candidate;
-        break;
+      } else if (response.status !== 200) {
+        throw new Error(`Public route precheck is ambiguous for ${english.data.slug}: HTTP ${response.status}`);
       }
-      if (response.status === 200) {
-        excluded.add(english.data.slug);
-        continue;
-      }
-      throw new Error(`Public route precheck is ambiguous for ${english.data.slug}: HTTP ${response.status}`);
     }
   }
   const pairs = selected ? [selected] : (execute && !identifier ? [] : choosePair(identifier));

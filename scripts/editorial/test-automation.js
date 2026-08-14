@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const { publicationWeekday, reviewWindowForPair, runnerDecision, scheduledDayCheck, slotLabelForEvaluation } = require('./engine');
+const { publicationWeekday, reviewWindowForPair, runnerDecision, scheduledDayCheck, selectNextPreparedPair, slotLabelForEvaluation } = require('./engine');
 
 function passingEvaluation() {
   const checks = {
@@ -56,6 +56,11 @@ assert.strictEqual(publicationWeekday('2026-08-13'), 'Thursday', 'Thursday date 
 assert.deepStrictEqual(scheduledDayCheck('2026-08-11'), { pass: true, detail: { targetDate: '2026-08-11', targetDay: 'Tuesday' } });
 assert.deepStrictEqual(scheduledDayCheck('2026-08-13'), { pass: true, detail: { targetDate: '2026-08-13', targetDay: 'Thursday' } });
 assert.strictEqual(slotLabelForEvaluation({ schedule: thursdayAfterCutoff }), 'Thursday', 'displayed label must use the real Thursday slot');
+const exactTuesdayPair = selectNextPreparedPair('2026-08-18', new Set(), { exactSlotOnly: true });
+const exactTuesdayEnglish = exactTuesdayPair.find((document) => document.data.language === 'en') || exactTuesdayPair[0];
+assert.strictEqual(exactTuesdayEnglish.data.slug, 'annual-financial-report-local-government', 'scheduled execution must select only the pair reserved for the exact slot date');
+assert.strictEqual(selectNextPreparedPair('2026-08-18', new Set(['annual-financial-report-local-government']), { exactSlotOnly: true }), null, 'a consumed slot must not fall through to another pair');
+assert.strictEqual(selectNextPreparedPair('2026-08-19', new Set(), { exactSlotOnly: true }), null, 'a date without an exact reservation must not consume overdue inventory');
 const humanApproved = JSON.parse(JSON.stringify(allPass));
 humanApproved.human.status = 'approved';
 assert.strictEqual(runnerDecision(humanApproved).decision, 'WOULD_PUBLISH', 'human approval plus all gates must publish');
@@ -76,4 +81,4 @@ changes.human.status = 'changes-requested';
 changes.human.requestedChanges = ['Revise scope'];
 assert.strictEqual(runnerDecision(changes).decision, 'WOULD_HOLD', 'requested changes must HOLD');
 
-console.log('Editorial automation scenarios passed: human approval, cutoff HOLD, auto fallback, rejection, changes, factual, image, duplicate, canonical, translation, validator, build, public exposure, and security.');
+console.log('Editorial automation scenarios passed: exact-slot idempotency, human approval, cutoff HOLD, auto fallback, rejection, changes, factual, image, duplicate, canonical, translation, validator, build, public exposure, and security.');

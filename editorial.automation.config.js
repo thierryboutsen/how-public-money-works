@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = Object.freeze({
-  enabled: false,
+  enabled: true,
   postsPerWeek: 2,
   preferredDays: ['Tuesday', 'Thursday'],
   publicationTime: '09:00',
@@ -13,13 +13,13 @@ module.exports = Object.freeze({
     dayOffset: -1
   }),
   skipOnFailedGate: true,
-  dryRun: true,
+  dryRun: false,
   scheduler: 'github-actions',
   preparationOwner: 'codex-desktop',
   publicationAdapter: 'scripts/editorial/publication-adapter.js',
   productionMethod: 'vercel-cli',
   productionProjectName: 'elianafarialima',
-  productionSecretsConfigured: false,
+  productionSecretsConfigured: true,
   registrySyncMode: 'post-verify-artifact-no-master-push',
   inventoryTargetPairs: 16,
   minimumPreparedBufferPairs: 8,
