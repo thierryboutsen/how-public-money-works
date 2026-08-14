@@ -7,6 +7,7 @@ translationKey: "public-budget-hearing-resident-guide"
 translations:
   pt-BR: "/pt-br/o-que-e-uma-audiencia-publica-sobre-orcamento"
 targetPublicationDate: "2026-08-13"
+date: "2026-08-14"
 author: "Eliana Faria Lima"
 category: "Citizen Participation"
 tags:
@@ -26,18 +27,21 @@ excerpt: "A public budget hearing can help residents understand a proposal and p
 featuredImage: "/assets/article-public-budget-hearing-hero.jpg"
 featuredImageStatus: "ready"
 featuredImageAlt: "Conceptual illustration of a public meeting room with a microphone, budget packet, and empty audience chairs."
-status: "review"
-lifecycleStatus: "drafted"
+status: "published"
+lifecycleStatus: "published"
 publicLanguage: "en"
 internalWorkflowLanguage: "pt-BR"
 sourceLevel: "conceptual-institutionally-validated"
 precisionRisk: "high"
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
+publishAllowed: true
+canonicalDecision: "approved"
+slugDecision: "approved"
+humanDraftApproval: "approved"
+publicationApproval: "approved"
+publicationPath: "human-approved"
+autoPublishEligible: true
+topicAngleSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check"
 translationValidationStatus: "validated"
 requestedChanges: []
 p1Blockers: []
@@ -191,12 +195,10 @@ That small jurisdiction check turns a generic notice into a usable civic roadmap
 
 <!--
 Editorial review notes:
-- This is a draft for human review.
-- Intended editorial date: 2026-08-13; this is not publication authorization.
-- Human draft approval is pending.
-- Publication approval is pending.
-- Canonical and slug decisions remain pending human approval.
-- publishAllowed remains false.
+- Human draft and publication review completed for the current conceptual version.
+- The original editorial slot was 2026-08-13; actual publication was authorized for 2026-08-14.
+- Canonical and slug decisions are approved.
+- publishAllowed is true for this approved publication only.
 
 Factual validation checklist:
 - claim: A public budget hearing can be a formal opportunity for public input within a budget process.

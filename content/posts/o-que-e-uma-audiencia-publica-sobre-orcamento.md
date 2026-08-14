@@ -7,6 +7,7 @@ translationKey: "public-budget-hearing-resident-guide"
 translations:
   en: "/what-is-a-public-budget-hearing"
 targetPublicationDate: "2026-08-13"
+date: "2026-08-14"
 author: "Eliana Faria Lima"
 category: "Participação Cidadã"
 tags:
@@ -26,18 +27,21 @@ excerpt: "Uma audiência pública pode ajudar o morador a compreender a proposta
 featuredImage: "/assets/article-public-budget-hearing-hero.jpg"
 featuredImageStatus: "ready"
 featuredImageAlt: "Ilustração conceitual de uma sala de reunião pública com microfone, proposta de orçamento e cadeiras para o público."
-status: "review"
-lifecycleStatus: "drafted"
+status: "published"
+lifecycleStatus: "published"
 publicLanguage: "pt-BR"
 internalWorkflowLanguage: "pt-BR"
 sourceLevel: "conceptual-institutionally-validated"
 precisionRisk: "high"
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
+publishAllowed: true
+canonicalDecision: "approved"
+slugDecision: "approved"
+humanDraftApproval: "approved"
+publicationApproval: "approved"
+publicationPath: "human-approved"
+autoPublishEligible: true
+topicAngleSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check"
 translationValidationStatus: "validated"
 requestedChanges: []
 p1Blockers: []
@@ -189,12 +193,10 @@ Essa pequena verificação transforma um aviso genérico em um roteiro cívico u
 
 <!--
 Editorial review notes:
-- Esta é uma versão PT-BR para revisão humana, adaptada da versão EN.
-- Data editorial pretendida: 2026-08-13; não constitui autorização de publicação.
-- Human draft approval is pending.
-- Publication approval is pending.
-- Canonical and slug decisions remain pending human approval.
-- publishAllowed remains false.
+- Human draft and publication review completed for the current conceptual version.
+- The original editorial slot was 2026-08-13; actual publication was authorized for 2026-08-14.
+- Canonical and slug decisions are approved.
+- publishAllowed is true for this approved publication only.
 
 Factual validation checklist:
 - claim: Uma audiência pública sobre orçamento pode ser uma oportunidade formal de participação no processo orçamentário.
