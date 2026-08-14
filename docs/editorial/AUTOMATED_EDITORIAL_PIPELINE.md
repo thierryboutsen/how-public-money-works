@@ -31,12 +31,12 @@ O scheduler não cria pauta, pesquisa, artigo, tradução ou imagem. A preparaç
 
 `editorial.automation.config.js` é a fonte técnica de verdade. Os valores operacionais atuais são Tuesday e Thursday, publicação às 09:00 e cutoff às 18:00 do dia anterior, no timezone `America/Sao_Paulo`.
 
-Enquanto a ativação não estiver concluída:
+Com a ativação de produção concluída, a configuração esperada é:
 
 ```text
-enabled: false
-dryRun: true
-productionSecretsConfigured: false
+enabled: true
+dryRun: false
+productionSecretsConfigured: true
 ```
 
 Não copiar regras editoriais para o workflow. O YAML do GitHub Actions chama a engine.
@@ -63,7 +63,7 @@ npm run editorial:inventory
 
 A saída informa `READY`, `HUMAN_REVIEW`, `FALLBACK_ELIGIBLE`, `BLOCKED`, pares preparados, slots cobertos, semanas de cobertura e a diferença para o buffer mínimo.
 
-No slot, a engine prefere um par reservado por `targetPublicationDate`. Sem reserva, pode escolher o próximo par preparado. Nunca escolhe par incompleto, rejeitado, com tradução ausente, duplicidade alta, fonte pendente ou blocker.
+No cron, a engine aceita somente o único par reservado por `targetPublicationDate` exatamente igual à data local do slot. Se a rota desse par já estiver pública, se não houver reserva exata ou se houver mais de um par elegível para a mesma data, o runner falha de forma segura e não consome outro artigo. Publicação manual fora desse mecanismo exige identificador explícito. A engine nunca escolhe par incompleto, rejeitado, com tradução ausente, duplicidade alta, fonte pendente ou blocker.
 
 ## Auto-Publish Gate
 
@@ -129,7 +129,7 @@ Os IDs informados por ambiente têm precedência sobre `.vercel/project.json`. I
 
 ## GitHub Actions e cron
 
-O workflow está preparado para `workflow_dispatch` e contém o caminho de produção, mas o trigger `schedule` permanece comentado enquanto os secrets não estiverem configurados.
+O workflow aceita `workflow_dispatch` para verificações controladas e possui um único trigger `schedule`: Tuesday e Thursday às 09:00 em `America/Sao_Paulo`. A engine continua responsável por decidir `PUBLISH`, `SKIP` ou `HOLD`; o disparo do cron não autoriza publicação por si só.
 
 GitHub Actions aceita timezone IANA no schedule. Ao ativar, usar a política da configuração central para Tuesday/Thursday às 09:00 em `America/Sao_Paulo`; isso evita manter manualmente um offset UTC que possa ficar incorreto se regras de timezone mudarem. Workflows agendados usam o último commit do default branch, portanto divergências de branches precisam ser tratadas separadamente e nunca por force-push automático.
 
@@ -161,7 +161,7 @@ npm run public:test:exposure-audit
 
 ## Pausa, override e falhas
 
-- Pausar tudo: `enabled: false` ou remover/commentar o schedule.
+- Pausar imediatamente: alterar `enabled: false` em `editorial.automation.config.js`. Para suspender também os disparos, desabilitar o workflow no GitHub Actions ou remover/commentar o bloco `schedule` em mudança revisada.
 - Desligar fallback: `autoPublishFallback: false`.
 - Forçar retenção humana: registrar rejeição ou `requestedChanges`.
 - Fonte, claim, tradução, imagem, canonical, link, leak ou exposição pública inválida: SKIP.

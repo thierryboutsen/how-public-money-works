@@ -451,7 +451,7 @@ async function inventory(options = {}) {
   };
 }
 
-function selectNextPreparedPair(slotDate, excludedSlugs = new Set()) {
+function selectNextPreparedPair(slotDate, excludedSlugs = new Set(), options = {}) {
   const pairs = choosePair();
   const candidates = pairs.filter((pair) => {
     const english = pair.find((document) => document.data.language === 'en') || pair[0];
@@ -463,6 +463,11 @@ function selectNextPreparedPair(slotDate, excludedSlugs = new Set()) {
         .filter(([name]) => !['contentValidator', 'publicationGuards'].includes(name))
         .every(([, check]) => check.pass);
   });
+  if (options.exactSlotOnly) {
+    const exactCandidates = candidates.filter((pair) => (pair.find((document) => document.data.language === 'en') || pair[0]).data.targetPublicationDate === slotDate);
+    if (exactCandidates.length > 1) throw new Error(`Ambiguous scheduled slot ${slotDate}: ${exactCandidates.length} eligible pairs`);
+    return exactCandidates[0] || null;
+  }
   return candidates.find((pair) => (pair.find((document) => document.data.language === 'en') || pair[0]).data.targetPublicationDate === slotDate)
     || candidates[0]
     || null;
