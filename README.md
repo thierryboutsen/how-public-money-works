@@ -25,7 +25,7 @@ The design medium is **HTML/CSS/JS** — these are prototypes, not production co
 
 # PRODUCTION WEBSITE
 
-The production website for **Eliana Faria Lima** has been successfully built and is located in the workspace root. It leverages the Civic Modern design concept, featuring high responsiveness, fully functional bilingual toggles (EN / PT), dynamic blog category filtering, live article search, and a quiet newsletter subscription form.
+The production website for **Lumina Smart Strategies LLC** & Eliana Faria Lima has been successfully updated and is located in the workspace root. It leverages the Civic Modern design concept, featuring high responsiveness, fully functional bilingual toggles (EN / PT), dynamic blog category filtering, live article search, and a quiet newsletter subscription form.
 
 ## Production Files
 

@@ -1,0 +1,227 @@
+# Política editorial dinâmica.
+# Este arquivo define cadência e processo; não fixa artigos futuros.
+# Vocabulário dos slots: docs/editorial/STATUS_VOCABULARY.md
+
+cadence:
+  postsPerWeek: 2
+  preferredDays:
+    - Tuesday
+    - Thursday
+  planningWindowWeeks: 8
+  minimumApprovedBuffer: 8
+
+generationPolicy:
+  mode: ai_assisted
+  topicsAreGeneratedDynamically: true
+  fixedCalendar: false
+  humanApprovalRequiredForBriefAndDraftCreation: true
+  humanPublicationReviewPreferred: true
+  autoPublishFallbackAfterCutoff: true
+  publishAutomatically: false
+
+weeklyWorkflow:
+  Monday: "Generate or review ideas, choose weekly topics, prepare briefs"
+  Tuesday: "Run the scheduled publication gate for prepared pair A"
+  Wednesday: "Review article B and prepare final package"
+  Thursday: "Run the scheduled publication gate for prepared pair B"
+  Friday: "Review performance, update registry, prepare next cycle"
+
+slots:
+  # Janela editorial finita de oito semanas. A data não autoriza publicação.
+  # status permanece selected até que os gates e a decisão humana aplicável permitam avanço.
+  - date: "2026-08-11"
+    slot: Tuesday
+    status: published
+    plannedTopic: "What Is a Local Government Audit?"
+    articleSlug: "what-is-a-local-government-audit"
+    backupTopic: "What Does a Clean Audit Opinion Actually Mean?"
+    readiness: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    publishedAt: "2026-08-11"
+  - date: "2026-08-13"
+    slot: Thursday
+    status: published
+    plannedTopic: "What Is a Public Budget Hearing?"
+    articleSlug: "what-is-a-public-budget-hearing"
+    backupTopic: "How to Read a Public Budget Summary"
+    readiness: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    publishedAt: "2026-08-14"
+  - date: "2026-08-18"
+    slot: Tuesday
+    status: selected
+    plannedTopic: "Annual Financial Reports: What They Show After the Budget Year Ends"
+    articleSlug: "annual-financial-report-local-government"
+    backupTopic: "How to Read a Local Government Financial Report"
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-08-20"
+    slot: Thursday
+    status: selected
+    plannedTopic: "Property Taxes Explained: From Assessment to Levy to Bill"
+    articleSlug: "property-taxes-assessment-levy-bill"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-08-25"
+    slot: Tuesday
+    status: selected
+    plannedTopic: "General Fund vs. Special Revenue Funds: A Practical Comparison"
+    articleSlug: "general-fund-vs-special-revenue-funds"
+    backupTopic: "Why Governments Use Restricted Revenue"
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-08-27"
+    slot: Thursday
+    status: selected
+    plannedTopic: "How Local Governments Pay for Roads and Infrastructure"
+    articleSlug: "how-local-governments-pay-for-roads"
+    backupTopic: "How Local Governments Plan for Long-Term Infrastructure Costs"
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-01"
+    slot: Tuesday
+    status: selected
+    plannedTopic: "What Is a Capital Improvement Plan—and How Should You Read One?"
+    articleSlug: "capital-improvement-plan-explained"
+    backupTopic: "How Local Governments Plan for Long-Term Infrastructure Costs"
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-03"
+    slot: Thursday
+    status: selected
+    plannedTopic: "Taxes, Fees, and Fines: What's the Difference?"
+    articleSlug: "taxes-fees-and-fines-difference"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-08"
+    slot: Tuesday
+    status: selected
+    plannedTopic: "How Does a Local Government Borrow Money?"
+    articleSlug: "how-local-governments-borrow-money"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-10"
+    slot: Thursday
+    status: selected
+    plannedTopic: "What Does Fund Balance Mean—and Is It Available to Spend?"
+    articleSlug: "what-does-fund-balance-mean"
+    backupTopic: "Why Governments Use Restricted Revenue"
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-15"
+    slot: Tuesday
+    status: selected
+    plannedTopic: "What Is a Special District—and Why Might It Be on Your Public-Money Map?"
+    articleSlug: "what-is-a-special-district"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-17"
+    slot: Thursday
+    status: selected
+    plannedTopic: "Who Actually Decides How Local Public Money Is Spent?"
+    articleSlug: "who-decides-local-public-spending"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-22"
+    slot: Tuesday
+    status: selected
+    plannedTopic: "What Happens When a Local Government Changes Its Budget Midyear?"
+    articleSlug: "local-budget-changes-midyear"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-24"
+    slot: Thursday
+    status: selected
+    plannedTopic: "How to Find and Understand Your Local Government's Financial Documents"
+    articleSlug: "find-local-government-financial-documents"
+    backupTopic: "How to Read a Local Government Financial Report"
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-09-29"
+    slot: Tuesday
+    status: selected
+    plannedTopic: "How Local Governments Receive State and Federal Funding"
+    articleSlug: "state-federal-funding-local-governments"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+  - date: "2026-10-01"
+    slot: Thursday
+    status: selected
+    plannedTopic: "Operating Budget vs. Capital Budget: What Each One Tells You"
+    articleSlug: "operating-budget-vs-capital-budget"
+    backupTopic: null
+    readiness: awaiting-human-review
+    publicationDecision: pending
+
+rules:
+  - "No topic becomes a brief or draft without the required human topic and brief approvals"
+  - "Publication review is preferably human; silence may use the auto-publish fallback only after cutoff and only when every gate passes"
+  - "Human rejection or requested changes always block auto-publish"
+  - "No article may repeat an existing topic-angle signature"
+  - "The AI must check article-registry and topic-registry before proposing a new article"
+  - "If quality is not high enough, skip the slot instead of publishing weak content"
+  - "A slot may remain open when no sufficiently strong topic is approved"
+  - "Public content must be written in English"
+
+# Sementes de geração, não calendário final.
+# Podem ser ignoradas, substituídas, combinadas ou reformuladas após a checagem dos registros.
+seedIdeas:
+  - title: "Where Do Your Local Taxes Actually Go?"
+    category: "Your Tax Dollars"
+  - title: "Property Taxes Explained in Plain English"
+    category: "Your Tax Dollars"
+  - title: "Taxes, Fees, and Fines: What’s the Difference?"
+    category: "Public Finance Basics"
+  - title: "What Is a Public Budget Hearing?"
+    category: "Citizen Participation"
+  - title: "City, County, and School District Budgets: What’s the Difference?"
+    category: "Local Government Explained"
+  - title: "How Local Governments Pay for Roads, Schools, and Public Safety"
+    category: "Public Services & Infrastructure"
+  - title: "What Is Fiscal Transparency?"
+    category: "Transparency & Accountability"
+  - title: "How to Read a Local Government Budget Without Being an Accountant"
+    category: "Public Finance Basics"
+  - title: "What Is a Government Fund?"
+    category: "Public Finance Basics"
+  - title: "What Is a Capital Improvement Plan?"
+    category: "Public Services & Infrastructure"
+  - title: "Why Public Finance Matters Even If You Don’t Work in Government"
+    category: "Public Finance Basics"
+  - title: "What Is a Local Government Audit?"
+    category: "Transparency & Accountability"
+  - title: "How Grants Help Fund Local Public Services"
+    category: "Public Services & Infrastructure"
+  - title: "What Is a Rainy Day Fund in Local Government?"
+    category: "Public Finance Basics"
+  - title: "Why Public Infrastructure Costs So Much"
+    category: "Public Services & Infrastructure"
+  - title: "What Is a School District Budget?"
+    category: "Local Government Explained"
+  - title: "How Local Governments Plan for Emergencies"
+    category: "Public Services & Infrastructure"
+  - title: "What Is Debt Service in a City Budget?"
+    category: "Public Finance Basics"
+  - title: "How Citizens Can Participate in Budget Decisions"
+    category: "Citizen Participation"
+  - title: "What Makes a Budget Transparent?"
+    category: "Transparency & Accountability"
+  - title: "How Public Procurement Works in Plain English"
+    category: "Transparency & Accountability"
+  - title: "What Is a Special District?"
+    category: "Local Government Explained"
+  - title: "How to Find Your City’s Budget Online"
+    category: "Citizen Participation"
+  - title: "What Is a Financial Report in Local Government?"
+    category: "Transparency & Accountability"

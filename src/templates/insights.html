@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Insights — {{siteName}} · Eliana Faria Lima</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Browse all essays from How Public Money Works — a plain-English publication on public finance, city budgets, property tax, and civic financial education by Eliana Faria Lima." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="{{insightsUrl}}" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{insightsUrl}}" />
+<meta property="og:title" content="Insights — {{siteName}} · Eliana Faria Lima" />
+<meta property="og:description" content="Plain-language essays on public finance, city budgets, government spending, and fiscal transparency. Written for citizens, not accountants." />
+<meta property="og:image" content="{{defaultSocialImageUrl}}" />
+<meta property="og:site_name" content="{{siteName}}" />
+<meta property="og:locale" content="en_US" />
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Insights — {{siteName}}" />
+<meta name="twitter:description" content="Plain-language essays on public finance, city budgets, government spending, and fiscal transparency." />
+<meta name="twitter:image" content="{{defaultSocialImageUrl}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/base.css" />
+<style>
+  body { background: #FBF7EC; }
+
+  /* ===== PUBLICATION MASTHEAD ===== */
+  .pub-masthead {
+    background: #0C1A2C;
+    color: var(--ivory);
+    padding: 80px 0 90px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pub-masthead .inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 64px;
+  }
+  .pub-masthead .pre {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.46em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 22px;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+  }
+  .pub-masthead .pre::before,
+  .pub-masthead .pre::after {
+    content: ''; width: 40px; height: 1px; background: var(--gold-soft);
+  }
+  .pub-masthead h1 {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 86px);
+    line-height: 1.05;
+    font-weight: 500;
+    color: var(--ivory);
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .pub-masthead h1 .italic { font-style: italic; color: var(--gold-soft); font-weight: 400; }
+  .pub-masthead .tagline {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ivory-soft);
+    margin-bottom: 36px;
+  }
+  .pub-masthead .meta {
+    display: flex; gap: 32px; justify-content: center;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ivory-soft);
+    flex-wrap: wrap;
+  }
+  .pub-masthead .meta .sep { color: var(--gold-soft); }
+
+  /* Subtle gold grid pattern behind */
+  .pub-masthead .bg-grid {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image:
+      linear-gradient(to right, var(--gold-soft) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--gold-soft) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /* ===== FILTER BAR ===== */
+  .filter-bar {
+    background: #FBF7EC;
+    border-bottom: 1px solid #E8DFC9;
+    padding: 22px 0;
+    position: sticky; top: 72px; z-index: 30;
+  }
+  .filter-bar .inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 64px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .filter-bar .label {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .filter-bar .cats {
+    display: flex; gap: 4px; flex: 1;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+  }
+  .filter-bar .cats::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+  .filter-bar .cat {
+    padding: 9px 16px;
+    font-family: var(--font-ui);
+    background: transparent;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-weight: 500;
+  }
+  .filter-bar .cat:hover { color: var(--gold-deep); }
+  .filter-bar .cat.on {
+    background: #0C1A2C;
+    color: var(--ivory);
+    border-color: #0C1A2C;
+  }
+  .filter-bar .search {
+    position: relative;
+  }
+  .filter-bar .search input {
+    background: transparent;
+    border: 1px solid #D8D2C2;
+    padding: 9px 14px 9px 36px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    width: 220px;
+    outline: none;
+  }
+  .filter-bar .search input::placeholder {
+    color: var(--muted);
+    font-style: italic;
+  }
+  .filter-bar .search svg {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  }
+
+  /* ===== FEATURED ROW ===== */
+  .featured-essay {
+    padding: 80px 0 60px;
+    background: #FBF7EC;
+  }
+  .featured-essay .inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 64px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .featured-essay .photo-slot {
+    height: 520px;
+  }
+  .featured-essay .inner > a { display: block; }
+  .featured-essay .photo-slot,
+  .essay-card .photo-slot { overflow: hidden; }
+  .featured-essay .photo-slot img,
+  .essay-card .photo-slot img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .featured-essay .badge {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .featured-essay .badge::before { content: ''; width: 22px; height: 1px; background: currentColor; }
+  .featured-essay h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.1;
+    color: #0C1A2C;
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    margin-bottom: 20px;
+  }
+  .featured-essay h2 .italic { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .featured-essay .meta {
+    display: flex; gap: 14px; align-items: center;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 26px;
+  }
+  .featured-essay .meta .dot { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
+  .featured-essay .excerpt {
+    font-family: var(--font-editorial);
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+  }
+  .featured-essay .btn-primary {
+    background: #0C1A2C;
+    color: var(--ivory);
+    border-color: #0C1A2C;
+  }
+  .featured-essay .btn-primary:hover { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+
+  /* ===== ALL ESSAYS ===== */
+  .all-essays {
+    padding: 80px 0 120px;
+    background: #FBF7EC;
+    border-top: 1px solid #E8DFC9;
+  }
+  .all-essays .head {
+    max-width: 1320px;
+    margin: 0 auto 48px;
+    padding: 0 64px;
+    display: flex; align-items: end; justify-content: space-between;
+  }
+  .all-essays h2 {
+    font-family: var(--font-display);
+    font-size: 40px;
+    color: #0C1A2C;
+    font-weight: 500;
+    letter-spacing: -0.012em;
+  }
+  .all-essays .count {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--muted);
+  }
+  .all-essays .grid {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .essay-card {
+    background: #FFFFFF;
+    border: 1px solid #E8DFC9;
+    cursor: pointer;
+    transition: all 220ms ease;
+    display: flex; flex-direction: column;
+  }
+  .essay-card > a { display: block; }
+  .essay-card h3 a { color: inherit; text-decoration: none; }
+  .essay-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(12,26,44,0.08); }
+  .essay-card .photo-slot { height: 200px; }
+  .essay-card .body { padding: 24px 26px 28px; display: flex; flex-direction: column; flex: 1; }
+  .essay-card .meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .essay-card .cat { color: var(--gold-deep); font-weight: 600; }
+  .essay-card .num { color: var(--muted); }
+  .essay-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.22;
+    color: #0C1A2C;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.003em;
+  }
+  .essay-card p {
+    font-family: var(--font-editorial);
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+    flex: 1;
+  }
+  .essay-card .card-foot {
+    display: flex; justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid #E8DFC9;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+  .essay-card .time { color: var(--muted); }
+  .essay-card .read { color: var(--gold-deep); font-weight: 600; }
+
+  /* ===== NEWSLETTER CTA ===== */
+  .newsletter {
+    background: #F2EBD9;
+    padding: 100px 0;
+    border-top: 1px solid #E8DFC9;
+    border-bottom: 1px solid #E8DFC9;
+  }
+  .newsletter .inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 64px;
+    text-align: center;
+  }
+  .newsletter .eyebrow { margin-bottom: 18px; display: inline-flex; align-items: center; gap: 14px; color: var(--gold-deep); }
+  .newsletter .eyebrow::before,
+  .newsletter .eyebrow::after { content: ''; width: 24px; height: 1px; background: currentColor; }
+  .newsletter h2 {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3.5vw, 44px);
+    line-height: 1.1;
+    color: #0C1A2C;
+    font-weight: 500;
+    margin-bottom: 18px;
+    letter-spacing: -0.012em;
+  }
+  .newsletter h2 .italic { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .newsletter p {
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .newsletter form {
+    display: flex; justify-content: center; gap: 0; max-width: 520px; margin: 0 auto;
+  }
+  .newsletter input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 1px solid #D8D2C2;
+    border-right: 0;
+    background: #FBF7EC;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    outline: none;
+  }
+  .newsletter button {
+    padding: 14px 24px;
+    background: #0C1A2C;
+    color: var(--ivory);
+    border: 1px solid #0C1A2C;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .newsletter button:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .newsletter .fine {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 18px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Responsive Overrides */
+  @media (max-width: 991px) {
+    .filter-bar {
+      top: 64px;
+    }
+    .filter-bar .inner {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 0 24px;
+    }
+    .filter-bar .cats {
+      width: 100%;
+    }
+    .filter-bar .search {
+      width: 100%;
+    }
+    .filter-bar .search input {
+      width: 100%;
+    }
+    .featured-essay {
+      padding: 64px 0;
+    }
+    .featured-essay .inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .featured-essay .photo-slot {
+      height: 320px;
+    }
+    .all-essays {
+      padding: 64px 0;
+    }
+    .all-essays .head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .all-essays .grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .essay-card .photo-slot {
+      height: 180px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pub-masthead { padding: 52px 0 56px; }
+    .pub-masthead .inner,
+    .filter-bar .inner,
+    .featured-essay .inner,
+    .all-essays .head,
+    .all-essays .grid,
+    .newsletter .inner { padding-inline: 20px; }
+    .pub-masthead .pre {
+      gap: 10px;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      margin-bottom: 18px;
+    }
+    .pub-masthead .pre::before,
+    .pub-masthead .pre::after { width: 20px; }
+    .pub-masthead h1 { font-size: clamp(42px, 14vw, 58px); margin-bottom: 14px; }
+    .pub-masthead .tagline { font-size: 19px; line-height: 1.35; margin-bottom: 26px; }
+    .pub-masthead .meta { gap: 10px 16px; font-size: 9.5px; letter-spacing: 0.2em; }
+
+    .filter-bar { top: 99px; }
+    .filter-bar .inner { gap: 12px; padding-block: 12px; }
+    .filter-bar .label { font-size: 9px; letter-spacing: 0.24em; }
+    .filter-bar .cats { gap: 16px; }
+    .filter-bar .cat {
+      min-height: 44px;
+      flex: 0 0 auto;
+      padding-block: 10px;
+      font-size: 9px;
+      letter-spacing: 0.17em;
+    }
+    .filter-bar .search input { min-height: 44px; font-size: 13px; }
+
+    .featured-essay { padding: 48px 0; }
+    .featured-essay .inner { gap: 24px; }
+    .featured-essay .photo-slot { height: auto; aspect-ratio: 16 / 10; }
+    .featured-essay .badge { margin-bottom: 16px; letter-spacing: 0.3em; }
+    .featured-essay h2 { font-size: clamp(30px, 9vw, 40px); margin-bottom: 16px; }
+    .featured-essay .meta { gap: 10px; margin-bottom: 18px; font-size: 9.5px; letter-spacing: 0.18em; }
+    .featured-essay .excerpt {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+      overflow: hidden;
+      font-size: 16px;
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+    .featured-essay .btn { min-height: 44px; }
+
+    .all-essays { padding: 48px 0 56px; }
+    .all-essays .head { margin-bottom: 24px; }
+    .all-essays h2 { font-size: clamp(30px, 9vw, 38px); }
+    .all-essays .grid { gap: 18px; }
+    .essay-card .photo-slot { height: auto; aspect-ratio: 16 / 9; }
+    .essay-card .body { padding: 18px 20px 20px; }
+    .essay-card .meta-row { margin-bottom: 12px; font-size: 9px; letter-spacing: 0.22em; gap: 12px; }
+    .essay-card h3 { font-size: clamp(20px, 6vw, 23px); margin-bottom: 10px; }
+    .essay-card p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .essay-card .card-foot {
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+      padding-top: 10px;
+      font-size: 9.5px;
+      letter-spacing: 0.16em;
+    }
+    .essay-card .time,
+    .essay-card .read { white-space: nowrap; }
+    .essay-card .read { display: inline-flex; align-items: center; min-height: 44px; }
+
+    .newsletter { padding: 56px 0; }
+    .newsletter form { flex-direction: column; gap: 10px; }
+    .newsletter input,
+    .newsletter button { min-height: 48px; border: 1px solid #D8D2C2; }
+    .newsletter button { border-color: #0C1A2C; }
+  }
+
+  @media (max-width: 340px) {
+    .pub-masthead .inner,
+    .filter-bar .inner,
+    .featured-essay .inner,
+    .all-essays .head,
+    .all-essays .grid,
+    .newsletter .inner { padding-inline: 16px; }
+    .filter-bar { top: 98px; }
+    .essay-card .body { padding-inline: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav civic" aria-label="Primary navigation">
+  <div class="brand">
+    <span class="brand-mark" style="color: var(--gold-deep);">L</span>
+    <span class="brand-name">Lumina Smart Strategies</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" data-translate="nav-home">Home</a>
+    <a href="index.html#services" data-translate="nav-services">Services</a>
+    <a href="index.html#about" data-translate="nav-about">About Us</a>
+    <a href="insights.html" class="active" data-translate="nav-blog">Eliana's Blog</a>
+    <a href="index.html#contact" data-translate="nav-contact">Contact</a>
+  </div>
+  <div class="lang-switch" aria-label="Language selection">
+    <span data-lang="EN" class="on">EN</span>
+    <span>/</span>
+    <span data-lang="PT">PT</span>
+  </div>
+  <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})" data-translate="nav-subscribe">Subscribe</button>
+  <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- ========== MASTHEAD ========== -->
+<section class="pub-masthead">
+  <div class="bg-grid"></div>
+  <div class="inner">
+    <div class="pre" data-translate="blog-pre">A Publication by Eliana Faria Lima</div>
+    <h1><span data-translate="blog-title">How Public Money</span> <span class="italic" data-translate="blog-title-accent">Works.</span></h1>
+    <div class="tagline" data-translate="blog-tagline">Bringing clarity to public finance.</div>
+    <div class="meta">
+      <span data-translate="blog-vol">Vol. I · Twelve Essays · EN — bilingual editions to follow</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FILTER BAR ========== -->
+<section class="filter-bar">
+  <div class="inner">
+    <span class="label" data-translate="blog-browse">Browse —</span>
+    <div class="cats">
+      {{categoryFilters}}
+    </div>
+    <div class="search">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <circle cx="6" cy="6" r="4.5" stroke="#7A7D86" stroke-width="1.2"/>
+        <line x1="9.5" y1="9.5" x2="13" y2="13" stroke="#7A7D86" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <input type="text" placeholder="Search essays…" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURED ========== -->
+{{featuredPostHtml}}
+
+<!-- ========== ALL ESSAYS ========== -->
+<section class="all-essays" id="all-essays">
+  <div class="head">
+    <h2 data-translate="blog-all-essays">All Essays</h2>
+    <div class="count">— {{postCount}} published essay(s)</div>
+  </div>
+
+  <div class="grid">
+    {{postsGrid}}
+  </div>
+</section>
+
+<!-- ========== NEWSLETTER ========== -->
+<section class="newsletter" id="newsletter-section">
+  <div class="inner">
+    <div class="eyebrow" data-translate="news-eyebrow">Quietly delivered</div>
+    <h2><span data-translate="news-title">One essay,</span> <span class="italic" data-translate="news-title-accent">once a month.</span></h2>
+    <p data-translate="news-desc">A short, plain-language note from the practice — never more than once a month, never promotional.</p>
+    <form>
+      <input type="email" placeholder="your.email@example.com" required />
+      <button type="submit" data-translate="news-btn">Subscribe</button>
+    </form>
+    <div class="fine" data-translate="news-fine">No tracking, no third parties, no noise.</div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="foot">
+  <div class="foot-top">
+    <div>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom: 22px;">
+        <span style="font-family:var(--font-display); font-style:italic; font-size:28px; color:var(--gold-soft);">ecfl</span>
+        <span style="font-family:var(--font-display); font-size:22px; color:var(--ivory);">Eliana Faria Lima</span>
+      </div>
+      <p style="font-family:var(--font-editorial); font-style:italic; font-size:15px; color:var(--ivory-soft); max-width:340px; line-height:1.5;" data-translate="foot-desc">
+        Bringing clarity to public finance — for citizens, communities, and the institutions that serve them.
+      </p>
+    </div>
+    <div>
+      <h5 data-translate="foot-header-read">Read</h5>
+      <ul>
+        <li><a href="insights.html">How Public Money Works</a></li>
+        <li><a href="/insights">Featured Essay</a></li>
+        <li><a href="insights.html">By Category</a></li>
+        <li><a href="insights.html">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5 data-translate="foot-header-practice">Practice</h5>
+      <ul>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#disciplines">Areas of Focus</a></li>
+        <li><a href="index.html#resources">Resources</a></li>
+        <li><a href="index.html#contact">Speaking</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5 data-translate="foot-header-connect">Connect</h5>
+      <ul>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="#newsletter-section">Newsletter</a></li>
+        <li><a href="#">RSS</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span data-translate="foot-copyright">© MMXXVI Lumina Smart Strategies LLC</span>
+    <span data-translate="foot-tagline">Bringing clarity to public finance.</span>
+  </div>
+</footer>
+
+<script src="shared/main.js"></script>
+</body>
+</html>

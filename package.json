@@ -1,0 +1,35 @@
+{
+  "name": "how-public-money-works",
+  "version": "1.0.0",
+  "description": "Lumina Smart Strategies & Blog da Eliana",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "content:validate": "node scripts/validate-content.js --scope all",
+    "content:validate:review": "node scripts/validate-content.js --scope review",
+    "content:validate:published": "node scripts/validate-content.js --scope published",
+    "content:preview": "node scripts/preview-article.js",
+    "content:audit": "node scripts/audit-output.js dist",
+    "content:audit:preview": "node scripts/audit-output.js .preview",
+    "content:test:guards": "node scripts/test-pipeline-guards.js",
+    "content:test:frontmatter": "node scripts/test-frontmatter-parser.js",
+    "public:exposure-audit": "node scripts/public-exposure-audit.js dist",
+    "public:exposure-audit:preview": "node scripts/public-exposure-audit.js .preview --preview",
+    "public:test:exposure-audit": "node scripts/test-public-exposure-audit.js",
+    "editorial:plan-week": "node scripts/editorial/plan-week.js",
+    "editorial:prepare-next": "node scripts/editorial/prepare-next.js",
+    "editorial:validate": "node scripts/editorial/auto-publish-check.js",
+    "editorial:preview": "node scripts/preview-article.js",
+    "editorial:auto-publish-check": "node scripts/editorial/auto-publish-check.js",
+    "editorial:run-slot": "node scripts/editorial/run-slot.js",
+    "editorial:inventory": "node scripts/editorial/inventory.js",
+    "editorial:status": "node scripts/editorial/status.js",
+    "editorial:test": "node scripts/editorial/test-automation.js",
+    "editorial:test:transaction": "node scripts/editorial/test-publication-adapter.js",
+    "test": "npm run content:validate"
+  },
+  "dependencies": {
+    "marked": "^18.0.4",
+    "yaml": "^2.9.0"
+  }
+}

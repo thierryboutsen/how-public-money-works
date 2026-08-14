@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="{{htmlLanguage}}">
+<head>
+<meta charset="UTF-8" />
+<title>{{documentTitle}}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="{{metaDescription}}" />
+<meta name="robots" content="{{robotsDirective}}" />
+{{canonicalLink}}
+{{alternateLinks}}
+<!-- Open Graph (article) -->
+<meta property="og:type" content="article" />
+{{ogUrlMeta}}
+<meta property="og:title" content="{{seoTitle}}" />
+<meta property="og:description" content="{{metaDescription}}" />
+{{ogImageMeta}}
+<meta property="og:site_name" content="{{siteName}}" />
+<meta property="og:locale" content="{{ogLocale}}" />
+{{ogAlternateLocaleMeta}}
+<meta property="article:author" content="Eliana Faria Lima" />
+{{articlePublishedTimeMeta}}
+{{articleSectionMeta}}
+{{articleTagMeta}}
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{seoTitle}}" />
+<meta name="twitter:description" content="{{metaDescription}}" />
+{{twitterImageMeta}}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/shared/base.css" />
+<style>
+  body {
+    background: #FBF7EC;
+    color: #1A1F2E;
+  }
+
+  /* Reuse civic nav */
+  .nav.civic {
+    background: rgba(251, 247, 236, 0.94);
+    padding: 20px 64px;
+    border-bottom: 1px solid #E8DFC9;
+  }
+  .nav.civic .nav-cta {
+    background: var(--bg-deep); color: var(--ivory); border-color: var(--bg-deep);
+  }
+  .nav.civic .nav-cta:hover { background: var(--gold); border-color: var(--gold); }
+
+  /* ===== ARTICLE BREADCRUMB ===== */
+  .breadcrumb {
+    border-bottom: 1px solid #E8DFC9;
+    padding: 14px 0;
+    background: #FBF7EC;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .breadcrumb .inner {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .breadcrumb a { color: var(--muted); }
+  .breadcrumb a:hover { color: var(--gold-deep); }
+  .breadcrumb .sep { color: var(--gold-deep); }
+  .breadcrumb .here { color: var(--ink); font-weight: 600; }
+
+  /* ===== ARTICLE HEADER ===== */
+  .article-header {
+    padding: 80px 0 60px;
+    background: #FBF7EC;
+    border-bottom: 1px solid #E8DFC9;
+  }
+  .article-header .inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 64px;
+    text-align: left;
+  }
+  .article-header .meta {
+    display: flex; align-items: center; gap: 16px;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .article-header .meta .cat {
+    color: var(--gold-deep);
+    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .article-header .meta .cat::before {
+    content: ''; width: 22px; height: 1px; background: currentColor;
+  }
+  .article-header .meta .num { color: var(--muted); }
+  .article-header .meta .sep { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
+  .article-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1.05;
+    color: #0C1A2C;
+    font-weight: 500;
+    letter-spacing: -0.018em;
+    margin-bottom: 22px;
+  }
+  .article-header h1 .italic { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .article-header .subtitle {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: clamp(17px, 1.8vw, 22px);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin-bottom: 38px;
+    max-width: 720px;
+  }
+
+  .byline {
+    display: flex; align-items: center; gap: 20px;
+    padding-top: 28px;
+    border-top: 1px solid #E8DFC9;
+  }
+  .byline-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background-image: url('/assets/eliana-portrait.jpeg');
+    background-size: cover;
+    background-position: 50% 30%;
+    border: 1px solid #D8D2C2;
+  }
+  .byline-info {
+    flex: 1;
+  }
+  .byline-info .by {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .byline-info .name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: #0C1A2C;
+    font-weight: 500;
+    letter-spacing: -0.003em;
+  }
+  .byline-info .role {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .byline .stats {
+    display: flex; gap: 24px;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .byline .stats b { color: var(--gold-deep); font-weight: 600; }
+
+  /* ===== HERO ===== */
+  .article-hero {
+    background: #FBF7EC;
+    padding: 60px 0 0;
+  }
+  .article-hero .inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 64px;
+  }
+  .article-hero .photo-slot {
+    height: 540px;
+    margin: 0;
+    overflow: hidden;
+  }
+  .article-hero .photo-slot img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .article-hero .cap {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  /* ===== ARTICLE BODY ===== */
+  .article-body {
+    padding: 80px 0 100px;
+    background: #FBF7EC;
+  }
+  .article-body .inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 64px;
+  }
+
+  .article-body p {
+    font-family: var(--font-editorial);
+    font-size: 19px;
+    line-height: 1.65;
+    color: #14192A;
+    margin-bottom: 1.4em;
+  }
+  .article-body p.lede {
+    font-size: 24px;
+    line-height: 1.45;
+    color: #0C1A2C;
+    font-weight: 400;
+    margin-bottom: 36px;
+  }
+  .article-body p .dropcap {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 88px;
+    line-height: 0.85;
+    color: var(--gold-deep);
+    padding: 8px 14px 0 0;
+    font-weight: 500;
+  }
+
+  .article-body h2 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 500;
+    color: #0C1A2C;
+    letter-spacing: -0.012em;
+    margin: 64px 0 24px;
+    line-height: 1.15;
+  }
+  .article-body h2 .num {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--gold-deep);
+    font-weight: 400;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .article-body h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    color: #0C1A2C;
+    margin: 40px 0 14px;
+    letter-spacing: -0.005em;
+  }
+
+  .pull-quote {
+    margin: 56px -80px;
+    padding: 32px 80px;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    text-align: center;
+  }
+  .pull-quote blockquote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1.25;
+    color: #0C1A2C;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .pull-quote .attr {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-top: 20px;
+    font-weight: 600;
+  }
+
+  /* Key term box */
+  .key-term {
+    background: #F2EBD9;
+    border-left: 3px solid var(--gold);
+    padding: 22px 28px;
+    margin: 36px 0;
+  }
+  .key-term .label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .key-term .term {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: #0C1A2C;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .key-term .definition {
+    font-family: var(--font-editorial);
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Numbered list */
+  .numbered-list {
+    margin: 28px 0;
+    counter-reset: nl;
+    list-style: none;
+    padding: 0;
+  }
+  .numbered-list li {
+    counter-increment: nl;
+    padding-left: 56px;
+    position: relative;
+    margin-bottom: 22px;
+    font-family: var(--font-editorial);
+    font-size: 18px;
+    line-height: 1.6;
+    color: #14192A;
+  }
+  .numbered-list li::before {
+    content: counter(nl, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 2px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--gold-deep);
+    font-weight: 400;
+  }
+
+  /* Diagram block */
+  .diagram {
+    margin: 56px -80px;
+    padding: 40px 60px;
+    background: #FFFFFF;
+    border: 1px solid #E8DFC9;
+    text-align: center;
+  }
+  .diagram .label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .diagram h4 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: #0C1A2C;
+    margin: 0 0 32px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: -0.003em;
+  }
+  .diagram .caption {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 24px;
+  }
+
+  /* Author end block */
+  .end-mark {
+    width: 16px; height: 16px;
+    background: var(--gold);
+    display: inline-block;
+    margin: 24px 0 0;
+    transform: rotate(45deg);
+  }
+
+  /* Article footer */
+  .article-foot {
+    padding: 60px 0 80px;
+    background: #FBF7EC;
+    border-top: 1px solid #E8DFC9;
+  }
+  .article-foot .inner {
+    max-width: 880px; margin: 0 auto; padding: 0 64px;
+  }
+  .article-foot .meta-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 32px 0;
+    border-bottom: 1px solid #E8DFC9;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .article-foot .tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .article-foot .tag {
+    padding: 7px 14px;
+    border: 1px solid #D8D2C2;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .article-foot .share {
+    display: flex; align-items: center; gap: 16px;
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .article-foot .share a {
+    color: var(--gold-deep);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    font-weight: 500;
+  }
+
+  /* Author bio block */
+  .author-block {
+    margin-top: 48px;
+    padding: 36px 40px;
+    background: #F2EBD9;
+    border: 1px solid #E8DFC9;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  .author-block .a-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background-image: url('/assets/eliana-portrait.jpeg');
+    background-size: cover;
+    background-position: 50% 30%;
+    border: 1px solid #D8D2C2;
+  }
+  .author-block .label {
+    font-family: var(--font-ui);
+    font-size: 10.5px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .author-block .name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: #0C1A2C;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .author-block p {
+    font-family: var(--font-editorial);
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Prev/Next */
+  .prev-next {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .pn-card {
+    padding: 28px 32px;
+    border: 1px solid #E8DFC9;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 220ms ease;
+  }
+  .pn-card:hover { border-color: var(--gold); }
+  .pn-card .pn-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .pn-card .pn-cat {
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .pn-card h4 {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: #0C1A2C;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.003em;
+    text-transform: none;
+  }
+  .pn-card.next { text-align: right; }
+
+  /* Related */
+  .related {
+    background: #F2EBD9;
+    padding: 80px 0;
+    border-top: 1px solid #E8DFC9;
+    border-bottom: 1px solid #E8DFC9;
+  }
+  .related .head {
+    max-width: 1320px; margin: 0 auto 36px; padding: 0 64px;
+    display: flex; justify-content: space-between; align-items: end;
+  }
+  .related h2 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    color: #0C1A2C;
+    font-weight: 500;
+    letter-spacing: -0.012em;
+  }
+  .related .grid {
+    max-width: 1320px; margin: 0 auto; padding: 0 64px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .related .card {
+    background: #FFFFFF;
+    border: 1px solid #E8DFC9;
+    padding: 26px 28px;
+    cursor: pointer;
+    transition: all 220ms ease;
+  }
+  .related .card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .related .cat {
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .related h3 {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: #0C1A2C;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.003em;
+  }
+  .related p {
+    font-family: var(--font-editorial);
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .related .read {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    font-weight: 600;
+  }
+
+  /* Responsive Mobile/Tablet Adjustments */
+  @media (max-width: 991px) {
+    .nav.civic { padding: 16px 24px; gap: 18px; }
+    .breadcrumb .inner {
+      padding: 0 24px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .breadcrumb .inner::-webkit-scrollbar { display: none; }
+    .nav.civic .nav-cta { display: none; }
+    .article-header {
+      padding: 40px 0;
+    }
+    .article-header .inner {
+      padding: 0 24px;
+    }
+    .byline {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .byline .stats {
+      flex-direction: column;
+      gap: 8px;
+    }
+    .article-hero .inner {
+      padding: 0;
+    }
+    .article-hero .photo-slot {
+      height: 300px;
+    }
+    .article-hero .cap {
+      padding: 0 24px;
+    }
+    .article-body {
+      padding: 40px 0;
+    }
+    .article-body .inner {
+      padding: 0 24px;
+    }
+    .pull-quote {
+      margin: 36px 0;
+      padding: 24px 16px;
+    }
+    .pull-quote blockquote {
+      font-size: 22px;
+    }
+    .diagram {
+      margin: 36px 0;
+      padding: 24px 16px;
+      overflow-x: auto;
+    }
+    .diagram svg {
+      width: 560px;
+    }
+    .article-foot .inner {
+      padding: 0 24px;
+    }
+    .author-block {
+      grid-template-columns: 1fr;
+      padding: 24px;
+      gap: 16px;
+      text-align: center;
+    }
+    .author-block .a-avatar {
+      margin: 0 auto;
+    }
+    .prev-next {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .pn-card.next {
+      text-align: left;
+    }
+    .related {
+      padding: 48px 0;
+    }
+    .related .head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 0 24px;
+    }
+    .related .grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 0 24px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .nav.civic { padding: 3px 16px; gap: 4px 12px; }
+    .nav.civic .nav-cta { display: block; }
+  }
+
+  @media (max-width: 767px) {
+    .breadcrumb { padding: 10px 0; }
+    .breadcrumb .inner,
+    .article-header .inner,
+    .article-hero .cap,
+    .article-body .inner,
+    .article-foot .inner,
+    .related .head,
+    .related .grid { padding-inline: 20px; }
+    .article-header { padding: 32px 0; }
+    .article-header .meta { gap: 10px 12px; margin-bottom: 24px; font-size: 9.5px; letter-spacing: 0.22em; }
+    .article-header h1 { font-size: clamp(34px, 11vw, 44px); line-height: 1.08; margin-bottom: 18px; }
+    .article-header .subtitle { font-size: 17px; margin-bottom: 28px; }
+    .byline { gap: 14px; padding-top: 22px; }
+    .byline .stats { flex-direction: row; flex-wrap: wrap; gap: 10px 16px; }
+    .article-hero .photo-slot { height: auto; aspect-ratio: 16 / 10; }
+    .article-body { padding: 36px 0; }
+    .article-body p { font-size: 17px; line-height: 1.72; }
+    .article-body p.lede { font-size: 18px; }
+    .article-body h2 { font-size: clamp(28px, 8vw, 36px); }
+    .diagram svg { width: 500px; }
+  }
+
+  @media (max-width: 340px) {
+    .nav.civic { padding: 3px 12px; gap: 5px 8px; }
+    .breadcrumb .inner,
+    .article-header .inner,
+    .article-hero .cap,
+    .article-body .inner,
+    .article-foot .inner,
+    .related .head,
+    .related .grid { padding-inline: 16px; }
+  }
+</style>
+{{jsonLdScript}}
+</head>
+<body data-content-language="{{uiLanguage}}">
+
+<nav class="nav civic" aria-label="Primary navigation">
+  <div class="brand">
+    <span class="brand-mark" style="color: var(--gold-deep);">L</span>
+    <span class="brand-name">Lumina Smart Strategies</span>
+  </div>
+  <div class="nav-links">
+    <a href="/">{{navHome}}</a>
+    <a href="/#services">{{navServices}}</a>
+    <a href="/#about">{{navAbout}}</a>
+    <a href="/insights" class="active">{{navBlog}}</a>
+    <a href="/#contact">{{navContact}}</a>
+  </div>
+  {{languageSwitchHtml}}
+  <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})">{{navSubscribe}}</button>
+  <button class="menu-toggle" aria-label="{{navMenuLabel}}" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- ========== BREADCRUMB ========== -->
+<div class="breadcrumb">
+  <div class="inner">
+    <a href="/">{{navHome}}</a>
+    <span class="sep">/</span>
+    <a href="/insights">{{insightsLabel}}</a>
+    <span class="sep">/</span>
+    <a href="/insights">{{category}}</a>
+    <span class="sep">/</span>
+    <span class="here">{{title}}</span>
+  </div>
+</div>
+
+<!-- ========== HEADER ========== -->
+<header class="article-header">
+  <div class="inner">
+    <div class="meta">
+      <span class="cat">{{category}}</span>
+      <span class="sep"></span>
+      <span class="num">{{essayLabel}} N.º {{essayNumber}}</span>
+      <span class="sep"></span>
+      <span>{{publicFinanceTagline}}</span>
+    </div>
+    <h1>
+          {{title}}
+        </h1>
+    <div class="subtitle">
+          {{subtitle}}
+        </div>
+
+    <div class="byline">
+      <div class="byline-avatar"></div>
+      <div class="byline-info">
+        <div class="by">{{byLabel}}</div>
+        <div class="name">{{author}}</div>
+        <div class="role">{{authorRole}}</div>
+      </div>
+      <div class="stats">
+        <span>{{readingTime}}</span>
+        <span>{{wordCount}} {{wordCountLabel}}</span>
+        {{dateDisplayHtml}}
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+{{heroHtml}}
+
+<!-- ========== BODY ========== -->
+<article class="article-body">
+  <div class="inner">
+        {{body}}
+
+<div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #E8DFC9; font-family: var(--font-editorial); font-size: 13.5px; color: var(--muted); line-height: 1.6;">
+{{educationalDisclaimerHtml}}
+</div>
+      </div>
+</article>
+
+<!-- ========== ARTICLE FOOTER ========== -->
+<section class="article-foot">
+  <div class="inner">
+    <div class="meta-foot">
+      {{tagsHtml}}
+      <div class="share">
+        <span>{{shareLabel}}</span>
+        <a href="#" onclick="navigator.clipboard.writeText(window.location.href); return false;">{{copyLinkLabel}}</a>
+        <a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>LinkedIn</a>
+        <a href="#" onclick="window.print(); return false;">{{printLabel}}</a>
+      </div>
+    </div>
+
+    <div class="author-block">
+      <div class="a-avatar"></div>
+      <div>
+        <div class="label">{{authorTitle}}</div>
+        <div class="name">{{author}}</div>
+        <p>{{authorDescription}}</p>
+      </div>
+    </div>
+
+    {{postNavigationHtml}}
+  </div>
+</section>
+
+<!-- ========== RELATED ========== -->
+{{relatedPostsHtml}}
+
+<!-- ========== FOOTER ========== -->
+<footer class="foot">
+  <div class="foot-top">
+    <div>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom: 22px;">
+        <span style="font-family:var(--font-display); font-style:italic; font-size:28px; color:var(--gold-soft);">ecfl</span>
+        <span style="font-family:var(--font-display); font-size:22px; color:var(--ivory);">Eliana Faria Lima</span>
+      </div>
+      <p style="font-family:var(--font-editorial); font-style:italic; font-size:15px; color:var(--ivory-soft); max-width:340px; line-height:1.5;">{{footerDescription}}</p>
+    </div>
+    <div>
+      <h5>{{footerRead}}</h5>
+      <ul>
+        <li><a href="/insights">How Public Money Works</a></li>
+        <li><a href="/insights">{{footerFeatured}}</a></li>
+        <li><a href="/insights">{{footerCategory}}</a></li>
+        <li><a href="/insights">{{footerGlossary}}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>{{footerPractice}}</h5>
+      <ul>
+        <li><a href="/#about">{{navAbout}}</a></li>
+        <li><a href="/#disciplines">{{footerFocus}}</a></li>
+        <li><a href="/#resources">{{footerResources}}</a></li>
+        <li><a href="/#contact">{{footerSpeaking}}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>{{footerConnect}}</h5>
+      <ul>
+        <li><a href="/#contact">{{navContact}}</a></li>
+        <li><a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="#newsletter-section">Newsletter</a></li>
+        <li><a href="#">RSS</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© MMXXVI Lumina Smart Strategies LLC</span>
+    <span>{{footerTagline}}</span>
+  </div>
+</footer>
+
+<script src="/shared/main.js"></script>
+</body>
+</html>

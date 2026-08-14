@@ -30,10 +30,13 @@ The production website will consist of:
   - Full **Open Graph** tags (`og:type`, `og:url`, `og:title`, `og:description`, `og:image`, `og:site_name`, `og:locale`)
   - Full **Twitter Card** tags (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`)
   - For article pages: additional `article:author`, `article:published_time`, `article:section`, `article:tag` OG properties
-* The assumed production domain is `https://elianafariasima.com` — **update canonical URLs before go-live** if the domain differs.
+* The confirmed production origin is `https://www.luminasmart.company`; runtime metadata must read this value from `site.config.js`.
 
 ## 7. Admin Editor Access Control
 * `admin-editor.html` must **never be indexed or publicly linked**. 
 * A client-side passcode gate (`localStorage` token) is implemented to prevent casual access.
 * For production: add HTTP Basic Auth or move to a password-protected subdirectory at the server level.
 
+
+* Assumed the premium editorial color palette (gold, navy, ivory) and modern aesthetics are completely suitable for the corporate identity of Lumina Smart Strategies.
+* Assumed the blog will continue to use the title "How Public Money Works" under Eliana's direct authorship, while the consulting work is presented under the Lumina umbrella.
