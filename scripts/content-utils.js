@@ -118,9 +118,7 @@ function validateDocuments(documents, options = {}) {
   const angleOwners = new Map();
   const canonicalOwners = new Map();
   const translationOwners = new Map();
-  const routeOwners = new Map(documents
-    .filter((doc) => doc.data.status === 'published')
-    .map((doc) => [publicPathForDocument(doc), doc]));
+  const routeOwners = new Map(documents.map((doc) => [publicPathForDocument(doc), doc]));
 
   function error(doc, message) {
     errors.push(`${doc.relativePath}: ${message}`);
