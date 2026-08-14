@@ -52,6 +52,9 @@ html, body {
   overflow-x: clip;
 }
 
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 110px; }
+
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
@@ -261,13 +264,24 @@ p { margin: 0 0 1em; }
   cursor: pointer;
 }
 .lang-switch span,
-.lang-switch a {
+.lang-switch a,
+.lang-switch button {
   transition: color 0.2s ease;
   color: inherit;
   text-decoration: none;
 }
+.lang-switch button {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
 .lang-switch span:hover,
-.lang-switch a:hover {
+.lang-switch a:hover,
+.lang-switch button:hover {
   color: var(--ink);
 }
 .lang-switch .on { color: var(--gold-deep); font-weight: 600; }
@@ -364,7 +378,8 @@ p { margin: 0 0 1em; }
     min-height: 44px;
   }
   .lang-switch span[data-lang],
-  .lang-switch a {
+  .lang-switch a,
+  .lang-switch button {
     display: inline-flex;
     align-items: center;
     min-height: 44px;

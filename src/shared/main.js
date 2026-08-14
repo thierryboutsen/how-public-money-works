@@ -13,41 +13,41 @@ const TRANSLATIONS = {
     "nav-insights": "Insights",
     "nav-resources": "Resources",
     "nav-contact": "Contact",
-    "nav-subscribe": "Subscribe",
+    "nav-subscribe": "Updates",
     
     // Hero Section
-    "hero-eyebrow": "A Practice in Public Finance",
+    "hero-eyebrow": "Public Finance and Civic Education",
     "hero-title-1": "Bringing clarity",
     "hero-title-accent": "to public money.",
-    "hero-lede": "For more than a decade, Eliana Faria Lima has worked at the intersection of public finance, government budgeting, and health governance — translating the language of public money into something a citizen can read.",
-    "hero-btn-essay": "Read the Featured Essay",
+    "hero-lede": "Eliana Faria Lima writes and works across public finance, government budgeting, health governance, and transparency—turning complex public-money questions into practical, plain-language guidance.",
+    "hero-btn-essay": "Read the Latest Essay",
     "hero-btn-about": "About Eliana",
-    "hero-strip-1": "13+ years · public-sector practice",
+    "hero-strip-1": "Public Finance",
     "hero-strip-2": "How Public Money Works · ongoing publication",
-    "hero-strip-3": "EN / PT · bilingual practice",
-    "hero-caption": "Lumina Smart Strategies · Public finance consulting",
+    "hero-strip-3": "English / Portuguese",
+    "hero-caption": "Lumina Smart Strategies · Public finance and civic education",
     "hero-card-label": "From the editor",
-    "hero-card-quote": "A budget is a city's most honest piece of writing.",
+    "hero-card-quote": "Public money becomes more useful when people can understand the choices behind it.",
     "hero-card-author": "— Eliana Faria Lima",
     
     // Areas / Disciplines
-    "areas-title": "Six disciplines,",
-    "areas-title-accent": "one practice.",
-    "areas-lede": "The work that follows is one continuous body of thinking — on how public money is raised, spent, and made visible to the people it serves.",
-    "areas-practice-glance": "Areas of practice — at a glance",
+    "areas-title": "Six areas,",
+    "areas-title-accent": "one clear purpose.",
+    "areas-lede": "The work connects public-finance practice with civic explanation: how public resources are raised, budgeted, governed, and made understandable.",
+    "areas-practice-glance": "Areas of focus — at a glance",
     
     "area-01-title": "Public Finance",
-    "area-01-desc": "The economics of how governments raise, allocate, and account for public resources — from local treasuries to national systems.",
+    "area-01-desc": "How governments raise, allocate, and account for public resources, explained with attention to local variation.",
     "area-02-title": "Government Budgeting",
-    "area-02-desc": "Designing, executing, and explaining budgets that translate political intent into operational reality.",
+    "area-02-desc": "How budgets turn public priorities into plans, appropriations, services, and choices that residents can examine.",
     "area-03-title": "Health Governance",
-    "area-03-desc": "The financing and stewardship of public health systems — where fiscal decisions become matters of life and care.",
+    "area-03-desc": "The connection between public resources, institutional stewardship, and the systems that support community health.",
     "area-04-title": "Fiscal Modernization",
-    "area-04-desc": "Re-engineering the practices, systems, and culture of public-sector finance for clarity, integrity, and resilience.",
+    "area-04-desc": "Clearer practices, systems, and public-facing information that can make financial administration easier to understand.",
     "area-05-title": "Transparency & Accountability",
-    "area-05-desc": "Making the workings of public money visible — so that scrutiny becomes possible and trust becomes earned.",
+    "area-05-desc": "The documents, decisions, and oversight processes that help the public see how money is managed.",
     "area-06-title": "Civic Financial Education",
-    "area-06-desc": "Bringing the language of public finance into civic life — for citizens, students, and community leaders.",
+    "area-06-desc": "Plain-language guidance for residents, taxpayers, small-business owners, students, and community leaders.",
     "areas-read-more": "Read more →",
     
     // Featured Essay
@@ -72,15 +72,15 @@ const TRANSLATIONS = {
     
     // About Section
     "about-eyebrow": "About",
-    "about-title": "A career spent",
-    "about-title-accent": "reading budgets aloud,",
-    "about-title-end": " so that more people can.",
-    "about-p1": "For more than a decade, Eliana Faria Lima has worked at the intersection of public finance, government budgeting, and health governance — designing fiscal systems, advising public administrations, and writing on accountability and transparency.",
-    "about-p2": "Her current work focuses on bringing American public-finance literacy into reach of the people it most affects: residents, small-business owners, students, civic organizations, and community leaders who live with the consequences of how budgets are written.",
-    "about-quote": "The goal is simple, and the method is patient: clear language, plain numbers, and the conviction that public money belongs to the public.",
-    "about-btn": "Read full biography",
+    "about-title": "Public-finance experience,",
+    "about-title-accent": "made useful",
+    "about-title-end": " to more readers.",
+    "about-p1": "Eliana Faria Lima is a public finance specialist whose work and writing connect government budgeting, health governance, transparency, and accountability.",
+    "about-p2": "Through How Public Money Works, she explains public documents and financial concepts for residents, taxpayers, small-business owners, students, and civic professionals—without treating local examples as universal rules.",
+    "about-quote": "The goal is practical: help readers understand the documents, choices, and institutions behind public money.",
+    "about-btn": "Contact Eliana",
     "about-caption-1": "Eliana Faria Lima · Founder",
-    "about-caption-2": "Lumina Consulting · Strategy",
+    "about-caption-2": "How Public Money Works · Civic education",
     
     // Resources Section
     "res-eyebrow": "Resources",
@@ -90,17 +90,17 @@ const TRANSLATIONS = {
     "res-01-kind": "Reference",
     "res-01-title": "Glossary of Public Finance",
     "res-01-desc": "An evolving A–Z of public-finance terms, in plain English. From appropriation to zero-based budgeting.",
-    "res-01-action": "Open glossary →",
+    "res-coming-soon": "Coming soon",
     
-    "res-02-kind": "Guide",
+    "res-02-kind": "Article guide",
     "res-02-title": "How to Read a City Budget",
-    "res-02-desc": "A short, illustrated guide to finding the four numbers that matter most in any municipal budget document.",
-    "res-02-action": "Read guide →",
+    "res-02-desc": "A plain-language article about what a city budget is, how it shapes public choices, and why residents may want to read it.",
+    "res-02-action": "Read article →",
     
-    "res-03-kind": "Primer",
-    "res-03-title": "Understanding Property Tax",
-    "res-03-desc": "What it is, how it's set, who decides, and where the money goes — for homeowners, renters, and small businesses.",
-    "res-03-action": "Read primer →",
+    "res-03-kind": "Article guide",
+    "res-03-title": "Where Do Your Local Taxes Actually Go?",
+    "res-03-desc": "A conceptual guide to revenue sources, local governments, funds, and the services they support.",
+    "res-03-action": "Read article →",
     
     "res-04-kind": "Index",
     "res-04-title": "Open-Data Portals — A Map",
@@ -121,21 +121,19 @@ const TRANSLATIONS = {
     "contact-eyebrow": "Get in touch",
     "contact-title": "For institutions, journalists,",
     "contact-title-accent": "and the curious citizen.",
-    "contact-desc": "For speaking, consulting, writing collaborations, or to suggest a topic for How Public Money Works.",
+    "contact-desc": "For speaking, writing collaborations, or to suggest a topic for How Public Money Works.",
     "contact-based-lbl": "Based",
     "contact-based": "São Paulo · Brasil",
     "contact-speaks-lbl": "Speaks",
     "contact-speaks": "English · Português",
     
     // Newsletter Section
-    "news-eyebrow": "Quietly delivered",
-    "news-title": "One essay,",
-    "news-title-accent": "once a month.",
-    "news-desc": "A short, plain-language note from the practice — never more than once a month, never promotional.",
-    "news-placeholder": "your.email@example.com",
-    "news-btn": "Subscribe",
-    "news-fine": "No tracking, no third parties, no noise.",
-    "news-success": "Thank you! You have successfully subscribed to the publication.",
+    "news-eyebrow": "Publication updates",
+    "news-title": "Email updates are",
+    "news-title-accent": "coming soon.",
+    "news-desc": "There is no subscription form yet. Until a real delivery service is available, new essays remain available in Insights.",
+    "news-status": "Coming soon",
+    "news-fine": "No spam. Just occasional updates when this becomes available.",
     
     // Footer Section
     "foot-desc": "Bringing clarity to public finance — for citizens, communities, and the institutions that serve them.",
@@ -144,26 +142,30 @@ const TRANSLATIONS = {
     "foot-header-connect": "Connect",
     "foot-copyright": "© MMXXVI Eliana Faria Lima",
     "foot-tagline": "Bringing clarity to public finance.",
+    "foot-featured-link": "Latest essays",
+    "foot-category-link": "By category",
+    "foot-glossary-soon": "Glossary · Coming soon",
+    "foot-updates-link": "Updates · Coming soon",
 
     // Blog Index specific
     "blog-pre": "A Publication by Eliana Faria Lima",
     "blog-title": "How Public Money",
     "blog-title-accent": "Works.",
     "blog-tagline": "Bringing clarity to public finance.",
-    "blog-vol": "Vol. I · Twelve Essays · EN — bilingual editions to follow",
+    "blog-vol": "An ongoing publication on public money and local government",
     "blog-browse": "Browse —",
     "blog-all-essays": "All Essays",
-    "blog-twelve-essays": "— Twelve essays in Volume I",
+    "blog-twelve-essays": "Published essays",
     "blog-search-placeholder": "Search essays…",
 
     // Article Page specific
     "art-by": "By",
-    "art-role": "Senior Practice, Public Finance",
+    "art-role": "Public Finance Specialist",
     "art-stats": "<b>8 min</b> read &nbsp;·&nbsp; <b>1,920</b> words &nbsp;·&nbsp; March MMXXVI",
     "art-hero-cap": "A budget is a public document. The question is not whether it can be read; it is whether it will be.",
     "art-author-title": "About the author",
-    "art-author-desc": "A senior practice in public finance, government budgeting, and health governance. Editor of <i>How Public Money Works</i>, a publication that brings plain-language clarity to the workings of American public money — from city hall to state capitol.",
-    "art-related-title": "More from this volume",
+    "art-author-desc": "A public finance specialist working across government budgeting and health governance. Editor of <i>How Public Money Works</i>, a publication that brings plain-language clarity to American public money — from city hall to state government.",
+    "art-related-title": "More from the publication",
     "art-related-btn": "Browse all essays"
   },
   pt: {
@@ -174,41 +176,41 @@ const TRANSLATIONS = {
     "nav-insights": "Publicações",
     "nav-resources": "Recursos",
     "nav-contact": "Contato",
-    "nav-subscribe": "Inscrever-se",
+    "nav-subscribe": "Atualizações",
     
     // Hero Section
-    "hero-eyebrow": "Uma Prática em Finanças Públicas",
+    "hero-eyebrow": "Finanças Públicas e Educação Cívica",
     "hero-title-1": "Trazendo clareza",
     "hero-title-accent": "ao dinheiro público.",
-    "hero-lede": "Por mais de uma década, Eliana Faria Lima tem trabalhado na interseção de finanças públicas, orçamento governamental e governança de saúde — traduzindo a linguagem do dinheiro público para algo que um cidadão possa ler.",
-    "hero-btn-essay": "Ler o Artigo de Destaque",
+    "hero-lede": "Eliana Faria Lima escreve e trabalha com finanças públicas, orçamento governamental, governança da saúde e transparência—transformando questões complexas sobre dinheiro público em orientação prática e acessível.",
+    "hero-btn-essay": "Ler o Artigo Mais Recente",
     "hero-btn-about": "Sobre Eliana",
-    "hero-strip-1": "13+ anos · prática no setor público",
+    "hero-strip-1": "Finanças Públicas",
     "hero-strip-2": "How Public Money Works · publicação contínua",
-    "hero-strip-3": "EN / PT · prática bilíngue",
-    "hero-caption": "Lumina Smart Strategies · Consultoria em finanças públicas",
+    "hero-strip-3": "Inglês / Português",
+    "hero-caption": "Lumina Smart Strategies · Finanças públicas e educação cívica",
     "hero-card-label": "Da editora",
-    "hero-card-quote": "Um orçamento é o texto mais honesto que uma cidade produz.",
+    "hero-card-quote": "O dinheiro público se torna mais útil quando as pessoas entendem as escolhas por trás dele.",
     "hero-card-author": "— Eliana Faria Lima",
     
     // Areas / Disciplines
-    "areas-title": "Seis disciplinas,",
-    "areas-title-accent": "uma prática.",
-    "areas-lede": "O trabalho que se segue é um corpo contínuo de pensamento — sobre como o dinheiro público é arrecadado, gasto e tornado visível para as pessoas a quem serve.",
-    "areas-practice-glance": "Áreas de atuação — visão geral",
+    "areas-title": "Seis áreas,",
+    "areas-title-accent": "um propósito claro.",
+    "areas-lede": "O trabalho conecta a prática das finanças públicas à explicação cívica: como os recursos são arrecadados, orçados, governados e tornados compreensíveis.",
+    "areas-practice-glance": "Áreas de foco — visão geral",
     
     "area-01-title": "Finanças Públicas",
-    "area-01-desc": "A economia de como os governos arrecadam, alocam e prestam contas dos recursos públicos — de tesourarias locais a sistemas nacionais.",
+    "area-01-desc": "Como os governos arrecadam, alocam e prestam contas dos recursos públicos, com atenção às variações locais.",
     "area-02-title": "Orçamento Governamental",
-    "area-02-desc": "Projetar, executar e explicar orçamentos que traduzem a intenção política em realidade operacional.",
+    "area-02-desc": "Como os orçamentos transformam prioridades públicas em planos, dotações, serviços e escolhas que os moradores podem examinar.",
     "area-03-title": "Governança da Saúde",
-    "area-03-desc": "O financiamento e gestão dos sistemas públicos de saúde — onde as decisões fiscais se tornam questões de vida e cuidado.",
+    "area-03-desc": "A conexão entre recursos públicos, responsabilidade institucional e os sistemas que apoiam a saúde da comunidade.",
     "area-04-title": "Modernização Fiscal",
-    "area-04-desc": "Reengenharia de práticas, sistemas e cultura das finanças do setor público para clareza, integridade e resiliência.",
+    "area-04-desc": "Práticas, sistemas e informações públicas mais claros, que tornam a administração financeira mais fácil de entender.",
     "area-05-title": "Transparência & Prestação de Contas",
-    "area-05-desc": "Tornar visível o funcionamento do dinheiro público — para que o escrutínio se torne possível e a confiança seja conquistada.",
+    "area-05-desc": "Documentos, decisões e processos de fiscalização que ajudam o público a ver como o dinheiro é administrado.",
     "area-06-title": "Educação Financeira Cívica",
-    "area-06-desc": "Trazer a linguagem das finanças públicas para a vida cívica — para cidadãos, estudantes e líderes comunitários.",
+    "area-06-desc": "Orientação em linguagem simples para moradores, contribuintes, pequenos empresários, estudantes e lideranças comunitárias.",
     "areas-read-more": "Saber mais →",
     
     // Featured Essay
@@ -233,15 +235,15 @@ const TRANSLATIONS = {
     
     // About Section
     "about-eyebrow": "Sobre",
-    "about-title": "Uma carreira dedicada a",
-    "about-title-accent": "ler orçamentos em voz alta,",
-    "about-title-end": " para que mais pessoas possam ler também.",
-    "about-p1": "Por mais de uma década, Eliana Faria Lima tem trabalhado na interseção de finanças públicas, orçamento governamental e governança de saúde — projetando sistemas fiscais, prestando assessoria a administrações públicas e escrevendo sobre integridade e transparência.",
-    "about-p2": "Seu trabalho atual foca em trazer a alfabetização em finanças públicas ao alcance das pessoas que ela mais afeta: moradores, pequenos empresários, estudantes, organizações cívicas e líderes comunitários que vivem com as consequências de como os orçamentos são escritos.",
-    "about-quote": "O objetivo é simples, e o método é paciente: linguagem clara, números simples e a convicção de que o dinheiro público pertence ao público.",
-    "about-btn": "Ler biografia completa",
+    "about-title": "Experiência em finanças públicas,",
+    "about-title-accent": "tornada útil",
+    "about-title-end": " para mais leitores.",
+    "about-p1": "Eliana Faria Lima é especialista em finanças públicas, e seu trabalho e sua escrita conectam orçamento governamental, governança da saúde, transparência e prestação de contas.",
+    "about-p2": "Por meio do How Public Money Works, ela explica documentos públicos e conceitos financeiros para moradores, contribuintes, pequenos empresários, estudantes e profissionais interessados em cidadania—sem tratar exemplos locais como regras universais.",
+    "about-quote": "O objetivo é prático: ajudar leitores a entender os documentos, as escolhas e as instituições por trás do dinheiro público.",
+    "about-btn": "Falar com Eliana",
     "about-caption-1": "Eliana Faria Lima · Fundadora",
-    "about-caption-2": "Lumina Consulting · Estratégia",
+    "about-caption-2": "How Public Money Works · Educação cívica",
     
     // Resources Section
     "res-eyebrow": "Recursos",
@@ -251,17 +253,17 @@ const TRANSLATIONS = {
     "res-01-kind": "Referência",
     "res-01-title": "Glossário de Finanças Públicas",
     "res-01-desc": "Um A–Z em constante evolução dos termos de finanças públicas, em linguagem simples. De dotação a orçamento base zero.",
-    "res-01-action": "Abrir glossário →",
+    "res-coming-soon": "Em breve",
     
-    "res-02-kind": "Guia",
+    "res-02-kind": "Artigo-guia",
     "res-02-title": "Como Ler um Orçamento Municipal",
-    "res-02-desc": "Um guia curto e ilustrado para encontrar os quatro números que mais importam em qualquer documento de orçamento municipal.",
-    "res-02-action": "Ler guia →",
+    "res-02-desc": "Um artigo em linguagem simples sobre o que é um orçamento municipal, como ele orienta escolhas públicas e por que vale a pena consultá-lo.",
+    "res-02-action": "Ler artigo →",
     
-    "res-03-kind": "Manual",
-    "res-03-title": "Entendendo o Imposto Predial",
-    "res-03-desc": "O que é, como é definido, quem decide e para onde vai o dinheiro — para proprietários, inquilinos e pequenas empresas.",
-    "res-03-action": "Ler manual →",
+    "res-03-kind": "Artigo-guia",
+    "res-03-title": "Para Onde Vão os Seus Impostos Locais?",
+    "res-03-desc": "Um guia conceitual sobre fontes de receita, governos locais, fundos e os serviços que eles sustentam.",
+    "res-03-action": "Ler artigo →",
     
     "res-04-kind": "Índice",
     "res-04-title": "Portais de Dados Abertos — Um Mapa",
@@ -282,21 +284,19 @@ const TRANSLATIONS = {
     "contact-eyebrow": "Contato",
     "contact-title": "Para instituições, jornalistas",
     "contact-title-accent": "e o cidadão curioso.",
-    "contact-desc": "Para palestras, consultorias, parcerias de escrita ou para sugerir um tema para How Public Money Works.",
+    "contact-desc": "Para palestras, parcerias de escrita ou para sugerir um tema para How Public Money Works.",
     "contact-based-lbl": "Sede",
     "contact-based": "São Paulo · Brasil",
     "contact-speaks-lbl": "Idiomas",
     "contact-speaks": "Inglês · Português",
     
     // Newsletter Section
-    "news-eyebrow": "Enviado silenciosamente",
-    "news-title": "Um artigo,",
-    "news-title-accent": "uma vez por mês.",
-    "news-desc": "Uma nota curta e em linguagem simples direto da prática — no máximo uma vez por mês, nunca promocional.",
-    "news-placeholder": "seu.email@exemplo.com",
-    "news-btn": "Inscrever-se",
-    "news-fine": "Sem rastreamento, sem terceiros, sem ruído.",
-    "news-success": "Obrigado! Sua inscrição foi realizada com sucesso.",
+    "news-eyebrow": "Atualizações da publicação",
+    "news-title": "As atualizações por e-mail",
+    "news-title-accent": "chegarão em breve.",
+    "news-desc": "Ainda não há formulário de inscrição. Até existir um serviço real de envio, os novos artigos continuam disponíveis em Publicações.",
+    "news-status": "Em breve",
+    "news-fine": "Sem spam. Apenas atualizações ocasionais quando este recurso estiver disponível.",
     
     // Footer Section
     "foot-desc": "Trazendo clareza às finanças públicas — para cidadãos, comunidades e as instituições que os servem.",
@@ -305,26 +305,30 @@ const TRANSLATIONS = {
     "foot-header-connect": "Conectar",
     "foot-copyright": "© MMXXVI Eliana Faria Lima",
     "foot-tagline": "Trazendo clareza às finanças públicas.",
+    "foot-featured-link": "Artigos mais recentes",
+    "foot-category-link": "Por categoria",
+    "foot-glossary-soon": "Glossário · Em breve",
+    "foot-updates-link": "Atualizações · Em breve",
 
     // Blog Index specific
     "blog-pre": "Uma Publicação por Eliana Faria Lima",
     "blog-title": "Como Funciona o",
     "blog-title-accent": "Dinheiro Público.",
     "blog-tagline": "Trazendo clareza às finanças públicas.",
-    "blog-vol": "Vol. I · Doze Artigos · EN — edições bilíngues em breve",
+    "blog-vol": "Uma publicação contínua sobre dinheiro público e governo local",
     "blog-browse": "Navegar —",
     "blog-all-essays": "Todos os Artigos",
-    "blog-twelve-essays": "— Doze artigos no Volume I",
+    "blog-twelve-essays": "Artigos publicados",
     "blog-search-placeholder": "Buscar artigos…",
 
     // Article Page specific
     "art-by": "Por",
-    "art-role": "Especialista Sênior, Finanças Públicas",
+    "art-role": "Especialista em Finanças Públicas",
     "art-stats": "<b>8 min</b> de leitura &nbsp;·&nbsp; <b>1.920</b> palavras &nbsp;·&nbsp; Março MMXXVI",
     "art-hero-cap": "Um orçamento é um documento público. A questão não é se ele pode ser lido; é se ele será.",
     "art-author-title": "Sobre a autora",
-    "art-author-desc": "Especialista sênior em finanças públicas, orçamento governamental e governança da saúde. Editora do <i>How Public Money Works</i>, uma publicação que traz clareza e linguagem simples ao funcionamento das finanças públicas — da prefeitura ao capitólio estadual.",
-    "art-related-title": "Mais deste volume",
+    "art-author-desc": "Especialista em finanças públicas, orçamento governamental e governança da saúde. Editora do <i>How Public Money Works</i>, uma publicação que traz clareza e linguagem simples ao funcionamento das finanças públicas — da prefeitura ao governo estadual.",
+    "art-related-title": "Mais da publicação",
     "art-related-btn": "Navegar por todos os artigos"
   }
 };
@@ -356,14 +360,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentLang = pageLanguage || localStorage.getItem("eliana-site-lang") || "en";
 
   const applyLanguage = (lang) => {
+    if (!TRANSLATIONS[lang]) lang = "en";
     currentLang = lang;
     localStorage.setItem("eliana-site-lang", lang);
+    document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
 
     // Update switcher visuals
     if (langSwitch) {
-      langSwitch.querySelectorAll("[data-lang]").forEach(el => el.classList.remove("on"));
-      const activeSpan = langSwitch.querySelector(`span[data-lang="${lang.toUpperCase()}"]`);
-      if (activeSpan) activeSpan.classList.add("on");
+      langSwitch.querySelectorAll("[data-lang]").forEach(el => {
+        const isActive = el.getAttribute("data-lang") === lang.toUpperCase();
+        el.classList.toggle("on", isActive);
+        if (el.tagName === "BUTTON") el.setAttribute("aria-pressed", String(isActive));
+      });
     }
 
     // Translate all elements marked with data-translate
@@ -371,19 +379,29 @@ document.addEventListener("DOMContentLoaded", () => {
     translatableElements.forEach(el => {
       const key = el.getAttribute("data-translate");
       if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
-        el.classList.add("lang-fade-out");
-        setTimeout(() => {
-          el.innerHTML = TRANSLATIONS[lang][key];
-          el.classList.remove("lang-fade-out");
-        }, 150);
+        el.innerHTML = TRANSLATIONS[lang][key];
       }
     });
 
-    // Translate placeholder inputs (such as search and email fields)
-    const emailInput = document.querySelector("input[type='email']");
-    if (emailInput) {
-      emailInput.placeholder = TRANSLATIONS[lang]["news-placeholder"];
-    }
+    document.querySelectorAll("[data-localize-text]").forEach(el => {
+      const value = el.getAttribute(`data-text-${lang}`);
+      if (value !== null) el.textContent = value;
+    });
+
+    document.querySelectorAll("[data-localize-link]").forEach(el => {
+      const value = el.getAttribute(`data-href-${lang}`);
+      if (value) el.setAttribute("href", value);
+    });
+
+    document.querySelectorAll("[data-localize-alt]").forEach(el => {
+      const value = el.getAttribute(`data-alt-${lang}`);
+      if (value !== null) el.setAttribute("alt", value);
+    });
+
+    document.querySelectorAll("[data-localize-aria-label]").forEach(el => {
+      const value = el.getAttribute(`data-aria-label-${lang}`);
+      if (value !== null) el.setAttribute("aria-label", value);
+    });
 
     const searchInput = document.querySelector(".search input");
     if (searchInput && TRANSLATIONS[lang]["blog-search-placeholder"]) {
@@ -394,7 +412,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Bind clicks on language switch
   if (langSwitch) {
     langSwitch.addEventListener("click", (e) => {
-      const target = e.target;
+      const target = e.target.closest("[data-lang]");
+      if (!target) return;
       const langAttr = target.getAttribute("data-lang");
       if (langAttr) {
         applyLanguage(langAttr.toLowerCase());
@@ -452,20 +471,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 4. Newsletter Form submission micro-interaction
-  const newsForms = document.querySelectorAll(".newsletter form");
-  newsForms.forEach(form => {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const input = form.querySelector("input");
-      const button = form.querySelector("button");
-      const email = input ? input.value : "";
-
-      if (email) {
-        form.innerHTML = `<div style="padding: 16px; border: 1px solid var(--gold); background: rgba(168,135,82,0.06); font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--gold-deep); text-align: center; width: 100%; animation: fadeIn 0.4s ease;">
-          ${TRANSLATIONS[currentLang]["news-success"]}
-        </div>`;
-      }
-    });
-  });
 });

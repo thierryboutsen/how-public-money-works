@@ -20,6 +20,10 @@ const SRC_DIR = path.join(ROOT_DIR, 'src');
 const POSTS_DIR = path.join(ROOT_DIR, 'content', 'posts');
 const POST_TEMPLATE_PATH = path.join(SRC_DIR, 'templates', 'post.html');
 const INSIGHTS_TEMPLATE_PATH = path.join(SRC_DIR, 'templates', 'insights.html');
+const SHARED_ASSET_SOURCES = Object.freeze({
+  css: path.join(SRC_DIR, 'shared', 'base.css'),
+  js: path.join(SRC_DIR, 'shared', 'main.js')
+});
 
 function escapeHtml(value) {
   return String(value ?? '')
@@ -44,6 +48,27 @@ function replaceTokens(template, tokens, sourceName) {
     throw new Error(`${sourceName} has unresolved placeholders: ${unresolved.join(', ')}`);
   }
   return output;
+}
+
+function contentFingerprint(content) {
+  return crypto
+    .createHash('sha256')
+    .update(content)
+    .digest('hex')
+    .slice(0, 12);
+}
+
+function createSharedAssetManifest() {
+  return Object.freeze({
+    css: `/shared/base.${contentFingerprint(fs.readFileSync(SHARED_ASSET_SOURCES.css))}.css`,
+    js: `/shared/main.${contentFingerprint(fs.readFileSync(SHARED_ASSET_SOURCES.js))}.js`
+  });
+}
+
+function writeSharedAssets(outputDirectory, manifest) {
+  fs.mkdirSync(path.join(outputDirectory, 'shared'), { recursive: true });
+  fs.copyFileSync(SHARED_ASSET_SOURCES.css, path.join(outputDirectory, manifest.css.replace(/^\//, '')));
+  fs.copyFileSync(SHARED_ASSET_SOURCES.js, path.join(outputDirectory, manifest.js.replace(/^\//, '')));
 }
 
 function parseMarkdownWithShortcodes(markdown) {
@@ -192,57 +217,59 @@ function getPostUi(language) {
   if (language === 'pt-BR') {
     return {
       navHome: 'Início',
-      navServices: 'Serviços',
+      navServices: 'Áreas',
       navAbout: 'Sobre',
-      navBlog: 'Blog da Eliana',
+      navBlog: 'Publicações',
       navContact: 'Contato',
-      navSubscribe: 'Assinar',
+      navSubscribe: 'Atualizações',
       navMenuLabel: 'Abrir menu',
       insightsLabel: 'Publicações',
       essayLabel: 'Artigo',
       publicFinanceTagline: 'Trazendo clareza às finanças públicas',
       byLabel: 'Por',
-      authorRole: 'Especialista Sênior, Finanças Públicas',
+      authorRole: 'Especialista em Finanças Públicas',
       authorTitle: 'Sobre a autora',
-      authorDescription: 'Especialista sênior em finanças públicas, orçamento governamental e governança da saúde. Editora do <em>How Public Money Works</em>, uma publicação que explica em linguagem clara o funcionamento do dinheiro público nos Estados Unidos — da prefeitura ao governo estadual.',
+      authorDescription: 'Especialista em finanças públicas, orçamento governamental e governança da saúde. Editora do <em>How Public Money Works</em>, uma publicação que explica em linguagem clara o funcionamento do dinheiro público nos Estados Unidos — da prefeitura ao governo estadual.',
       footerDescription: 'Trazendo clareza às finanças públicas — para cidadãos, comunidades e as instituições que os atendem.',
       footerRead: 'Leia',
-      footerFeatured: 'Artigo em destaque',
+      footerFeatured: 'Artigos mais recentes',
       footerCategory: 'Por categoria',
-      footerGlossary: 'Glossário',
+      footerGlossary: 'Glossário · Em breve',
       footerPractice: 'Atuação',
       footerFocus: 'Áreas de atuação',
       footerResources: 'Recursos',
       footerSpeaking: 'Palestras',
       footerConnect: 'Contato',
+      footerUpdates: 'Atualizações · Em breve',
       footerTagline: 'Trazendo clareza às finanças públicas.'
     };
   }
   return {
     navHome: 'Home',
-    navServices: 'Services',
-    navAbout: 'About Us',
-    navBlog: "Eliana's Blog",
+    navServices: 'Focus',
+    navAbout: 'About',
+    navBlog: 'Insights',
     navContact: 'Contact',
-    navSubscribe: 'Subscribe',
+    navSubscribe: 'Updates',
     navMenuLabel: 'Toggle Menu',
     insightsLabel: 'Insights',
     essayLabel: 'Essay',
     publicFinanceTagline: 'Bringing clarity to public finance',
     byLabel: 'By',
-    authorRole: 'Senior Practice, Public Finance',
+    authorRole: 'Public Finance Specialist',
     authorTitle: 'About the author',
-    authorDescription: 'A senior practice in public finance, government budgeting, and health governance. Editor of <em>How Public Money Works</em>, a publication that brings plain-language clarity to the workings of American public money — from city hall to state capitol.',
+    authorDescription: 'A public finance specialist working across government budgeting and health governance. Editor of <em>How Public Money Works</em>, a publication that brings plain-language clarity to American public money — from city hall to state government.',
     footerDescription: 'Bringing clarity to public finance — for citizens, communities, and the institutions that serve them.',
     footerRead: 'Read',
-    footerFeatured: 'Featured Essay',
+    footerFeatured: 'Latest essays',
     footerCategory: 'By Category',
-    footerGlossary: 'Glossary',
+    footerGlossary: 'Glossary · Coming soon',
     footerPractice: 'Practice',
     footerFocus: 'Areas of Focus',
     footerResources: 'Resources',
     footerSpeaking: 'Speaking',
     footerConnect: 'Connect',
+    footerUpdates: 'Updates · Coming soon',
     footerTagline: 'Bringing clarity to public finance.'
   };
 }
@@ -257,6 +284,7 @@ function renderPostPage(document, posts, template, essayNumber, options = {}) {
   const wordCount = bodyMarkdown.trim() ? bodyMarkdown.trim().split(/\s+/).length : 0;
   const ui = getPostUi(post.language);
 
+  const sharedAssets = options.sharedAssets || createSharedAssetManifest();
   return replaceTokens(template, {
     documentTitle: escapeHtml(`${post.seoTitle} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(post.language),
@@ -297,7 +325,9 @@ function renderPostPage(document, posts, template, essayNumber, options = {}) {
     tagsHtml: renderTags(post.tags),
     postNavigationHtml: renderPostNavigation(post, posts),
     relatedPostsHtml: renderRelatedPosts(post, posts),
-    siteName: escapeHtml(siteConfig.siteName)
+    siteName: escapeHtml(siteConfig.siteName),
+    sharedCssPath: escapeHtml(sharedAssets.css),
+    sharedJsPath: escapeHtml(sharedAssets.js)
   }, 'src/templates/post.html');
 }
 
@@ -351,7 +381,8 @@ function renderCategoryFilters(posts) {
   return ['All', ...categories].map((category, index) => `<button type="button" class="cat${index === 0 ? ' on' : ''}">${escapeHtml(category)}</button>`).join('\n');
 }
 
-function renderInsightsPage(posts, template) {
+function renderInsightsPage(posts, template, options = {}) {
+  const sharedAssets = options.sharedAssets || createSharedAssetManifest();
   const socialImageUrl = imageUrl(siteConfig.defaultSocialImage);
   return replaceTokens(template, {
     siteName: escapeHtml(siteConfig.siteName),
@@ -360,14 +391,115 @@ function renderInsightsPage(posts, template) {
     categoryFilters: renderCategoryFilters(posts),
     featuredPostHtml: renderFeaturedPost(posts[0]),
     postsGrid: renderPostCards(posts),
-    postCount: String(posts.length)
+    postCount: String(posts.length),
+    sharedCssPath: escapeHtml(sharedAssets.css),
+    sharedJsPath: escapeHtml(sharedAssets.js)
   }, 'src/templates/insights.html');
 }
 
-function renderIndexPage(template) {
+function findTranslation(post, posts, language) {
+  if (!post.translationKey) return null;
+  return posts.find((candidate) => candidate.translationKey === post.translationKey && candidate.language === language) || null;
+}
+
+function localizedPostValues(post, posts) {
+  const portuguese = findTranslation(post, posts, 'pt-BR');
+  return {
+    en: post,
+    pt: portuguese || {
+      ...post,
+      title: `${post.title} (em inglês)`,
+      excerpt: 'Este artigo está disponível em inglês.',
+      category: 'Publicação em inglês',
+      readingTime: post.readingTime.replace(/\bmin read\b/i, 'min de leitura')
+    }
+  };
+}
+
+function localizedAttributes(values, attribute) {
+  return `data-${attribute}-en="${escapeHtml(values.en)}" data-${attribute}-pt="${escapeHtml(values.pt)}"`;
+}
+
+function selectHomepagePosts(posts) {
+  const englishPosts = posts
+    .filter((post) => post.language === siteConfig.defaultLanguage)
+    .sort((left, right) => new Date(right.date) - new Date(left.date));
+  const featured = englishPosts.find((post) => post.featured === true) || englishPosts[0] || null;
+  return {
+    featured,
+    cards: englishPosts.filter((post) => post !== featured).slice(0, 3)
+  };
+}
+
+function renderHomepageFeatured(post, posts, essayNumber) {
+  if (!post) return '';
+  const localized = localizedPostValues(post, posts);
+  const enPath = publicPathForDocument(localized.en);
+  const ptPath = localized.pt.language === 'pt-BR' ? publicPathForDocument(localized.pt) : enPath;
+  return `<section class="featured-civic">
+  <div class="inner">
+    <div>
+      <div class="badge" data-translate="featured-essay-eyebrow">Featured Essay · How Public Money Works</div>
+      <h2 data-localize-text ${localizedAttributes({ en: localized.en.title, pt: localized.pt.title }, 'text')}>${escapeHtml(localized.en.title)}</h2>
+      <div class="meta">
+        <span data-localize-text ${localizedAttributes({ en: localized.en.category, pt: localized.pt.category }, 'text')}>${escapeHtml(localized.en.category)}</span>
+        <span class="dot"></span><span>N.º ${String(essayNumber).padStart(2, '0')}</span><span class="dot"></span>
+        <span data-localize-text ${localizedAttributes({ en: localized.en.readingTime, pt: localized.pt.readingTime }, 'text')}>${escapeHtml(localized.en.readingTime)}</span>
+      </div>
+      <p class="excerpt" data-localize-text ${localizedAttributes({ en: localized.en.excerpt, pt: localized.pt.excerpt }, 'text')}>${escapeHtml(localized.en.excerpt)}</p>
+      <a class="btn btn-primary" href="${escapeHtml(enPath)}" data-localize-link ${localizedAttributes({ en: enPath, pt: ptPath }, 'href')}><span data-translate="featured-essay-btn">Read the article</span> <span aria-hidden="true">→</span></a>
+    </div>
+    <a class="photo-slot light photo-illus" href="${escapeHtml(enPath)}" data-localize-link ${localizedAttributes({ en: enPath, pt: ptPath }, 'href')} aria-label="${escapeHtml(`Read ${localized.en.title}`)}" data-localize-aria-label ${localizedAttributes({ en: `Read ${localized.en.title}`, pt: `Ler ${localized.pt.title}` }, 'aria-label')}>
+      <img src="${escapeHtml(post.featuredImage)}" alt="${escapeHtml(localized.en.featuredImageAlt)}" data-localize-alt ${localizedAttributes({ en: localized.en.featuredImageAlt, pt: localized.pt.featuredImageAlt || localized.en.featuredImageAlt }, 'alt')} loading="eager" decoding="async" fetchpriority="high" />
+    </a>
+  </div>
+</section>`;
+}
+
+function renderHomepageCards(cards, allPosts, totalEnglishPosts) {
+  return cards.map((post, index) => {
+    const localized = localizedPostValues(post, allPosts);
+    const enPath = publicPathForDocument(localized.en);
+    const ptPath = localized.pt.language === 'pt-BR' ? publicPathForDocument(localized.pt) : enPath;
+    const number = totalEnglishPosts - index - 1;
+    return `<article class="ic-card">
+      <a class="card-link" href="${escapeHtml(enPath)}" data-localize-link ${localizedAttributes({ en: enPath, pt: ptPath }, 'href')} aria-label="${escapeHtml(`Read ${localized.en.title}`)}" data-localize-aria-label ${localizedAttributes({ en: `Read ${localized.en.title}`, pt: `Ler ${localized.pt.title}` }, 'aria-label')}>
+        <div class="photo-slot light photo-illus"><img src="${escapeHtml(post.featuredImage)}" alt="${escapeHtml(localized.en.featuredImageAlt)}" data-localize-alt ${localizedAttributes({ en: localized.en.featuredImageAlt, pt: localized.pt.featuredImageAlt || localized.en.featuredImageAlt }, 'alt')} loading="lazy" decoding="async" /></div>
+        <div class="body">
+          <div class="cat"><span data-localize-text ${localizedAttributes({ en: localized.en.category, pt: localized.pt.category }, 'text')}>${escapeHtml(localized.en.category)}</span> · N.º ${String(number).padStart(2, '0')}</div>
+          <h3 data-localize-text ${localizedAttributes({ en: localized.en.title, pt: localized.pt.title }, 'text')}>${escapeHtml(localized.en.title)}</h3>
+          <p data-localize-text ${localizedAttributes({ en: localized.en.excerpt, pt: localized.pt.excerpt }, 'text')}>${escapeHtml(localized.en.excerpt)}</p>
+          <div class="foot"><span class="time" data-localize-text ${localizedAttributes({ en: localized.en.readingTime, pt: localized.pt.readingTime }, 'text')}>${escapeHtml(localized.en.readingTime)}</span><span class="read" data-translate="blog-sec-read-article">Read article →</span></div>
+        </div>
+      </a>
+    </article>`;
+  }).join('\n');
+}
+
+function renderHomeJsonLd() {
+  const homeUrl = absoluteUrl('/');
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'WebSite', name: siteConfig.siteName, url: homeUrl, inLanguage: ['en', 'pt-BR'] },
+      { '@type': 'Person', name: siteConfig.defaultAuthor, url: `${homeUrl}#about`, sameAs: ['https://www.linkedin.com/in/eliana-faria-lima/'] },
+      { '@type': 'Organization', name: siteConfig.publisherName, url: homeUrl }
+    ]
+  }, null, 2).replace(/</g, '\\u003c');
+}
+
+function renderIndexPage(template, posts, options = {}) {
+  const sharedAssets = options.sharedAssets || createSharedAssetManifest();
+  const selection = selectHomepagePosts(posts);
+  const englishCount = posts.filter((post) => post.language === siteConfig.defaultLanguage).length;
   return replaceTokens(template, {
     homeUrl: escapeHtml(absoluteUrl('/')),
-    defaultSocialImageUrl: escapeHtml(imageUrl(siteConfig.defaultSocialImage))
+    defaultSocialImageUrl: escapeHtml(imageUrl(siteConfig.defaultSocialImage)),
+    homeFeaturedPostHtml: renderHomepageFeatured(selection.featured, posts, englishCount),
+    homeRecentPostsHtml: renderHomepageCards(selection.cards, posts, englishCount),
+    homeJsonLd: renderHomeJsonLd(),
+    sharedCssPath: escapeHtml(sharedAssets.css),
+    sharedJsPath: escapeHtml(sharedAssets.js)
   }, 'src/index.html');
 }
 
@@ -515,29 +647,31 @@ function buildSite() {
   const postTemplate = fs.readFileSync(POST_TEMPLATE_PATH, 'utf8');
   const insightsTemplate = fs.readFileSync(INSIGHTS_TEMPLATE_PATH, 'utf8');
   const indexTemplate = fs.readFileSync(path.join(SRC_DIR, 'index.html'), 'utf8');
+  const notFoundTemplate = fs.readFileSync(path.join(SRC_DIR, '404.html'), 'utf8');
+  const sharedAssets = createSharedAssetManifest();
 
   const resolvedDist = path.resolve(DIST_DIR);
   if (resolvedDist !== path.join(ROOT_DIR, 'dist')) throw new Error(`Unsafe dist path: ${resolvedDist}`);
   if (fs.existsSync(resolvedDist)) fs.rmSync(resolvedDist, { recursive: true, force: true });
   fs.mkdirSync(resolvedDist, { recursive: true });
 
-  fs.mkdirSync(path.join(resolvedDist, 'shared'), { recursive: true });
-  fs.copyFileSync(path.join(SRC_DIR, 'shared', 'base.css'), path.join(resolvedDist, 'shared', 'base.css'));
-  fs.copyFileSync(path.join(SRC_DIR, 'shared', 'main.js'), path.join(resolvedDist, 'shared', 'main.js'));
-  fs.copyFileSync(path.join(SRC_DIR, '404.html'), path.join(resolvedDist, '404.html'));
-  fs.writeFileSync(path.join(resolvedDist, 'index.html'), renderIndexPage(indexTemplate));
+  writeSharedAssets(resolvedDist, sharedAssets);
+  fs.writeFileSync(path.join(resolvedDist, '404.html'), replaceTokens(notFoundTemplate, {
+    sharedCssPath: escapeHtml(sharedAssets.css)
+  }, 'src/404.html'));
+  fs.writeFileSync(path.join(resolvedDist, 'index.html'), renderIndexPage(indexTemplate, posts, { sharedAssets }));
 
   documents.forEach((document) => {
     const sameLanguagePosts = posts.filter((post) => post.language === document.data.language);
     const languageIndex = sameLanguagePosts.findIndex((post) => post.slug === document.data.slug);
-    const html = renderPostPage(document, sameLanguagePosts, postTemplate, sameLanguagePosts.length - languageIndex);
+    const html = renderPostPage(document, sameLanguagePosts, postTemplate, sameLanguagePosts.length - languageIndex, { sharedAssets });
     const relativeOutputPath = `${publicPathForDocument(document).replace(/^\//, '')}.html`;
     const outputPath = path.join(resolvedDist, relativeOutputPath);
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, html);
   });
 
-  fs.writeFileSync(path.join(resolvedDist, 'insights.html'), renderInsightsPage(indexPosts, insightsTemplate));
+  fs.writeFileSync(path.join(resolvedDist, 'insights.html'), renderInsightsPage(indexPosts, insightsTemplate, { sharedAssets }));
   fs.writeFileSync(path.join(resolvedDist, 'sitemap.xml'), generateSitemap(posts));
   fs.writeFileSync(path.join(resolvedDist, 'robots.txt'), generateRobots());
   const publicAssets = copyReferencedPublicAssets(resolvedDist);
@@ -559,6 +693,11 @@ module.exports = {
   buildSite,
   renderPostPage,
   renderInsightsPage,
+  renderIndexPage,
+  selectHomepagePosts,
+  createSharedAssetManifest,
+  contentFingerprint,
+  writeSharedAssets,
   generateSitemap,
   generateRobots,
   copyRecursiveSync,

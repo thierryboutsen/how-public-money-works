@@ -2,28 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Eliana Faria Lima — Bringing Clarity to Public Finance</title>
+<title>Eliana Faria Lima — Public Finance and Civic Education</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Eliana Faria Lima is a public finance specialist covering government budgeting, fiscal modernization, health governance, and civic financial education. Read How Public Money Works." />
+<meta name="description" content="Clear, accessible writing by Eliana Faria Lima on public finance, government budgeting, transparency, health governance, and how public money works." />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="{{homeUrl}}" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{homeUrl}}" />
-<meta property="og:title" content="Eliana Faria Lima — Bringing Clarity to Public Finance" />
-<meta property="og:description" content="A practice in public finance, government budgeting, and health governance. Editor of How Public Money Works — plain-language civic financial education." />
+<meta property="og:title" content="Eliana Faria Lima — Public Finance and Civic Education" />
+<meta property="og:description" content="Clear, accessible writing by Eliana Faria Lima on public finance, government budgeting, transparency, health governance, and how public money works." />
 <meta property="og:image" content="{{defaultSocialImageUrl}}" />
 <meta property="og:site_name" content="How Public Money Works" />
 <meta property="og:locale" content="en_US" />
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Eliana Faria Lima — Bringing Clarity to Public Finance" />
-<meta name="twitter:description" content="A practice in public finance, government budgeting, and health governance. Editor of How Public Money Works." />
+<meta name="twitter:title" content="Eliana Faria Lima — Public Finance and Civic Education" />
+<meta name="twitter:description" content="Clear, accessible writing by Eliana Faria Lima on public finance, government budgeting, transparency, health governance, and how public money works." />
 <meta name="twitter:image" content="{{defaultSocialImageUrl}}" />
+<script type="application/ld+json">
+{{homeJsonLd}}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="shared/base.css" />
+<link rel="stylesheet" href="{{sharedCssPath}}" />
 <style>
   /* ============ Civic Modern overrides ============ */
   body {
@@ -203,7 +206,7 @@
   }
   .area-row {
     display: grid;
-    grid-template-columns: 60px 1.2fr 2fr 1fr;
+    grid-template-columns: 60px 1.2fr 2.7fr;
     gap: 40px;
     padding: 36px 0;
     border-bottom: 1px solid #E8DFC9;
@@ -424,6 +427,9 @@
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
   }
   .res-tile {
+    display: block;
+    color: inherit;
+    text-decoration: none;
     background: #FFFFFF;
     border: 1px solid #E8DFC9;
     padding: 32px 30px;
@@ -432,6 +438,8 @@
     position: relative;
   }
   .res-tile:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .res-tile.coming-soon { cursor: default; }
+  .res-tile.coming-soon:hover { border-color: #E8DFC9; transform: none; }
   .res-tile .kind {
     font-family: var(--font-ui);
     font-size: 10px;
@@ -461,6 +469,7 @@
     text-transform: uppercase;
     color: var(--gold-deep);
   }
+  .res-tile.coming-soon .arrow { color: var(--muted); }
 
   /* ----- CONTACT (civic) ----- */
   .contact-civic {
@@ -545,35 +554,16 @@
     line-height: 1.6;
     margin-bottom: 32px;
   }
-  .newsletter form {
-    display: flex; justify-content: center; gap: 0; max-width: 520px; margin: 0 auto;
-  }
-  .newsletter input {
-    flex: 1;
-    padding: 14px 18px;
-    border: 1px solid #D8D2C2;
-    border-right: 0;
-    background: #FBF7EC;
-    font-family: var(--font-ui);
-    font-size: 13px;
-    outline: none;
-  }
-  .newsletter button {
-    padding: 14px 24px;
-    background: #0C1A2C;
-    color: var(--ivory);
-    border: 1px solid #0C1A2C;
+  .newsletter .updates-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 18px;
+    border: 1px solid var(--gold);
     font-family: var(--font-ui);
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .newsletter button:hover {
-    background: var(--gold);
-    border-color: var(--gold);
+    color: var(--gold-deep);
   }
   .newsletter .fine {
     font-family: var(--font-ui);
@@ -803,10 +793,7 @@
     .contact-civic .inner { gap: 30px; }
     .contact-civic .card { padding: 22px; }
     .newsletter { padding: 56px 0; }
-    .newsletter form { flex-direction: column; gap: 10px; }
-    .newsletter input,
-    .newsletter button { min-height: 48px; border: 1px solid #D8D2C2; }
-    .newsletter button { border-color: #0C1A2C; }
+    .newsletter .updates-status { min-height: 44px; }
   }
 
   @media (max-width: 340px) {
@@ -829,23 +816,23 @@
 <body>
 
 <nav class="nav civic" aria-label="Primary navigation">
-  <div class="brand">
+  <a class="brand" href="/" aria-label="Lumina Smart Strategies home">
     <span class="brand-mark" style="color: var(--gold-deep);">L</span>
     <span class="brand-name">Lumina Smart Strategies</span>
-  </div>
+  </a>
   <div class="nav-links">
-    <a href="index.html" class="active" data-translate="nav-home">Home</a>
-    <a href="#services" data-translate="nav-services">Services</a>
-    <a href="#about" data-translate="nav-about">About Us</a>
-    <a href="insights.html" data-translate="nav-blog">Eliana's Blog</a>
+    <a href="/" class="active" data-translate="nav-home">Home</a>
+    <a href="#services" data-translate="nav-focus">Focus</a>
+    <a href="#about" data-translate="nav-about">About</a>
+    <a href="/insights" data-translate="nav-insights">Insights</a>
     <a href="#contact" data-translate="nav-contact">Contact</a>
   </div>
   <div class="lang-switch" aria-label="Language selection">
-    <span data-lang="EN" class="on">EN</span>
-    <span>/</span>
-    <span data-lang="PT">PT</span>
+    <button type="button" data-lang="EN" class="on" aria-pressed="true">EN</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-lang="PT" aria-pressed="false">PT</button>
   </div>
-  <button class="nav-cta" onclick="document.querySelector('#newsletter-section').scrollIntoView({behavior: 'smooth'})" data-translate="nav-subscribe">Subscribe</button>
+  <a class="nav-cta" href="#newsletter-section" data-translate="nav-subscribe">Updates</a>
   <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
     <span></span>
     <span></span>
@@ -857,36 +844,36 @@
 <section class="hero-civic">
   <div class="inner">
     <div>
-      <div class="eyebrow" data-translate="hero-eyebrow">Intelligent Public Finance &amp; Modern Governance</div>
-      <h1 data-translate="hero-title-1">
-        Modernizing the future
-        <span class="accent" data-translate="hero-title-accent">of public finance.</span>
+      <div class="eyebrow" data-translate="hero-eyebrow">Public Finance and Civic Education</div>
+      <h1>
+        <span data-translate="hero-title-1">Bringing clarity</span>
+        <span class="accent" data-translate="hero-title-accent">to public money.</span>
       </h1>
       <p class="lede" data-translate="hero-lede">
-        Lumina Smart Strategies delivers premium consulting in fiscal modernization, budget planning, and transparent governance. We translate complex financial data into clear, actionable strategies for the public sector.
+        Eliana Faria Lima writes and works across public finance, government budgeting, health governance, and transparency—turning complex public-money questions into practical, plain-language guidance.
       </p>
       <div class="actions">
-        <button class="btn btn-primary" onclick="document.querySelector('#services').scrollIntoView({behavior: 'smooth'})" data-translate="hero-btn-services">Explore Our Services <span>→</span></button>
-        <button class="btn-link" onclick="document.querySelector('#about').scrollIntoView({behavior: 'smooth'})" data-translate="hero-btn-about">About Lumina</button>
+        <a class="btn btn-primary" href="/insights"><span data-translate="hero-btn-essay">Read the Latest Essay</span> <span aria-hidden="true">→</span></a>
+        <a class="btn-link" href="#about" data-translate="hero-btn-about">About Eliana</a>
       </div>
       <div class="strip">
-        <span data-translate="hero-strip-1"><b>Fiscal Modernization</b></span>
+        <span><b data-translate="hero-strip-1">Public Finance</b></span>
         <span class="sep"></span>
-        <span data-translate="hero-strip-2"><b>Revenue Recovery</b></span>
+        <span><b data-translate="hero-strip-2">How Public Money Works · ongoing publication</b></span>
         <span class="sep"></span>
-        <span data-translate="hero-strip-3"><b>Transparency Platforms</b></span>
+        <span><b data-translate="hero-strip-3">English / Portuguese</b></span>
       </div>
     </div>
 
     <div class="image-wrap">
       <div class="photo-slot light photo-illus" style="background-image: url('assets/hero-editorial.jpg'); background-size: cover; background-position: center; overflow: hidden;">
-        <div class="caption" data-translate="hero-caption">Lumina Smart Strategies · Public Finance Consulting</div>
+        <div class="caption" data-translate="hero-caption">Lumina Smart Strategies · Public finance and civic education</div>
       </div>
 
       <div class="image-card">
-        <div class="label" data-translate="hero-card-label">Our Philosophy</div>
-        <p class="quote" data-translate="hero-card-quote">Clarity, integrity, and resilience in public-sector finance.</p>
-        <div class="by" data-translate="hero-card-author">— Lumina Smart Strategies</div>
+        <div class="label" data-translate="hero-card-label">From the editor</div>
+        <p class="quote" data-translate="hero-card-quote">Public money becomes more useful when people can understand the choices behind it.</p>
+        <div class="by" data-translate="hero-card-author">— Eliana Faria Lima</div>
       </div>
     </div>
   </div>
@@ -895,14 +882,14 @@
 <!-- ========== TRUST STRIP ========== -->
 <section class="trust-strip">
   <div class="inner">
-    <div class="label" data-translate="areas-practice-glance">Areas of practice — at a glance</div>
+    <div class="label" data-translate="areas-practice-glance">Areas of focus — at a glance</div>
     <div class="trust-items">
-      <span class="item" data-translate="area-01-title">Budget Planning</span>
-      <span class="item" data-translate="area-02-title">Fiscal Modernization</span>
-      <span class="item" data-translate="area-03-title">Compliance Auditing</span>
-      <span class="item" data-translate="area-04-title">Transparency Platforms</span>
-      <span class="item" data-translate="area-05-title">Capacity Building</span>
-      <span class="item" data-translate="area-06-title">Tax Advisory</span>
+      <span class="item" data-translate="area-01-title">Public Finance</span>
+      <span class="item" data-translate="area-02-title">Government Budgeting</span>
+      <span class="item" data-translate="area-03-title">Health Governance</span>
+      <span class="item" data-translate="area-04-title">Fiscal Modernization</span>
+      <span class="item" data-translate="area-05-title">Transparency &amp; Accountability</span>
+      <span class="item" data-translate="area-06-title">Civic Financial Education</span>
     </div>
   </div>
 </section>
@@ -910,77 +897,45 @@
 <!-- ========== AREAS — list ========== -->
 <section class="areas-civic" id="services">
   <div class="head">
-    <h2 data-translate="areas-title">Comprehensive solutions, <span style="color:var(--gold-deep); font-style:italic; font-weight:400;" data-translate="areas-title-accent">expert execution.</span></h2>
-    <p data-translate="areas-lede">Lumina Smart Strategies provides specialized consulting services designed to optimize government budgeting, enhance compliance, and foster civic transparency.</p>
+    <h2><span data-translate="areas-title">Six areas,</span> <span style="color:var(--gold-deep); font-style:italic; font-weight:400;" data-translate="areas-title-accent">one clear purpose.</span></h2>
+    <p data-translate="areas-lede">The work connects public-finance practice with civic explanation: how public resources are raised, budgeted, governed, and made understandable.</p>
   </div>
   <div class="areas-list">
     <div class="area-row">
       <div class="num">01</div>
-      <h3 data-translate="area-01-title">Public Budget Planning &amp; Execution</h3>
-      <p data-translate="area-01-desc">Guiding municipalities through fiscal responsibility, budget planning, tax forecasting, and performance-based budgeting.</p>
-      <div class="more" data-translate="areas-read-more">Learn more →</div>
+      <h3 data-translate="area-01-title">Public Finance</h3>
+      <p data-translate="area-01-desc">How governments raise, allocate, and account for public resources, explained with attention to local variation.</p>
     </div>
     <div class="area-row">
       <div class="num">02</div>
-      <h3 data-translate="area-02-title">Fiscal Modernization &amp; Digital Transformation</h3>
-      <p data-translate="area-02-desc">Implementing digital systems to modernize government financial operations, improve efficiency, and reduce bureaucratic delays.</p>
-      <div class="more" data-translate="areas-read-more">Learn more →</div>
+      <h3 data-translate="area-02-title">Government Budgeting</h3>
+      <p data-translate="area-02-desc">How budgets turn public priorities into plans, appropriations, services, and choices that residents can examine.</p>
     </div>
     <div class="area-row">
       <div class="num">03</div>
-      <h3 data-translate="area-03-title">Revenue Recovery &amp; Compliance Auditing</h3>
-      <p data-translate="area-03-desc">Conducting comprehensive audits to identify unrealized revenues, ensure regulatory compliance, and mitigate fiscal risks.</p>
-      <div class="more" data-translate="areas-read-more">Learn more →</div>
+      <h3 data-translate="area-03-title">Health Governance</h3>
+      <p data-translate="area-03-desc">The connection between public resources, institutional stewardship, and the systems that support community health.</p>
     </div>
     <div class="area-row">
       <div class="num">04</div>
-      <h3 data-translate="area-04-title">Transparency &amp; Citizen Engagement Platforms</h3>
-      <p data-translate="area-04-desc">Designing and deploying digital platforms that make government financial data accessible and understandable to the public.</p>
-      <div class="more" data-translate="areas-read-more">Learn more →</div>
+      <h3 data-translate="area-04-title">Fiscal Modernization</h3>
+      <p data-translate="area-04-desc">Clearer practices, systems, and public-facing information that can make financial administration easier to understand.</p>
     </div>
     <div class="area-row">
       <div class="num">05</div>
-      <h3 data-translate="area-05-title">Training &amp; Capacity Building</h3>
-      <p data-translate="area-05-desc">Empowering public servants with specialized training in modern accounting standards, fiscal policy, and operational best practices.</p>
-      <div class="more" data-translate="areas-read-more">Learn more →</div>
+      <h3 data-translate="area-05-title">Transparency &amp; Accountability</h3>
+      <p data-translate="area-05-desc">The documents, decisions, and oversight processes that help the public see how money is managed.</p>
     </div>
     <div class="area-row">
       <div class="num">06</div>
-      <h3 data-translate="area-06-title">Advisory on Tax Legislation</h3>
-      <p data-translate="area-06-desc">Providing strategic guidance on the development of tax policies and economic incentive programs to stimulate local growth.</p>
-      <div class="more" data-translate="areas-read-more">Learn more →</div>
+      <h3 data-translate="area-06-title">Civic Financial Education</h3>
+      <p data-translate="area-06-desc">Plain-language guidance for residents, taxpayers, small-business owners, students, and community leaders.</p>
     </div>
   </div>
 </section>
 
 <!-- ========== FEATURED ARTICLE ========== -->
-<section class="featured-civic">
-  <div class="inner">
-    <div>
-      <div class="badge" data-translate="featured-essay-eyebrow">Featured Essay · How Public Money Works</div>
-      <h2><span data-translate="featured-essay-title">What Is a City Budget</span> <span class="italic" data-translate="featured-essay-title-accent">— and Why Should You Care?</span></h2>
-      <div class="meta">
-        <span data-translate="featured-essay-category">Civic Education</span>
-        <span class="dot"></span>
-        <span>N.º 01</span>
-        <span class="dot"></span>
-        <span data-translate="featured-essay-read-time">8 min read</span>
-      </div>
-      <p class="excerpt" data-translate="featured-essay-excerpt-1">
-        Every year, your city decides how to spend hundreds of millions of dollars — on streets, schools, libraries, parks, fire trucks, water lines. That decision is called a budget. It is not a technical document for accountants. It is a public statement of priorities, written in numbers.
-      </p>
-      <p class="excerpt" style="margin-top:-12px;" data-translate="featured-essay-excerpt-2">
-        This essay walks through how a city budget is built, who has a voice in it, and what a citizen can actually see by reading one.
-      </p>
-      <button class="btn btn-primary" onclick="window.location.href='/what-is-a-city-budget-and-why-should-you-care'" data-translate="featured-essay-btn">Read the article <span>→</span></button>
-    </div>
-
-    <div class="photo-slot light photo-illus">
-      <img src="assets/featured-essay-cover.jpg" alt="Civic public architecture represented in an editorial composition" width="1024" height="1024" loading="lazy" decoding="async" />
-      <div class="caption" data-translate="featured-caption">City hall · civic public architecture</div>
-    </div>
-  </div>
-</section>
+{{homeFeaturedPostHtml}}
 
 <!-- ========== BLOG ========== -->
 <section class="blog-civic" id="insights-preview">
@@ -995,55 +950,12 @@
     </div>
     <div class="right">
       <p data-translate="blog-sec-desc">Short, plain-language essays on how American government raises, spends, and accounts for public money — from city hall to state capitol. Written for the people who live with the consequences.</p>
-      <button class="btn" onclick="window.location.href='insights.html'" data-translate="blog-sec-btn-browse">Browse all Insights <span>→</span></button>
+      <a class="btn" href="/insights"><span data-translate="blog-sec-btn-browse">Browse all Insights</span> <span aria-hidden="true">→</span></a>
     </div>
   </div>
 
   <div class="insights">
-    <article class="ic-card">
-      <a class="card-link" href="/what-is-a-city-budget-and-why-should-you-care" aria-label="Read What Is a City Budget and Why Should You Care?">
-      <div class="photo-slot light photo-illus"><img src="assets/article-city-budget-hero.jpg" alt="Civic documents arranged as an editorial illustration of a city budget" width="1024" height="1024" loading="lazy" decoding="async" /></div>
-      <div class="body">
-        <div class="cat"><span data-translate="featured-essay-category">Civic Education</span> · N.º 01</div>
-        <h3 data-translate="featured-essay-title">What Is a City Budget and Why Should You Care?</h3>
-        <p data-translate="featured-essay-excerpt-2">A plain-language walk through the document that shapes your streets, your schools, and your local services.</p>
-        <div class="foot">
-          <span class="time" data-translate="featured-essay-read-time">8 min read</span>
-          <span class="read" data-translate="blog-sec-read-article">Read article →</span>
-        </div>
-      </div>
-      </a>
-    </article>
-
-    <article class="ic-card">
-      <a class="card-link" href="insights.html" aria-label="Browse the property tax essay in Insights">
-      <div class="photo-slot light photo-illus"><img src="assets/article-local-taxes-flow-hero.jpg" alt="Editorial diagram of local tax revenue flowing toward public services" width="1536" height="1024" loading="lazy" decoding="async" /></div>
-      <div class="body">
-        <div class="cat" data-translate="res-03-title">Property Tax · N.º 02</div>
-        <h3 data-translate="res-03-title">Where Does My Property Tax Actually Go?</h3>
-        <p data-translate="res-03-desc">Following a single dollar from your tax bill to the public services it pays for — and the choices that route it there.</p>
-        <div class="foot">
-          <span class="time">6 min read</span>
-          <span class="read" data-translate="blog-sec-read-article">Read article →</span>
-        </div>
-      </div>
-      </a>
-    </article>
-
-    <article class="ic-card">
-      <a class="card-link" href="insights.html" aria-label="Browse the government financial report essay in Insights">
-      <div class="photo-slot light photo-illus"><img src="assets/insights-cover-civic.jpg" alt="Editorial civic finance composition for public accountability insights" width="1024" height="1024" loading="lazy" decoding="async" style="object-position:50% 70%;" /></div>
-      <div class="body">
-        <div class="cat">Transparency · N.º 03</div>
-        <h3 data-translate="res-02-title">Reading a Government Financial Report Without a Degree</h3>
-        <p data-translate="res-02-desc">The four pages that matter, the three numbers to look for, and the one question that reveals everything.</p>
-        <div class="foot">
-          <span class="time">10 min read</span>
-          <span class="read" data-translate="blog-sec-read-article">Read article →</span>
-        </div>
-      </div>
-      </a>
-    </article>
+{{homeRecentPostsHtml}}
   </div>
 </section>
 
@@ -1056,16 +968,16 @@
         <span data-translate="about-eyebrow">About Lumina</span>
       </div>
       <h2>
-        <span data-translate="about-title">Strategic intelligence</span> 
-        <span class="italic" data-translate="about-title-accent">for public</span>
-        <span data-translate="about-title-end"> administrators.</span>
+        <span data-translate="about-title">Public-finance experience,</span>
+        <span class="italic" data-translate="about-title-accent">made useful</span>
+        <span data-translate="about-title-end"> to more readers.</span>
       </h2>
-      <p data-translate="about-p1">Lumina Smart Strategies LLC bridges the gap between complex public finance data and actionable governance. We provide high-level consulting, auditing, and digital transformation for municipalities.</p>
-      <p data-translate="about-p2">Led by Founder Eliana Faria Lima, a specialist in public finance and government budgeting, our team consists of CPA-licensed auditors, digital transformation consultants, and transparency platform designers dedicated to building resilient public institutions.</p>
+      <p data-translate="about-p1">Eliana Faria Lima is a public finance specialist whose work and writing connect government budgeting, health governance, transparency, and accountability.</p>
+      <p data-translate="about-p2">Through How Public Money Works, she explains public documents and financial concepts for residents, taxpayers, small-business owners, students, and civic professionals—without treating local examples as universal rules.</p>
       <p style="font-family:var(--font-editorial); font-style:italic; color:var(--gold-deep); font-size:18px; margin-top:28px;" data-translate="about-quote">
-        The goal is simple: clear financial models, rigorous compliance, and the conviction that public money must be managed with absolute integrity.
+        The goal is practical: help readers understand the documents, choices, and institutions behind public money.
       </p>
-      <button class="btn btn-gold" style="margin-top: 28px;" onclick="document.querySelector('#contact').scrollIntoView({behavior: 'smooth'})" data-translate="about-btn">Contact Our Team <span>→</span></button>
+      <a class="btn btn-gold" style="margin-top: 28px;" href="#contact"><span data-translate="about-btn">Contact Eliana</span> <span aria-hidden="true">→</span></a>
     </div>
 
     <div class="image-stack">
@@ -1078,7 +990,7 @@
       </div>
       <div class="photo-slot light photo-illus accent" style="border-color: #F2EBD9;">
         <img src="assets/article-city-budget-hero.jpg" alt="Editorial composition representing public finance strategy" width="1024" height="1024" loading="lazy" decoding="async" />
-        <div class="caption" data-translate="about-caption-2">Lumina Consulting · Strategy</div>
+        <div class="caption" data-translate="about-caption-2">How Public Money Works · Civic education</div>
       </div>
     </div>
   </div>
@@ -1091,44 +1003,44 @@
       <span style="width:24px; height:1px; background:currentColor;"></span>
       <span data-translate="res-eyebrow">Resources</span>
     </div>
-    <h2 data-translate="res-title">A small library, <span class="italic" data-translate="res-title-accent">freely available.</span></h2>
+    <h2><span data-translate="res-title">A small library,</span> <span class="italic" data-translate="res-title-accent">freely available.</span></h2>
   </div>
   <div class="grid">
-    <div class="res-tile" onclick="window.location.href='insights.html'">
+    <div class="res-tile coming-soon">
       <div class="kind" data-translate="res-01-kind">Reference</div>
       <h3 data-translate="res-01-title">Glossary of Public Finance</h3>
       <p data-translate="res-01-desc">An evolving A–Z of public-finance terms, in plain English. From <em>appropriation</em> to <em>zero-based budgeting</em>.</p>
-      <div class="arrow" data-translate="res-01-action">Open glossary →</div>
+      <div class="arrow" data-translate="res-coming-soon">Coming soon</div>
     </div>
-    <div class="res-tile" onclick="window.location.href='/what-is-a-city-budget-and-why-should-you-care'">
-      <div class="kind" data-translate="res-02-kind">Guide</div>
+    <a class="res-tile" href="/what-is-a-city-budget-and-why-should-you-care">
+      <div class="kind" data-translate="res-02-kind">Article guide</div>
       <h3 data-translate="res-02-title">How to Read a City Budget</h3>
-      <p data-translate="res-02-desc">A short, illustrated guide to finding the four numbers that matter most in any municipal budget document.</p>
-      <div class="arrow" data-translate="res-02-action">Read guide →</div>
-    </div>
-    <div class="res-tile" onclick="window.location.href='insights.html'">
-      <div class="kind" data-translate="res-03-kind">Primer</div>
-      <h3 data-translate="res-03-title">Understanding Property Tax</h3>
-      <p data-translate="res-03-desc">What it is, how it's set, who decides, and where the money goes — for homeowners, renters, and small businesses.</p>
-      <div class="arrow" data-translate="res-03-action">Read primer →</div>
-    </div>
-    <div class="res-tile" onclick="window.location.href='insights.html'">
+      <p data-translate="res-02-desc">A plain-language article about what a city budget is, how it shapes public choices, and why residents may want to read it.</p>
+      <div class="arrow" data-translate="res-02-action">Read article →</div>
+    </a>
+    <a class="res-tile" href="/where-do-your-local-taxes-actually-go" data-localize-link data-href-en="/where-do-your-local-taxes-actually-go" data-href-pt="/pt-br/para-onde-vao-os-seus-impostos-locais">
+      <div class="kind" data-translate="res-03-kind">Article guide</div>
+      <h3 data-translate="res-03-title">Where Do Your Local Taxes Actually Go?</h3>
+      <p data-translate="res-03-desc">A conceptual guide to revenue sources, local governments, funds, and the services they support.</p>
+      <div class="arrow" data-translate="res-03-action">Read article →</div>
+    </a>
+    <div class="res-tile coming-soon">
       <div class="kind" data-translate="res-04-kind">Index</div>
       <h3 data-translate="res-04-title">Open-Data Portals — A Map</h3>
       <p data-translate="res-04-desc">Where to find your city's, county's, and state's published financial data — with notes on what each portal offers.</p>
-      <div class="arrow" data-translate="res-04-action">Open index →</div>
+      <div class="arrow" data-translate="res-coming-soon">Coming soon</div>
     </div>
-    <div class="res-tile" onclick="window.location.href='insights.html'">
+    <div class="res-tile coming-soon">
       <div class="kind" data-translate="res-05-kind">Bibliography</div>
       <h3 data-translate="res-05-title">Reading List · Civic Finance</h3>
       <p data-translate="res-05-desc">Books and long-form essays for citizens, students, and local-government practitioners — curated and annotated.</p>
-      <div class="arrow" data-translate="res-05-action">View list →</div>
+      <div class="arrow" data-translate="res-coming-soon">Coming soon</div>
     </div>
-    <div class="res-tile" onclick="window.location.href='insights.html'">
+    <div class="res-tile coming-soon">
       <div class="kind" data-translate="res-06-kind">Directory</div>
       <h3 data-translate="res-06-title">Annual Reports — Where to Find Them</h3>
       <p data-translate="res-06-desc">A directory of where to find the comprehensive annual financial reports for U.S. cities, counties, and states.</p>
-      <div class="arrow" data-translate="res-06-action">Open directory →</div>
+      <div class="arrow" data-translate="res-coming-soon">Coming soon</div>
     </div>
   </div>
 </section>
@@ -1136,14 +1048,11 @@
 <!-- ========== NEWSLETTER ========== -->
 <section class="newsletter" id="newsletter-section">
   <div class="inner">
-    <div class="eyebrow" data-translate="news-eyebrow">Quietly delivered</div>
-    <h2><span data-translate="news-title">One essay,</span> <span class="italic" data-translate="news-title-accent">once a month.</span></h2>
-    <p data-translate="news-desc">A short, plain-language note from the practice — never more than once a month, never promotional.</p>
-    <form>
-      <input type="email" placeholder="your.email@example.com" required />
-      <button type="submit" data-translate="news-btn">Subscribe</button>
-    </form>
-    <div class="fine" data-translate="news-fine">No tracking, no third parties, no noise.</div>
+    <div class="eyebrow" data-translate="news-eyebrow">Publication updates</div>
+    <h2><span data-translate="news-title">Email updates are</span> <span class="italic" data-translate="news-title-accent">coming soon.</span></h2>
+    <p data-translate="news-desc">There is no subscription form yet. Until a real delivery service is available, new essays remain available in Insights.</p>
+    <div class="updates-status" data-translate="news-status">Coming soon</div>
+    <div class="fine" data-translate="news-fine">No spam. Just occasional updates when this becomes available.</div>
   </div>
 </section>
 
@@ -1154,12 +1063,12 @@
     <div>
       <div class="eyebrow on-dark" data-translate="contact-eyebrow">Get in touch</div>
       <h2><span data-translate="contact-title">For institutions, journalists,</span> <span class="italic" data-translate="contact-title-accent">and the curious citizen.</span></h2>
-      <p data-translate="contact-desc">For speaking, consulting, writing collaborations, or to suggest a topic for <em style="color:var(--gold-soft);">How Public Money Works.</em></p>
+      <p data-translate="contact-desc">For speaking, writing collaborations, or to suggest a topic for <em style="color:var(--gold-soft);">How Public Money Works.</em></p>
     </div>
     <div class="card">
       <div class="row">
         <span class="k">Email</span>
-        <span class="v">contact@elianafarialima.com</span>
+        <a class="v" href="mailto:contact@elianafarialima.com">contact@elianafarialima.com</a>
       </div>
       <div class="row">
         <span class="k">LinkedIn</span>
@@ -1195,17 +1104,17 @@
     <div>
       <h5 data-translate="foot-header-read">Read</h5>
       <ul>
-        <li><a href="insights.html">How Public Money Works</a></li>
-        <li><a href="/what-is-a-city-budget-and-why-should-you-care">Featured Essay</a></li>
-        <li><a href="insights.html">By Category</a></li>
-        <li><a href="insights.html">Glossary</a></li>
+        <li><a href="/insights">How Public Money Works</a></li>
+        <li><a href="/insights" data-translate="foot-featured-link">Latest essays</a></li>
+        <li><a href="/insights" data-translate="foot-category-link">By category</a></li>
+        <li><span data-translate="foot-glossary-soon">Glossary · Coming soon</span></li>
       </ul>
     </div>
     <div>
       <h5 data-translate="foot-header-practice">Practice</h5>
       <ul>
         <li><a href="#about">About</a></li>
-        <li><a href="#disciplines">Areas of Focus</a></li>
+        <li><a href="#services">Areas of Focus</a></li>
         <li><a href="#resources">Resources</a></li>
         <li><a href="#contact">Speaking</a></li>
       </ul>
@@ -1215,8 +1124,7 @@
       <ul>
         <li><a href="#contact">Contact</a></li>
         <li><a href="https://www.linkedin.com/in/eliana-faria-lima/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="#newsletter-section">Newsletter</a></li>
-        <li><a href="#">RSS</a></li>
+        <li><a href="#newsletter-section" data-translate="foot-updates-link">Updates · Coming soon</a></li>
       </ul>
     </div>
   </div>
@@ -1226,6 +1134,6 @@
   </div>
 </footer>
 
-<script src="shared/main.js"></script>
+<script src="{{sharedJsPath}}"></script>
 </body>
 </html>

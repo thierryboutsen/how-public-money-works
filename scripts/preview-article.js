@@ -10,7 +10,13 @@ const {
   validateDocuments,
   publicPathForDocument
 } = require('./content-utils');
-const { renderPostPage, copyPublicAsset, copyRecursiveSync } = require('../build');
+const {
+  renderPostPage,
+  copyPublicAsset,
+  copyRecursiveSync,
+  createSharedAssetManifest,
+  writeSharedAssets
+} = require('../build');
 
 function main() {
   const input = process.argv[2];
@@ -37,6 +43,8 @@ function main() {
   if (path.resolve(previewDirectory) !== path.join(ROOT_DIR, '.preview')) throw new Error('Unsafe preview path.');
   if (fs.existsSync(previewDirectory)) fs.rmSync(previewDirectory, { recursive: true, force: true });
   copyRecursiveSync(distDirectory, previewDirectory);
+  const sharedAssets = createSharedAssetManifest();
+  writeSharedAssets(previewDirectory, sharedAssets);
   copyPublicAsset(siteConfig.defaultSocialImage, previewDirectory);
 
   const postTemplate = fs.readFileSync(path.join(ROOT_DIR, 'src', 'templates', 'post.html'), 'utf8');
@@ -48,7 +56,7 @@ function main() {
     if (previewDocument.data.featuredImage) copyPublicAsset(previewDocument.data.featuredImage, previewDirectory);
     const posts = [previewDocument.data, ...publishedDocuments.map((document) => document.data)]
       .filter((post) => post.language === previewDocument.data.language);
-    const html = renderPostPage(previewDocument, posts, postTemplate, posts.length, { mode: 'preview' });
+    const html = renderPostPage(previewDocument, posts, postTemplate, posts.length, { mode: 'preview', sharedAssets });
     const relativeOutputPath = `${publicPathForDocument(previewDocument).replace(/^\//, '')}.html`;
     const outputPath = path.join(previewDirectory, relativeOutputPath);
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
