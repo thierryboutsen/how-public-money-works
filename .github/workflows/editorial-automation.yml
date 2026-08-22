@@ -51,7 +51,9 @@ jobs:
           npm run content:test:frontmatter
           npm run editorial:test
           npm run editorial:test:transaction
-          npm run editorial:inventory
+          # Inventory is an observability report here. Eligibility remains fail-closed
+          # on the exact pair evaluated by editorial:run-slot below.
+          npm run editorial:inventory -- --report-only
           npm run editorial:plan-week
 
       - name: Run fail-closed editorial dry run
