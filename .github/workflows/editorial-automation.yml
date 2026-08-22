@@ -57,7 +57,7 @@ jobs:
           npm run editorial:plan-week
 
       - name: Run fail-closed editorial dry run
-        if: github.event_name != 'schedule' && inputs.execute != true
+        if: github.event_name != 'schedule' && inputs.execute != true && inputs.article != '__vercel_preflight__'
         shell: bash
         env:
           ARTICLE: ${{ inputs.article }}
@@ -73,8 +73,16 @@ jobs:
           npm run editorial:run-slot -- "${args[@]}"
 
       - name: Install pinned Vercel CLI for an authorized production run
-        if: github.event_name == 'schedule' || inputs.execute == true
+        if: github.event_name == 'schedule' || inputs.execute == true || inputs.article == '__vercel_preflight__'
         run: npm install --global vercel@58.9.0
+
+      - name: Run read-only Vercel credential preflight
+        if: github.event_name == 'workflow_dispatch' && inputs.execute != true && inputs.article == '__vercel_preflight__'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: node scripts/editorial/vercel-preflight.js
 
       - name: Run transactional publication adapter
         if: github.event_name == 'schedule' || inputs.execute == true
