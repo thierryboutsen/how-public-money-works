@@ -90,6 +90,7 @@ async function main() {
       requestedChanges: evaluation.human.requestedChanges,
       autoPublishEligible: evaluation.autoPublishEligible,
       failedGates: evaluation.failedGates,
+      externalSourceLinks: evaluation.checks.externalSourceLinksValid.detail,
       ...decision,
       validators: Object.fromEntries(Object.entries(evaluation.pipeline).map(([name, result]) => [name, result.pass])),
       buildResult: evaluation.pipeline.build.pass,
