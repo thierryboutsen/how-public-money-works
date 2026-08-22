@@ -59,6 +59,9 @@ assert.strictEqual(slotLabelForEvaluation({ schedule: thursdayAfterCutoff }), 'T
 const exactTuesdayPair = selectNextPreparedPair('2026-08-18', new Set(), { exactSlotOnly: true });
 const exactTuesdayEnglish = exactTuesdayPair.find((document) => document.data.language === 'en') || exactTuesdayPair[0];
 assert.strictEqual(exactTuesdayEnglish.data.slug, 'annual-financial-report-local-government', 'scheduled execution must select only the pair reserved for the exact slot date');
+const exactThursdayPair = selectNextPreparedPair('2026-08-20', new Set(), { exactSlotOnly: true });
+const exactThursdayEnglish = exactThursdayPair.find((document) => document.data.language === 'en') || exactThursdayPair[0];
+assert.strictEqual(exactThursdayEnglish.data.slug, 'property-taxes-assessment-levy-bill', 'Thursday execution must select its exact reserved pair even when Tuesday remains in review');
 assert.strictEqual(selectNextPreparedPair('2026-08-18', new Set(['annual-financial-report-local-government']), { exactSlotOnly: true }), null, 'a consumed slot must not fall through to another pair');
 assert.strictEqual(selectNextPreparedPair('2026-08-19', new Set(), { exactSlotOnly: true }), null, 'a date without an exact reservation must not consume overdue inventory');
 const humanApproved = JSON.parse(JSON.stringify(allPass));
@@ -69,6 +72,18 @@ const beforeCutoff = JSON.parse(JSON.stringify(allPass));
 beforeCutoff.schedule.state = 'before-cutoff';
 assert.strictEqual(runnerDecision(beforeCutoff).decision, 'WOULD_HOLD', 'silence before cutoff must HOLD');
 assert.strictEqual(runnerDecision(allPass).decision, 'WOULD_PUBLISH_AUTO', 'silence after cutoff plus all gates must use auto fallback');
+
+const missedTuesdayPair = [{ data: { language: 'en', targetPublicationDate: '2026-08-18' } }];
+const missedTuesdayBeforeCutoff = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-17T20:59:00Z')) };
+const missedTuesdayAfterCutoff = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-17T21:01:00Z')) };
+const missedTuesdayBeforePublication = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-18T11:59:00Z')) };
+const missedTuesdayAtPublication = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-18T12:00:00Z')) };
+const missedTuesdayAfterPublication = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-18T12:01:00Z')) };
+assert.strictEqual(runnerDecision(missedTuesdayBeforeCutoff).decision, 'WOULD_HOLD', '2026-08-17 17:59 Sao Paulo must HOLD the 2026-08-18 slot');
+assert.strictEqual(runnerDecision(missedTuesdayAfterCutoff).decision, 'WOULD_PUBLISH_AUTO', '2026-08-17 18:01 Sao Paulo must enable fallback for the 2026-08-18 slot');
+assert.strictEqual(runnerDecision(missedTuesdayBeforePublication).decision, 'WOULD_PUBLISH_AUTO', '2026-08-18 08:59 Sao Paulo must keep fallback eligible');
+assert.strictEqual(runnerDecision(missedTuesdayAtPublication).decision, 'WOULD_PUBLISH_AUTO', '2026-08-18 09:00 Sao Paulo must keep fallback eligible');
+assert.strictEqual(runnerDecision(missedTuesdayAfterPublication).decision, 'WOULD_PUBLISH_AUTO', '2026-08-18 09:01 Sao Paulo must remain eligible inside the exact-date execution window');
 
 for (const gate of ['factualValidationComplete', 'featuredImageExists', 'featuredImageUnique', 'duplicateRiskAcceptable', 'canonicalValidation', 'translationValidation', 'contentValidator', 'buildPass', 'publicExposureAudit', 'noUnresolvedSecurityWarning']) {
   assert.strictEqual(runnerDecision(fail(allPass, gate)).decision, 'WOULD_SKIP', `${gate} must produce SKIP`);

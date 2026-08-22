@@ -541,12 +541,13 @@ function activationStatus() {
   if (!automationConfig.publicationTime) blockers.push('publicationTime');
   if (!automationConfig.humanReviewCutoff?.time) blockers.push('humanReviewCutoff');
   if (!automationConfig.publicationAdapter || !fs.existsSync(path.join(ROOT_DIR, automationConfig.publicationAdapter))) blockers.push('publicationAdapter');
-  if (!automationConfig.productionSecretsConfigured) blockers.push('productionSecrets');
+  if (!automationConfig.productionCredentialsConfigured) blockers.push('productionCredentials');
+  if (!automationConfig.gitIntegrationTriggerVerified) blockers.push('gitIntegrationTrigger');
   return {
-    status: blockers.some((item) => item !== 'productionSecrets')
+    status: blockers.some((item) => item !== 'productionCredentials')
       ? 'AUTOMATION_BLOCKED'
-      : (!automationConfig.productionSecretsConfigured
-        ? 'AUTOMATION_READY_NEEDS_SECRETS'
+      : (!automationConfig.productionCredentialsConfigured
+        ? 'AUTOMATION_READY_NEEDS_CREDENTIALS'
         : (automationConfig.dryRun
           ? 'AUTOMATION_READY_DRY_RUN'
           : (!automationConfig.enabled ? 'AUTOMATION_READY_FOR_ACTIVATION' : 'AUTOMATION_ACTIVE'))),

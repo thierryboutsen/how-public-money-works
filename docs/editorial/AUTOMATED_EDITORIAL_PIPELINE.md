@@ -20,9 +20,10 @@ GitHub Actions
 → executa Auto-Publish Gate
 → promove o par em workspace efêmero
 → validate → build → content audit → public exposure audit
-→ deploy Vercel
+→ commit editorial e push normal para master
+→ deploy pela integração Git nativa da Vercel
 → verificação pública
-→ atualização pós-verificação de registries/calendário
+→ commit pós-verificação de registries/calendário
 ```
 
 O scheduler não cria pauta, pesquisa, artigo, tradução ou imagem. A preparação de estoque continua no Codex Desktop. O alvo editorial é 16 pares, com buffer mínimo desejado de oito pares completos.
@@ -36,7 +37,9 @@ Com a ativação de produção concluída, a configuração esperada é:
 ```text
 enabled: true
 dryRun: false
-productionSecretsConfigured: true
+productionCredentialsMode: github-token
+productionCredentialsConfigured: true
+gitIntegrationTriggerVerified: true
 ```
 
 Não copiar regras editoriais para o workflow. O YAML do GitHub Actions chama a engine.
@@ -97,35 +100,37 @@ PRECHECK
 → BUILD
 → AUDIT
 → PUBLIC_EXPOSURE_AUDIT
-→ DEPLOY
+→ PUBLICATION_COMMIT
+→ WAIT_FOR_GIT_DEPLOYMENT
 → PUBLIC_VERIFY
-→ REGISTRY_UPDATE
+→ REGISTRY_COMMIT
 → SUCCESS
 ```
 
-Falha antes do deploy restaura o workspace e aborta. Falha no deploy ou na verificação pública não grava falso `published` nos registries. O par EN/PT-BR é indivisível.
+Falha antes do commit editorial restaura o workspace e aborta. Depois do push, o commit é preservado como evidência do incidente, o runner não tenta outro par e registries/calendário continuam sem `published`/`covered`. O par EN/PT-BR é indivisível.
 
-Depois de verificação pública, o adapter atualiza `article-registry`, `topic-registry` e o resultado do calendário no workspace do runner. Como a publicação não depende de push ou merge no branch principal, o workflow entrega um pacote de sincronização como artifact. A sincronização Git permanece uma operação separada: sem force-push, merge automático ou tentativa de resolver divergências silenciosamente.
+Somente depois da verificação pública, o adapter atualiza `article-registry`, `topic-registry` e o calendário e cria um segundo commit. Ambos os commits usam staging por lista exata de paths e push normal; não há `git add .`, force-push, merge automático ou tentativa de resolver divergências silenciosamente.
 
-## Vercel
+## Deploy pela integração Git da Vercel
 
-O domínio canônico é `https://www.luminasmart.company`. A publicação usa o fluxo recomendado pela Vercel:
+O domínio canônico é `https://www.luminasmart.company`. O projeto Vercel `elianafarialima` está conectado ao repositório e acompanha `master`. O adapter não usa Vercel CLI, token Vercel ou `.vercel/project.json`:
 
 ```text
-vercel pull --environment=production
-vercel build --prod
-vercel deploy --prebuilt --prod
+git push normal para master
+→ integração Git cria o Production Deployment
+→ GitHub Deployments API localiza o deployment pelo commit SHA
+→ domínio público é verificado por HTTP
 ```
 
-O adapter executa esse fluxo em uma staging efêmera criada por allowlist, sem `.git`, reviews, drafts, briefs, documentação interna ou tooling editorial. A staging contém somente o código e o conteúdo publicado necessários ao build e é removida depois da tentativa de deploy.
+O job de publicação recebe apenas `contents: write` e `deployments: read`. Usa o `GITHUB_TOKEN` efêmero do próprio job e confirma que `GITHUB_REPOSITORY` corresponde a `thierryboutsen/how-public-money-works`. Não exige PAT nem secrets `VERCEL_*`.
 
-Secrets necessários no GitHub:
+No estado auditado, `master` não possui branch protection nem ruleset. Se essa política mudar e bloquear o push do job, a execução deve abortar. A alternativa futura é branch editorial automática + PR/auto-merge sujeito às proteções existentes; o pipeline não deve reduzir proteção para contornar o gate.
 
-- `VERCEL_TOKEN`;
-- `VERCEL_ORG_ID`;
-- `VERCEL_PROJECT_ID`.
+O vínculo master→Vercel foi comprovado por commits normais e pelo canário controlado `07dc5dcbfe8ed016f3d85a1571d018dd81b95c47`, criado pelo `GITHUB_TOKEN`. O deployment de produção `6041044697` foi associado ao mesmo SHA e terminou com sucesso; as rotas públicas foram verificadas sem publicação editorial. Branch protection não deve ser enfraquecida silenciosamente.
 
-Os IDs informados por ambiente têm precedência sobre `.vercel/project.json`. Isso é importante porque o vínculo local ainda registra `banner-linkedin-eliana`, enquanto o projeto de produção informado é `elianafarialima`. Nenhum token ou valor de secret deve aparecer em logs ou arquivos.
+### Limite transacional
+
+O push para `master` antecede a confirmação pública. Se o deployment ou a verificação falhar, o adapter não grava registries, retorna erro e não seleciona outro par. O commit publicado permanece no histórico para diagnóstico e exige intervenção humana (correção ou revert explícito). Um deploy posterior de outro commit poderia tornar esse conteúdo público; portanto não se deve retomar o scheduler até resolver o incidente.
 
 ## GitHub Actions e cron
 
@@ -149,13 +154,13 @@ npm run public:exposure-audit
 npm run public:test:exposure-audit
 ```
 
-`editorial:run-slot` é dry-run por padrão. `--execute` falha se `enabled`, `dryRun` ou a confirmação de secrets não permitirem produção.
+`editorial:run-slot` é dry-run por padrão. `--execute` falha se `enabled`, `dryRun` ou a confirmação das credenciais efêmeras GitHub não permitirem produção.
 
 ## Activation modes
 
 - `AUTOMATION_READY_DRY_RUN`: tecnicamente pronta, ainda em dry-run.
-- `AUTOMATION_READY_NEEDS_SECRETS`: gates técnicos prontos; faltam secrets de produção.
-- `AUTOMATION_READY_FOR_ACTIVATION`: secrets confirmados, automação ainda desabilitada.
+- `AUTOMATION_READY_NEEDS_CREDENTIALS`: faltam as credenciais efêmeras esperadas pelo runner.
+- `AUTOMATION_READY_FOR_ACTIVATION`: integração e permissões confirmadas, automação ainda desabilitada.
 - `AUTOMATION_ACTIVE`: execução recorrente habilitada.
 - `AUTOMATION_BLOCKED`: blocker técnico ou editorial impede ativação.
 
@@ -168,7 +173,7 @@ npm run public:test:exposure-audit
 - Rejeição ou mudança solicitada: HOLD.
 - Deploy ambíguo: ABORT.
 - Verificação pública falha: não atualizar registry.
-- Segredo ausente: ABORT sem revelar valor.
+- Credencial GitHub ausente ou repositório divergente: ABORT sem revelar valor.
 - Pauta insuficiente: `SKIP_SLOT_LOW_QUALITY`.
 
 O dry-run não move artigos, não altera gates, não atualiza registries e não executa deploy.

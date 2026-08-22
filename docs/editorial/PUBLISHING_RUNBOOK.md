@@ -99,7 +99,7 @@ Executar também `npm run public:exposure-audit`. Se esse comando falhar, a publ
 
 O deploy manual deve ser deliberado e feito após a conferência do preview. Gerar ideias, briefs, drafts ou preencher um slot nunca aciona publicação por si só.
 
-O fallback descrito em `AUTOMATED_EDITORIAL_PIPELINE.md` só pode executar deploy depois do cutoff, sem rejeição ou alterações pendentes, com todos os gates verdes e por meio de adapter transacional previamente aprovado. Enquanto adapter, horário, cutoff e secrets não estiverem configurados, o workflow permanece exclusivamente em dry-run.
+O fallback descrito em `AUTOMATED_EDITORIAL_PIPELINE.md` só pode criar o commit editorial depois do cutoff, sem rejeição ou alterações pendentes, com todos os gates verdes e por meio do adapter transacional aprovado. O deploy é disparado pela integração Git nativa da Vercel; o runner identifica o deployment pelo SHA e só registra `published`/`covered` depois da verificação pública. Enquanto adapter, horário, cutoff, permissões GitHub e o gatilho master→Vercel não estiverem comprovados, o workflow permanece exclusivamente em dry-run.
 
 ## 10. Validação pós-publicação
 

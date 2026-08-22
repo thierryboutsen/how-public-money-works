@@ -6,6 +6,16 @@ const { absoluteUrl, publicPathForDocument } = require('../content-utils');
 const { createProductionHooks, executeTransaction } = require('./publication-adapter');
 const { choosePair, evaluateAutoPublish, planWeek, runnerDecision, selectNextPreparedPair, slotLabelForEvaluation, writeLog, zonedParts } = require('./engine');
 
+function cycleHasTransactionFailure(cycle) {
+  return cycle.results.some((result) => result.transaction && result.transaction.status !== 'SUCCESS');
+}
+
+function finalDecisionForCycle(cycle) {
+  if (cycleHasTransactionFailure(cycle)) return 'ABORTED';
+  if (cycle.results.some((result) => ['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(result.decision))) return 'WOULD_PUBLISH';
+  return cycle.results.some((result) => result.decision === 'WOULD_HOLD') ? 'WOULD_HOLD' : 'WOULD_SKIP';
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const identifier = args.find((arg) => !arg.startsWith('--'));
@@ -18,7 +28,8 @@ async function main() {
     const reasons = [];
     if (!config.enabled) reasons.push('editorialAutomation.enabled is false');
     if (config.dryRun) reasons.push('editorialAutomation.dryRun is true');
-    if (!config.productionSecretsConfigured) reasons.push('production secrets are not confirmed');
+    if (!config.productionCredentialsConfigured) reasons.push('production credentials are not confirmed');
+    if (!config.gitIntegrationTriggerVerified) reasons.push('GitHub Actions push to Vercel production trigger is not verified');
     const local = zonedParts(now);
     if (!config.preferredDays.includes(local.weekday)) reasons.push(`current local day ${local.weekday} is not a publication slot`);
     if (local.time < config.publicationTime) reasons.push(`current local time ${local.time} is before ${config.publicationTime}`);
@@ -68,6 +79,10 @@ async function main() {
     const result = {
       slot: slotLabelForEvaluation(evaluation),
       slugs: evaluation.pair.map((item) => item.slug),
+      targetPublicationDate: evaluation.schedule.publicationDate,
+      scheduledDay: evaluation.schedule.slot,
+      cutoff: evaluation.schedule.cutoffLocal,
+      publicationTime: evaluation.schedule.publicationLocal,
       chosenTopic: pair.find((document) => document.data.language === 'en')?.data.title || pair[0].data.title,
       antiRepetitionResult: {
         duplicateRisk: evaluation.brief.duplicateRisk,
@@ -76,20 +91,33 @@ async function main() {
       factualValidation: evaluation.checks.factualValidationComplete.detail,
       voiceCheck: evaluation.checks.elianaVoiceCheck,
       humanReviewStatus: evaluation.human.status,
+      humanDraftApproval: pair.map((document) => document.data.humanDraftApproval),
+      publicationApproval: pair.map((document) => document.data.publicationApproval),
+      publishAllowed: pair.map((document) => document.data.publishAllowed),
+      requestedChanges: evaluation.human.requestedChanges,
       autoPublishEligible: evaluation.autoPublishEligible,
       failedGates: evaluation.failedGates,
+      externalSourceLinks: evaluation.checks.externalSourceLinksValid.detail,
       ...decision,
       validators: Object.fromEntries(Object.entries(evaluation.pipeline).map(([name, result]) => [name, result.pass])),
       buildResult: evaluation.pipeline.build.pass,
       previewResult: evaluation.pipeline.previewAudit.pass,
+      adapterStarted: false,
+      publicationCommitPushed: false,
+      publicationCommitSha: null,
+      deploymentVerified: false,
+      deploymentId: null,
       deployResult: 'NOT_RUN_DRY_RUN',
-      publicVerification: 'NOT_RUN_DRY_RUN'
+      publicVerification: 'NOT_RUN_DRY_RUN',
+      registryUpdate: false,
+      registryCommitSha: null
     };
     if (execute) {
       if (!['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(decision.decision)) {
         result.deployResult = 'NOT_RUN_INELIGIBLE';
         result.publicVerification = 'NOT_RUN_INELIGIBLE';
       } else {
+        result.adapterStarted = true;
         const publicationPath = decision.publicationPath;
         const hooks = createProductionHooks(pair, evaluation, {
           publicationPath,
@@ -97,20 +125,30 @@ async function main() {
         });
         const transaction = await executeTransaction(hooks, { cycleId: cycle.cycleId });
         result.transaction = transaction;
-        result.deployResult = transaction.deployed ? transaction.status : 'NOT_DEPLOYED';
+        result.publicationCommitPushed = transaction.publicationCommitPushed;
+        result.publicationCommitSha = hooks.getPublicationCommitSha();
+        result.deploymentVerified = transaction.deploymentVerified;
+        result.deploymentId = hooks.getDeploymentId();
+        result.deployResult = transaction.deploymentVerified ? 'PASS' : 'NOT_CONFIRMED';
         result.publicVerification = transaction.completed.includes('publicVerify') ? 'PASS' : 'NOT_CONFIRMED';
+        result.registryUpdate = transaction.registryUpdated;
+        result.registryCommitSha = hooks.getRegistryCommitSha();
       }
     }
     cycle.results.push(result);
   }
-  cycle.finalDecision = cycle.results.some((result) => ['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(result.decision))
-    ? 'WOULD_PUBLISH'
-    : cycle.results.some((result) => result.decision === 'WOULD_HOLD') ? 'WOULD_HOLD' : 'WOULD_SKIP';
+  const transactionFailed = cycleHasTransactionFailure(cycle);
+  cycle.finalDecision = finalDecisionForCycle(cycle);
   cycle.logPath = writeLog(cycle);
   console.log(JSON.stringify(cycle, null, 2));
+  if (transactionFailed) process.exitCode = 1;
 }
 
-main().catch((error) => {
-  console.error(error.stack || error.message);
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error.stack || error.message);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { cycleHasTransactionFailure, finalDecisionForCycle };

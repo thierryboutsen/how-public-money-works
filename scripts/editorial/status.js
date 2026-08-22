@@ -1,8 +1,6 @@
 'use strict';
 
 const config = require('../../editorial.automation.config');
-const fs = require('fs');
-const path = require('path');
 const { activationStatus, groupReviewPairs, humanReviewState } = require('./engine');
 
 const pairs = [...groupReviewPairs().entries()].map(([translationKey, documents]) => ({
@@ -14,17 +12,16 @@ const pairs = [...groupReviewPairs().entries()].map(([translationKey, documents]
   publicationApproval: documents.map((document) => document.data.publicationApproval)
 }));
 
-const linkedProjectPath = path.join(__dirname, '..', '..', '.vercel', 'project.json');
-const linkedProject = fs.existsSync(linkedProjectPath) ? JSON.parse(fs.readFileSync(linkedProjectPath, 'utf8')) : null;
-
 console.log(JSON.stringify({
   activation: activationStatus(),
   config,
-  vercelProject: {
+  productionIntegration: {
+    method: config.productionMethod,
     expectedProductionName: config.productionProjectName,
-    locallyLinkedName: linkedProject?.projectName || null,
-    idsFromSecretsOverrideLocalLink: true,
-    mismatch: Boolean(linkedProject?.projectName && linkedProject.projectName !== config.productionProjectName)
+    repository: config.productionRepository,
+    branch: config.productionBranch,
+    gitTriggerVerified: config.gitIntegrationTriggerVerified,
+    vercelCliRequired: false
   },
   reviewPairs: pairs
 }, null, 2));
