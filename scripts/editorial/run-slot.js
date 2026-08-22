@@ -6,6 +6,10 @@ const { absoluteUrl, publicPathForDocument } = require('../content-utils');
 const { createProductionHooks, executeTransaction } = require('./publication-adapter');
 const { choosePair, evaluateAutoPublish, planWeek, runnerDecision, selectNextPreparedPair, slotLabelForEvaluation, writeLog, zonedParts } = require('./engine');
 
+function cycleHasTransactionFailure(cycle) {
+  return cycle.results.some((result) => result.transaction && result.transaction.status !== 'SUCCESS');
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const identifier = args.find((arg) => !arg.startsWith('--'));
@@ -68,6 +72,10 @@ async function main() {
     const result = {
       slot: slotLabelForEvaluation(evaluation),
       slugs: evaluation.pair.map((item) => item.slug),
+      targetPublicationDate: evaluation.schedule.publicationDate,
+      scheduledDay: evaluation.schedule.slot,
+      cutoff: evaluation.schedule.cutoffLocal,
+      publicationTime: evaluation.schedule.publicationLocal,
       chosenTopic: pair.find((document) => document.data.language === 'en')?.data.title || pair[0].data.title,
       antiRepetitionResult: {
         duplicateRisk: evaluation.brief.duplicateRisk,
@@ -76,20 +84,28 @@ async function main() {
       factualValidation: evaluation.checks.factualValidationComplete.detail,
       voiceCheck: evaluation.checks.elianaVoiceCheck,
       humanReviewStatus: evaluation.human.status,
+      humanDraftApproval: pair.map((document) => document.data.humanDraftApproval),
+      publicationApproval: pair.map((document) => document.data.publicationApproval),
+      publishAllowed: pair.map((document) => document.data.publishAllowed),
+      requestedChanges: evaluation.human.requestedChanges,
       autoPublishEligible: evaluation.autoPublishEligible,
       failedGates: evaluation.failedGates,
       ...decision,
       validators: Object.fromEntries(Object.entries(evaluation.pipeline).map(([name, result]) => [name, result.pass])),
       buildResult: evaluation.pipeline.build.pass,
       previewResult: evaluation.pipeline.previewAudit.pass,
+      adapterStarted: false,
+      deployStarted: false,
       deployResult: 'NOT_RUN_DRY_RUN',
-      publicVerification: 'NOT_RUN_DRY_RUN'
+      publicVerification: 'NOT_RUN_DRY_RUN',
+      registryUpdate: false
     };
     if (execute) {
       if (!['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(decision.decision)) {
         result.deployResult = 'NOT_RUN_INELIGIBLE';
         result.publicVerification = 'NOT_RUN_INELIGIBLE';
       } else {
+        result.adapterStarted = true;
         const publicationPath = decision.publicationPath;
         const hooks = createProductionHooks(pair, evaluation, {
           publicationPath,
@@ -97,20 +113,30 @@ async function main() {
         });
         const transaction = await executeTransaction(hooks, { cycleId: cycle.cycleId });
         result.transaction = transaction;
+        result.deployStarted = transaction.completed.includes('deploy') || transaction.failedStage === 'deploy';
         result.deployResult = transaction.deployed ? transaction.status : 'NOT_DEPLOYED';
         result.publicVerification = transaction.completed.includes('publicVerify') ? 'PASS' : 'NOT_CONFIRMED';
+        result.registryUpdate = transaction.registryUpdated;
       }
     }
     cycle.results.push(result);
   }
-  cycle.finalDecision = cycle.results.some((result) => ['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(result.decision))
-    ? 'WOULD_PUBLISH'
-    : cycle.results.some((result) => result.decision === 'WOULD_HOLD') ? 'WOULD_HOLD' : 'WOULD_SKIP';
+  const transactionFailed = cycleHasTransactionFailure(cycle);
+  cycle.finalDecision = transactionFailed
+    ? 'ABORTED'
+    : cycle.results.some((result) => ['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(result.decision))
+      ? 'WOULD_PUBLISH'
+      : cycle.results.some((result) => result.decision === 'WOULD_HOLD') ? 'WOULD_HOLD' : 'WOULD_SKIP';
   cycle.logPath = writeLog(cycle);
   console.log(JSON.stringify(cycle, null, 2));
+  if (transactionFailed) process.exitCode = 1;
 }
 
-main().catch((error) => {
-  console.error(error.stack || error.message);
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error.stack || error.message);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { cycleHasTransactionFailure };

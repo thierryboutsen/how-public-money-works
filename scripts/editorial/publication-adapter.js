@@ -81,6 +81,28 @@ function createCleanDeploymentSource() {
   return stagingRoot;
 }
 
+function normalizedProductionEnvironment(source = process.env) {
+  const normalized = {};
+  const missing = [];
+  for (const name of config.requiredProductionEnvironmentVariables) {
+    const value = typeof source[name] === 'string' ? source[name].trim() : '';
+    if (!value) missing.push(name);
+    else normalized[name] = value;
+  }
+  if (missing.length) throw new Error(`Missing required production environment variable names: ${missing.join(', ')}`);
+  return normalized;
+}
+
+function writeVercelProjectLink(stagingRoot, productionEnvironment) {
+  const vercelDirectory = path.join(stagingRoot, '.vercel');
+  fs.mkdirSync(vercelDirectory, { recursive: true });
+  fs.writeFileSync(path.join(vercelDirectory, 'project.json'), `${JSON.stringify({
+    orgId: productionEnvironment.VERCEL_ORG_ID,
+    projectId: productionEnvironment.VERCEL_PROJECT_ID,
+    projectName: config.productionProjectName
+  })}\n`, 'utf8');
+}
+
 function npmCommand(args, label) {
   const npmCli = process.platform === 'win32'
     ? path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js')
@@ -246,15 +268,15 @@ function createProductionHooks(pair, evaluation, options) {
     publicExposureAudit: () => npmRun('public:exposure-audit'),
     deploy: () => {
       if (!process.env.GITHUB_ACTIONS) throw new Error('Production deploy is restricted to GitHub Actions');
-      const missing = config.requiredProductionEnvironmentVariables.filter((name) => !process.env[name]);
-      if (missing.length) throw new Error(`Missing required production environment variable names: ${missing.join(', ')}`);
+      const productionEnvironment = normalizedProductionEnvironment();
       const vercel = process.platform === 'win32' ? 'vercel.cmd' : 'vercel';
-      const token = process.env.VERCEL_TOKEN;
+      const token = productionEnvironment.VERCEL_TOKEN;
       const stagingRoot = createCleanDeploymentSource();
       try {
-        run(vercel, ['pull', '--yes', '--environment=production', `--token=${token}`], { cwd: stagingRoot, label: 'vercel pull' });
-        run(vercel, ['build', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel build' });
-        deploymentUrl = run(vercel, ['deploy', '--prebuilt', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel deploy' }).split(/\r?\n/).pop();
+        writeVercelProjectLink(stagingRoot, productionEnvironment);
+        run(vercel, ['pull', '--yes', '--environment=production', `--token=${token}`], { cwd: stagingRoot, label: 'vercel pull', env: productionEnvironment });
+        run(vercel, ['build', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel build', env: productionEnvironment });
+        deploymentUrl = run(vercel, ['deploy', '--prebuilt', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel deploy', env: productionEnvironment }).split(/\r?\n/).pop();
         if (!/^https:\/\//.test(deploymentUrl)) throw new Error('Vercel did not return a deployment URL');
       } finally {
         fs.rmSync(stagingRoot, { recursive: true, force: true });
@@ -277,7 +299,9 @@ module.exports = {
   createCleanDeploymentSource,
   createProductionHooks,
   executeTransaction,
+  normalizedProductionEnvironment,
   promotedData,
   updateRegistries,
-  verifyPublicPair
+  verifyPublicPair,
+  writeVercelProjectLink
 };

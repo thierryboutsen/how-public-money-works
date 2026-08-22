@@ -3,7 +3,15 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { DEPLOY_SOURCE_ALLOWLIST, TRANSACTION_STAGES, createCleanDeploymentSource, executeTransaction } = require('./publication-adapter');
+const {
+  DEPLOY_SOURCE_ALLOWLIST,
+  TRANSACTION_STAGES,
+  createCleanDeploymentSource,
+  executeTransaction,
+  normalizedProductionEnvironment,
+  writeVercelProjectLink
+} = require('./publication-adapter');
+const { cycleHasTransactionFailure } = require('./run-slot');
 
 function hooksForFailure(failAt) {
   const state = { calls: [], registryWrites: 0, rollbacks: 0 };
@@ -28,6 +36,25 @@ async function main() {
     for (const privatePath of ['.git', '.github', '.editorial', 'content/review', 'content/drafts', 'docs', 'scripts/editorial']) {
       assert(!fs.existsSync(path.join(stagingRoot, privatePath)), `deployment source must exclude ${privatePath}`);
     }
+    const productionEnvironment = normalizedProductionEnvironment({
+      VERCEL_TOKEN: ' test-token ',
+      VERCEL_ORG_ID: ' test-org ',
+      VERCEL_PROJECT_ID: ' test-project '
+    });
+    assert.deepStrictEqual(productionEnvironment, {
+      VERCEL_TOKEN: 'test-token',
+      VERCEL_ORG_ID: 'test-org',
+      VERCEL_PROJECT_ID: 'test-project'
+    });
+    writeVercelProjectLink(stagingRoot, productionEnvironment);
+    const projectLink = JSON.parse(fs.readFileSync(path.join(stagingRoot, '.vercel', 'project.json'), 'utf8'));
+    assert.deepStrictEqual(projectLink, {
+      orgId: 'test-org',
+      projectId: 'test-project',
+      projectName: 'elianafarialima'
+    });
+    assert(!fs.readFileSync(path.join(stagingRoot, '.vercel', 'project.json'), 'utf8').includes('test-token'), 'project link must not contain the Vercel token');
+    assert.throws(() => normalizedProductionEnvironment({}), /VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID/);
   } finally {
     fs.rmSync(stagingRoot, { recursive: true, force: true });
   }
@@ -55,6 +82,8 @@ async function main() {
   const abort = await executeTransaction(unavailable.hooks);
   assert.strictEqual(abort.status, 'ABORTED_BEFORE_DEPLOY');
   assert.strictEqual(abort.registryUpdated, false);
+  assert.strictEqual(cycleHasTransactionFailure({ results: [{ transaction: abort }] }), true, 'an aborted transaction must fail the runner');
+  assert.strictEqual(cycleHasTransactionFailure({ results: [{ transaction: success }] }), false, 'a successful transaction must not fail the runner');
 
   console.log('Publication transaction tests passed: success and fail-closed behavior at every stage, including unavailable deploy adapter.');
 }
