@@ -84,14 +84,15 @@ async function main() {
     assert.strictEqual(link.projectName, config.productionProjectName);
     console.log('VERCEL_PROJECT_LINK_VALID');
 
-    runVercel(['pull', '--yes', '--environment=production', `--token=${environment.VERCEL_TOKEN}`], {
+    const scope = `--scope=${config.productionOrgSlug}`;
+    runVercel(['pull', '--yes', '--environment=production', scope, `--token=${environment.VERCEL_TOKEN}`], {
       cwd: stagingRoot,
       environment,
       stage: 'vercel-pull'
     });
     console.log('VERCEL_PULL_PASS');
 
-    runVercel(['build', '--prod', `--token=${environment.VERCEL_TOKEN}`], {
+    runVercel(['build', '--prod', scope, `--token=${environment.VERCEL_TOKEN}`], {
       cwd: stagingRoot,
       environment,
       stage: 'vercel-build'

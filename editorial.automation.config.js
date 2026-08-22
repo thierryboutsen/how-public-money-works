@@ -19,6 +19,7 @@ module.exports = Object.freeze({
   publicationAdapter: 'scripts/editorial/publication-adapter.js',
   productionMethod: 'vercel-cli',
   productionProjectName: 'elianafarialima',
+  productionOrgSlug: 'thierrys-projects-347fb62a',
   productionSecretsConfigured: true,
   registrySyncMode: 'post-verify-artifact-no-master-push',
   inventoryTargetPairs: 16,

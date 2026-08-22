@@ -274,9 +274,10 @@ function createProductionHooks(pair, evaluation, options) {
       const stagingRoot = createCleanDeploymentSource();
       try {
         writeVercelProjectLink(stagingRoot, productionEnvironment);
-        run(vercel, ['pull', '--yes', '--environment=production', `--token=${token}`], { cwd: stagingRoot, label: 'vercel pull', env: productionEnvironment });
-        run(vercel, ['build', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel build', env: productionEnvironment });
-        deploymentUrl = run(vercel, ['deploy', '--prebuilt', '--prod', `--token=${token}`], { cwd: stagingRoot, label: 'vercel deploy', env: productionEnvironment }).split(/\r?\n/).pop();
+        const scope = `--scope=${config.productionOrgSlug}`;
+        run(vercel, ['pull', '--yes', '--environment=production', scope, `--token=${token}`], { cwd: stagingRoot, label: 'vercel pull', env: productionEnvironment });
+        run(vercel, ['build', '--prod', scope, `--token=${token}`], { cwd: stagingRoot, label: 'vercel build', env: productionEnvironment });
+        deploymentUrl = run(vercel, ['deploy', '--prebuilt', '--prod', scope, `--token=${token}`], { cwd: stagingRoot, label: 'vercel deploy', env: productionEnvironment }).split(/\r?\n/).pop();
         if (!/^https:\/\//.test(deploymentUrl)) throw new Error('Vercel did not return a deployment URL');
       } finally {
         fs.rmSync(stagingRoot, { recursive: true, force: true });
