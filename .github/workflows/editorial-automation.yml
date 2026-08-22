@@ -11,6 +11,10 @@ on:
         description: Optional ISO timestamp for deterministic dry-run scenarios
         required: false
         type: string
+      recoveryDate:
+        description: One-time recovery date for an exact reserved pair; never used by the normal cron
+        required: false
+        type: string
       execute:
         description: Request production execution; central fail-closed config still applies
         required: true
@@ -86,6 +90,7 @@ jobs:
         env:
           ARTICLE: ${{ inputs.article }}
           NOW: ${{ inputs.now }}
+          RECOVERY_DATE: ${{ inputs.recoveryDate }}
         run: |
           args=()
           if [ -n "$ARTICLE" ]; then
@@ -93,6 +98,9 @@ jobs:
           fi
           if [ -n "$NOW" ]; then
             args+=("--now=$NOW")
+          fi
+          if [ -n "$RECOVERY_DATE" ]; then
+            args+=("--recovery-date=$RECOVERY_DATE")
           fi
           npm run editorial:run-slot -- "${args[@]}"
 
@@ -217,12 +225,16 @@ jobs:
         shell: bash
         env:
           ARTICLE: ${{ inputs.article }}
+          RECOVERY_DATE: ${{ inputs.recoveryDate }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           args=("--execute")
           if [ -n "$ARTICLE" ]; then
             args+=("$ARTICLE")
+          fi
+          if [ -n "$RECOVERY_DATE" ]; then
+            args+=("--recovery-date=$RECOVERY_DATE")
           fi
           npm run editorial:run-slot -- "${args[@]}"
 

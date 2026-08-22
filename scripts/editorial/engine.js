@@ -202,7 +202,13 @@ async function checkUrl(url, timeoutMs = 12000) {
 async function externalLinkCheck(pair, options = {}) {
   const urls = [...new Set(pair.flatMap((document) => extractExternalLinks(publicMarkdown(document))))];
   if (options.skipNetwork) return { pass: false, errors: ['network validation was not executed'], urls: [] };
-  const results = await Promise.all(urls.map((url) => checkUrl(url)));
+  const results = await Promise.all(urls.map(async (url) => {
+    const first = await checkUrl(url);
+    if (first.pass) return first;
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    const second = await checkUrl(url);
+    return second.pass ? { ...second, retry: true } : { ...second, retry: true, firstAttempt: first };
+  }));
   const errors = results.filter((item) => !item.pass).map((item) => `${item.url}: ${item.status || item.error}`);
   return { pass: urls.length > 0 && errors.length === 0, errors: urls.length ? errors : ['no external institutional source links found'], urls: results };
 }
@@ -237,13 +243,25 @@ function offsetDate(dateString, dayOffset) {
   return date.toISOString().slice(0, 10);
 }
 
-function reviewWindowForPair(pair, now = new Date()) {
+function activeRecoverySlots() {
+  const calendar = readYaml('content/calendar/editorial-calendar.yml');
+  return Array.isArray(calendar.recoverySlots)
+    ? calendar.recoverySlots.filter((slot) => slot.status === 'armed')
+    : [];
+}
+
+function recoverySlotForPair(pair) {
   const english = pair.find((document) => document.data.language === 'en') || pair[0];
-  const publicationDate = english.data.targetPublicationDate || null;
+  return activeRecoverySlots().find((slot) => slot.articleSlug === english.data.slug) || null;
+}
+
+function reviewWindowForPair(pair, now = new Date(), recoverySlot = null) {
+  const english = pair.find((document) => document.data.language === 'en') || pair[0];
+  const publicationDate = recoverySlot?.recoveryScheduledDate || english.data.targetPublicationDate || null;
   if (!publicationDate) return { state: 'unconfigured', reason: 'targetPublicationDate is missing' };
   const cutoffDate = offsetDate(publicationDate, automationConfig.humanReviewCutoff.dayOffset);
   const cutoffLocal = `${cutoffDate}T${automationConfig.humanReviewCutoff.time}`;
-  const publicationLocal = `${publicationDate}T${automationConfig.publicationTime}`;
+  const publicationLocal = `${publicationDate}T${recoverySlot?.recoveryTime || automationConfig.publicationTime}`;
   const current = zonedParts(now);
   const currentLocal = `${current.date}T${current.time}`;
   return {
@@ -252,7 +270,11 @@ function reviewWindowForPair(pair, now = new Date()) {
     cutoffLocal,
     publicationLocal,
     slot: publicationWeekday(publicationDate),
-    publicationDate
+    publicationDate,
+    ...(recoverySlot ? {
+      recovery: recoverySlot,
+      originalScheduledDate: recoverySlot.originalScheduledDate
+    } : {})
   };
 }
 
@@ -262,11 +284,17 @@ function publicationWeekday(publicationDate) {
     .format(new Date(`${publicationDate}T12:00:00Z`));
 }
 
-function scheduledDayCheck(targetDate) {
+function scheduledDayCheck(targetDate, recoverySlot = null) {
   const targetDay = publicationWeekday(targetDate);
   return {
-    pass: Boolean(targetDate) && automationConfig.preferredDays.includes(targetDay),
-    detail: { targetDate, targetDay }
+    pass: Boolean(targetDate) && (recoverySlot
+      ? recoverySlot.recoveryScheduledDate === targetDate && recoverySlot.status === 'armed'
+      : automationConfig.preferredDays.includes(targetDay)),
+    detail: {
+      targetDate,
+      targetDay,
+      ...(recoverySlot ? { recovery: recoverySlot } : {})
+    }
   };
 }
 
@@ -319,7 +347,8 @@ function staticGateEvaluation(pair, overrides = {}) {
     return { pass: validation.errors.length === 0, errors: validation.errors };
   })();
   const english = pair.find((document) => document.data.language === 'en') || pair[0];
-  const targetDate = english.data.targetPublicationDate;
+  const recoverySlot = overrides.recoverySlot || null;
+  const targetDate = recoverySlot?.recoveryScheduledDate || english.data.targetPublicationDate;
   const checks = {
     humanDraftNotRejected: { pass: !['rejected', 'changes-requested'].includes(human.status), detail: human.status },
     requestedChangesClear: { pass: human.requestedChanges.length === 0, detail: human.requestedChanges },
@@ -340,7 +369,7 @@ function staticGateEvaluation(pair, overrides = {}) {
     internalLinksValid: { pass: internalLinks.pass, detail: internalLinks },
     contentValidator: { pass: contentValidation.pass, detail: contentValidation },
     publicationGuards: { pass: contentValidation.pass, detail: contentValidation },
-    scheduledDayValid: scheduledDayCheck(targetDate),
+    scheduledDayValid: scheduledDayCheck(targetDate, recoverySlot),
     noP1Blocker: { pass: pair.every((document) => Array.isArray(document.data.p1Blockers) && document.data.p1Blockers.length === 0), detail: pair.map((document) => document.data.p1Blockers) },
     noP2Blocker: { pass: pair.every((document) => Array.isArray(document.data.p2Blockers) && document.data.p2Blockers.length === 0), detail: pair.map((document) => document.data.p2Blockers) },
     noUnresolvedSecurityWarning: { pass: pair.every((document) => Array.isArray(document.data.securityWarnings) && document.data.securityWarnings.length === 0), detail: pair.map((document) => document.data.securityWarnings) }
@@ -349,7 +378,7 @@ function staticGateEvaluation(pair, overrides = {}) {
     brief,
     human,
     checks,
-    schedule: reviewWindowForPair(pair, overrides.now || new Date()),
+    schedule: reviewWindowForPair(pair, overrides.now || new Date(), recoverySlot),
     pair: pair.map((document) => ({ slug: document.data.slug, language: document.data.language }))
   };
 }
@@ -568,6 +597,7 @@ module.exports = {
   inventory,
   planWeek,
   publicationWeekday,
+  recoverySlotForPair,
   runnerDecision,
   reviewWindowForPair,
   scheduledDayCheck,

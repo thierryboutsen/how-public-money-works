@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const config = require('../../editorial.automation.config');
 const { absoluteUrl, publicPathForDocument } = require('../content-utils');
 const { createProductionHooks, executeTransaction } = require('./publication-adapter');
-const { choosePair, evaluateAutoPublish, planWeek, runnerDecision, selectNextPreparedPair, slotLabelForEvaluation, writeLog, zonedParts } = require('./engine');
+const { choosePair, evaluateAutoPublish, planWeek, recoverySlotForPair, runnerDecision, selectNextPreparedPair, slotLabelForEvaluation, writeLog, zonedParts } = require('./engine');
 
 function cycleHasTransactionFailure(cycle) {
   return cycle.results.some((result) => result.transaction && result.transaction.status !== 'SUCCESS');
@@ -21,9 +21,22 @@ async function main() {
   const identifier = args.find((arg) => !arg.startsWith('--'));
   const execute = args.includes('--execute');
   const forcedCutoff = args.includes('--cutoff-reached') ? true : undefined;
+  const recoveryDateArgument = args.find((arg) => arg.startsWith('--recovery-date='))?.slice('--recovery-date='.length) || null;
   const nowArgument = args.find((arg) => arg.startsWith('--now='))?.slice('--now='.length);
   const now = nowArgument ? new Date(nowArgument) : new Date();
   if (Number.isNaN(now.getTime())) throw new Error(`Invalid --now value: ${nowArgument}`);
+  let requestedRecoverySlot = null;
+  if (recoveryDateArgument && !identifier) throw new Error('--recovery-date requires an exact article identifier');
+  if (identifier) {
+    const requestedPair = choosePair(identifier)[0];
+    const configuredRecoverySlot = recoverySlotForPair(requestedPair);
+    if (recoveryDateArgument) {
+      if (!configuredRecoverySlot || configuredRecoverySlot.recoveryScheduledDate !== recoveryDateArgument) {
+        throw new Error(`No armed recovery slot matches ${identifier} on ${recoveryDateArgument}`);
+      }
+      requestedRecoverySlot = configuredRecoverySlot;
+    }
+  }
   if (execute) {
     const reasons = [];
     if (!config.enabled) reasons.push('editorialAutomation.enabled is false');
@@ -31,8 +44,13 @@ async function main() {
     if (!config.productionCredentialsConfigured) reasons.push('production credentials are not confirmed');
     if (!config.gitIntegrationTriggerVerified) reasons.push('GitHub Actions push to Vercel production trigger is not verified');
     const local = zonedParts(now);
-    if (!config.preferredDays.includes(local.weekday)) reasons.push(`current local day ${local.weekday} is not a publication slot`);
-    if (local.time < config.publicationTime) reasons.push(`current local time ${local.time} is before ${config.publicationTime}`);
+    if (requestedRecoverySlot) {
+      if (local.date !== requestedRecoverySlot.recoveryScheduledDate) reasons.push(`current local date ${local.date} does not match recovery date ${requestedRecoverySlot.recoveryScheduledDate}`);
+      if (local.time < requestedRecoverySlot.recoveryTime) reasons.push(`current local time ${local.time} is before recovery time ${requestedRecoverySlot.recoveryTime}`);
+    } else {
+      if (!config.preferredDays.includes(local.weekday)) reasons.push(`current local day ${local.weekday} is not a publication slot`);
+      if (local.time < config.publicationTime) reasons.push(`current local time ${local.time} is before ${config.publicationTime}`);
+    }
     if (reasons.length) throw new Error(`Production execution is fail-closed: ${reasons.join('; ')}`);
   }
 
@@ -72,7 +90,7 @@ async function main() {
   }
   for (let index = 0; index < pairs.length; index += 1) {
     const pair = pairs[index];
-    const evaluation = await evaluateAutoPublish(pair, { runPipeline: true, overrides: { now } });
+    const evaluation = await evaluateAutoPublish(pair, { runPipeline: true, overrides: { now, recoverySlot: requestedRecoverySlot } });
     const decision = execute && evaluation.schedule.publicationDate > localNow.date
       ? { decision: 'WOULD_HOLD', reason: 'target-publication-date-is-in-the-future' }
       : runnerDecision(evaluation, { cutoffReached: forcedCutoff });
@@ -80,6 +98,9 @@ async function main() {
       slot: slotLabelForEvaluation(evaluation),
       slugs: evaluation.pair.map((item) => item.slug),
       targetPublicationDate: evaluation.schedule.publicationDate,
+      originalScheduledDate: evaluation.schedule.originalScheduledDate,
+      recoveryScheduledDate: requestedRecoverySlot?.recoveryScheduledDate || null,
+      recoveryReason: requestedRecoverySlot?.recoveryReason || null,
       scheduledDay: evaluation.schedule.slot,
       cutoff: evaluation.schedule.cutoffLocal,
       publicationTime: evaluation.schedule.publicationLocal,
@@ -121,7 +142,8 @@ async function main() {
         const publicationPath = decision.publicationPath;
         const hooks = createProductionHooks(pair, evaluation, {
           publicationPath,
-          publicationDate: evaluation.schedule.publicationDate
+          publicationDate: evaluation.schedule.publicationDate,
+          recoverySlot: requestedRecoverySlot
         });
         const transaction = await executeTransaction(hooks, { cycleId: cycle.cycleId });
         result.transaction = transaction;

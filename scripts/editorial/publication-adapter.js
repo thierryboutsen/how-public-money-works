@@ -178,7 +178,7 @@ function promotedData(document, publicationPath, publicationDate, topicAngleSign
   };
 }
 
-function updateRegistries(pair, publicationDate, publicationPath, topicAngleSignature) {
+function updateRegistries(pair, publicationDate, publicationPath, topicAngleSignature, recoverySlot = null) {
   const articlePath = path.join(ROOT_DIR, 'content', 'registry', 'article-registry.yml');
   const topicPath = path.join(ROOT_DIR, 'content', 'registry', 'topic-registry.yml');
   const calendarPath = path.join(ROOT_DIR, 'content', 'calendar', 'editorial-calendar.yml');
@@ -200,7 +200,13 @@ function updateRegistries(pair, publicationDate, publicationPath, topicAngleSign
       duplicateCheckSignature: document.data.topicAngleSignature || english.data.topicAngleSignature || topicAngleSignature,
       sourceLevel: document.data.sourceLevel,
       publicationPath,
-      lastReviewed: publicationDate
+      lastReviewed: publicationDate,
+      ...(recoverySlot ? {
+        originalScheduledDate: recoverySlot.originalScheduledDate,
+        recoveryScheduledDate: recoverySlot.recoveryScheduledDate,
+        recoveryReason: recoverySlot.recoveryReason,
+        actualPublishedAt: publicationDate
+      } : {})
     });
   }
 
@@ -215,14 +221,33 @@ function updateRegistries(pair, publicationDate, publicationPath, topicAngleSign
     });
   }
 
-  const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${publicationDate}T12:00:00Z`));
-  const slot = calendar.slots.find((item) => item.slot === weekday);
-  if (slot) {
-    slot.status = 'published';
-    slot.articleSlug = english.data.slug;
-    slot.result = 'published';
-    slot.publicationPath = publicationPath;
-    slot.publishedAt = publicationDate;
+  if (recoverySlot) {
+    const original = calendar.slots.find((item) => item.date === recoverySlot.originalScheduledDate);
+    if (original) {
+      original.recoveryScheduledDate = recoverySlot.recoveryScheduledDate;
+      original.recoveryReason = recoverySlot.recoveryReason;
+      original.recoveryStatus = 'recovered';
+      original.actualPublishedAt = publicationDate;
+      original.recoveredArticleSlug = english.data.slug;
+    }
+    const recovered = (calendar.recoverySlots || []).find((item) => item.recoveryScheduledDate === recoverySlot.recoveryScheduledDate && item.articleSlug === english.data.slug);
+    if (recovered) {
+      recovered.status = 'published';
+      recovered.publicationDecision = 'published';
+      recovered.result = 'published';
+      recovered.publicationPath = publicationPath;
+      recovered.publishedAt = publicationDate;
+    }
+  } else {
+    const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(new Date(`${publicationDate}T12:00:00Z`));
+    const slot = calendar.slots.find((item) => item.date === publicationDate) || calendar.slots.find((item) => item.slot === weekday && item.status !== 'published');
+    if (slot) {
+      slot.status = 'published';
+      slot.articleSlug = english.data.slug;
+      slot.result = 'published';
+      slot.publicationPath = publicationPath;
+      slot.publishedAt = publicationDate;
+    }
   }
 
   fs.writeFileSync(articlePath, YAML.stringify(articleRegistry, { lineWidth: 0 }));
@@ -346,7 +371,7 @@ function createProductionHooks(pair, evaluation, options) {
       await verifyPublicRelease(pair);
     },
     registryCommit: () => {
-      updateRegistries(pair, publicationDate, publicationPath, evaluation.brief.topicAngleSignature);
+      updateRegistries(pair, publicationDate, publicationPath, evaluation.brief.topicAngleSignature, options.recoverySlot || null);
       registryCommitSha = commitAndPushPaths(registryPaths, `chore: record verified publication for ${pair.find((document) => document.data.language === 'en').data.slug} [skip ci]`);
     },
     rollback: (_context, transaction) => {
