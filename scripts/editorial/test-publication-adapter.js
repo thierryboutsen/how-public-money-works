@@ -47,7 +47,7 @@ async function main() {
   });
   assert.throws(() => normalizedProductionEnvironment({}), /GITHUB_TOKEN, GITHUB_REPOSITORY/);
   assert(!config.requiredProductionEnvironmentVariables.some((name) => name.startsWith('VERCEL_')), 'publication must not require Vercel secrets');
-  assert.strictEqual(config.gitIntegrationTriggerVerified, false, 'production must remain fail-closed until the Actions push trigger is proven');
+  assert.strictEqual(config.gitIntegrationTriggerVerified, true, 'the Actions push trigger was verified by the controlled canary');
 
   assert(TRANSACTION_STAGES.indexOf('publicExposureAudit') > TRANSACTION_STAGES.indexOf('audit'));
   assert(TRANSACTION_STAGES.indexOf('publicExposureAudit') < TRANSACTION_STAGES.indexOf('publishCommit'));

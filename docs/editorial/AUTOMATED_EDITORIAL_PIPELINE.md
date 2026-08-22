@@ -126,7 +126,7 @@ O job de publicação recebe apenas `contents: write` e `deployments: read`. Usa
 
 No estado auditado, `master` não possui branch protection nem ruleset. Se essa política mudar e bloquear o push do job, a execução deve abortar. A alternativa futura é branch editorial automática + PR/auto-merge sujeito às proteções existentes; o pipeline não deve reduzir proteção para contornar o gate.
 
-O vínculo master→Vercel está comprovado para commits normais. Antes da ativação definitiva, deve haver uma prova controlada de que um push criado pelo `GITHUB_TOKEN` também dispara o deployment de produção. Se essa prova falhar, a automação permanece bloqueada; branch protection não deve ser enfraquecida silenciosamente.
+O vínculo master→Vercel foi comprovado por commits normais e pelo canário controlado `07dc5dcbfe8ed016f3d85a1571d018dd81b95c47`, criado pelo `GITHUB_TOKEN`. O deployment de produção `6041044697` foi associado ao mesmo SHA e terminou com sucesso; as rotas públicas foram verificadas sem publicação editorial. Branch protection não deve ser enfraquecida silenciosamente.
 
 ### Limite transacional
 

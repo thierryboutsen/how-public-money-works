@@ -23,7 +23,7 @@ module.exports = Object.freeze({
   productionProjectName: 'elianafarialima',
   productionCredentialsMode: 'github-token',
   productionCredentialsConfigured: true,
-  gitIntegrationTriggerVerified: false,
+  gitIntegrationTriggerVerified: true,
   registrySyncMode: 'post-verify-git-commit',
   inventoryTargetPairs: 16,
   minimumPreparedBufferPairs: 8,
