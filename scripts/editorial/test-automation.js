@@ -76,10 +76,14 @@ assert.strictEqual(runnerDecision(allPass).decision, 'WOULD_PUBLISH_AUTO', 'sile
 const missedTuesdayPair = [{ data: { language: 'en', targetPublicationDate: '2026-08-18' } }];
 const missedTuesdayBeforeCutoff = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-17T20:59:00Z')) };
 const missedTuesdayAfterCutoff = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-17T21:01:00Z')) };
+const missedTuesdayBeforePublication = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-18T11:59:00Z')) };
 const missedTuesdayAtPublication = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-18T12:00:00Z')) };
+const missedTuesdayAfterPublication = { ...allPass, schedule: reviewWindowForPair(missedTuesdayPair, new Date('2026-08-18T12:01:00Z')) };
 assert.strictEqual(runnerDecision(missedTuesdayBeforeCutoff).decision, 'WOULD_HOLD', '2026-08-17 17:59 Sao Paulo must HOLD the 2026-08-18 slot');
 assert.strictEqual(runnerDecision(missedTuesdayAfterCutoff).decision, 'WOULD_PUBLISH_AUTO', '2026-08-17 18:01 Sao Paulo must enable fallback for the 2026-08-18 slot');
+assert.strictEqual(runnerDecision(missedTuesdayBeforePublication).decision, 'WOULD_PUBLISH_AUTO', '2026-08-18 08:59 Sao Paulo must keep fallback eligible');
 assert.strictEqual(runnerDecision(missedTuesdayAtPublication).decision, 'WOULD_PUBLISH_AUTO', '2026-08-18 09:00 Sao Paulo must keep fallback eligible');
+assert.strictEqual(runnerDecision(missedTuesdayAfterPublication).decision, 'WOULD_PUBLISH_AUTO', '2026-08-18 09:01 Sao Paulo must remain eligible inside the exact-date execution window');
 
 for (const gate of ['factualValidationComplete', 'featuredImageExists', 'featuredImageUnique', 'duplicateRiskAcceptable', 'canonicalValidation', 'translationValidation', 'contentValidator', 'buildPass', 'publicExposureAudit', 'noUnresolvedSecurityWarning']) {
   assert.strictEqual(runnerDecision(fail(allPass, gate)).decision, 'WOULD_SKIP', `${gate} must produce SKIP`);
