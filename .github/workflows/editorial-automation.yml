@@ -29,7 +29,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publication-runner:
+  validation:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -56,8 +56,27 @@ jobs:
           npm run editorial:inventory -- --report-only
           npm run editorial:plan-week
 
+  dry-run:
+    needs: validation
+    if: github.event_name == 'workflow_dispatch' && inputs.execute != true
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out requested revision
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
       - name: Run fail-closed editorial dry run
-        if: github.event_name != 'schedule' && inputs.execute != true && inputs.article != '__vercel_preflight__'
         shell: bash
         env:
           ARTICLE: ${{ inputs.article }}
@@ -72,34 +91,7 @@ jobs:
           fi
           npm run editorial:run-slot -- "${args[@]}"
 
-      - name: Install pinned Vercel CLI for an authorized production run
-        if: github.event_name == 'schedule' || inputs.execute == true || inputs.article == '__vercel_preflight__'
-        run: npm install --global vercel@58.9.0
-
-      - name: Run read-only Vercel credential preflight
-        if: github.event_name == 'workflow_dispatch' && inputs.execute != true && inputs.article == '__vercel_preflight__'
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: node scripts/editorial/vercel-preflight.js
-
-      - name: Run transactional publication adapter
-        if: github.event_name == 'schedule' || inputs.execute == true
-        shell: bash
-        env:
-          ARTICLE: ${{ inputs.article }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          args=("--execute")
-          if [ -n "$ARTICLE" ]; then
-            args+=("$ARTICLE")
-          fi
-          npm run editorial:run-slot -- "${args[@]}"
-
-      - name: Upload non-secret cycle logs
+      - name: Upload non-secret dry-run logs
         if: always()
         uses: actions/upload-artifact@v6
         with:
@@ -107,16 +99,51 @@ jobs:
           path: .editorial/logs/*.json
           if-no-files-found: warn
 
-      - name: Upload post-verification repository sync package
-        if: always() && (github.event_name == 'schedule' || inputs.execute == true)
+  publication-runner:
+    needs: validation
+    if: github.event_name == 'schedule' || inputs.execute == true
+    permissions:
+      contents: write
+      deployments: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out production branch
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run Git-native transactional publication adapter
+        shell: bash
+        env:
+          ARTICLE: ${{ inputs.article }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          args=("--execute")
+          if [ -n "$ARTICLE" ]; then
+            args+=("$ARTICLE")
+          fi
+          npm run editorial:run-slot -- "${args[@]}"
+
+      - name: Upload non-secret publication logs
+        if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: editorial-publication-sync-package
-          path: |
-            content/posts/*.md
-            content/registry/*.yml
-            content/calendar/*.yml
-          if-no-files-found: error
+          name: editorial-dry-run-logs
+          path: .editorial/logs/*.json
+          if-no-files-found: warn
 
-# Deployment and repository synchronization remain separate. This workflow
-# never force-pushes, merges, or writes directly to the default branch.
+# The publication job may create normal commits on the default branch after all
+# content gates pass. It never force-pushes and registries are committed only
+# after the Vercel Git deployment and public verification succeed.

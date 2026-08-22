@@ -17,18 +17,20 @@ module.exports = Object.freeze({
   scheduler: 'github-actions',
   preparationOwner: 'codex-desktop',
   publicationAdapter: 'scripts/editorial/publication-adapter.js',
-  productionMethod: 'vercel-cli',
+  productionMethod: 'vercel-git-integration',
+  productionBranch: 'master',
+  productionRepository: 'thierryboutsen/how-public-money-works',
   productionProjectName: 'elianafarialima',
-  productionOrgSlug: 'thierrys-projects-347fb62a',
-  productionSecretsConfigured: true,
-  registrySyncMode: 'post-verify-artifact-no-master-push',
+  productionCredentialsMode: 'github-token',
+  productionCredentialsConfigured: true,
+  gitIntegrationTriggerVerified: false,
+  registrySyncMode: 'post-verify-git-commit',
   inventoryTargetPairs: 16,
   minimumPreparedBufferPairs: 8,
   logDirectory: '.editorial/logs',
   voiceProfilePath: 'docs/editorial/ELIANA_VOICE_PROFILE.md',
   requiredProductionEnvironmentVariables: [
-    'VERCEL_TOKEN',
-    'VERCEL_ORG_ID',
-    'VERCEL_PROJECT_ID'
+    'GITHUB_TOKEN',
+    'GITHUB_REPOSITORY'
   ]
 });

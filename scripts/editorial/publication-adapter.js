@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const YAML = require('yaml');
@@ -14,28 +13,31 @@ const {
   stringifyMarkdownFrontmatter
 } = require('../content-utils');
 
-const TRANSACTION_STAGES = ['precheck', 'promote', 'validate', 'build', 'audit', 'publicExposureAudit', 'deploy', 'publicVerify', 'registryUpdate'];
+const TRANSACTION_STAGES = ['precheck', 'promote', 'validate', 'build', 'audit', 'publicExposureAudit', 'publishCommit', 'deployWait', 'publicVerify', 'registryCommit'];
 
 async function executeTransaction(hooks, context = {}) {
   const completed = [];
-  let deployed = false;
+  let publicationCommitPushed = false;
+  let deploymentVerified = false;
   let registryUpdated = false;
   try {
     for (const stage of TRANSACTION_STAGES) {
       if (typeof hooks[stage] !== 'function') throw new Error(`Missing transaction hook: ${stage}`);
       await hooks[stage](context);
       completed.push(stage);
-      if (stage === 'deploy') deployed = true;
-      if (stage === 'registryUpdate') registryUpdated = true;
+      if (stage === 'publishCommit') publicationCommitPushed = true;
+      if (stage === 'deployWait') deploymentVerified = true;
+      if (stage === 'registryCommit') registryUpdated = true;
     }
-    return { status: 'SUCCESS', completed, deployed, registryUpdated };
+    return { status: 'SUCCESS', completed, publicationCommitPushed, deploymentVerified, registryUpdated };
   } catch (error) {
-    if (typeof hooks.rollback === 'function') await hooks.rollback(context, { completed, deployed, registryUpdated, error });
+    if (typeof hooks.rollback === 'function') await hooks.rollback(context, { completed, publicationCommitPushed, deploymentVerified, registryUpdated, error });
     return {
-      status: deployed ? 'FAILED_AFTER_DEPLOY' : 'ABORTED_BEFORE_DEPLOY',
+      status: publicationCommitPushed ? 'FAILED_AFTER_PUBLICATION_COMMIT' : 'ABORTED_BEFORE_PUBLICATION_COMMIT',
       failedStage: TRANSACTION_STAGES[completed.length],
       completed,
-      deployed,
+      publicationCommitPushed,
+      deploymentVerified,
       registryUpdated: false,
       error: error.message
     };
@@ -55,32 +57,6 @@ function run(command, args, options = {}) {
   return (result.stdout || '').trim();
 }
 
-const DEPLOY_SOURCE_ALLOWLIST = Object.freeze([
-  'build.js',
-  'package.json',
-  'package-lock.json',
-  'site.config.js',
-  'vercel.json',
-  'src',
-  path.join('content', 'posts'),
-  path.join('scripts', 'content-utils.js')
-]);
-
-function createCleanDeploymentSource() {
-  const stagingRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'hpwm-vercel-source-'));
-  for (const relativePath of DEPLOY_SOURCE_ALLOWLIST) {
-    const sourcePath = path.join(ROOT_DIR, relativePath);
-    if (!fs.existsSync(sourcePath)) {
-      fs.rmSync(stagingRoot, { recursive: true, force: true });
-      throw new Error(`Required deployment source is missing: ${relativePath}`);
-    }
-    const destinationPath = path.join(stagingRoot, relativePath);
-    fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-    fs.cpSync(sourcePath, destinationPath, { recursive: true });
-  }
-  return stagingRoot;
-}
-
 function normalizedProductionEnvironment(source = process.env) {
   const normalized = {};
   const missing = [];
@@ -93,14 +69,68 @@ function normalizedProductionEnvironment(source = process.env) {
   return normalized;
 }
 
-function writeVercelProjectLink(stagingRoot, productionEnvironment) {
-  const vercelDirectory = path.join(stagingRoot, '.vercel');
-  fs.mkdirSync(vercelDirectory, { recursive: true });
-  fs.writeFileSync(path.join(vercelDirectory, 'project.json'), `${JSON.stringify({
-    orgId: productionEnvironment.VERCEL_ORG_ID,
-    projectId: productionEnvironment.VERCEL_PROJECT_ID,
-    projectName: config.productionProjectName
-  })}\n`, 'utf8');
+function gitPath(filePath) {
+  return path.relative(ROOT_DIR, filePath).replace(/\\/g, '/');
+}
+
+function commitAndPushPaths(filePaths, message, options = {}) {
+  const runCommand = options.runCommand || run;
+  const relativePaths = [...new Set(filePaths.map(gitPath))].sort();
+  if (relativePaths.length === 0) throw new Error('Git publication commit has no authorized paths');
+  runCommand('git', ['config', 'user.name', 'github-actions[bot]'], { label: 'git configure author name' });
+  runCommand('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com'], { label: 'git configure author email' });
+  runCommand('git', ['add', '--', ...relativePaths], { label: 'git stage authorized publication paths' });
+  const staged = runCommand('git', ['diff', '--cached', '--name-only'], { label: 'git inspect staged publication paths' })
+    .split(/\r?\n/).filter(Boolean).sort();
+  if (JSON.stringify(staged) !== JSON.stringify(relativePaths)) {
+    throw new Error(`Git staged path mismatch: expected ${relativePaths.join(', ')}, received ${staged.join(', ')}`);
+  }
+  runCommand('git', ['commit', '-m', message], { label: 'git create publication commit' });
+  const commitSha = runCommand('git', ['rev-parse', 'HEAD'], { label: 'git read publication commit SHA' });
+  try {
+    runCommand('git', ['push', 'origin', `HEAD:${config.productionBranch}`], { label: 'git push publication commit' });
+  } catch (error) {
+    const remoteLine = runCommand('git', ['ls-remote', 'origin', `refs/heads/${config.productionBranch}`], { label: 'git resolve ambiguous publication push' });
+    const remoteSha = remoteLine.split(/\s+/)[0];
+    if (remoteSha !== commitSha) throw error;
+  }
+  return commitSha;
+}
+
+async function githubApi(pathname, options = {}) {
+  const environment = options.environment || normalizedProductionEnvironment();
+  if (environment.GITHUB_REPOSITORY !== config.productionRepository) throw new Error('GitHub repository identity mismatch');
+  const response = await (options.fetchFn || fetch)(`https://api.github.com${pathname}`, {
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${environment.GITHUB_TOKEN}`,
+      'User-Agent': 'HowPublicMoneyWorks-PublicationVerifier/1.0',
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  });
+  if (!response.ok) throw new Error(`GitHub deployment API returned HTTP ${response.status}`);
+  return response.json();
+}
+
+async function waitForGitDeployment(commitSha, options = {}) {
+  const maxAttempts = options.maxAttempts || 60;
+  const intervalMs = options.intervalMs ?? 10000;
+  const sleep = options.sleep || ((ms) => new Promise((resolve) => setTimeout(resolve, ms)));
+  const repository = (options.environment || process.env).GITHUB_REPOSITORY || config.productionRepository;
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const deployments = await githubApi(`/repos/${repository}/deployments?sha=${encodeURIComponent(commitSha)}&environment=Production&per_page=10`, options);
+    const deployment = deployments.find((item) => item.sha === commitSha && item.environment === 'Production');
+    if (deployment) {
+      const statuses = await githubApi(`/repos/${repository}/deployments/${deployment.id}/statuses?per_page=10`, options);
+      const latest = statuses[0];
+      if (latest?.state === 'success') {
+        return { deploymentId: deployment.id, deploymentUrl: latest.environment_url || null, state: latest.state };
+      }
+      if (['error', 'failure', 'inactive'].includes(latest?.state)) throw new Error(`Vercel Git deployment ${latest.state} for commit ${commitSha}`);
+    }
+    if (attempt < maxAttempts) await sleep(intervalMs);
+  }
+  throw new Error(`Timed out waiting for Vercel Git deployment associated with commit ${commitSha}`);
 }
 
 function npmCommand(args, label) {
@@ -200,14 +230,18 @@ function updateRegistries(pair, publicationDate, publicationPath, topicAngleSign
   fs.writeFileSync(calendarPath, YAML.stringify(calendar, { lineWidth: 0 }));
 }
 
-async function verifyPublicPair(pair) {
+async function verifyPublicPair(pair, options = {}) {
+  const fetchFn = options.fetchFn || fetch;
+  const sleep = options.sleep || ((ms) => new Promise((resolve) => setTimeout(resolve, ms)));
+  const maxAttempts = options.maxAttempts || 12;
+  const intervalMs = options.intervalMs ?? 10000;
   let lastErrors = [];
-  for (let attempt = 1; attempt <= 5; attempt += 1) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     lastErrors = [];
     for (const document of pair) {
       const url = absoluteUrl(publicPathForDocument(document));
       try {
-        const response = await fetch(url, { redirect: 'follow', headers: { 'User-Agent': 'HowPublicMoneyWorks-PublicationVerifier/1.0' } });
+        const response = await fetchFn(url, { redirect: 'follow', headers: { 'User-Agent': 'HowPublicMoneyWorks-PublicationVerifier/1.0' } });
         if (response.status !== 200) throw new Error(`${url} returned HTTP ${response.status}`);
         const html = await response.text();
         if (!html.includes(`<title>${document.data.seoTitle}`) && !html.includes(document.data.title)) throw new Error(`${url} does not contain the expected title`);
@@ -217,9 +251,26 @@ async function verifyPublicPair(pair) {
       }
     }
     if (lastErrors.length === 0) return;
-    if (attempt < 5) await new Promise((resolve) => setTimeout(resolve, 5000));
+    if (attempt < maxAttempts) await sleep(intervalMs);
   }
   throw new Error(`Public verification failed after retries: ${lastErrors.join('; ')}`);
+}
+
+async function verifyPublicRelease(pair, options = {}) {
+  const fetchFn = options.fetchFn || fetch;
+  await verifyPublicPair(pair, options);
+  const pages = ['/', '/insights', '/sitemap.xml'];
+  const bodies = new Map();
+  for (const publicPath of pages) {
+    const response = await fetchFn(absoluteUrl(publicPath), { redirect: 'follow', headers: { 'User-Agent': 'HowPublicMoneyWorks-PublicationVerifier/1.0' } });
+    if (response.status !== 200) throw new Error(`${publicPath} returned HTTP ${response.status}`);
+    bodies.set(publicPath, await response.text());
+  }
+  for (const document of pair) {
+    const publicPath = publicPathForDocument(document);
+    if (!bodies.get('/insights').includes(publicPath)) throw new Error(`/insights does not link to ${publicPath}`);
+    if (!bodies.get('/sitemap.xml').includes(absoluteUrl(publicPath))) throw new Error(`/sitemap.xml does not contain ${absoluteUrl(publicPath)}`);
+  }
 }
 
 function createProductionHooks(pair, evaluation, options) {
@@ -232,8 +283,12 @@ function createProductionHooks(pair, evaluation, options) {
     path.join(ROOT_DIR, 'content', 'registry', 'topic-registry.yml'),
     path.join(ROOT_DIR, 'content', 'calendar', 'editorial-calendar.yml')
   ];
-  const snapshots = snapshotsFor([...reviewPaths, ...postPaths, ...registryPaths]);
+  const publicationPaths = [...reviewPaths, ...postPaths];
+  const snapshots = snapshotsFor([...publicationPaths, ...registryPaths]);
   let deploymentUrl = null;
+  let deploymentId = null;
+  let publicationCommitSha = null;
+  let registryCommitSha = null;
 
   return {
     precheck: async () => {
@@ -242,6 +297,11 @@ function createProductionHooks(pair, evaluation, options) {
       if (!['human-approved', 'auto-publish-fallback'].includes(publicationPath)) throw new Error('Invalid publicationPath');
       if (publicationPath === 'auto-publish-fallback' && evaluation.human.status !== 'awaiting-human-review') throw new Error('Auto fallback requires no human response');
       if (publicationPath === 'human-approved' && evaluation.human.status !== 'approved') throw new Error('Human publication path requires approval');
+      const branch = run('git', ['branch', '--show-current'], { label: 'git verify production branch' });
+      if (branch !== config.productionBranch) throw new Error(`Publication runner must be on ${config.productionBranch}, received ${branch || 'detached HEAD'}`);
+      const localSha = run('git', ['rev-parse', 'HEAD'], { label: 'git read local production SHA' });
+      const remoteSha = run('git', ['rev-parse', `origin/${config.productionBranch}`], { label: 'git read remote production SHA' });
+      if (localSha !== remoteSha) throw new Error('Production branch is not synchronized with origin; refusing publication');
       for (const document of pair) {
         const url = absoluteUrl(publicPathForDocument(document));
         const response = await fetch(url, { method: 'HEAD', redirect: 'follow' });
@@ -266,43 +326,55 @@ function createProductionHooks(pair, evaluation, options) {
       npmCommand(['audit', '--omit=dev'], 'npm audit');
     },
     publicExposureAudit: () => npmRun('public:exposure-audit'),
-    deploy: () => {
-      if (!process.env.GITHUB_ACTIONS) throw new Error('Production deploy is restricted to GitHub Actions');
+    publishCommit: () => {
+      if (process.env.GITHUB_ACTIONS !== 'true') throw new Error('Production publication commits are restricted to GitHub Actions');
       const productionEnvironment = normalizedProductionEnvironment();
-      const vercel = process.platform === 'win32' ? 'vercel.cmd' : 'vercel';
-      const token = productionEnvironment.VERCEL_TOKEN;
-      const stagingRoot = createCleanDeploymentSource();
-      try {
-        writeVercelProjectLink(stagingRoot, productionEnvironment);
-        const scope = `--scope=${config.productionOrgSlug}`;
-        run(vercel, ['pull', '--yes', '--environment=production', scope, `--token=${token}`], { cwd: stagingRoot, label: 'vercel pull', env: productionEnvironment });
-        run(vercel, ['build', '--prod', scope, `--token=${token}`], { cwd: stagingRoot, label: 'vercel build', env: productionEnvironment });
-        deploymentUrl = run(vercel, ['deploy', '--prebuilt', '--prod', scope, `--token=${token}`], { cwd: stagingRoot, label: 'vercel deploy', env: productionEnvironment }).split(/\r?\n/).pop();
-        if (!/^https:\/\//.test(deploymentUrl)) throw new Error('Vercel did not return a deployment URL');
-      } finally {
-        fs.rmSync(stagingRoot, { recursive: true, force: true });
-      }
+      if (productionEnvironment.GITHUB_REPOSITORY !== config.productionRepository) throw new Error('GitHub repository identity mismatch');
+      publicationCommitSha = commitAndPushPaths(publicationPaths, `content: publish ${pair.find((document) => document.data.language === 'en').data.slug}`);
+    },
+    deployWait: async () => {
+      if (!publicationCommitSha) throw new Error('Publication commit SHA is unavailable');
+      const deployment = await waitForGitDeployment(publicationCommitSha);
+      deploymentId = deployment.deploymentId;
+      deploymentUrl = deployment.deploymentUrl;
     },
     publicVerify: async () => {
-      const deploymentResponse = await fetch(deploymentUrl, { method: 'HEAD', redirect: 'follow' });
-      if (deploymentResponse.status !== 200) throw new Error(`Deployment URL returned HTTP ${deploymentResponse.status}`);
-      await verifyPublicPair(pair);
+      if (deploymentUrl) {
+        const deploymentResponse = await fetch(deploymentUrl, { method: 'HEAD', redirect: 'follow' });
+        if (deploymentResponse.status !== 200) throw new Error(`Deployment URL returned HTTP ${deploymentResponse.status}`);
+      }
+      await verifyPublicRelease(pair);
     },
-    registryUpdate: () => updateRegistries(pair, publicationDate, publicationPath, evaluation.brief.topicAngleSignature),
-    rollback: () => restoreSnapshots(snapshots),
-    getDeploymentUrl: () => deploymentUrl
+    registryCommit: () => {
+      updateRegistries(pair, publicationDate, publicationPath, evaluation.brief.topicAngleSignature);
+      registryCommitSha = commitAndPushPaths(registryPaths, `chore: record verified publication for ${pair.find((document) => document.data.language === 'en').data.slug} [skip ci]`);
+    },
+    rollback: (_context, transaction) => {
+      if (!transaction.publicationCommitPushed) {
+        restoreSnapshots(snapshots);
+        return;
+      }
+      // The publication commit is already remote and is preserved as incident evidence.
+      // Registry/calendar files remain local-only until public verification succeeds.
+      restoreSnapshots(new Map(registryPaths.map((filePath) => [filePath, snapshots.get(filePath)])));
+    },
+    getDeploymentUrl: () => deploymentUrl,
+    getDeploymentId: () => deploymentId,
+    getPublicationCommitSha: () => publicationCommitSha,
+    getRegistryCommitSha: () => registryCommitSha
   };
 }
 
 module.exports = {
   TRANSACTION_STAGES,
-  DEPLOY_SOURCE_ALLOWLIST,
-  createCleanDeploymentSource,
+  commitAndPushPaths,
   createProductionHooks,
   executeTransaction,
+  githubApi,
   normalizedProductionEnvironment,
   promotedData,
   updateRegistries,
   verifyPublicPair,
-  writeVercelProjectLink
+  verifyPublicRelease,
+  waitForGitDeployment
 };

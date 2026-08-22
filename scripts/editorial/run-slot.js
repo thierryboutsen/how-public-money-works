@@ -28,7 +28,8 @@ async function main() {
     const reasons = [];
     if (!config.enabled) reasons.push('editorialAutomation.enabled is false');
     if (config.dryRun) reasons.push('editorialAutomation.dryRun is true');
-    if (!config.productionSecretsConfigured) reasons.push('production secrets are not confirmed');
+    if (!config.productionCredentialsConfigured) reasons.push('production credentials are not confirmed');
+    if (!config.gitIntegrationTriggerVerified) reasons.push('GitHub Actions push to Vercel production trigger is not verified');
     const local = zonedParts(now);
     if (!config.preferredDays.includes(local.weekday)) reasons.push(`current local day ${local.weekday} is not a publication slot`);
     if (local.time < config.publicationTime) reasons.push(`current local time ${local.time} is before ${config.publicationTime}`);
@@ -102,10 +103,14 @@ async function main() {
       buildResult: evaluation.pipeline.build.pass,
       previewResult: evaluation.pipeline.previewAudit.pass,
       adapterStarted: false,
-      deployStarted: false,
+      publicationCommitPushed: false,
+      publicationCommitSha: null,
+      deploymentVerified: false,
+      deploymentId: null,
       deployResult: 'NOT_RUN_DRY_RUN',
       publicVerification: 'NOT_RUN_DRY_RUN',
-      registryUpdate: false
+      registryUpdate: false,
+      registryCommitSha: null
     };
     if (execute) {
       if (!['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(decision.decision)) {
@@ -120,10 +125,14 @@ async function main() {
         });
         const transaction = await executeTransaction(hooks, { cycleId: cycle.cycleId });
         result.transaction = transaction;
-        result.deployStarted = transaction.completed.includes('deploy');
-        result.deployResult = transaction.deployed ? transaction.status : 'NOT_DEPLOYED';
+        result.publicationCommitPushed = transaction.publicationCommitPushed;
+        result.publicationCommitSha = hooks.getPublicationCommitSha();
+        result.deploymentVerified = transaction.deploymentVerified;
+        result.deploymentId = hooks.getDeploymentId();
+        result.deployResult = transaction.deploymentVerified ? 'PASS' : 'NOT_CONFIRMED';
         result.publicVerification = transaction.completed.includes('publicVerify') ? 'PASS' : 'NOT_CONFIRMED';
         result.registryUpdate = transaction.registryUpdated;
+        result.registryCommitSha = hooks.getRegistryCommitSha();
       }
     }
     cycle.results.push(result);
