@@ -10,6 +10,12 @@ function cycleHasTransactionFailure(cycle) {
   return cycle.results.some((result) => result.transaction && result.transaction.status !== 'SUCCESS');
 }
 
+function finalDecisionForCycle(cycle) {
+  if (cycleHasTransactionFailure(cycle)) return 'ABORTED';
+  if (cycle.results.some((result) => ['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(result.decision))) return 'WOULD_PUBLISH';
+  return cycle.results.some((result) => result.decision === 'WOULD_HOLD') ? 'WOULD_HOLD' : 'WOULD_SKIP';
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const identifier = args.find((arg) => !arg.startsWith('--'));
@@ -114,7 +120,7 @@ async function main() {
         });
         const transaction = await executeTransaction(hooks, { cycleId: cycle.cycleId });
         result.transaction = transaction;
-        result.deployStarted = transaction.completed.includes('deploy') || transaction.failedStage === 'deploy';
+        result.deployStarted = transaction.completed.includes('deploy');
         result.deployResult = transaction.deployed ? transaction.status : 'NOT_DEPLOYED';
         result.publicVerification = transaction.completed.includes('publicVerify') ? 'PASS' : 'NOT_CONFIRMED';
         result.registryUpdate = transaction.registryUpdated;
@@ -123,11 +129,7 @@ async function main() {
     cycle.results.push(result);
   }
   const transactionFailed = cycleHasTransactionFailure(cycle);
-  cycle.finalDecision = transactionFailed
-    ? 'ABORTED'
-    : cycle.results.some((result) => ['WOULD_PUBLISH', 'WOULD_PUBLISH_AUTO'].includes(result.decision))
-      ? 'WOULD_PUBLISH'
-      : cycle.results.some((result) => result.decision === 'WOULD_HOLD') ? 'WOULD_HOLD' : 'WOULD_SKIP';
+  cycle.finalDecision = finalDecisionForCycle(cycle);
   cycle.logPath = writeLog(cycle);
   console.log(JSON.stringify(cycle, null, 2));
   if (transactionFailed) process.exitCode = 1;
@@ -140,4 +142,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { cycleHasTransactionFailure };
+module.exports = { cycleHasTransactionFailure, finalDecisionForCycle };

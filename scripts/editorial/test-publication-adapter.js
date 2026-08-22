@@ -11,7 +11,7 @@ const {
   normalizedProductionEnvironment,
   writeVercelProjectLink
 } = require('./publication-adapter');
-const { cycleHasTransactionFailure } = require('./run-slot');
+const { cycleHasTransactionFailure, finalDecisionForCycle } = require('./run-slot');
 
 function hooksForFailure(failAt) {
   const state = { calls: [], registryWrites: 0, rollbacks: 0 };
@@ -82,7 +82,19 @@ async function main() {
   const abort = await executeTransaction(unavailable.hooks);
   assert.strictEqual(abort.status, 'ABORTED_BEFORE_DEPLOY');
   assert.strictEqual(abort.registryUpdated, false);
-  assert.strictEqual(cycleHasTransactionFailure({ results: [{ transaction: abort }] }), true, 'an aborted transaction must fail the runner');
+  const pullFailureCycle = {
+    results: [{
+      adapterStarted: true,
+      deployStarted: abort.completed.includes('deploy'),
+      registryUpdate: abort.registryUpdated,
+      transaction: abort
+    }]
+  };
+  assert.strictEqual(cycleHasTransactionFailure(pullFailureCycle), true, 'an aborted transaction must fail the runner');
+  assert.strictEqual(finalDecisionForCycle(pullFailureCycle), 'ABORTED', 'an aborted transaction must report ABORTED');
+  assert.strictEqual(pullFailureCycle.results[0].adapterStarted, true);
+  assert.strictEqual(pullFailureCycle.results[0].deployStarted, false, 'a pull failure occurs before a Vercel deployment starts');
+  assert.strictEqual(pullFailureCycle.results[0].registryUpdate, false);
   assert.strictEqual(cycleHasTransactionFailure({ results: [{ transaction: success }] }), false, 'a successful transaction must not fail the runner');
 
   console.log('Publication transaction tests passed: success and fail-closed behavior at every stage, including unavailable deploy adapter.');
