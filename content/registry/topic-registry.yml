@@ -182,7 +182,6 @@ seedTopics:
 
 reservedTopics:
   # Reservas impedem repetição durante preparação. Não significam covered, approved ou published.
-  - { topic: "Financial reporting", subtopic: "Annual financial reports", angle: "Budget-report boundaries and reader map", status: reserved, relatedSlug: "annual-financial-report-local-government", topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map" }
   - { topic: "Property tax", subtopic: "Assessment, levy, and bill", angle: "Bill-formation chain", status: reserved, relatedSlug: "property-taxes-assessment-levy-bill", topicAngleSignature: "property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain" }
   - { topic: "Government accounting", subtopic: "General and special revenue funds", angle: "Fund types versus resource restrictions", status: reserved, relatedSlug: "general-fund-vs-special-revenue-funds", topicAngleSignature: "governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions" }
   - { topic: "Infrastructure funding", subtopic: "Local roads", angle: "Ownership, maintenance, capital, and shared sources", status: reserved, relatedSlug: "how-local-governments-pay-for-roads", topicAngleSignature: "local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources" }

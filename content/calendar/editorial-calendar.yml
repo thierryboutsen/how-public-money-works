@@ -190,8 +190,10 @@ recoverySlots:
     recoveryTime: "09:00"
     recoveryReason: scheduler deployment incident
     articleSlug: property-taxes-assessment-levy-bill
-    status: armed
+    status: manually-held
     publicationDecision: pending
+    result: manually-held
+    holdReason: PUBLICATION_RECONCILIATION_REQUIRED
     triggerWorkflow: editorial-recovery-2026-08-23.yml
 
 rules:
