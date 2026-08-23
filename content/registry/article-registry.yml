@@ -137,6 +137,60 @@ articles:
     sourceLevel: "conceptual-institutionally-validated"
     publicationPath: "human-approved"
     lastReviewed: "2026-08-14"
+  - slug: "annual-financial-report-local-government"
+    title: "Annual Financial Reports: What They Show After the Budget Year Ends"
+    language: en
+    translations:
+      pt-BR: "/pt-br/relatorio-financeiro-anual-governo-local"
+    status: published
+    publishDate: "2026-08-22"
+    category: "Transparency & Accountability"
+    tags:
+      - annual financial report
+      - financial statements
+      - budget versus actual
+      - local government
+    contentAngle: "Explains how to read year-end financial reporting alongside an adopted budget, including statements, notes, and limits of comparison."
+    duplicateCheckSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map"
+    precisionRisk: "high"
+    relatedPosts:
+      - "what-is-a-city-budget-and-why-should-you-care"
+      - "what-is-a-local-government-audit"
+    sourceLevel: "conceptual-institutionally-validated"
+    publicationPath: "auto-publish-fallback"
+    originalScheduledDate: "2026-08-18"
+    recoveryScheduledDate: "2026-08-22"
+    publicationCommitSha: "02afe88c0db0d076bae46fef5aca0860c56e2883"
+    productionDeploymentId: 6043329247
+    actualPublishedAt: "2026-08-22T22:48:35-03:00"
+    lastReviewed: "2026-08-22"
+  - slug: "relatorio-financeiro-anual-governo-local"
+    title: "Relatórios Financeiros Anuais: O Que Mostram Depois do Encerramento do Ano"
+    language: pt-BR
+    translationOf: "annual-financial-report-local-government"
+    translations:
+      en: "/annual-financial-report-local-government"
+    status: published
+    publishDate: "2026-08-22"
+    category: "Transparência e Prestação de Contas"
+    tags:
+      - relatório financeiro anual
+      - demonstrações financeiras
+      - orçamento versus realizado
+      - governo local
+    contentAngle: "Versão PT-BR do guia sobre relatórios de fim de ano, demonstrações, notas e limites de comparação com o orçamento aprovado."
+    duplicateCheckSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map|pt-br-translation"
+    precisionRisk: "high"
+    relatedPosts:
+      - "annual-financial-report-local-government"
+    sourceLevel: "conceptual-institutionally-validated"
+    publicationPath: "auto-publish-fallback"
+    originalScheduledDate: "2026-08-18"
+    recoveryScheduledDate: "2026-08-22"
+    publicationCommitSha: "02afe88c0db0d076bae46fef5aca0860c56e2883"
+    productionDeploymentId: 6043329247
+    actualPublishedAt: "2026-08-22T22:48:35-03:00"
+    lastReviewed: "2026-08-22"
   - slug: "o-que-e-uma-audiencia-publica-sobre-orcamento"
     title: "O Que É uma Audiência Pública sobre Orçamento?"
     language: pt-BR

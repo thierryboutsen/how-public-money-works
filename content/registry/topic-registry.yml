@@ -36,6 +36,15 @@ coveredTopics:
       pt-BR: "/pt-br/o-que-e-uma-audiencia-publica-sobre-orcamento"
     topicAngleSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check"
     notes: "Publicado e verificado em 2026-08-14 após o slot original de 2026-08-13; novos conteúdos devem escolher outra etapa ou decisão do processo orçamentário."
+  - topic: "Financial reporting"
+    subtopic: "Annual financial reports"
+    angle: "Budget-report boundaries and reader map"
+    status: covered
+    relatedSlug: "annual-financial-report-local-government"
+    translations:
+      pt-BR: "/pt-br/relatorio-financeiro-anual-governo-local"
+    topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map"
+    notes: "Publicado em 2026-08-22 após recovery do slot original de 2026-08-18; commit 02afe88c0db0d076bae46fef5aca0860c56e2883 e deployment 6043329247."
 
 seedTopics:
   - topic: "Local taxes"

@@ -53,12 +53,20 @@ slots:
     publishedAt: "2026-08-14"
   - date: "2026-08-18"
     slot: Tuesday
-    status: selected
+    status: published
     plannedTopic: "Annual Financial Reports: What They Show After the Budget Year Ends"
     articleSlug: "annual-financial-report-local-government"
     backupTopic: "How to Read a Local Government Financial Report"
-    readiness: awaiting-human-review
-    publicationDecision: pending
+    readiness: published
+    publicationDecision: published
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: "2026-08-22T22:48:35-03:00"
+    originalScheduledDate: "2026-08-18"
+    recoveryScheduledDate: "2026-08-22"
+    recoveryReason: "scheduler deployment incident + missing recovery trigger"
+    publicationCommitSha: "02afe88c0db0d076bae46fef5aca0860c56e2883"
+    productionDeploymentId: 6043329247
   - date: "2026-08-20"
     slot: Thursday
     status: selected
@@ -170,9 +178,13 @@ recoverySlots:
     recoveryTime: "20:00"
     recoveryReason: scheduler deployment incident + missing recovery trigger
     articleSlug: annual-financial-report-local-government
-    status: manual-recovery-authorized
-    publicationDecision: pending-manual-recovery
-    result: manual-recovery-authorized
+    status: completed
+    publicationDecision: published
+    result: published
+    publicationPath: auto-publish-fallback
+    actualPublishedAt: "2026-08-22T22:48:35-03:00"
+    publicationCommitSha: "02afe88c0db0d076bae46fef5aca0860c56e2883"
+    productionDeploymentId: 6043329247
   - originalScheduledDate: "2026-08-20"
     recoveryScheduledDate: "2026-08-23"
     recoveryTime: "09:00"
