@@ -168,11 +168,11 @@ recoverySlots:
   - originalScheduledDate: "2026-08-18"
     recoveryScheduledDate: "2026-08-22"
     recoveryTime: "20:00"
-    recoveryReason: scheduler deployment incident
+    recoveryReason: scheduler deployment incident + missing recovery trigger
     articleSlug: annual-financial-report-local-government
-    status: trigger-missing
-    publicationDecision: missed-trigger
-    result: recovery-trigger-not-implemented
+    status: manual-recovery-authorized
+    publicationDecision: pending-manual-recovery
+    result: manual-recovery-authorized
   - originalScheduledDate: "2026-08-20"
     recoveryScheduledDate: "2026-08-23"
     recoveryTime: "09:00"

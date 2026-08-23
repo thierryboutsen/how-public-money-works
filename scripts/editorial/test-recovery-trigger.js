@@ -23,6 +23,6 @@ for (const slot of calendar.recoverySlots || []) {
   assert(workflow.includes('local_date'), `trigger has no local-date guard: ${slot.articleSlug}`);
 }
 
-const missed = (calendar.recoverySlots || []).find((slot) => slot.articleSlug === 'annual-financial-report-local-government');
-assert.strictEqual(missed?.status, 'trigger-missing');
-console.log('Recovery trigger tests passed: armed slots have explicit one-time triggers; missed slots are not treated as armed.');
+const manual = (calendar.recoverySlots || []).find((slot) => slot.articleSlug === 'annual-financial-report-local-government');
+assert.strictEqual(manual?.status, 'manual-recovery-authorized');
+console.log('Recovery trigger tests passed: armed slots have explicit one-time triggers; manual recovery is explicitly authorized and isolated.');
