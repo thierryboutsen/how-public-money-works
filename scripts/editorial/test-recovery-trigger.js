@@ -25,4 +25,4 @@ for (const slot of calendar.recoverySlots || []) {
 
 const manual = (calendar.recoverySlots || []).find((slot) => slot.articleSlug === 'annual-financial-report-local-government');
 assert.strictEqual(manual?.status, 'manual-recovery-authorized');
-console.log('Recovery trigger tests passed: armed slots have explicit one-time triggers; manual recovery is explicitly authorized and isolated.');
+console.log('Recovery trigger tests passed: armed slots have explicit one-time triggers; manual recovery authorization is executable and isolated.');

@@ -246,7 +246,7 @@ function offsetDate(dateString, dayOffset) {
 function activeRecoverySlots() {
   const calendar = readYaml('content/calendar/editorial-calendar.yml');
   return Array.isArray(calendar.recoverySlots)
-    ? calendar.recoverySlots.filter((slot) => slot.status === 'armed')
+    ? calendar.recoverySlots.filter((slot) => ['armed', 'manual-recovery-authorized'].includes(slot.status))
     : [];
 }
 
@@ -288,7 +288,7 @@ function scheduledDayCheck(targetDate, recoverySlot = null) {
   const targetDay = publicationWeekday(targetDate);
   return {
     pass: Boolean(targetDate) && (recoverySlot
-      ? recoverySlot.recoveryScheduledDate === targetDate && recoverySlot.status === 'armed'
+      ? recoverySlot.recoveryScheduledDate === targetDate && ['armed', 'manual-recovery-authorized'].includes(recoverySlot.status)
       : automationConfig.preferredDays.includes(targetDay)),
     detail: {
       targetDate,
