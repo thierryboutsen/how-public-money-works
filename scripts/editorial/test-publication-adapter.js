@@ -100,7 +100,7 @@ async function main() {
     }
   });
   assert.strictEqual(commitSha, 'abc123');
-  assert(gitCalls.some((call) => call.join(' ') === `git add -- ${expectedRelative.join(' ')}`));
+  assert(gitCalls.some((call) => call.join(' ') === `git add --all -- ${expectedRelative.join(' ')}`));
   assert(gitCalls.some((call) => call.join(' ') === `git push origin HEAD:${config.productionBranch}`));
   assert(!gitCalls.some((call) => call.includes('--force')), 'publication push must never force-push');
 
