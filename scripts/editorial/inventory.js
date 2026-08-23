@@ -3,7 +3,7 @@
 const { inventory } = require('./engine');
 
 inventory({
-  runPipeline: !process.argv.includes('--static'),
+  runPipeline: process.argv.includes('--pipeline'),
   skipNetwork: process.argv.includes('--skip-network')
 }).then((result) => {
   console.log(JSON.stringify(result, null, 2));

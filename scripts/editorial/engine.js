@@ -185,12 +185,12 @@ function internalLinkCheck(pair) {
   return { pass: errors.length === 0, errors };
 }
 
-async function checkUrl(url, timeoutMs = 12000) {
+async function checkUrl(url, timeoutMs = 12000, fetchFn = fetch) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    let response = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: controller.signal, headers: { 'User-Agent': 'HowPublicMoneyWorks-EditorialValidator/1.0' } });
-    if (response.status >= 400) response = await fetch(url, { method: 'GET', redirect: 'follow', signal: controller.signal, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; HowPublicMoneyWorks-EditorialValidator/1.0)', Range: 'bytes=0-1024' } });
+    let response = await fetchFn(url, { method: 'HEAD', redirect: 'follow', signal: controller.signal, headers: { 'User-Agent': 'HowPublicMoneyWorks-EditorialValidator/1.0' } });
+    if (response.status >= 400) response = await fetchFn(url, { method: 'GET', redirect: 'follow', signal: controller.signal, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; HowPublicMoneyWorks-EditorialValidator/1.0)', Range: 'bytes=0-1024' } });
     return { url, pass: response.status >= 200 && response.status < 400, status: response.status };
   } catch (error) {
     return { url, pass: false, status: null, error: error.name === 'AbortError' ? 'timeout' : error.message };
@@ -202,15 +202,49 @@ async function checkUrl(url, timeoutMs = 12000) {
 async function externalLinkCheck(pair, options = {}) {
   const urls = [...new Set(pair.flatMap((document) => extractExternalLinks(publicMarkdown(document))))];
   if (options.skipNetwork) return { pass: false, errors: ['network validation was not executed'], urls: [] };
-  const results = await Promise.all(urls.map(async (url) => {
-    const first = await checkUrl(url);
-    if (first.pass) return first;
-    await new Promise((resolve) => setTimeout(resolve, 250));
-    const second = await checkUrl(url);
-    return second.pass ? { ...second, retry: true } : { ...second, retry: true, firstAttempt: first };
-  }));
+  const timeoutMs = options.timeoutMs ?? 12000;
+  const retries = options.retries ?? 1;
+  const concurrency = Math.max(1, Math.min(options.concurrency ?? urls.length, urls.length || 1));
+  const deadlineMs = options.deadlineMs ?? null;
+  const startedAt = Date.now();
+  let cursor = 0;
+  const results = new Array(urls.length);
+  async function validateUrl(url) {
+    const attempts = [];
+    for (let attempt = 0; attempt <= retries; attempt += 1) {
+      if (deadlineMs !== null && Date.now() - startedAt >= deadlineMs) {
+        return { url, pass: false, status: null, error: 'inventory deadline exceeded', classification: 'SOURCE_TRANSIENT_TIMEOUT', attempts: attempt };
+      }
+      const result = await checkUrl(url, timeoutMs, options.fetchFn || fetch);
+      attempts.push(result);
+      if (result.pass) return { ...result, retry: attempt > 0, attempts: attempt + 1 };
+      if (attempt < retries) await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+    const last = attempts[attempts.length - 1] || { url, pass: false, status: null, error: 'no attempt completed' };
+    return {
+      ...last,
+      retry: retries > 0,
+      attempts: attempts.length,
+      classification: last.error === 'timeout' ? 'SOURCE_TRANSIENT_TIMEOUT' : (last.status >= 400 ? 'SOURCE_HARD_FAILURE' : 'SOURCE_INVALID'),
+      firstAttempt: attempts.length > 1 ? attempts[0] : undefined
+    };
+  }
+  async function worker() {
+    while (true) {
+      const index = cursor;
+      cursor += 1;
+      if (index >= urls.length) return;
+      results[index] = await validateUrl(urls[index]);
+    }
+  }
+  await Promise.all(Array.from({ length: concurrency }, () => worker()));
   const errors = results.filter((item) => !item.pass).map((item) => `${item.url}: ${item.status || item.error}`);
-  return { pass: urls.length > 0 && errors.length === 0, errors: urls.length ? errors : ['no external institutional source links found'], urls: results };
+  return {
+    pass: urls.length > 0 && errors.length === 0,
+    errors: urls.length ? errors : ['no external institutional source links found'],
+    urls: results,
+    diagnostics: { stage: 'external-source-validation', durationMs: Date.now() - startedAt, timeoutMs, retries, concurrency, deadlineMs }
+  };
 }
 
 function humanReviewState(pair) {
@@ -385,7 +419,7 @@ function staticGateEvaluation(pair, overrides = {}) {
 
 async function evaluateAutoPublish(pair, options = {}) {
   const result = staticGateEvaluation(pair, options.overrides || {});
-  const externalLinks = options.overrides?.externalLinks || await externalLinkCheck(pair, { skipNetwork: options.skipNetwork });
+  const externalLinks = options.overrides?.externalLinks || await externalLinkCheck(pair, { skipNetwork: options.skipNetwork, ...(options.externalLinkOptions || {}) });
   result.checks.externalSourceLinksValid = { pass: externalLinks.pass, detail: externalLinks };
 
   const runPipeline = options.runPipeline !== false;
@@ -439,27 +473,48 @@ function runnerDecision(evaluation, options = {}) {
 
 async function inventory(options = {}) {
   const pairs = choosePair();
-  const items = [];
-  for (const pair of pairs) {
-    const evaluation = await evaluateAutoPublish(pair, {
-      runPipeline: options.runPipeline !== false,
-      skipNetwork: options.skipNetwork === true
-    });
-    const human = evaluation.human.status;
-    let state;
-    if (human === 'rejected' || human === 'changes-requested') state = 'BLOCKED';
-    else if (evaluation.failedGates.length) state = 'BLOCKED';
-    else if (human === 'approved') state = 'READY';
-    else state = 'HUMAN_REVIEW';
-    items.push({
-      state,
-      fallbackEligible: human === 'awaiting-human-review' && evaluation.autoPublishEligible,
-      targetPublicationDate: evaluation.schedule.publicationDate,
-      slugs: evaluation.pair.map((item) => item.slug),
-      failedGates: evaluation.failedGates,
-      humanReviewStatus: human
-    });
+  const items = new Array(pairs.length);
+  const pairConcurrency = Math.max(1, Math.min(options.pairConcurrency ?? 4, pairs.length || 1));
+  let cursor = 0;
+  async function worker() {
+    while (true) {
+      const index = cursor;
+      cursor += 1;
+      if (index >= pairs.length) return;
+      const evaluation = await evaluateAutoPublish(pairs[index], {
+        runPipeline: options.runPipeline === true,
+        skipNetwork: options.skipNetwork === true,
+        overrides: options.overrides,
+        externalLinkOptions: options.externalLinkOptions || {
+          timeoutMs: 4000,
+        retries: 1,
+          concurrency: 4,
+          deadlineMs: 10000
+        }
+      });
+      const human = evaluation.human.status;
+      const pipelineGateNames = new Set(['contentValidator', 'publicationGuards', 'buildPass', 'previewAuditPass', 'publicLeakAuditPass', 'publicExposureAudit', 'noUnresolvedSecurityWarning']);
+      const inventoryFailures = options.runPipeline === true
+        ? evaluation.failedGates
+        : evaluation.failedGates.filter((gate) => !pipelineGateNames.has(gate));
+      let state;
+      if (human === 'rejected' || human === 'changes-requested') state = 'BLOCKED';
+      else if (inventoryFailures.length) state = 'BLOCKED';
+      else if (human === 'approved') state = 'READY';
+      else state = 'HUMAN_REVIEW';
+      items[index] = {
+        state,
+        fallbackEligible: human === 'awaiting-human-review' && inventoryFailures.length === 0,
+        targetPublicationDate: evaluation.schedule.publicationDate,
+        slugs: evaluation.pair.map((item) => item.slug),
+        failedGates: inventoryFailures,
+        pipelineRequired: options.runPipeline !== true,
+        humanReviewStatus: human,
+        sourceValidation: evaluation.checks.externalSourceLinksValid.detail
+      };
+    }
   }
+  await Promise.all(Array.from({ length: pairConcurrency }, () => worker()));
   const counts = {
     READY: items.filter((item) => item.state === 'READY').length,
     HUMAN_REVIEW: items.filter((item) => item.state === 'HUMAN_REVIEW').length,
@@ -471,6 +526,8 @@ async function inventory(options = {}) {
     generatedAt: new Date().toISOString(),
     targetPairs: automationConfig.inventoryTargetPairs,
     minimumBufferPairs: automationConfig.minimumPreparedBufferPairs,
+    runPipeline: options.runPipeline === true,
+    pairConcurrency,
     counts,
     preparedPairs,
     slotsCovered: preparedPairs,
