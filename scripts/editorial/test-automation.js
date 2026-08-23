@@ -56,9 +56,9 @@ assert.strictEqual(publicationWeekday('2026-08-13'), 'Thursday', 'Thursday date 
 assert.deepStrictEqual(scheduledDayCheck('2026-08-11'), { pass: true, detail: { targetDate: '2026-08-11', targetDay: 'Tuesday' } });
 assert.deepStrictEqual(scheduledDayCheck('2026-08-13'), { pass: true, detail: { targetDate: '2026-08-13', targetDay: 'Thursday' } });
 assert.strictEqual(slotLabelForEvaluation({ schedule: thursdayAfterCutoff }), 'Thursday', 'displayed label must use the real Thursday slot');
-const exactTuesdayPair = selectNextPreparedPair('2026-08-18', new Set(), { exactSlotOnly: true });
+const exactTuesdayPair = selectNextPreparedPair('2026-08-25', new Set(), { exactSlotOnly: true });
 const exactTuesdayEnglish = exactTuesdayPair.find((document) => document.data.language === 'en') || exactTuesdayPair[0];
-assert.strictEqual(exactTuesdayEnglish.data.slug, 'annual-financial-report-local-government', 'scheduled execution must select only the pair reserved for the exact slot date');
+assert.strictEqual(exactTuesdayEnglish.data.slug, 'general-fund-vs-special-revenue-funds', 'scheduled execution must select only the pair reserved for the exact slot date');
 const exactThursdayPair = selectNextPreparedPair('2026-08-20', new Set(), { exactSlotOnly: true });
 const exactThursdayEnglish = exactThursdayPair.find((document) => document.data.language === 'en') || exactThursdayPair[0];
 assert.strictEqual(exactThursdayEnglish.data.slug, 'property-taxes-assessment-levy-bill', 'Thursday execution must select its exact reserved pair even when Tuesday remains in review');

@@ -146,7 +146,7 @@ async function main() {
   const fetchFn = async (url) => {
     if (url.endsWith('/test-en')) return mockResponse(200, '<title>Test EN</title><link rel="canonical" href="https://www.luminasmart.company/test-en">');
     if (url.endsWith('/pt-br/teste-pt')) return mockResponse(200, '<title>Teste PT</title><link rel="canonical" href="https://www.luminasmart.company/pt-br/teste-pt">');
-    if (url.endsWith('/insights')) return mockResponse(200, '<a href="/test-en">EN</a><a href="/pt-br/teste-pt">PT</a>');
+    if (url.endsWith('/insights')) return mockResponse(200, '<a href="/test-en">EN</a>');
     if (url.endsWith('/sitemap.xml')) return mockResponse(200, '<loc>https://www.luminasmart.company/test-en</loc><loc>https://www.luminasmart.company/pt-br/teste-pt</loc>');
     return mockResponse(200, '<html>home</html>');
   };

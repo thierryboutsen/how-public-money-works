@@ -298,11 +298,14 @@ async function verifyPublicRelease(pair, options = {}) {
     if (response.status !== 200) throw new Error(`${publicPath} returned HTTP ${response.status}`);
     bodies.set(publicPath, await response.text());
   }
-  for (const document of pair) {
-    const publicPath = publicPathForDocument(document);
-    if (!bodies.get('/insights').includes(publicPath)) throw new Error(`/insights does not link to ${publicPath}`);
-    if (!bodies.get('/sitemap.xml').includes(absoluteUrl(publicPath))) throw new Error(`/sitemap.xml does not contain ${absoluteUrl(publicPath)}`);
-  }
+    const englishDocument = pair.find((document) => document.data.language === 'en');
+    if (!englishDocument) throw new Error('Public verification requires an English document');
+    const englishPath = publicPathForDocument(englishDocument);
+    if (!bodies.get('/insights').includes(englishPath)) throw new Error(`/insights does not link to ${englishPath}`);
+    for (const document of pair) {
+      const publicPath = publicPathForDocument(document);
+      if (!bodies.get('/sitemap.xml').includes(absoluteUrl(publicPath))) throw new Error(`/sitemap.xml does not contain ${absoluteUrl(publicPath)}`);
+    }
 }
 
 function createProductionHooks(pair, evaluation, options) {
