@@ -170,8 +170,9 @@ recoverySlots:
     recoveryTime: "20:00"
     recoveryReason: scheduler deployment incident
     articleSlug: annual-financial-report-local-government
-    status: armed
-    publicationDecision: pending
+    status: trigger-missing
+    publicationDecision: missed-trigger
+    result: recovery-trigger-not-implemented
   - originalScheduledDate: "2026-08-20"
     recoveryScheduledDate: "2026-08-23"
     recoveryTime: "09:00"
@@ -179,6 +180,7 @@ recoverySlots:
     articleSlug: property-taxes-assessment-levy-bill
     status: armed
     publicationDecision: pending
+    triggerWorkflow: editorial-recovery-2026-08-23.yml
 
 rules:
   - "No topic becomes a brief or draft without the required human topic and brief approvals"

@@ -27,6 +27,7 @@
     "editorial:status": "node scripts/editorial/status.js",
     "editorial:test": "node scripts/editorial/test-automation.js",
     "editorial:test:transaction": "node scripts/editorial/test-publication-adapter.js",
+    "editorial:test:recovery-trigger": "node scripts/editorial/test-recovery-trigger.js",
     "test": "npm run content:validate"
   },
   "dependencies": {

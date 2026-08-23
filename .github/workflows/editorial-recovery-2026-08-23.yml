@@ -1,0 +1,72 @@
+name: One-time editorial recovery - 2026-08-23
+
+on:
+  # Temporary one-time trigger. Remove this workflow after the recovery window.
+  schedule:
+    - cron: '0 9 * * 0'
+      timezone: 'America/Sao_Paulo'
+  workflow_dispatch:
+    inputs:
+      execute:
+        description: Execute the exact Sunday recovery pair; leave false for a dry run
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  deployments: read
+
+concurrency:
+  group: editorial-recovery-2026-08-23
+  cancel-in-progress: false
+
+jobs:
+  recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out production branch
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Enforce one-time local-date guard
+        shell: bash
+        run: |
+          local_date="$(TZ=America/Sao_Paulo date +%F)"
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$local_date" != "2026-08-23" ]; then
+            echo "RECOVERY_TRIGGER_INACTIVE localDate=$local_date expected=2026-08-23"
+            exit 0
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run exact Sunday recovery pair
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          EXECUTE: ${{ inputs.execute || 'true' }}
+        run: |
+          args=("property-taxes-assessment-levy-bill" "--recovery-date=2026-08-23")
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] || [ "$EXECUTE" = "true" ]; then
+            args+=("--execute")
+          fi
+          npm run editorial:run-slot -- "${args[@]}"
+
+      - name: Upload non-secret recovery logs
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: editorial-recovery-2026-08-23-logs
+          path: .editorial/logs/*.json
+          if-no-files-found: warn
