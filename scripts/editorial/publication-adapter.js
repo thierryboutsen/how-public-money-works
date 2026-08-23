@@ -87,7 +87,7 @@ function commitAndPushPaths(filePaths, message, options = {}) {
   if (relativeAdditionPaths.length) {
     runCommand('git', ['add', '--', ...relativeAdditionPaths], { label: 'git stage authorized publication paths' });
   }
-  const staged = runCommand('git', ['diff', '--cached', '--name-only'], { label: 'git inspect staged publication paths' })
+  const staged = runCommand('git', ['diff', '--cached', '--no-renames', '--name-only'], { label: 'git inspect staged publication paths' })
     .split(/\r?\n/).filter(Boolean).sort();
   if (JSON.stringify(staged) !== JSON.stringify(relativePaths)) {
     throw new Error(`Git staged path mismatch: expected ${relativePaths.join(', ')}, received ${staged.join(', ')}`);
