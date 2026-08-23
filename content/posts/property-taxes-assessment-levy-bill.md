@@ -1,43 +1,55 @@
 ---
 title: "Property Taxes Explained: From Assessment to Levy to Bill"
-subtitle: "A plain-English walkthrough of the decisions, records, and local authorities behind a property-tax charge."
-slug: "property-taxes-assessment-levy-bill"
-language: "en"
-translationKey: "property-tax-assessment-levy-bill"
+subtitle: A plain-English walkthrough of the decisions, records, and local authorities behind a property-tax charge.
+slug: property-taxes-assessment-levy-bill
+language: en
+translationKey: property-tax-assessment-levy-bill
 translations:
-  pt-BR: "/pt-br/imposto-sobre-propriedade-avaliacao-lancamento-cobranca"
-targetPublicationDate: "2026-08-20"
-author: "Eliana Faria Lima"
-category: "Your Tax Dollars"
-tags: [property tax, assessed value, tax levy, local government]
-topicAngleSignature: "property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain"
-primaryKeyword: "how property taxes work"
-secondaryKeywords: [assessed value, property tax levy, property tax bill, taxing district]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "A property-tax bill connects a property assessment with levy decisions made by taxing authorities. The offices, formulas, and rules vary by jurisdiction."
-featuredImage: "/assets/article-property-tax-chain-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual illustration showing a property record, assessment, levy document, and tax bill as separate steps."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/imposto-sobre-propriedade-avaliacao-lancamento-cobranca
+targetPublicationDate: 2026-08-20
+author: Eliana Faria Lima
+category: Your Tax Dollars
+tags:
+  - property tax
+  - assessed value
+  - tax levy
+  - local government
+topicAngleSignature: property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain
+primaryKeyword: how property taxes work
+secondaryKeywords:
+  - assessed value
+  - property tax levy
+  - property tax bill
+  - taxing district
+searchIntent: informational
+readingTime: 7 min read
+excerpt: A property-tax bill connects a property assessment with levy decisions made by taxing authorities. The offices, formulas, and rules vary by jurisdiction.
+featuredImage: /assets/article-property-tax-chain-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual illustration showing a property record, assessment, levy document, and tax bill as separate steps.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "How Property Taxes Move from Assessment to Bill"
-metaDescription: "Learn how assessed value, tax levies, rates, and local taxing authorities connect to a property-tax bill—and why the rules vary by location."
+seoTitle: How Property Taxes Move from Assessment to Bill
+metaDescription: Learn how assessed value, tax levies, rates, and local taxing authorities connect to a property-tax bill—and why the rules vary by location.
+date: 2026-08-23
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 # Property Taxes Explained: From Assessment to Levy to Bill
 

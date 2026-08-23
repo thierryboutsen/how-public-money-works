@@ -1,43 +1,55 @@
 ---
 title: "Imposto sobre Propriedade: Da Avaliação ao Lançamento e à Cobrança"
-subtitle: "Um guia claro sobre decisões, registros e autoridades locais por trás da cobrança do imposto sobre propriedade."
-slug: "imposto-sobre-propriedade-avaliacao-lancamento-cobranca"
-language: "pt-BR"
-translationKey: "property-tax-assessment-levy-bill"
+subtitle: Um guia claro sobre decisões, registros e autoridades locais por trás da cobrança do imposto sobre propriedade.
+slug: imposto-sobre-propriedade-avaliacao-lancamento-cobranca
+language: pt-BR
+translationKey: property-tax-assessment-levy-bill
 translations:
-  en: "/property-taxes-assessment-levy-bill"
-targetPublicationDate: "2026-08-20"
-author: "Eliana Faria Lima"
-category: "Seus Impostos"
-tags: [imposto sobre propriedade, valor avaliado, lançamento tributário, governo local]
-topicAngleSignature: "property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain"
-primaryKeyword: "como funciona o imposto sobre propriedade"
-secondaryKeywords: [valor avaliado, property tax levy, cobrança de imposto, distrito tributante]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "A cobrança conecta a avaliação do imóvel às decisões de diferentes autoridades tributantes. Órgãos, fórmulas e regras variam conforme a jurisdição."
-featuredImage: "/assets/article-property-tax-chain-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual mostrando registro do imóvel, avaliação, documento de levy e cobrança como etapas separadas."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /property-taxes-assessment-levy-bill
+targetPublicationDate: 2026-08-20
+author: Eliana Faria Lima
+category: Seus Impostos
+tags:
+  - imposto sobre propriedade
+  - valor avaliado
+  - lançamento tributário
+  - governo local
+topicAngleSignature: property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain
+primaryKeyword: como funciona o imposto sobre propriedade
+secondaryKeywords:
+  - valor avaliado
+  - property tax levy
+  - cobrança de imposto
+  - distrito tributante
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: A cobrança conecta a avaliação do imóvel às decisões de diferentes autoridades tributantes. Órgãos, fórmulas e regras variam conforme a jurisdição.
+featuredImage: /assets/article-property-tax-chain-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual mostrando registro do imóvel, avaliação, documento de levy e cobrança como etapas separadas.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como o Imposto sobre Propriedade Chega à Cobrança"
-metaDescription: "Entenda como valor avaliado, levies, rates e autoridades tributantes se conectam à cobrança do imposto sobre propriedade e variam por localidade."
+seoTitle: Como o Imposto sobre Propriedade Chega à Cobrança
+metaDescription: Entenda como valor avaliado, levies, rates e autoridades tributantes se conectam à cobrança do imposto sobre propriedade e variam por localidade.
+date: 2026-08-23
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 # Imposto sobre Propriedade: Da Avaliação ao Lançamento e à Cobrança
 
