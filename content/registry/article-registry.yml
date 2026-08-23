@@ -1,7 +1,3 @@
-# Histórico de artigos que chegaram ao fluxo editorial.
-# Novos artigos só entram como registro oficial após publicação autorizada e verificação pública.
-# Vocabulário: docs/editorial/STATUS_VOCABULARY.md
-
 rules:
   newBriefsAndDraftsRequireHumanApproval: true
   publicationReviewIsHumanPreferred: true
@@ -13,203 +9,240 @@ rules:
   publishedIsReservedForLiveApprovedContent: true
   duplicateCheckRequiredBeforeApproval: true
   futureTopicsAreNotOfficiallyScheduled: true
-
 articles:
-  - slug: "what-is-a-city-budget-and-why-should-you-care"
-    title: "What Is a City Budget — and Why Should You Care?"
+  - slug: what-is-a-city-budget-and-why-should-you-care
+    title: What Is a City Budget — and Why Should You Care?
     status: published
-    publishDate: "2026-03-01"
-    category: "Civic Education"
+    publishDate: 2026-03-01
+    category: Civic Education
     tags:
       - public finance
       - local government
       - budget
-    contentAngle: "Introduces city budgets through everyday services, choices, and trade-offs."
-    duplicateCheckSignature: "city-budget|civic-education|resident-introduction|everyday-services"
-    precisionRisk: "medium"
+    contentAngle: Introduces city budgets through everyday services, choices, and trade-offs.
+    duplicateCheckSignature: city-budget|civic-education|resident-introduction|everyday-services
+    precisionRisk: medium
     relatedPosts: []
-    sourceLevel: "evergreen"
-    lastReviewed: "2026-08-07"
-  - slug: "where-do-your-local-taxes-actually-go"
-    title: "Where Do Your Local Taxes Actually Go?"
+    sourceLevel: evergreen
+    lastReviewed: 2026-08-07
+  - slug: where-do-your-local-taxes-actually-go
+    title: Where Do Your Local Taxes Actually Go?
     language: en
     translations:
-      pt-BR: "/pt-br/para-onde-vao-os-seus-impostos-locais"
+      pt-BR: /pt-br/para-onde-vao-os-seus-impostos-locais
     status: published
-    publishDate: "2026-08-08"
-    category: "Your Tax Dollars"
+    publishDate: 2026-08-08
+    category: Your Tax Dollars
     tags:
       - local taxes
       - public finance
       - local government
       - public services
-    contentAngle: "Explains how local revenue moves across governments, funds, restrictions, and shared service responsibilities without promising dollar-level tracing."
-    duplicateCheckSignature: "local-taxes|revenue-destination|revenue-pathways-and-service-connection"
-    precisionRisk: "high"
+    contentAngle: Explains how local revenue moves across governments, funds, restrictions, and shared service responsibilities without promising dollar-level tracing.
+    duplicateCheckSignature: local-taxes|revenue-destination|revenue-pathways-and-service-connection
+    precisionRisk: high
     relatedPosts:
-      - "what-is-a-city-budget-and-why-should-you-care"
-    sourceLevel: "conceptual-institutionally-validated"
-    lastReviewed: "2026-08-08"
-  - slug: "para-onde-vao-os-seus-impostos-locais"
-    title: "Para Onde Vão os Seus Impostos Locais?"
+      - what-is-a-city-budget-and-why-should-you-care
+    sourceLevel: conceptual-institutionally-validated
+    lastReviewed: 2026-08-08
+  - slug: para-onde-vao-os-seus-impostos-locais
+    title: Para Onde Vão os Seus Impostos Locais?
     language: pt-BR
-    translationOf: "where-do-your-local-taxes-actually-go"
+    translationOf: where-do-your-local-taxes-actually-go
     translations:
-      en: "/where-do-your-local-taxes-actually-go"
+      en: /where-do-your-local-taxes-actually-go
     status: published
-    publishDate: "2026-08-08"
-    category: "Seus Impostos"
+    publishDate: 2026-08-08
+    category: Seus Impostos
     tags:
       - impostos locais
       - finanças públicas
       - governo local
       - serviços públicos
-    contentAngle: "Versão PT-BR fiel do artigo conceitual sobre os caminhos da receita local entre governos, fundos, restrições e serviços."
-    duplicateCheckSignature: "local-taxes|revenue-destination|revenue-pathways-and-service-connection|pt-br-translation"
-    precisionRisk: "high"
+    contentAngle: Versão PT-BR fiel do artigo conceitual sobre os caminhos da receita local entre governos, fundos, restrições e serviços.
+    duplicateCheckSignature: local-taxes|revenue-destination|revenue-pathways-and-service-connection|pt-br-translation
+    precisionRisk: high
     relatedPosts:
-      - "where-do-your-local-taxes-actually-go"
-    sourceLevel: "conceptual-institutionally-validated"
-    lastReviewed: "2026-08-08"
-  - slug: "what-is-a-local-government-audit"
-    title: "What Is a Local Government Audit?"
+      - where-do-your-local-taxes-actually-go
+    sourceLevel: conceptual-institutionally-validated
+    lastReviewed: 2026-08-08
+  - slug: what-is-a-local-government-audit
+    title: What Is a Local Government Audit?
     language: en
     translations:
-      pt-BR: "/pt-br/o-que-e-uma-auditoria-de-governo-local"
+      pt-BR: /pt-br/o-que-e-uma-auditoria-de-governo-local
     status: published
-    publishDate: "2026-08-11"
-    category: "Transparency & Accountability"
+    publishDate: 2026-08-11
+    category: Transparency & Accountability
     tags:
       - local government audit
       - accountability
       - financial reporting
       - public records
-    contentAngle: "Explains audit scope, opinions, findings, follow-up, and the limits of the conclusions a reader can draw."
-    duplicateCheckSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits"
-    precisionRisk: "medium"
+    contentAngle: Explains audit scope, opinions, findings, follow-up, and the limits of the conclusions a reader can draw.
+    duplicateCheckSignature: local-government-audit|scope-opinion-findings|reader-interpretation-and-limits
+    precisionRisk: medium
     relatedPosts:
-      - "what-is-a-city-budget-and-why-should-you-care"
-      - "where-do-your-local-taxes-actually-go"
-    sourceLevel: "conceptual-institutionally-validated"
-    publicationPath: "human-approved"
-    lastReviewed: "2026-08-11"
-  - slug: "o-que-e-uma-auditoria-de-governo-local"
-    title: "O Que É uma Auditoria de Governo Local?"
+      - what-is-a-city-budget-and-why-should-you-care
+      - where-do-your-local-taxes-actually-go
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-08-11
+  - slug: o-que-e-uma-auditoria-de-governo-local
+    title: O Que É uma Auditoria de Governo Local?
     language: pt-BR
-    translationOf: "what-is-a-local-government-audit"
+    translationOf: what-is-a-local-government-audit
     translations:
-      en: "/what-is-a-local-government-audit"
+      en: /what-is-a-local-government-audit
     status: published
-    publishDate: "2026-08-11"
-    category: "Transparência e Prestação de Contas"
+    publishDate: 2026-08-11
+    category: Transparência e Prestação de Contas
     tags:
       - auditoria de governo local
       - prestação de contas
       - relatório financeiro
       - documentos públicos
-    contentAngle: "Versão PT-BR do guia sobre escopo, opiniões, achados, acompanhamento e limites de auditorias de governos locais."
-    duplicateCheckSignature: "local-government-audit|scope-opinion-findings|reader-interpretation-and-limits|pt-br-translation"
-    precisionRisk: "medium"
+    contentAngle: Versão PT-BR do guia sobre escopo, opiniões, achados, acompanhamento e limites de auditorias de governos locais.
+    duplicateCheckSignature: local-government-audit|scope-opinion-findings|reader-interpretation-and-limits|pt-br-translation
+    precisionRisk: medium
     relatedPosts:
-      - "para-onde-vao-os-seus-impostos-locais"
-    sourceLevel: "conceptual-institutionally-validated"
-    publicationPath: "human-approved"
-    lastReviewed: "2026-08-11"
-  - slug: "what-is-a-public-budget-hearing"
-    title: "What Is a Public Budget Hearing?"
+      - para-onde-vao-os-seus-impostos-locais
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-08-11
+  - slug: what-is-a-public-budget-hearing
+    title: What Is a Public Budget Hearing?
     language: en
     translations:
-      pt-BR: "/pt-br/o-que-e-uma-audiencia-publica-sobre-orcamento"
+      pt-BR: /pt-br/o-que-e-uma-audiencia-publica-sobre-orcamento
     status: published
-    publishDate: "2026-08-14"
-    category: "Citizen Participation"
+    publishDate: 2026-08-14
+    category: Citizen Participation
     tags:
       - public budget hearing
       - citizen participation
       - local budget process
       - public meetings
-    contentAngle: "Explains how to identify a public budget hearing's local role, read the proposal, prepare useful questions, and understand what the event does not guarantee."
-    duplicateCheckSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check"
-    precisionRisk: "high"
+    contentAngle: Explains how to identify a public budget hearing's local role, read the proposal, prepare useful questions, and understand what the event does not guarantee.
+    duplicateCheckSignature: budget-process|public-hearing|resident-preparation-and-jurisdiction-check
+    precisionRisk: high
     relatedPosts:
-      - "what-is-a-city-budget-and-why-should-you-care"
-      - "where-do-your-local-taxes-actually-go"
-    sourceLevel: "conceptual-institutionally-validated"
-    publicationPath: "human-approved"
-    lastReviewed: "2026-08-14"
-  - slug: "annual-financial-report-local-government"
+      - what-is-a-city-budget-and-why-should-you-care
+      - where-do-your-local-taxes-actually-go
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-08-14
+  - slug: annual-financial-report-local-government
     title: "Annual Financial Reports: What They Show After the Budget Year Ends"
     language: en
     translations:
-      pt-BR: "/pt-br/relatorio-financeiro-anual-governo-local"
+      pt-BR: /pt-br/relatorio-financeiro-anual-governo-local
     status: published
-    publishDate: "2026-08-22"
-    category: "Transparency & Accountability"
+    publishDate: 2026-08-22
+    category: Transparency & Accountability
     tags:
       - annual financial report
       - financial statements
       - budget versus actual
       - local government
-    contentAngle: "Explains how to read year-end financial reporting alongside an adopted budget, including statements, notes, and limits of comparison."
-    duplicateCheckSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map"
-    precisionRisk: "high"
+    contentAngle: Explains how to read year-end financial reporting alongside an adopted budget, including statements, notes, and limits of comparison.
+    duplicateCheckSignature: annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map
+    precisionRisk: high
     relatedPosts:
-      - "what-is-a-city-budget-and-why-should-you-care"
-      - "what-is-a-local-government-audit"
-    sourceLevel: "conceptual-institutionally-validated"
-    publicationPath: "auto-publish-fallback"
-    originalScheduledDate: "2026-08-18"
-    recoveryScheduledDate: "2026-08-22"
-    publicationCommitSha: "02afe88c0db0d076bae46fef5aca0860c56e2883"
+      - what-is-a-city-budget-and-why-should-you-care
+      - what-is-a-local-government-audit
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    originalScheduledDate: 2026-08-18
+    recoveryScheduledDate: 2026-08-22
+    publicationCommitSha: 02afe88c0db0d076bae46fef5aca0860c56e2883
     productionDeploymentId: 6043329247
-    actualPublishedAt: "2026-08-22T22:48:35-03:00"
-    lastReviewed: "2026-08-22"
-  - slug: "relatorio-financeiro-anual-governo-local"
+    actualPublishedAt: 2026-08-22T22:48:35-03:00
+    lastReviewed: 2026-08-22
+  - slug: relatorio-financeiro-anual-governo-local
     title: "Relatórios Financeiros Anuais: O Que Mostram Depois do Encerramento do Ano"
     language: pt-BR
-    translationOf: "annual-financial-report-local-government"
+    translationOf: annual-financial-report-local-government
     translations:
-      en: "/annual-financial-report-local-government"
+      en: /annual-financial-report-local-government
     status: published
-    publishDate: "2026-08-22"
-    category: "Transparência e Prestação de Contas"
+    publishDate: 2026-08-22
+    category: Transparência e Prestação de Contas
     tags:
       - relatório financeiro anual
       - demonstrações financeiras
       - orçamento versus realizado
       - governo local
-    contentAngle: "Versão PT-BR do guia sobre relatórios de fim de ano, demonstrações, notas e limites de comparação com o orçamento aprovado."
-    duplicateCheckSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map|pt-br-translation"
-    precisionRisk: "high"
+    contentAngle: Versão PT-BR do guia sobre relatórios de fim de ano, demonstrações, notas e limites de comparação com o orçamento aprovado.
+    duplicateCheckSignature: annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map|pt-br-translation
+    precisionRisk: high
     relatedPosts:
-      - "annual-financial-report-local-government"
-    sourceLevel: "conceptual-institutionally-validated"
-    publicationPath: "auto-publish-fallback"
-    originalScheduledDate: "2026-08-18"
-    recoveryScheduledDate: "2026-08-22"
-    publicationCommitSha: "02afe88c0db0d076bae46fef5aca0860c56e2883"
+      - annual-financial-report-local-government
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    originalScheduledDate: 2026-08-18
+    recoveryScheduledDate: 2026-08-22
+    publicationCommitSha: 02afe88c0db0d076bae46fef5aca0860c56e2883
     productionDeploymentId: 6043329247
-    actualPublishedAt: "2026-08-22T22:48:35-03:00"
-    lastReviewed: "2026-08-22"
-  - slug: "o-que-e-uma-audiencia-publica-sobre-orcamento"
-    title: "O Que É uma Audiência Pública sobre Orçamento?"
+    actualPublishedAt: 2026-08-22T22:48:35-03:00
+    lastReviewed: 2026-08-22
+  - slug: o-que-e-uma-audiencia-publica-sobre-orcamento
+    title: O Que É uma Audiência Pública sobre Orçamento?
     language: pt-BR
-    translationOf: "what-is-a-public-budget-hearing"
+    translationOf: what-is-a-public-budget-hearing
     translations:
-      en: "/what-is-a-public-budget-hearing"
+      en: /what-is-a-public-budget-hearing
     status: published
-    publishDate: "2026-08-14"
-    category: "Participação Cidadã"
+    publishDate: 2026-08-14
+    category: Participação Cidadã
     tags:
       - audiência pública sobre orçamento
       - participação cidadã
       - processo orçamentário local
       - reuniões públicas
-    contentAngle: "Versão PT-BR do guia para identificar a função local de uma audiência orçamentária, ler a proposta, preparar perguntas e compreender seus limites."
-    duplicateCheckSignature: "budget-process|public-hearing|resident-preparation-and-jurisdiction-check|pt-br-translation"
-    precisionRisk: "high"
+    contentAngle: Versão PT-BR do guia para identificar a função local de uma audiência orçamentária, ler a proposta, preparar perguntas e compreender seus limites.
+    duplicateCheckSignature: budget-process|public-hearing|resident-preparation-and-jurisdiction-check|pt-br-translation
+    precisionRisk: high
     relatedPosts:
-      - "para-onde-vao-os-seus-impostos-locais"
-    sourceLevel: "conceptual-institutionally-validated"
-    publicationPath: "human-approved"
-    lastReviewed: "2026-08-14"
+      - para-onde-vao-os-seus-impostos-locais
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-08-14
+  - slug: imposto-sobre-propriedade-avaliacao-lancamento-cobranca
+    title: "Imposto sobre Propriedade: Da Avaliação ao Lançamento e à Cobrança"
+    language: pt-BR
+    status: published
+    publishDate: 2026-08-23
+    category: Seus Impostos
+    tags:
+      - imposto sobre propriedade
+      - valor avaliado
+      - lançamento tributário
+      - governo local
+    duplicateCheckSignature: property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-08-23
+    originalScheduledDate: 2026-08-20
+    recoveryScheduledDate: 2026-08-23
+    recoveryReason: scheduler deployment incident
+    actualPublishedAt: 2026-08-23
+  - slug: property-taxes-assessment-levy-bill
+    title: "Property Taxes Explained: From Assessment to Levy to Bill"
+    language: en
+    status: published
+    publishDate: 2026-08-23
+    category: Your Tax Dollars
+    tags:
+      - property tax
+      - assessed value
+      - tax levy
+      - local government
+    duplicateCheckSignature: property-tax|understand-bill-formation|assessment-levy-rate-and-authority-chain
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-08-23
+    originalScheduledDate: 2026-08-20
+    recoveryScheduledDate: 2026-08-23
+    recoveryReason: scheduler deployment incident
+    actualPublishedAt: 2026-08-23
