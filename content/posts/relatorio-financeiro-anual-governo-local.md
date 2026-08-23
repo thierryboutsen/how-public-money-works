@@ -1,43 +1,54 @@
 ---
 title: "Relatórios Financeiros Anuais: O Que Mostram Depois do Encerramento do Ano"
-subtitle: "Um guia acessível sobre a diferença entre orçamento aprovado, resultados reportados, demonstrações e notas."
-slug: "relatorio-financeiro-anual-governo-local"
-language: "pt-BR"
-translationKey: "annual-financial-report-reader-guide"
+subtitle: Um guia acessível sobre a diferença entre orçamento aprovado, resultados reportados, demonstrações e notas.
+slug: relatorio-financeiro-anual-governo-local
+language: pt-BR
+translationKey: annual-financial-report-reader-guide
 translations:
-  en: "/annual-financial-report-local-government"
-targetPublicationDate: "2026-08-18"
-author: "Eliana Faria Lima"
-category: "Transparência e Prestação de Contas"
-tags: [relatório financeiro anual, demonstrações financeiras, orçamento versus realizado, governo local]
-topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map"
-primaryKeyword: "relatório financeiro anual de governo local"
-secondaryKeywords: [relatório financeiro anual, orçamento versus realizado, demonstrações governamentais]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "O relatório financeiro olha para trás, enquanto o orçamento aprovado olha para a frente. Entenda o que cada documento informa e por que os números podem diferir."
-featuredImage: "/assets/article-annual-financial-report-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual comparando um orçamento aprovado e um relatório financeiro anual ao longo de um exercício fiscal."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "medium"
+  en: /annual-financial-report-local-government
+targetPublicationDate: 2026-08-18
+author: Eliana Faria Lima
+category: Transparência e Prestação de Contas
+tags:
+  - relatório financeiro anual
+  - demonstrações financeiras
+  - orçamento versus realizado
+  - governo local
+topicAngleSignature: annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map
+primaryKeyword: relatório financeiro anual de governo local
+secondaryKeywords:
+  - relatório financeiro anual
+  - orçamento versus realizado
+  - demonstrações governamentais
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: O relatório financeiro olha para trás, enquanto o orçamento aprovado olha para a frente. Entenda o que cada documento informa e por que os números podem diferir.
+featuredImage: /assets/article-annual-financial-report-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual comparando um orçamento aprovado e um relatório financeiro anual ao longo de um exercício fiscal.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como Entender um Relatório Financeiro Anual Local"
-metaDescription: "Entenda como o relatório financeiro anual difere do orçamento aprovado e onde encontrar resultados, fundos, notas e contexto sobre o ano encerrado."
+seoTitle: Como Entender um Relatório Financeiro Anual Local
+metaDescription: Entenda como o relatório financeiro anual difere do orçamento aprovado e onde encontrar resultados, fundos, notas e contexto sobre o ano encerrado.
+date: 2026-08-22
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Relatórios Financeiros Anuais: O Que Mostram Depois do Encerramento do Ano

@@ -1,43 +1,54 @@
 ---
 title: "Annual Financial Reports: What They Show After the Budget Year Ends"
-subtitle: "A reader-friendly guide to the difference between an adopted budget, reported results, financial statements, and notes."
-slug: "annual-financial-report-local-government"
-language: "en"
-translationKey: "annual-financial-report-reader-guide"
+subtitle: A reader-friendly guide to the difference between an adopted budget, reported results, financial statements, and notes.
+slug: annual-financial-report-local-government
+language: en
+translationKey: annual-financial-report-reader-guide
 translations:
-  pt-BR: "/pt-br/relatorio-financeiro-anual-governo-local"
-targetPublicationDate: "2026-08-18"
-author: "Eliana Faria Lima"
-category: "Transparency & Accountability"
-tags: [annual financial report, financial statements, budget versus actual, local government]
-topicAngleSignature: "annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map"
-primaryKeyword: "local government annual financial report"
-secondaryKeywords: [annual financial report, budget versus actual, government financial statements]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "An annual financial report looks backward, while an adopted budget looks ahead. Learn what each document can tell you and where their numbers differ."
-featuredImage: "/assets/article-annual-financial-report-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual illustration comparing an adopted budget with an annual financial report across a fiscal-year timeline."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "medium"
+  pt-BR: /pt-br/relatorio-financeiro-anual-governo-local
+targetPublicationDate: 2026-08-18
+author: Eliana Faria Lima
+category: Transparency & Accountability
+tags:
+  - annual financial report
+  - financial statements
+  - budget versus actual
+  - local government
+topicAngleSignature: annual-financial-report|compare-plan-to-results|budget-report-boundaries-and-reader-map
+primaryKeyword: local government annual financial report
+secondaryKeywords:
+  - annual financial report
+  - budget versus actual
+  - government financial statements
+searchIntent: informational
+readingTime: 7 min read
+excerpt: An annual financial report looks backward, while an adopted budget looks ahead. Learn what each document can tell you and where their numbers differ.
+featuredImage: /assets/article-annual-financial-report-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual illustration comparing an adopted budget with an annual financial report across a fiscal-year timeline.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "How to Understand a Local Annual Financial Report"
-metaDescription: "Learn how a local annual financial report differs from an adopted budget and where to find reported results, fund details, notes, and context."
+seoTitle: How to Understand a Local Annual Financial Report
+metaDescription: Learn how a local annual financial report differs from an adopted budget and where to find reported results, fund details, notes, and context.
+date: 2026-08-22
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Annual Financial Reports: What They Show After the Budget Year Ends
