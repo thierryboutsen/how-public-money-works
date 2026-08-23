@@ -76,11 +76,17 @@ function gitPath(filePath) {
 function commitAndPushPaths(filePaths, message, options = {}) {
   const runCommand = options.runCommand || run;
   const relativePaths = [...new Set(filePaths.map(gitPath))].sort();
+  const relativeDeletionPaths = [...new Set((options.deletedPaths || []).map(gitPath))].sort();
   if (relativePaths.length === 0) throw new Error('Git publication commit has no authorized paths');
   runCommand('git', ['config', 'user.name', 'github-actions[bot]'], { label: 'git configure author name' });
   runCommand('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com'], { label: 'git configure author email' });
-  runCommand('git', ['add', '--update', '--', ...relativePaths], { label: 'git stage authorized publication deletions' });
-  runCommand('git', ['add', '--', ...relativePaths], { label: 'git stage authorized publication paths' });
+  if (relativeDeletionPaths.length) {
+    runCommand('git', ['add', '--update', '--', ...relativeDeletionPaths], { label: 'git stage authorized publication deletions' });
+  }
+  const relativeAdditionPaths = relativePaths.filter((filePath) => !relativeDeletionPaths.includes(filePath));
+  if (relativeAdditionPaths.length) {
+    runCommand('git', ['add', '--', ...relativeAdditionPaths], { label: 'git stage authorized publication paths' });
+  }
   const staged = runCommand('git', ['diff', '--cached', '--name-only'], { label: 'git inspect staged publication paths' })
     .split(/\r?\n/).filter(Boolean).sort();
   if (JSON.stringify(staged) !== JSON.stringify(relativePaths)) {
@@ -356,7 +362,7 @@ function createProductionHooks(pair, evaluation, options) {
       if (process.env.GITHUB_ACTIONS !== 'true') throw new Error('Production publication commits are restricted to GitHub Actions');
       const productionEnvironment = normalizedProductionEnvironment();
       if (productionEnvironment.GITHUB_REPOSITORY !== config.productionRepository) throw new Error('GitHub repository identity mismatch');
-      publicationCommitSha = commitAndPushPaths(publicationPaths, `content: publish ${pair.find((document) => document.data.language === 'en').data.slug}`);
+      publicationCommitSha = commitAndPushPaths(publicationPaths, `content: publish ${pair.find((document) => document.data.language === 'en').data.slug}`, { deletedPaths: reviewPaths });
     },
     deployWait: async () => {
       if (!publicationCommitSha) throw new Error('Publication commit SHA is unavailable');

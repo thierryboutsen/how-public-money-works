@@ -92,6 +92,7 @@ async function main() {
   ];
   const expectedRelative = ['content/posts/pair-en.md', 'content/review/pair-en.md'];
   const commitSha = commitAndPushPaths(authorizedPaths, 'content: publish pair-en', {
+    deletedPaths: [authorizedPaths[0]],
     runCommand(command, args) {
       gitCalls.push([command, ...args]);
       if (args[0] === 'diff') return expectedRelative.join('\n');
@@ -100,8 +101,8 @@ async function main() {
     }
   });
   assert.strictEqual(commitSha, 'abc123');
-  assert(gitCalls.some((call) => call.join(' ') === `git add --update -- ${expectedRelative.join(' ')}`));
-  assert(gitCalls.some((call) => call.join(' ') === `git add -- ${expectedRelative.join(' ')}`));
+  assert(gitCalls.some((call) => call.join(' ') === 'git add --update -- content/review/pair-en.md'));
+  assert(gitCalls.some((call) => call.join(' ') === 'git add -- content/posts/pair-en.md'));
   assert(gitCalls.some((call) => call.join(' ') === `git push origin HEAD:${config.productionBranch}`));
   assert(!gitCalls.some((call) => call.includes('--force')), 'publication push must never force-push');
 
