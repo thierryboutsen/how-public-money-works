@@ -79,7 +79,8 @@ function commitAndPushPaths(filePaths, message, options = {}) {
   if (relativePaths.length === 0) throw new Error('Git publication commit has no authorized paths');
   runCommand('git', ['config', 'user.name', 'github-actions[bot]'], { label: 'git configure author name' });
   runCommand('git', ['config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com'], { label: 'git configure author email' });
-  runCommand('git', ['add', '--all', '--', ...relativePaths], { label: 'git stage authorized publication paths' });
+  runCommand('git', ['add', '--update', '--', ...relativePaths], { label: 'git stage authorized publication deletions' });
+  runCommand('git', ['add', '--', ...relativePaths], { label: 'git stage authorized publication paths' });
   const staged = runCommand('git', ['diff', '--cached', '--name-only'], { label: 'git inspect staged publication paths' })
     .split(/\r?\n/).filter(Boolean).sort();
   if (JSON.stringify(staged) !== JSON.stringify(relativePaths)) {
