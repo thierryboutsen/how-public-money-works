@@ -10,6 +10,7 @@ const {
   getHomepageResources,
   validateResourceManifest
 } = require('./src/resources/manifest');
+const { renderGlossaryBody, GLOSSARY_EN, GLOSSARY_PT } = require('./src/resources/glossary-data');
 const {
   ROOT_DIR,
   listMarkdownFiles,
@@ -410,17 +411,29 @@ function renderResourceCards(resources = RESOURCE_MANIFEST) {
 }
 
 function buildResourceJsonLd(resource, canonicalUrl) {
+  const isGlossary = resource.content?.source === 'src/resources/glossary-data.js';
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    '@type': isGlossary ? ['WebPage', 'DefinedTermSet'] : 'WebPage',
     '@id': canonicalUrl,
     name: resource.title,
     description: resource.description,
     url: canonicalUrl,
     inLanguage: resource.locale,
     author: { '@type': 'Person', name: siteConfig.defaultAuthor, url: absoluteUrl(siteConfig.authorPath) },
-    publisher: { '@type': 'Organization', name: siteConfig.publisherName, url: absoluteUrl('/') }
+    publisher: { '@type': 'Organization', name: siteConfig.publisherName, url: absoluteUrl('/') },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl }
   };
+  if (isGlossary) {
+    const entries = resource.locale === 'pt-BR' ? GLOSSARY_PT : GLOSSARY_EN;
+    schema.hasDefinedTerm = entries.map((entry) => ({
+      '@type': 'DefinedTerm',
+      name: entry.term,
+      description: entry.plainEnglishDefinition,
+      inLanguage: resource.locale,
+      inDefinedTermSet: { '@id': canonicalUrl }
+    }));
+  }
   if (resource.updatedAt) schema.dateModified = resource.updatedAt;
   if (resource.publishedAt) schema.datePublished = resource.publishedAt;
   return JSON.stringify(schema, null, 2).replace(/</g, '\\u003c');
@@ -436,8 +449,11 @@ function renderResourcePage(resource, template, options = {}) {
     .concat(`<link rel="alternate" hreflang="x-default" href="${escapeHtml(resource.hreflang.en || canonicalUrl)}" />`)
     .join('\n');
   const languageSwitchHtml = pair?.status === 'published'
-    ? `<div class="lang-switch" aria-label="Resource language"><a href="${escapeHtml(resource.locale === 'en' ? resource.route : pair.route)}" lang="en">EN</a><span aria-hidden="true">/</span><a href="${escapeHtml(resource.locale === 'pt-BR' ? resource.route : pair.route)}" lang="pt-BR">PT-BR</a></div>`
+    ? `<div class="lang-switch" aria-label="${resource.locale === 'pt-BR' ? 'Idioma do recurso' : 'Resource language'}"><a href="${escapeHtml(resource.locale === 'en' ? resource.route : pair.route)}" hreflang="en" lang="en" data-lang="EN"${resource.locale === 'en' ? ' class="on" aria-current="page"' : ''}>EN</a><span aria-hidden="true">/</span><a href="${escapeHtml(resource.locale === 'pt-BR' ? resource.route : pair.route)}" hreflang="pt-BR" lang="pt-BR" data-lang="PT"${resource.locale === 'pt-BR' ? ' class="on" aria-current="page"' : ''}>PT-BR</a></div>`
     : '';
+  const resourceContent = resource.content?.source === 'src/resources/glossary-data.js'
+    ? { bodyHtml: renderGlossaryBody(resource.locale), referencesHtml: '' }
+    : resource.content;
   return replaceTokens(template, {
     documentTitle: escapeHtml(resource.seoTitle || `${resource.title} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(resource.locale),
@@ -452,10 +468,13 @@ function renderResourcePage(resource, template, options = {}) {
     title: escapeHtml(resource.title),
     subtitle: escapeHtml(resource.subtitle),
     category: escapeHtml(resource.category),
-    bodyHtml: resource.content.bodyHtml || '<p>Resource content is being prepared.</p>',
-    referencesHtml: resource.content.referencesHtml || '',
+    bodyHtml: resourceContent.bodyHtml || '<p>Resource content is being prepared.</p>',
+    referencesHtml: resourceContent.referencesHtml || '',
     updatedAtHtml: resource.updatedAt ? `<aside class="resource-updated">${resource.locale === 'pt-BR' ? 'Última atualização' : 'Last updated'} · ${escapeHtml(formatDate(resource.updatedAt, resource.locale))}</aside>` : '',
     author: escapeHtml(siteConfig.defaultAuthor),
+    byline: escapeHtml(resource.locale === 'pt-BR'
+      ? `Por ${siteConfig.defaultAuthor} · How Public Money Works`
+      : `By ${siteConfig.defaultAuthor} · How Public Money Works`),
     languageSwitchHtml,
     jsonLdScript: `<script type="application/ld+json">\n${buildResourceJsonLd(resource, canonicalUrl)}\n</script>`,
     siteName: escapeHtml(siteConfig.siteName),
@@ -668,7 +687,7 @@ function copyReferencedPublicAssets(outputDirectory) {
       else if (/\.(?:html|css|js|xml)$/i.test(entry.name)) {
         textFiles.push(fullPath);
         const text = fs.readFileSync(fullPath, 'utf8');
-        for (const match of text.matchAll(/\/?assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) {
+        for (const match of text.matchAll(/(?<![A-Za-z0-9._/-])\/?assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) {
           assetPaths.add(`/${match[0].replace(/^\//, '')}`);
         }
       }

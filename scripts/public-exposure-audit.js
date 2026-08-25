@@ -31,7 +31,7 @@ const INTERNAL_ROUTE_PATTERN = /(?:href|src)=["']\/?(?:\.github|docs|scripts|con
 const INTERNAL_COMMENT_PATTERN = /\b(?:TODO|FIXME|DEBUG|Codex|ChatGPT|OpenAI|prompt|automation|workflow|dry[ -]?run|publication gate|review gate|npm run|git branch|commit hash)\b|[A-Za-z]:\\/i;
 const JSON_LD_KEYS = new Set([
   '@context', '@graph', '@type', '@id', 'mainEntityOfPage', 'headline', 'description', 'inLanguage',
-  'author', 'publisher', 'name', 'url', 'logo', 'datePublished', 'dateModified', 'image',
+  'author', 'publisher', 'name', 'url', 'logo', 'datePublished', 'dateModified', 'image', 'hasDefinedTerm', 'inDefinedTermSet',
   'articleSection', 'keywords', 'sameAs'
 ]);
 
@@ -142,7 +142,7 @@ function auditText(relativePath, text, assetReferences) {
       }
     }
   }
-  for (const match of text.matchAll(/\/?assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) {
+  for (const match of text.matchAll(/(?<![A-Za-z0-9._/-])\/?assets\/[A-Za-z0-9][A-Za-z0-9._/-]*/g)) {
     assetReferences.add(match[0].replace(/^\//, ''));
   }
   return errors;

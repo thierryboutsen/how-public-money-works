@@ -112,7 +112,7 @@ const TRANSLATIONS = {
     "foot-tagline": "Bringing clarity to public finance.",
     "foot-featured-link": "Latest essays",
     "foot-category-link": "By category",
-    "foot-glossary-soon": "Glossary · Coming soon",
+    "foot-glossary-link": "Glossary",
     "foot-updates-link": "Updates · Coming soon",
 
     // Blog Index specific
@@ -243,7 +243,7 @@ const TRANSLATIONS = {
     "foot-tagline": "Trazendo clareza às finanças públicas.",
     "foot-featured-link": "Artigos mais recentes",
     "foot-category-link": "Por categoria",
-    "foot-glossary-soon": "Glossário · Em breve",
+    "foot-glossary-link": "Glossário",
     "foot-updates-link": "Atualizações · Em breve",
 
     // Blog Index specific
@@ -293,7 +293,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2. Setup Bilingual Language System
   const langSwitch = document.querySelector(".lang-switch");
   const pageLanguage = document.body.getAttribute("data-content-language");
-  let currentLang = pageLanguage || localStorage.getItem("eliana-site-lang") || "en";
+  let currentLang = pageLanguage === "pt-BR"
+    ? "pt"
+    : (pageLanguage || localStorage.getItem("eliana-site-lang") || "en");
 
   const applyLanguage = (lang) => {
     if (!TRANSLATIONS[lang]) lang = "en";

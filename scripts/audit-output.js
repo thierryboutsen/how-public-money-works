@@ -11,6 +11,7 @@ const {
   absoluteUrl,
   validateDocuments
 } = require('./content-utils');
+const { RESOURCE_MANIFEST, validateResourceManifest } = require('../src/resources/manifest');
 
 const PUBLIC_BASE_FILES = new Set(['index.html', 'insights.html', '404.html']);
 
@@ -53,15 +54,24 @@ function loadAuthorizedPublishedState() {
     `${publicPathForDocument(document).replace(/^\//, '')}.html`,
     document
   ]);
+  const resourceValidation = validateResourceManifest();
+  const publishedResources = RESOURCE_MANIFEST.filter((resource) => resource.status === 'published' && resource.content?.type === 'page');
+  const resourceEntries = publishedResources.map((resource) => [
+    `${resource.route.replace(/^\//, '')}.html`,
+    resource
+  ]);
   return {
-    errors: validation.errors,
+    errors: [...validation.errors, ...resourceValidation.errors],
     warnings: validation.warnings,
     articleFiles: new Set(documentEntries.map(([file]) => file)),
     documentByFile: new Map(documentEntries),
+    resourceFiles: new Set(resourceEntries.map(([file]) => file)),
+    resourceByFile: new Map(resourceEntries),
     sitemapUrls: new Set([
       absoluteUrl('/'),
       absoluteUrl('/insights'),
-      ...published.map((document) => absoluteUrl(publicPathForDocument(document)))
+      ...published.map((document) => absoluteUrl(publicPathForDocument(document))),
+      ...publishedResources.map((resource) => absoluteUrl(resource.route))
     ])
   };
 }
@@ -89,30 +99,38 @@ function auditHtmlFile(filePath, outputDirectory, options = {}) {
     } else {
       if (countMatches(html, /<link\s+rel=["']canonical["']/gi) !== 1) errors.push('must contain exactly one canonical');
       const canonical = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)/i)?.[1] || '';
-      const expectedCanonical = options.expectedDocument ? absoluteUrl(publicPathForDocument(options.expectedDocument)) : null;
+      const expectedCanonical = options.expectedDocument
+        ? absoluteUrl(publicPathForDocument(options.expectedDocument))
+        : options.expectedResource?.canonical || null;
       if (!canonical.startsWith(siteConfig.siteOrigin)) errors.push(`canonical does not use SITE_ORIGIN: ${canonical}`);
       if (expectedCanonical && canonical !== expectedCanonical) errors.push(`canonical does not match content route: ${canonical}`);
       const ogUrl = attributeContent(html, 'property', 'og:url');
       if (!ogUrl) errors.push('missing og:url');
       else if (expectedCanonical && ogUrl !== expectedCanonical) errors.push(`og:url does not match canonical: ${ogUrl}`);
 
-      if (options.expectedDocument) {
-        const post = options.expectedDocument.data;
+      if (options.expectedDocument || options.expectedResource) {
+        const language = options.expectedDocument?.data.language || options.expectedResource.locale;
+        const alternates = options.expectedDocument
+          ? new Map([[language, publicPathForDocument(options.expectedDocument)], ...Object.entries(options.expectedDocument.data.translations)])
+          : new Map(Object.entries(options.expectedResource.hreflang).map(([locale, url]) => [locale, url.replace(siteConfig.siteOrigin, '')]));
         const htmlLanguage = html.match(/<html\s+lang=["']([^"']+)/i)?.[1] || '';
-        if (htmlLanguage !== post.language) errors.push(`html lang does not match content language: ${htmlLanguage}`);
+        if (htmlLanguage !== language) errors.push(`html lang does not match content language: ${htmlLanguage}`);
         const locale = attributeContent(html, 'property', 'og:locale');
-        if (locale !== siteConfig.localeByLanguage[post.language]) errors.push(`og:locale does not match content language: ${locale}`);
+        if (locale !== siteConfig.localeByLanguage[language]) errors.push(`og:locale does not match content language: ${locale}`);
 
-        const alternates = new Map([...html.matchAll(/<link\s+rel=["']alternate["']\s+hreflang=["']([^"']+)["']\s+href=["']([^"']+)["']/gi)].map((match) => [match[1], match[2]]));
-        const expectedAlternates = new Map([[post.language, publicPathForDocument(post)], ...Object.entries(post.translations)]);
+        const renderedAlternates = new Map([...html.matchAll(/<link\s+rel=["']alternate["']\s+hreflang=["']([^"']+)["']\s+href=["']([^"']+)["']/gi)].map((match) => [match[1], match[2]]));
+        const expectedAlternates = alternates;
         for (const [language, publicPath] of expectedAlternates) {
-          if (alternates.get(language) !== absoluteUrl(publicPath)) errors.push(`missing or incorrect hreflang ${language}`);
+          const expectedUrl = publicPath.startsWith('http') ? publicPath : absoluteUrl(publicPath);
+          if (renderedAlternates.get(language) !== expectedUrl) errors.push(`missing or incorrect hreflang ${language}`);
         }
-        const defaultPath = expectedAlternates.get('en') || publicPathForDocument(post);
-        if (alternates.get('x-default') !== absoluteUrl(defaultPath)) errors.push('missing or incorrect hreflang x-default');
+        const defaultPath = expectedAlternates.get('en') || (options.expectedDocument ? publicPathForDocument(options.expectedDocument) : options.expectedResource.route);
+        const expectedDefault = defaultPath.startsWith('http') ? defaultPath : absoluteUrl(defaultPath);
+        if (renderedAlternates.get('x-default') !== expectedDefault) errors.push('missing or incorrect hreflang x-default');
         const switchTargets = new Map([...html.matchAll(/<a\s+href=["']([^"']+)["']\s+hreflang=["']([^"']+)["'][^>]*data-lang=/gi)].map((match) => [match[2], match[1]]));
         for (const [language, publicPath] of expectedAlternates) {
-          if (switchTargets.get(language) !== publicPath) errors.push(`language switch is missing or incorrect for ${language}`);
+          const expectedPath = publicPath.startsWith('http') ? publicPath.replace(siteConfig.siteOrigin, '') : publicPath;
+          if (switchTargets.get(language) !== expectedPath) errors.push(`language switch is missing or incorrect for ${language}`);
         }
       }
     }
@@ -137,9 +155,10 @@ function auditHtmlFile(filePath, outputDirectory, options = {}) {
   for (const match of html.matchAll(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi)) {
     try {
       const jsonLd = JSON.parse(match[1].trim());
-      if (options.expectedDocument) {
-        const expectedCanonical = absoluteUrl(publicPathForDocument(options.expectedDocument));
-        if (jsonLd.inLanguage !== options.expectedDocument.data.language) errors.push(`JSON-LD inLanguage is incorrect: ${jsonLd.inLanguage}`);
+      if (options.expectedDocument || options.expectedResource) {
+        const expectedCanonical = options.expectedDocument ? absoluteUrl(publicPathForDocument(options.expectedDocument)) : options.expectedResource.canonical;
+        const expectedLanguage = options.expectedDocument?.data.language || options.expectedResource.locale;
+        if (jsonLd.inLanguage !== expectedLanguage) errors.push(`JSON-LD inLanguage is incorrect: ${jsonLd.inLanguage}`);
         if (jsonLd.mainEntityOfPage?.['@id'] !== expectedCanonical) errors.push('JSON-LD mainEntityOfPage does not match canonical');
       }
     } catch (error) {
@@ -161,7 +180,7 @@ function auditOutput(outputDirectory, options = {}) {
   const state = loadAuthorizedPublishedState();
   const errors = state.errors.map((error) => `content authorization failed: ${error}`);
   const files = listHtmlFiles(resolvedOutput);
-  const allowedPublicFiles = new Set([...PUBLIC_BASE_FILES, ...state.articleFiles]);
+  const allowedPublicFiles = new Set([...PUBLIC_BASE_FILES, ...state.articleFiles, ...state.resourceFiles]);
 
   for (const file of files) {
     const isUnexpectedArticle = !allowedPublicFiles.has(file);
@@ -170,7 +189,8 @@ function auditOutput(outputDirectory, options = {}) {
     }
     const result = auditHtmlFile(path.join(resolvedOutput, ...file.split('/')), resolvedOutput, {
       isPreviewArticle: options.preview && isUnexpectedArticle,
-      expectedDocument: state.documentByFile.get(file)
+      expectedDocument: state.documentByFile.get(file),
+      expectedResource: state.resourceByFile.get(file)
     });
     errors.push(...result.errors.map((error) => `${result.name}: ${error}`));
   }
@@ -202,6 +222,13 @@ function auditOutput(outputDirectory, options = {}) {
       for (const [language, publicPath] of alternates) {
         const expected = `hreflang="${language}" href="${absoluteUrl(publicPath)}"`;
         if (!sitemapXml.includes(expected)) errors.push(`sitemap.xml is missing alternate ${language} for ${publicPathForDocument(post)}`);
+      }
+    }
+    for (const resource of state.resourceByFile.values()) {
+      const alternates = Object.entries(resource.hreflang);
+      for (const [language, url] of [...alternates, ['x-default', resource.hreflang.en]]) {
+        const expected = `hreflang="${language}" href="${url}"`;
+        if (!sitemapXml.includes(expected)) errors.push(`sitemap.xml is missing alternate ${language} for ${resource.route}`);
       }
     }
   }

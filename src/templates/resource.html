@@ -34,7 +34,7 @@
       <div class="resource-label">{{category}}</div>
       <h1>{{title}}</h1>
       <p class="resource-subtitle">{{subtitle}}</p>
-      <p class="resource-byline">By {{author}} · How Public Money Works</p>
+      <p class="resource-byline">{{byline}}</p>
     </div>
   </section>
   <section class="resource-body">
@@ -61,8 +61,12 @@
     var active = document.querySelector('[data-glossary-filter].on');
     var category = active ? active.getAttribute('data-glossary-filter') : 'all';
     if (event && event.target.matches('[data-glossary-filter]')) {
-      document.querySelectorAll('[data-glossary-filter]').forEach(function (button) { button.classList.remove('on'); });
+      document.querySelectorAll('[data-glossary-filter]').forEach(function (button) {
+        button.classList.remove('on');
+        button.setAttribute('aria-pressed', 'false');
+      });
       event.target.classList.add('on');
+      event.target.setAttribute('aria-pressed', 'true');
       category = event.target.getAttribute('data-glossary-filter');
     }
     root.querySelectorAll('[data-glossary-term]').forEach(function (entry) {
