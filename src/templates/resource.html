@@ -49,5 +49,28 @@
 </main>
 <footer class="foot"><div class="foot-bottom"><span>{{siteName}}</span><span>How Public Money Works</span></div></footer>
 <script src="{{sharedJsPath}}"></script>
+<script>
+  document.querySelectorAll('[data-glossary-search], [data-glossary-filter]').forEach(function (control) {
+    control.addEventListener('input', filterGlossary);
+    control.addEventListener('click', filterGlossary);
+  });
+  function filterGlossary(event) {
+    var root = document.querySelector('.glossary-entries');
+    if (!root) return;
+    var search = (document.querySelector('[data-glossary-search]')?.value || '').toLowerCase().trim();
+    var active = document.querySelector('[data-glossary-filter].on');
+    var category = active ? active.getAttribute('data-glossary-filter') : 'all';
+    if (event && event.target.matches('[data-glossary-filter]')) {
+      document.querySelectorAll('[data-glossary-filter]').forEach(function (button) { button.classList.remove('on'); });
+      event.target.classList.add('on');
+      category = event.target.getAttribute('data-glossary-filter');
+    }
+    root.querySelectorAll('[data-glossary-term]').forEach(function (entry) {
+      var matchesSearch = !search || entry.getAttribute('data-glossary-term').indexOf(search) >= 0;
+      var matchesCategory = category === 'all' || entry.getAttribute('data-glossary-category') === category;
+      entry.hidden = !(matchesSearch && matchesCategory);
+    });
+  }
+</script>
 </body>
 </html>

@@ -8,6 +8,7 @@ const {
   getHomepageResources,
   validateResourceManifest
 } = require('../src/resources/manifest');
+const { GLOSSARY_EN, GLOSSARY_PT, renderGlossaryBody } = require('../src/resources/glossary-data');
 const {
   generateSitemap,
   renderIndexPage,
@@ -18,6 +19,10 @@ const {
 const valid = validateResourceManifest();
 assert(valid.pass, valid.errors.join('\n'));
 assert.strictEqual(getHomepageResources().length, 6);
+assert(GLOSSARY_EN.length >= 35 && GLOSSARY_EN.length <= 50);
+assert.strictEqual(GLOSSARY_EN.length, GLOSSARY_PT.length);
+assert(GLOSSARY_EN.every((entry) => entry.term && entry.plainEnglishDefinition && entry.whyItMatters && entry.jurisdictionNote && entry.sources.length > 0));
+assert(GLOSSARY_EN.every((entry) => entry.relatedTerms.length >= 1));
 assert.strictEqual(RESOURCE_MANIFEST.filter((resource) => resource.status === 'published').length, 3);
 
 const duplicateSlug = RESOURCE_MANIFEST.map((resource) => ({ ...resource }));
@@ -45,19 +50,22 @@ assert(sitemap.includes('/what-is-a-city-budget-and-why-should-you-care'));
 assert(sitemap.includes('/where-do-your-local-taxes-actually-go'));
 assert(!sitemap.includes('/resources/glossary-of-public-finance'));
 assert(!sitemap.includes('/resources/open-data-portals'));
+assert(!sitemap.includes('/resources/glossary-of-public-finance'));
 
 const resourceTemplate = fs.readFileSync(path.join(__dirname, '..', 'src', 'templates', 'resource.html'), 'utf8');
 const pageResource = {
-  ...RESOURCE_MANIFEST.find((resource) => resource.status === 'coming-soon'),
+  ...RESOURCE_MANIFEST.find((resource) => resource.id === 'glossary-of-public-finance-en'),
   status: 'published',
   canonical: 'https://www.luminasmart.company/resources/glossary-of-public-finance',
   hreflang: { en: 'https://www.luminasmart.company/resources/glossary-of-public-finance' },
-  content: { type: 'page', bodyHtml: '<p>Internal template placeholder.</p>' }
+  content: { type: 'page', bodyHtml: renderGlossaryBody('en') }
 };
 const pageHtml = renderResourcePage(pageResource, resourceTemplate);
 assert(pageHtml.includes('rel="canonical"'));
 assert(pageHtml.includes('application/ld+json'));
-assert(pageHtml.includes('Internal template placeholder.'));
+assert(pageHtml.includes('Glossary of Public Finance'));
+assert((pageHtml.match(/class="glossary-entry"/g) || []).length === GLOSSARY_EN.length);
+assert(pageHtml.includes('data-glossary-search'));
 assert(!pageHtml.includes('{{'));
 
 assert.strictEqual(RESOURCE_MANIFEST.filter((resource) => resource.status === 'published' && resource.content?.type === 'page').length, 0, 'no substantive resource page content is published in v1');

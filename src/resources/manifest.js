@@ -14,6 +14,10 @@ const RESOURCE_MANIFEST = Object.freeze([
     description: 'An evolving A–Z of public-finance terms, in plain English. From appropriation to zero-based budgeting.',
     subtitle: 'A reference structure for public-finance terms in plain language.',
     status: 'coming-soon',
+    contentStatus: 'draft',
+    reviewStatus: 'review',
+    seoTitle: 'Glossary of Public Finance | Lumina Smart Strategies',
+    metaDescription: 'A plain-language reference to public-finance terms used in U.S. local government budgeting, revenue, funds, debt, reporting, and oversight.',
     route: '/resources/glossary-of-public-finance',
     pairedResourceId: 'glossario-de-financas-publicas-pt-br',
     canonical: null,
@@ -23,7 +27,7 @@ const RESOURCE_MANIFEST = Object.freeze([
     publishedAt: null,
     updatedAt: null,
     action: 'Coming soon',
-    content: null
+    content: { type: 'page', source: 'src/resources/glossary-data.js' }
   },
   {
     id: 'glossario-de-financas-publicas-pt-br',
@@ -35,6 +39,10 @@ const RESOURCE_MANIFEST = Object.freeze([
     description: 'Uma estrutura de referência para termos de finanças públicas em linguagem simples.',
     subtitle: 'Uma estrutura de referência para termos de finanças públicas em linguagem simples.',
     status: 'coming-soon',
+    contentStatus: 'draft',
+    reviewStatus: 'review',
+    seoTitle: 'Glossário de Finanças Públicas | Lumina Smart Strategies',
+    metaDescription: 'Uma referência em linguagem simples para termos de finanças públicas usados no orçamento e na prestação de contas de governos locais dos EUA.',
     route: '/pt-br/resources/glossario-de-financas-publicas',
     pairedResourceId: 'glossary-of-public-finance-en',
     canonical: null,
@@ -44,7 +52,7 @@ const RESOURCE_MANIFEST = Object.freeze([
     publishedAt: null,
     updatedAt: null,
     action: 'Em breve',
-    content: null
+    content: { type: 'page', source: 'src/resources/glossary-data.js' }
   },
   {
     id: 'how-to-read-a-city-budget-en',

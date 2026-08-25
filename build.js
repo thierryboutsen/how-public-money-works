@@ -439,9 +439,9 @@ function renderResourcePage(resource, template, options = {}) {
     ? `<div class="lang-switch" aria-label="Resource language"><a href="${escapeHtml(resource.locale === 'en' ? resource.route : pair.route)}" lang="en">EN</a><span aria-hidden="true">/</span><a href="${escapeHtml(resource.locale === 'pt-BR' ? resource.route : pair.route)}" lang="pt-BR">PT-BR</a></div>`
     : '';
   return replaceTokens(template, {
-    documentTitle: escapeHtml(`${resource.title} — ${siteConfig.siteName}`),
+    documentTitle: escapeHtml(resource.seoTitle || `${resource.title} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(resource.locale),
-    metaDescription: escapeHtml(resource.description),
+    metaDescription: escapeHtml(resource.metaDescription || resource.description),
     canonicalUrl: escapeHtml(canonicalUrl),
     alternateLinks,
     ogLocale: escapeHtml(siteConfig.localeByLanguage[resource.locale]),
@@ -454,7 +454,7 @@ function renderResourcePage(resource, template, options = {}) {
     category: escapeHtml(resource.category),
     bodyHtml: resource.content.bodyHtml || '<p>Resource content is being prepared.</p>',
     referencesHtml: resource.content.referencesHtml || '',
-    updatedAtHtml: resource.updatedAt ? escapeHtml(formatDate(resource.updatedAt, resource.locale)) : '',
+    updatedAtHtml: resource.updatedAt ? `<aside class="resource-updated">${resource.locale === 'pt-BR' ? 'Última atualização' : 'Last updated'} · ${escapeHtml(formatDate(resource.updatedAt, resource.locale))}</aside>` : '',
     author: escapeHtml(siteConfig.defaultAuthor),
     languageSwitchHtml,
     jsonLdScript: `<script type="application/ld+json">\n${buildResourceJsonLd(resource, canonicalUrl)}\n</script>`,

@@ -644,6 +644,17 @@ input:focus-visible {
 .resource-content th { color: var(--ink); background: var(--bg); font-weight: 600; }
 .resource-content .resource-references { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--rule-soft); font-size: 15px; }
 .resource-updated { margin: 0; color: var(--muted); font: 11px/1.5 var(--font-ui); letter-spacing: .18em; text-transform: uppercase; }
+.glossary-tools { padding: 24px; margin-bottom: 42px; background: var(--bg); border: 1px solid var(--rule-soft); }
+.glossary-tools input { width: 100%; min-height: 46px; padding: 11px 14px; border: 1px solid var(--rule-soft); background: var(--bg-paper); font: 16px/1.3 var(--font-editorial); }
+.glossary-filters, .glossary-letters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.glossary-filters button { padding: 8px 11px; border: 1px solid var(--rule-soft); background: transparent; color: var(--ink-soft); cursor: pointer; font: 10px/1.2 var(--font-ui); letter-spacing: .12em; text-transform: uppercase; }
+.glossary-filters button.on, .glossary-filters button:hover { border-color: var(--gold); color: var(--ink); background: var(--bg-paper); }
+.glossary-letters a { color: var(--gold-deep); font: 600 12px/1 var(--font-ui); }
+.glossary-entry { padding: 28px 0; border-top: 1px solid var(--rule-soft); scroll-margin-top: 24px; }
+.glossary-entry[hidden] { display: none; }
+.glossary-entry-meta { color: var(--gold-deep); font: 10px/1.2 var(--font-ui); letter-spacing: .25em; text-transform: uppercase; }
+.glossary-entry h2 { margin-top: 10px; }
+.glossary-related { font-size: 15px; }
 @media (max-width: 760px) {
   .resource-shell { width: min(100% - 32px, 680px); }
   .resource-masthead { padding: 24px 0 58px; }
