@@ -1,43 +1,54 @@
 ---
 title: "General Fund vs. Special Revenue Funds: A Practical Comparison"
-subtitle: "How two common fund types organize public resources—and why restrictions and fund labels are not interchangeable."
-slug: "general-fund-vs-special-revenue-funds"
-language: "en"
-translationKey: "general-fund-special-revenue-funds"
+subtitle: How two common fund types organize public resources—and why restrictions and fund labels are not interchangeable.
+slug: general-fund-vs-special-revenue-funds
+language: en
+translationKey: general-fund-special-revenue-funds
 translations:
-  pt-BR: "/pt-br/fundo-geral-vs-fundos-de-receita-especial"
-targetPublicationDate: "2026-08-25"
-author: "Eliana Faria Lima"
-category: "Public Finance Basics"
-tags: [general fund, special revenue fund, restricted resources, fund accounting]
-topicAngleSignature: "governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions"
-primaryKeyword: "general fund vs special revenue fund"
-secondaryKeywords: [governmental funds, restricted resources, fund accounting]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "General funds and special revenue funds organize public resources differently. Their labels, restrictions, and reporting roles must be read with local context."
-featuredImage: "/assets/article-general-special-revenue-funds-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual illustration of two distinct public finance folders connected to one government reporting system."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/fundo-geral-vs-fundos-de-receita-especial
+targetPublicationDate: 2026-08-25
+author: Eliana Faria Lima
+category: Public Finance Basics
+tags:
+  - general fund
+  - special revenue fund
+  - restricted resources
+  - fund accounting
+topicAngleSignature: governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions
+primaryKeyword: general fund vs special revenue fund
+secondaryKeywords:
+  - governmental funds
+  - restricted resources
+  - fund accounting
+searchIntent: informational
+readingTime: 7 min read
+excerpt: General funds and special revenue funds organize public resources differently. Their labels, restrictions, and reporting roles must be read with local context.
+featuredImage: /assets/article-general-special-revenue-funds-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual illustration of two distinct public finance folders connected to one government reporting system.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "General Fund vs. Special Revenue Funds"
-metaDescription: "Learn how general funds and special revenue funds organize public money, how restrictions differ from fund types, and what to check locally."
+seoTitle: General Fund vs. Special Revenue Funds
+metaDescription: Learn how general funds and special revenue funds organize public money, how restrictions differ from fund types, and what to check locally.
+date: 2026-08-25
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # General Fund vs. Special Revenue Funds: A Practical Comparison

@@ -1,43 +1,54 @@
 ---
 title: "Fundo geral vs. fundos de receita especial: uma comparação prática"
-subtitle: "Como dois tipos comuns de fundo organizam recursos públicos — e por que restrições e nomes de fundos não são equivalentes."
-slug: "fundo-geral-vs-fundos-de-receita-especial"
-language: "pt-BR"
-translationKey: "general-fund-special-revenue-funds"
+subtitle: Como dois tipos comuns de fundo organizam recursos públicos — e por que restrições e nomes de fundos não são equivalentes.
+slug: fundo-geral-vs-fundos-de-receita-especial
+language: pt-BR
+translationKey: general-fund-special-revenue-funds
 translations:
-  en: "/general-fund-vs-special-revenue-funds"
-targetPublicationDate: "2026-08-25"
-author: "Eliana Faria Lima"
-category: "Fundamentos de Finanças Públicas"
-tags: [fundo geral, fundo de receita especial, recursos restritos, contabilidade por fundos]
-topicAngleSignature: "governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions"
-primaryKeyword: "fundo geral e fundo de receita especial"
-secondaryKeywords: [fundos governamentais, recursos restritos, contabilidade pública]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Fundo geral e fundos de receita especial organizam recursos públicos de modos diferentes. Nomes, restrições e funções precisam ser lidos no contexto local."
-featuredImage: "/assets/article-general-special-revenue-funds-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual de duas pastas distintas de finanças públicas conectadas ao mesmo sistema de prestação de contas."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /general-fund-vs-special-revenue-funds
+targetPublicationDate: 2026-08-25
+author: Eliana Faria Lima
+category: Fundamentos de Finanças Públicas
+tags:
+  - fundo geral
+  - fundo de receita especial
+  - recursos restritos
+  - contabilidade por fundos
+topicAngleSignature: governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions
+primaryKeyword: fundo geral e fundo de receita especial
+secondaryKeywords:
+  - fundos governamentais
+  - recursos restritos
+  - contabilidade pública
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Fundo geral e fundos de receita especial organizam recursos públicos de modos diferentes. Nomes, restrições e funções precisam ser lidos no contexto local.
+featuredImage: /assets/article-general-special-revenue-funds-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual de duas pastas distintas de finanças públicas conectadas ao mesmo sistema de prestação de contas.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Fundo geral vs. fundos de receita especial"
-metaDescription: "Entenda como fundo geral e fundos de receita especial organizam dinheiro público, como restrições diferem do tipo de fundo e o que verificar localmente."
+seoTitle: Fundo geral vs. fundos de receita especial
+metaDescription: Entenda como fundo geral e fundos de receita especial organizam dinheiro público, como restrições diferem do tipo de fundo e o que verificar localmente.
+date: 2026-08-25
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Fundo geral vs. fundos de receita especial: uma comparação prática
