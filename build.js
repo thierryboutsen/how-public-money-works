@@ -6,6 +6,11 @@ const crypto = require('crypto');
 const { marked } = require('marked');
 const siteConfig = require('./site.config');
 const {
+  RESOURCE_MANIFEST,
+  getHomepageResources,
+  validateResourceManifest
+} = require('./src/resources/manifest');
+const {
   ROOT_DIR,
   listMarkdownFiles,
   loadMarkdownFile,
@@ -372,6 +377,93 @@ function renderPostCards(posts) {
   </article>`).join('\n');
 }
 
+function findResourcePair(resource, resources = RESOURCE_MANIFEST) {
+  return resources.find((candidate) => candidate.id === resource.pairedResourceId) || null;
+}
+
+function localizedResourceAttributes(resource, pair, field) {
+  const localized = resource.locale === 'en' ? resource : pair;
+  const portuguese = resource.locale === 'pt-BR' ? resource : pair;
+  return `data-text-en="${escapeHtml(localized?.[field] || resource[field])}" data-text-pt="${escapeHtml(portuguese?.[field] || localized?.[field] || resource[field])}"`;
+}
+
+function renderResourceCards(resources = RESOURCE_MANIFEST) {
+  return getHomepageResources(resources).map((resource) => {
+    const pair = findResourcePair(resource, resources);
+    const isPublished = resource.status === 'published';
+    const href = isPublished ? resource.route : '';
+    const pairedPublished = pair?.status === 'published';
+    const ptHref = pairedPublished ? pair.route : href;
+    const tag = isPublished ? 'a' : 'div';
+    const linkAttributes = isPublished
+      ? ` href="${escapeHtml(href)}" data-localize-link data-href-en="${escapeHtml(href)}" data-href-pt="${escapeHtml(ptHref)}"`
+      : '';
+    const action = isPublished ? resource.action : resource.locale === 'en' ? 'Coming soon' : 'Em breve';
+    const ptAction = pairedPublished ? pair.action : resource.locale === 'en' ? 'Available in English →' : 'Disponível em inglês →';
+    return `<${tag} class="res-tile${isPublished ? '' : ' coming-soon'}"${linkAttributes} data-resource-id="${escapeHtml(resource.id)}" data-resource-status="${escapeHtml(resource.status)}">
+      <div class="kind" data-localize-text ${localizedResourceAttributes(resource, pair, 'category')}>${escapeHtml(resource.category)}</div>
+      <h3 data-localize-text ${localizedResourceAttributes(resource, pair, 'title')}>${escapeHtml(resource.title)}</h3>
+      <p data-localize-text ${localizedResourceAttributes(resource, pair, 'description')}>${escapeHtml(resource.description)}</p>
+      <div class="arrow" data-localize-text data-text-en="${escapeHtml(action)}" data-text-pt="${escapeHtml(ptAction)}">${escapeHtml(action)}</div>
+    </${tag}>`;
+  }).join('\n');
+}
+
+function buildResourceJsonLd(resource, canonicalUrl) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+    name: resource.title,
+    description: resource.description,
+    url: canonicalUrl,
+    inLanguage: resource.locale,
+    author: { '@type': 'Person', name: siteConfig.defaultAuthor, url: absoluteUrl(siteConfig.authorPath) },
+    publisher: { '@type': 'Organization', name: siteConfig.publisherName, url: absoluteUrl('/') }
+  };
+  if (resource.updatedAt) schema.dateModified = resource.updatedAt;
+  if (resource.publishedAt) schema.datePublished = resource.publishedAt;
+  return JSON.stringify(schema, null, 2).replace(/</g, '\\u003c');
+}
+
+function renderResourcePage(resource, template, options = {}) {
+  if (resource.status !== 'published') throw new Error(`${resource.id}: only published resources can be rendered`);
+  if (!resource.content) throw new Error(`${resource.id}: published resource has no content payload`);
+  const pair = findResourcePair(resource);
+  const canonicalUrl = absoluteUrl(resource.route);
+  const alternateLinks = Object.entries(resource.hreflang || {})
+    .map(([language, url]) => `<link rel="alternate" hreflang="${escapeHtml(language)}" href="${escapeHtml(url)}" />`)
+    .concat(`<link rel="alternate" hreflang="x-default" href="${escapeHtml(resource.hreflang.en || canonicalUrl)}" />`)
+    .join('\n');
+  const languageSwitchHtml = pair?.status === 'published'
+    ? `<div class="lang-switch" aria-label="Resource language"><a href="${escapeHtml(resource.locale === 'en' ? resource.route : pair.route)}" lang="en">EN</a><span aria-hidden="true">/</span><a href="${escapeHtml(resource.locale === 'pt-BR' ? resource.route : pair.route)}" lang="pt-BR">PT-BR</a></div>`
+    : '';
+  return replaceTokens(template, {
+    documentTitle: escapeHtml(`${resource.title} — ${siteConfig.siteName}`),
+    htmlLanguage: escapeHtml(resource.locale),
+    metaDescription: escapeHtml(resource.description),
+    canonicalUrl: escapeHtml(canonicalUrl),
+    alternateLinks,
+    ogLocale: escapeHtml(siteConfig.localeByLanguage[resource.locale]),
+    ogAlternateLocaleMeta: Object.keys(resource.hreflang || {})
+      .filter((language) => language !== resource.locale && siteConfig.localeByLanguage[language])
+      .map((language) => `<meta property="og:locale:alternate" content="${escapeHtml(siteConfig.localeByLanguage[language])}" />`).join('\n'),
+    ogImageUrl: escapeHtml(imageUrl(siteConfig.defaultSocialImage)),
+    title: escapeHtml(resource.title),
+    subtitle: escapeHtml(resource.subtitle),
+    category: escapeHtml(resource.category),
+    bodyHtml: resource.content.bodyHtml || '<p>Resource content is being prepared.</p>',
+    referencesHtml: resource.content.referencesHtml || '',
+    updatedAtHtml: resource.updatedAt ? escapeHtml(formatDate(resource.updatedAt, resource.locale)) : '',
+    author: escapeHtml(siteConfig.defaultAuthor),
+    languageSwitchHtml,
+    jsonLdScript: `<script type="application/ld+json">\n${buildResourceJsonLd(resource, canonicalUrl)}\n</script>`,
+    siteName: escapeHtml(siteConfig.siteName),
+    sharedCssPath: escapeHtml(options.sharedAssets?.css || createSharedAssetManifest().css),
+    sharedJsPath: escapeHtml(options.sharedAssets?.js || createSharedAssetManifest().js)
+  }, 'src/templates/resource.html');
+}
+
 function renderCategoryFilters(posts) {
   const categories = [...new Set([
     ...siteConfig.contentCategories,
@@ -497,6 +589,7 @@ function renderIndexPage(template, posts, options = {}) {
     defaultSocialImageUrl: escapeHtml(imageUrl(siteConfig.defaultSocialImage)),
     homeFeaturedPostHtml: renderHomepageFeatured(selection.featured, posts, englishCount),
     homeRecentPostsHtml: renderHomepageCards(selection.cards, posts, englishCount),
+    resourcesHtml: renderResourceCards(),
     homeJsonLd: renderHomeJsonLd(),
     sharedCssPath: escapeHtml(sharedAssets.css),
     sharedJsPath: escapeHtml(sharedAssets.js)
@@ -609,13 +702,30 @@ function copyReferencedPublicAssets(outputDirectory) {
   return publicAssets;
 }
 
-function generateSitemap(posts) {
+function generateSitemap(posts, resources = RESOURCE_MANIFEST) {
   const entries = [
     { url: absoluteUrl('/') },
     { url: absoluteUrl('/insights') },
     ...posts.map((post) => ({ url: absoluteUrl(publicPathForDocument(post)), lastmod: post.date, post }))
   ];
-  const urls = entries.map((entry) => {
+  const publishedResources = resources.filter((resource) => resource.status === 'published');
+  for (const resource of publishedResources) {
+    if (!entries.some((entry) => entry.url === absoluteUrl(resource.route))) {
+      entries.push({ url: absoluteUrl(resource.route), lastmod: resource.updatedAt || resource.publishedAt, resource });
+    }
+  }
+  const seen = new Set();
+  const urls = entries.filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  }).map((entry) => {
+    if (entry.resource) {
+      const alternates = Object.entries(entry.resource.hreflang || {});
+      const alternateXml = alternates.concat([['x-default', entry.resource.hreflang.en || entry.url]])
+        .map(([language, url]) => `\n    <xhtml:link rel="alternate" hreflang="${escapeXml(language)}" href="${escapeXml(url)}" />`).join('');
+      return `  <url>\n    <loc>${escapeXml(entry.url)}</loc>${entry.lastmod ? `\n    <lastmod>${escapeXml(entry.lastmod)}</lastmod>` : ''}${alternateXml}\n  </url>`;
+    }
     const alternates = entry.post ? new Map([[entry.post.language, publicPathForDocument(entry.post)], ...Object.entries(entry.post.translations)]) : null;
     const alternateXml = alternates
       ? [...alternates.entries(), ['x-default', alternates.get('en') || publicPathForDocument(entry.post)]]
@@ -640,6 +750,8 @@ function loadPublishedDocuments() {
 
 function buildSite() {
   const documents = loadPublishedDocuments();
+  const resourceValidation = validateResourceManifest();
+  if (!resourceValidation.pass) throw new Error(`Resources manifest validation failed:\n- ${resourceValidation.errors.join('\n- ')}`);
   documents.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
   const posts = documents.map((document) => document.data);
   const indexPosts = posts.filter((post) => post.language === siteConfig.defaultLanguage);
@@ -661,6 +773,15 @@ function buildSite() {
   }, 'src/404.html'));
   fs.writeFileSync(path.join(resolvedDist, 'index.html'), renderIndexPage(indexTemplate, posts, { sharedAssets }));
 
+  const resourceTemplate = fs.readFileSync(path.join(SRC_DIR, 'templates', 'resource.html'), 'utf8');
+  RESOURCE_MANIFEST
+    .filter((resource) => resource.status === 'published' && resource.content?.type === 'page')
+    .forEach((resource) => {
+      const outputPath = path.join(resolvedDist, `${resource.route.replace(/^\//, '')}.html`);
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+      fs.writeFileSync(outputPath, renderResourcePage(resource, resourceTemplate, { sharedAssets }));
+    });
+
   documents.forEach((document) => {
     const sameLanguagePosts = posts.filter((post) => post.language === document.data.language);
     const languageIndex = sameLanguagePosts.findIndex((post) => post.slug === document.data.slug);
@@ -672,7 +793,7 @@ function buildSite() {
   });
 
   fs.writeFileSync(path.join(resolvedDist, 'insights.html'), renderInsightsPage(indexPosts, insightsTemplate, { sharedAssets }));
-  fs.writeFileSync(path.join(resolvedDist, 'sitemap.xml'), generateSitemap(posts));
+  fs.writeFileSync(path.join(resolvedDist, 'sitemap.xml'), generateSitemap(posts, RESOURCE_MANIFEST));
   fs.writeFileSync(path.join(resolvedDist, 'robots.txt'), generateRobots());
   const publicAssets = copyReferencedPublicAssets(resolvedDist);
 
@@ -694,6 +815,9 @@ module.exports = {
   renderPostPage,
   renderInsightsPage,
   renderIndexPage,
+  renderResourceCards,
+  renderResourcePage,
+  findResourcePair,
   selectHomepagePosts,
   createSharedAssetManifest,
   contentFingerprint,
