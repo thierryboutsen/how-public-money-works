@@ -46,6 +46,12 @@ coveredTopics:
     status: covered
     relatedSlug: property-taxes-assessment-levy-bill
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Public Finance Basics
+    subtopic: "General Fund vs. Special Revenue Funds: A Practical Comparison"
+    angle: governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions
+    status: covered
+    relatedSlug: general-fund-vs-special-revenue-funds
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

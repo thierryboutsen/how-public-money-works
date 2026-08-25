@@ -246,3 +246,33 @@ articles:
     recoveryScheduledDate: 2026-08-23
     recoveryReason: scheduler deployment incident
     actualPublishedAt: 2026-08-23
+  - slug: fundo-geral-vs-fundos-de-receita-especial
+    title: "Fundo geral vs. fundos de receita especial: uma comparação prática"
+    language: pt-BR
+    status: published
+    publishDate: 2026-08-25
+    category: Fundamentos de Finanças Públicas
+    tags:
+      - fundo geral
+      - fundo de receita especial
+      - recursos restritos
+      - contabilidade por fundos
+    duplicateCheckSignature: governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-08-25
+  - slug: general-fund-vs-special-revenue-funds
+    title: "General Fund vs. Special Revenue Funds: A Practical Comparison"
+    language: en
+    status: published
+    publishDate: 2026-08-25
+    category: Public Finance Basics
+    tags:
+      - general fund
+      - special revenue fund
+      - restricted resources
+      - fund accounting
+    duplicateCheckSignature: governmental-funds|compare-resource-organization|general-fund-special-revenue-and-restrictions
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-08-25

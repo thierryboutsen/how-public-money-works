@@ -73,12 +73,15 @@ slots:
     recoveredArticleSlug: property-taxes-assessment-levy-bill
   - date: 2026-08-25
     slot: Tuesday
-    status: selected
+    status: published
     plannedTopic: "General Fund vs. Special Revenue Funds: A Practical Comparison"
     articleSlug: general-fund-vs-special-revenue-funds
     backupTopic: Why Governments Use Restricted Revenue
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-08-25
   - date: 2026-08-27
     slot: Thursday
     status: selected
