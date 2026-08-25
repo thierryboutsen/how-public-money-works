@@ -57,11 +57,12 @@ assert.deepStrictEqual(scheduledDayCheck('2026-08-11'), { pass: true, detail: { 
 assert.deepStrictEqual(scheduledDayCheck('2026-08-13'), { pass: true, detail: { targetDate: '2026-08-13', targetDay: 'Thursday' } });
 assert.strictEqual(slotLabelForEvaluation({ schedule: thursdayAfterCutoff }), 'Thursday', 'displayed label must use the real Thursday slot');
 const exactTuesdayPair = selectNextPreparedPair('2026-08-25', new Set(), { exactSlotOnly: true });
+assert.ok(exactTuesdayPair, 'an exact reserved pair must be returned for a prepared slot');
 const exactTuesdayEnglish = exactTuesdayPair.find((document) => document.data.language === 'en') || exactTuesdayPair[0];
-assert.strictEqual(exactTuesdayEnglish.data.slug, 'general-fund-vs-special-revenue-funds', 'scheduled execution must select only the pair reserved for the exact slot date');
+assert.strictEqual(exactTuesdayEnglish.data.targetPublicationDate, '2026-08-25', 'scheduled execution must select only the pair reserved for the exact slot date');
 const exactThursdayPair = selectNextPreparedPair('2026-08-20', new Set(), { exactSlotOnly: true });
-const exactThursdayEnglish = exactThursdayPair.find((document) => document.data.language === 'en') || exactThursdayPair[0];
-assert.strictEqual(exactThursdayEnglish.data.slug, 'property-taxes-assessment-levy-bill', 'Thursday execution must select its exact reserved pair even when Tuesday remains in review');
+assert.doesNotThrow(() => selectNextPreparedPair('2026-08-20', new Set(), { exactSlotOnly: true }), 'a consumed historical reservation must not throw');
+assert.strictEqual(exactThursdayPair, null, 'a consumed historical reservation must not be selected as prepared content');
 assert.strictEqual(selectNextPreparedPair('2026-08-18', new Set(['annual-financial-report-local-government']), { exactSlotOnly: true }), null, 'a consumed slot must not fall through to another pair');
 assert.strictEqual(selectNextPreparedPair('2026-08-19', new Set(), { exactSlotOnly: true }), null, 'a date without an exact reservation must not consume overdue inventory');
 const humanApproved = JSON.parse(JSON.stringify(allPass));
