@@ -100,6 +100,7 @@ const heroImageCardRule = heroImageCardRules[0] || '';
 assert(/position:\s*relative;/.test(heroImageCardRule) && /align-self:\s*flex-end;/.test(heroImageCardRule), 'desktop editorial card must remain in normal flow below the hero image');
 assert(!/position:\s*absolute;/.test(heroImageCardRule), 'homepage editorial card must never return to absolute overlay positioning');
 assert(heroImageCardRules.some((rule) => /align-self:\s*stretch;/.test(rule) && /width:\s*100%;/.test(rule)), 'mobile editorial card must stack at full available width without overlap');
+assert(!template.includes('data-translate="hero-caption"'), 'homepage hero image must not render a caption overlay');
 
 const firstManifest = createSharedAssetManifest();
 const secondManifest = createSharedAssetManifest();
