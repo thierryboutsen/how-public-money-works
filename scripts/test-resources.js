@@ -76,10 +76,20 @@ assert((pageHtml.match(/class="glossary-entry"/g) || []).length === GLOSSARY_EN.
 assert(pageHtml.includes('data-glossary-search'));
 assert(pageHtml.includes('DefinedTermSet'));
 assert(pageHtml.includes('reasonable assurance'));
+assert(pageHtml.includes('<nav class="nav civic" aria-label="Primary navigation">'), 'resource pages must include the Lumina global navigation');
+assert(pageHtml.includes('href="/#services" data-translate="nav-focus"'), 'resource navigation must link back to the homepage Focus section');
+assert(pageHtml.includes('href="/insights" data-translate="nav-insights"'), 'resource navigation must link to Insights');
+assert(pageHtml.includes('href="/#newsletter-section" data-translate="nav-subscribe"'), 'resource navigation must link to Updates');
+assert(pageHtml.includes('class="menu-toggle"'), 'resource navigation must include the responsive menu toggle');
+assert.strictEqual((pageHtml.match(/class="lang-switch"/g) || []).length, 1, 'resource pages must render exactly one language switcher');
+assert(!pageHtml.includes('class="resource-topline"'), 'legacy resource topline must not duplicate the global navigation');
 assert(!pageHtml.includes('{{'));
 
 const ptPageHtml = renderResourcePage(glossaryPt, resourceTemplate);
 assert(ptPageHtml.includes('Glossário de Finanças Públicas'));
 assert(ptPageHtml.includes('lang="pt-BR"'));
+assert(ptPageHtml.includes('<nav class="nav civic" aria-label="Primary navigation">'));
+assert(ptPageHtml.includes('href="/resources/glossary-of-public-finance" hreflang="en"'), 'PT-BR resource navigation must link to the English pair');
+assert.strictEqual((ptPageHtml.match(/class="lang-switch"/g) || []).length, 1);
 assert((ptPageHtml.match(/class="glossary-entry"/g) || []).length === GLOSSARY_PT.length);
-console.log('Resources architecture tests passed: manifest, pairs, homepage cards, routes, sitemap, and resource template.');
+console.log('Resources architecture tests passed: manifest, pairs, homepage cards, routes, sitemap, global navigation, and resource template.');

@@ -625,9 +625,7 @@ input:focus-visible {
 /* ----- Permanent resource pages ----- */
 .resource-page { background: var(--bg); color: var(--ink); }
 .resource-shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
-.resource-masthead { background: var(--bg-deep); color: var(--ivory); padding: 34px 0 86px; }
-.resource-topline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 92px; font: 500 11px/1.2 var(--font-ui); letter-spacing: .22em; text-transform: uppercase; }
-.resource-topline a { color: var(--ivory); }
+.resource-masthead { background: var(--bg-deep); color: var(--ivory); padding: 64px 0 86px; }
 .resource-label { color: var(--gold-soft); font: 500 11px/1.2 var(--font-ui); letter-spacing: .3em; text-transform: uppercase; margin-bottom: 22px; }
 .resource-masthead h1 { max-width: 860px; margin: 0 0 24px; color: var(--ivory); font: 500 clamp(44px, 7vw, 84px)/1.04 var(--font-display); letter-spacing: -.02em; }
 .resource-subtitle { max-width: 680px; margin: 0; color: var(--ivory-soft); font: italic 21px/1.5 var(--font-editorial); }
@@ -650,15 +648,14 @@ input:focus-visible {
 .glossary-filters button { padding: 8px 11px; border: 1px solid var(--rule-soft); background: transparent; color: var(--ink-soft); cursor: pointer; font: 10px/1.2 var(--font-ui); letter-spacing: .12em; text-transform: uppercase; }
 .glossary-filters button.on, .glossary-filters button:hover { border-color: var(--gold); color: var(--ink); background: var(--bg-paper); }
 .glossary-letters a { color: var(--gold-deep); font: 600 12px/1 var(--font-ui); }
-.glossary-entry { padding: 28px 0; border-top: 1px solid var(--rule-soft); scroll-margin-top: 24px; }
+.glossary-entry { padding: 28px 0; border-top: 1px solid var(--rule-soft); scroll-margin-top: 104px; }
 .glossary-entry[hidden] { display: none; }
 .glossary-entry-meta { color: var(--gold-deep); font: 10px/1.2 var(--font-ui); letter-spacing: .25em; text-transform: uppercase; }
 .glossary-entry h2 { margin-top: 10px; }
 .glossary-related { font-size: 15px; }
 @media (max-width: 760px) {
   .resource-shell { width: min(100% - 32px, 680px); }
-  .resource-masthead { padding: 24px 0 58px; }
-  .resource-topline { margin-bottom: 62px; }
+  .resource-masthead { padding: 42px 0 58px; }
   .resource-masthead h1 { font-size: clamp(42px, 13vw, 64px); }
   .resource-subtitle { font-size: 18px; }
   .resource-body { padding: 54px 0 76px; }
