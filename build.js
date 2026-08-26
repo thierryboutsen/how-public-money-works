@@ -11,6 +11,7 @@ const {
   validateResourceManifest
 } = require('./src/resources/manifest');
 const { renderGlossaryBody, GLOSSARY_EN, GLOSSARY_PT } = require('./src/resources/glossary-data');
+const { renderAnnualReportsBody } = require('./src/resources/annual-reports-data');
 const {
   ROOT_DIR,
   listMarkdownFiles,
@@ -453,7 +454,9 @@ function renderResourcePage(resource, template, options = {}) {
     : '';
   const resourceContent = resource.content?.source === 'src/resources/glossary-data.js'
     ? { bodyHtml: renderGlossaryBody(resource.locale), referencesHtml: '' }
-    : resource.content;
+    : resource.content?.source === 'src/resources/annual-reports-data.js'
+      ? renderAnnualReportsBody(resource.locale)
+      : resource.content;
   return replaceTokens(template, {
     documentTitle: escapeHtml(resource.seoTitle || `${resource.title} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(resource.locale),

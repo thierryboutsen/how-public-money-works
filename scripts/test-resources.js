@@ -10,6 +10,7 @@ const {
   validateResourceManifest
 } = require('../src/resources/manifest');
 const { GLOSSARY_EN, GLOSSARY_PT, renderGlossaryBody } = require('../src/resources/glossary-data');
+const { SOURCE_LINKS, renderAnnualReportsBody } = require('../src/resources/annual-reports-data');
 const {
   generateSitemap,
   renderIndexPage,
@@ -36,6 +37,43 @@ assert.strictEqual(glossaryPt.pairedResourceId, glossaryEn.id);
 assert.strictEqual(glossaryEn.hreflang['pt-BR'], glossaryPt.canonical);
 assert.strictEqual(glossaryPt.hreflang.en, glossaryEn.canonical);
 
+const annualEn = RESOURCE_MANIFEST.find((resource) => resource.id === 'annual-reports-where-to-find-them-en');
+const annualPt = RESOURCE_MANIFEST.find((resource) => resource.id === 'relatorios-anuais-onde-encontrar-pt-br');
+assert(annualEn && annualPt, 'Annual Reports EN/PT resources must exist');
+assert.strictEqual(annualEn.status, 'coming-soon');
+assert.strictEqual(annualPt.status, 'coming-soon');
+assert.strictEqual(annualEn.contentStatus, 'draft');
+assert.strictEqual(annualPt.reviewStatus, 'draft');
+assert.strictEqual(annualEn.canonical, null);
+assert.strictEqual(annualPt.canonical, null);
+assert.deepStrictEqual(annualEn.hreflang, {});
+assert.deepStrictEqual(annualPt.hreflang, {});
+assert.strictEqual(annualEn.content.source, 'src/resources/annual-reports-data.js');
+assert.strictEqual(annualPt.content.source, 'src/resources/annual-reports-data.js');
+assert.strictEqual(annualEn.pairedResourceId, annualPt.id);
+assert.strictEqual(annualPt.pairedResourceId, annualEn.id);
+
+const annualEnContent = renderAnnualReportsBody('en');
+const annualPtContent = renderAnnualReportsBody('pt-BR');
+assert(annualEnContent.bodyHtml.includes('Start with the report name'));
+assert(annualEnContent.bodyHtml.includes('Official examples by government level'));
+assert(annualEnContent.bodyHtml.includes('ACFR vs. budget vs. PAFR'));
+assert(annualEnContent.bodyHtml.includes('Using EMMA'));
+assert(annualEnContent.bodyHtml.includes('A practical search sequence'));
+assert(annualEnContent.bodyHtml.includes('class="resource-table-wrap"'));
+assert(annualPtContent.bodyHtml.includes('Comece pelo nome do relatório'));
+assert(annualPtContent.bodyHtml.includes('Exemplos oficiais por nível de governo'));
+assert(annualPtContent.bodyHtml.includes('ACFR x orçamento x PAFR'));
+assert(annualPtContent.bodyHtml.includes('Como usar o EMMA'));
+assert(annualPtContent.bodyHtml.includes('Sequência prática de busca'));
+assert(Object.values(SOURCE_LINKS).every((url) => /^https:\/\//.test(url)), 'Annual Reports references must use HTTPS primary-source links');
+assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.milwaukeeCity));
+assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.nyc));
+assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.marinCounty));
+assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.illinois));
+assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.northCarolina));
+assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.emma));
+
 const duplicateSlug = RESOURCE_MANIFEST.map((resource) => ({ ...resource }));
 duplicateSlug.push({ ...duplicateSlug[0], id: 'duplicate-resource', pairedResourceId: duplicateSlug[1].id });
 assert(validateResourceManifest(duplicateSlug).errors.some((error) => /duplicate slug/.test(error)), 'duplicate slugs must fail');
@@ -51,6 +89,7 @@ assert(renderedCards.includes('data-resource-status="coming-soon"'));
 assert(renderedCards.includes('href="/resources/glossary-of-public-finance"'), 'published glossary must receive an English link');
 assert(renderedCards.includes('data-href-pt="/pt-br/resources/glossario-de-financas-publicas"'), 'published glossary must receive a Portuguese link');
 assert(!renderedCards.includes('href="/resources/open-data-portals"'), 'remaining coming-soon resources must not receive public links');
+assert(!renderedCards.includes('href="/resources/annual-reports-where-to-find-them"'), 'Annual Reports must remain non-clickable while coming-soon');
 assert(renderedCards.includes('href="/what-is-a-city-budget-and-why-should-you-care"'));
 assert(renderedCards.includes('href="/where-do-your-local-taxes-actually-go"'));
 
@@ -66,8 +105,52 @@ assert(sitemap.includes('/pt-br/resources/glossario-de-financas-publicas'));
 assert(!sitemap.includes('/resources/open-data-portals'));
 assert(!sitemap.includes('/resources/civic-finance-reading-list'));
 assert(!sitemap.includes('/resources/annual-reports-where-to-find-them'));
+assert(!sitemap.includes('/pt-br/resources/relatorios-anuais-onde-encontrar'));
 
 const resourceTemplate = fs.readFileSync(path.join(__dirname, '..', 'src', 'templates', 'resource.html'), 'utf8');
+const resourceCss = fs.readFileSync(path.join(__dirname, '..', 'src', 'shared', 'base.css'), 'utf8');
+assert(resourceCss.includes('.resource-table-wrap { max-width: 100%; overflow-x: auto;'), 'resource tables must be horizontally scrollable on narrow screens');
+
+const annualCanonicalEn = 'https://www.luminasmart.company/resources/annual-reports-where-to-find-them';
+const annualCanonicalPt = 'https://www.luminasmart.company/pt-br/resources/relatorios-anuais-onde-encontrar';
+const annualPreviewEn = {
+  ...annualEn,
+  status: 'published',
+  contentStatus: 'approved',
+  reviewStatus: 'approved',
+  canonical: annualCanonicalEn,
+  hreflang: { en: annualCanonicalEn, 'pt-BR': annualCanonicalPt },
+  publishedAt: '2026-08-26',
+  updatedAt: '2026-08-26'
+};
+const annualPreviewPt = {
+  ...annualPt,
+  status: 'published',
+  contentStatus: 'approved',
+  reviewStatus: 'approved',
+  canonical: annualCanonicalPt,
+  hreflang: { en: annualCanonicalEn, 'pt-BR': annualCanonicalPt },
+  publishedAt: '2026-08-26',
+  updatedAt: '2026-08-26'
+};
+const annualPreviewEnHtml = renderResourcePage(annualPreviewEn, resourceTemplate);
+const annualPreviewPtHtml = renderResourcePage(annualPreviewPt, resourceTemplate);
+assert(annualPreviewEnHtml.includes('Annual Reports — Where to Find Them'));
+assert(annualPreviewEnHtml.includes('Start with the report name'));
+assert(annualPreviewEnHtml.includes('Official examples by government level'));
+assert(annualPreviewEnHtml.includes(SOURCE_LINKS.milwaukeeCity));
+assert(annualPreviewEnHtml.includes(SOURCE_LINKS.illinois));
+assert(annualPreviewEnHtml.includes(SOURCE_LINKS.northCarolina));
+assert(annualPreviewEnHtml.includes('<table>'));
+assert(annualPreviewEnHtml.includes('rel="canonical"'));
+assert(annualPreviewEnHtml.includes('application/ld+json'));
+assert(!annualPreviewEnHtml.includes('{{'));
+assert(annualPreviewPtHtml.includes('Relatórios Anuais — Onde Encontrá-los'));
+assert(annualPreviewPtHtml.includes('Comece pelo nome do relatório'));
+assert(annualPreviewPtHtml.includes('Exemplos oficiais por nível de governo'));
+assert(annualPreviewPtHtml.includes('lang="pt-BR"'));
+assert(!annualPreviewPtHtml.includes('{{'));
+
 const pageResource = glossaryEn;
 const pageHtml = renderResourcePage(pageResource, resourceTemplate);
 assert(pageHtml.includes('rel="canonical"'));

@@ -244,9 +244,13 @@ const RESOURCE_MANIFEST = Object.freeze([
     title: 'Annual Reports — Where to Find Them',
     shortTitle: 'Where to Find Annual Reports',
     category: 'Directory',
-    description: 'A directory structure for comprehensive annual financial reports from U.S. cities, counties, and states.',
-    subtitle: 'A prepared directory structure for annual financial reports.',
+    description: 'A practical guide to finding official annual financial reports from U.S. cities, counties, and states — and verifying what you found.',
+    subtitle: 'Find official annual financial reports and verify the government, fiscal year, report type, and source.',
     status: 'coming-soon',
+    contentStatus: 'draft',
+    reviewStatus: 'draft',
+    seoTitle: 'Annual Reports — Where to Find Them | Lumina Smart Strategies',
+    metaDescription: 'A practical guide to finding official U.S. state and local annual financial reports, including ACFRs, audited statements, PAFRs, and EMMA disclosures.',
     route: '/resources/annual-reports-where-to-find-them',
     pairedResourceId: 'relatorios-anuais-onde-encontrar-pt-br',
     canonical: null,
@@ -256,7 +260,7 @@ const RESOURCE_MANIFEST = Object.freeze([
     publishedAt: null,
     updatedAt: null,
     action: 'Coming soon',
-    content: null
+    content: { type: 'page', source: 'src/resources/annual-reports-data.js' }
   },
   {
     id: 'relatorios-anuais-onde-encontrar-pt-br',
@@ -265,9 +269,13 @@ const RESOURCE_MANIFEST = Object.freeze([
     title: 'Relatórios Anuais — Onde Encontrá-los',
     shortTitle: 'Onde Encontrar Relatórios Anuais',
     category: 'Diretório',
-    description: 'Uma estrutura preparada para organizar relatórios financeiros anuais abrangentes.',
-    subtitle: 'Uma estrutura preparada para organizar relatórios financeiros anuais abrangentes.',
+    description: 'Um guia prático para encontrar relatórios financeiros anuais oficiais de cidades, counties e estados dos EUA — e verificar o documento encontrado.',
+    subtitle: 'Encontre relatórios financeiros anuais oficiais e confirme governo, exercício fiscal, tipo de relatório e fonte.',
     status: 'coming-soon',
+    contentStatus: 'draft',
+    reviewStatus: 'draft',
+    seoTitle: 'Relatórios Anuais — Onde Encontrá-los | Lumina Smart Strategies',
+    metaDescription: 'Um guia prático para encontrar relatórios financeiros anuais oficiais de governos estaduais e locais dos EUA, incluindo ACFR, demonstrações auditadas, PAFR e disclosures no EMMA.',
     route: '/pt-br/resources/relatorios-anuais-onde-encontrar',
     pairedResourceId: 'annual-reports-where-to-find-them-en',
     canonical: null,
@@ -277,7 +285,7 @@ const RESOURCE_MANIFEST = Object.freeze([
     publishedAt: null,
     updatedAt: null,
     action: 'Em breve',
-    content: null
+    content: { type: 'page', source: 'src/resources/annual-reports-data.js' }
   }
 ]);
 
