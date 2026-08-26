@@ -72,7 +72,8 @@ assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.nyc));
 assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.marinCounty));
 assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.illinois));
 assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.northCarolina));
-assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.emma));
+assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.emmaAbout));
+assert(annualEnContent.bodyHtml.includes(SOURCE_LINKS.emmaPortal));
 
 const duplicateSlug = RESOURCE_MANIFEST.map((resource) => ({ ...resource }));
 duplicateSlug.push({ ...duplicateSlug[0], id: 'duplicate-resource', pairedResourceId: duplicateSlug[1].id });
