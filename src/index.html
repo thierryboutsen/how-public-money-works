@@ -110,19 +110,24 @@
   /* Right column — image with caption card */
   .hero-civic .image-wrap {
     position: relative;
-    height: 580px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
   }
   .hero-civic .image-wrap .photo-slot {
-    height: 100%; width: 100%;
+    height: 520px;
+    width: 100%;
   }
   .hero-civic .image-card {
-    position: absolute;
-    left: -40px;
-    bottom: 40px;
+    position: relative;
+    inset: auto;
+    align-self: flex-end;
+    width: min(100%, 420px);
     background: #FBF7EC;
     border: 1px solid #E8DFC9;
     padding: 24px 28px;
-    max-width: 340px;
     box-shadow: 0 20px 50px rgba(12, 26, 44, 0.08);
   }
   .hero-civic .image-card .label {
@@ -581,12 +586,15 @@
       min-height: auto;
     }
     .hero-civic .image-wrap {
+      height: auto;
+      gap: 16px;
+    }
+    .hero-civic .image-wrap .photo-slot {
       height: 400px;
     }
     .hero-civic .image-card {
-      left: 20px;
-      bottom: 20px;
-      max-width: calc(100% - 40px);
+      align-self: flex-start;
+      width: min(100%, 520px);
     }
     .areas-civic {
       padding: 64px 0;
@@ -707,11 +715,17 @@
     .hero-civic .actions .btn-link { justify-content: center; min-height: 44px; }
     .hero-civic .strip { gap: 12px 16px; padding-top: 20px; font-size: 9.5px; letter-spacing: 0.18em; }
     .hero-civic .strip .sep { width: 12px; }
-    .hero-civic .image-wrap { height: clamp(320px, 105vw, 410px); }
+    .hero-civic .image-wrap {
+      height: auto;
+      gap: 16px;
+    }
+    .hero-civic .image-wrap .photo-slot {
+      height: auto;
+      aspect-ratio: 4 / 3;
+    }
     .hero-civic .image-card {
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
+      align-self: stretch;
+      width: 100%;
       max-width: none;
       padding: 18px 20px;
     }
