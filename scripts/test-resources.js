@@ -3,6 +3,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 const {
   RESOURCE_MANIFEST,
   getHomepageResources,
@@ -74,6 +75,11 @@ assert(pageHtml.includes('application/ld+json'));
 assert(pageHtml.includes('Glossary of Public Finance'));
 assert((pageHtml.match(/class="glossary-entry"/g) || []).length === GLOSSARY_EN.length);
 assert(pageHtml.includes('data-glossary-search'));
+assert(pageHtml.includes('aria-label="Filter by initial letter"'), 'English glossary must expose the letter filter accessibly');
+assert(pageHtml.includes('<button type="button" aria-pressed="false" data-glossary-letter="A">A</button>'), 'glossary letters must render as filter buttons');
+assert(pageHtml.includes('data-glossary-letter="A"'), 'glossary entries must expose their initial letter');
+assert(resourceTemplate.includes("var matchesLetter = letter === 'all' || entry.getAttribute('data-glossary-letter') === letter;"), 'resource template must combine letter filtering with search and category filters');
+assert(resourceTemplate.includes('resetGlossaryLetters()'), 'resource template must support clearing the active letter filter');
 assert(pageHtml.includes('DefinedTermSet'));
 assert(pageHtml.includes('reasonable assurance'));
 assert(pageHtml.includes('<nav class="nav civic" aria-label="Primary navigation">'), 'resource pages must include the Lumina global navigation');
@@ -85,11 +91,104 @@ assert.strictEqual((pageHtml.match(/class="lang-switch"/g) || []).length, 1, 're
 assert(!pageHtml.includes('class="resource-topline"'), 'legacy resource topline must not duplicate the global navigation');
 assert(!pageHtml.includes('{{'));
 
+const inlineScripts = [...pageHtml.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+const glossaryScript = inlineScripts[inlineScripts.length - 1]?.[1];
+assert(glossaryScript && glossaryScript.includes('filterGlossary'), 'rendered resource page must include the glossary filter script');
+
+function createGlossaryControl(kind, attributeName, attributeValue, active = false) {
+  const attributes = {};
+  if (attributeName) attributes[attributeName] = attributeValue;
+  attributes['aria-pressed'] = active ? 'true' : 'false';
+  const classes = new Set(active ? ['on'] : []);
+  const listeners = {};
+  return {
+    kind,
+    value: '',
+    listeners,
+    classList: {
+      add: (name) => classes.add(name),
+      remove: (name) => classes.delete(name),
+      contains: (name) => classes.has(name)
+    },
+    addEventListener(type, handler) { listeners[type] = handler; },
+    getAttribute(name) { return Object.prototype.hasOwnProperty.call(attributes, name) ? attributes[name] : null; },
+    setAttribute(name, value) { attributes[name] = String(value); },
+    matches(selector) {
+      return (kind === 'category' && selector === '[data-glossary-filter]')
+        || (kind === 'letter' && selector === '[data-glossary-letter]');
+    }
+  };
+}
+
+const searchControl = createGlossaryControl('search');
+const categoryControls = ['all', ...new Set(GLOSSARY_EN.map((entry) => entry.category))]
+  .map((category) => createGlossaryControl('category', 'data-glossary-filter', category, category === 'all'));
+const letterControls = [...new Set(GLOSSARY_EN.map((entry) => entry.term[0].toUpperCase()))].sort()
+  .map((letter) => createGlossaryControl('letter', 'data-glossary-letter', letter));
+const glossaryEntryNodes = GLOSSARY_EN.map((entry) => ({
+  hidden: false,
+  getAttribute(name) {
+    if (name === 'data-glossary-term') return entry.term.toLowerCase();
+    if (name === 'data-glossary-category') return entry.category;
+    if (name === 'data-glossary-letter') return entry.term[0].toUpperCase();
+    return null;
+  }
+}));
+const glossaryRoot = {
+  querySelectorAll(selector) {
+    return selector === '[data-glossary-term]' ? glossaryEntryNodes : [];
+  }
+};
+const fakeDocument = {
+  querySelectorAll(selector) {
+    if (selector === '[data-glossary-search]') return [searchControl];
+    if (selector === '[data-glossary-filter], [data-glossary-letter]') return [...categoryControls, ...letterControls];
+    if (selector === '[data-glossary-letter]') return letterControls;
+    if (selector === '[data-glossary-filter]') return categoryControls;
+    return [];
+  },
+  querySelector(selector) {
+    if (selector === '.glossary-entries') return glossaryRoot;
+    if (selector === '[data-glossary-search]') return searchControl;
+    if (selector === '[data-glossary-filter].on') return categoryControls.find((control) => control.classList.contains('on')) || null;
+    if (selector === '[data-glossary-letter].on') return letterControls.find((control) => control.classList.contains('on')) || null;
+    return null;
+  }
+};
+
+vm.runInNewContext(glossaryScript, { document: fakeDocument });
+const clickControl = (control) => control.listeners.click({ target: control });
+const visibleEntries = () => glossaryEntryNodes.filter((entry) => !entry.hidden);
+const letterR = letterControls.find((control) => control.getAttribute('data-glossary-letter') === 'R');
+assert(letterR, 'R letter control must exist');
+clickControl(letterR);
+assert(visibleEntries().length > 0, 'letter filter must leave matching terms visible');
+assert(visibleEntries().every((entry) => entry.getAttribute('data-glossary-letter') === 'R'), 'R filter must hide terms beginning with other letters');
+assert.strictEqual(letterR.getAttribute('aria-pressed'), 'true');
+clickControl(letterR);
+assert.strictEqual(visibleEntries().length, GLOSSARY_EN.length, 'clicking the active letter again must clear the letter filter');
+
+clickControl(letterR);
+const revenuesControl = categoryControls.find((control) => control.getAttribute('data-glossary-filter') === 'Revenues & Taxes');
+clickControl(revenuesControl);
+assert(visibleEntries().length > 0, 'combined category and letter filters must keep matching terms visible');
+assert(visibleEntries().every((entry) => entry.getAttribute('data-glossary-letter') === 'R' && entry.getAttribute('data-glossary-category') === 'Revenues & Taxes'), 'letter and category filters must combine');
+const allControl = categoryControls.find((control) => control.getAttribute('data-glossary-filter') === 'all');
+clickControl(allControl);
+assert.strictEqual(visibleEntries().length, GLOSSARY_EN.length, 'All category must clear the active letter filter');
+assert.strictEqual(letterR.getAttribute('aria-pressed'), 'false');
+
+searchControl.value = 'revenue';
+searchControl.listeners.input({ target: searchControl });
+assert(visibleEntries().length > 0, 'search must still work after letter filtering is introduced');
+assert(visibleEntries().every((entry) => entry.getAttribute('data-glossary-term').includes('revenue')), 'search results must still match the query');
+
 const ptPageHtml = renderResourcePage(glossaryPt, resourceTemplate);
 assert(ptPageHtml.includes('Glossário de Finanças Públicas'));
 assert(ptPageHtml.includes('lang="pt-BR"'));
+assert(ptPageHtml.includes('aria-label="Filtrar pela letra inicial"'), 'PT-BR glossary must expose the letter filter accessibly');
 assert(ptPageHtml.includes('<nav class="nav civic" aria-label="Primary navigation">'));
 assert(ptPageHtml.includes('href="/resources/glossary-of-public-finance" hreflang="en"'), 'PT-BR resource navigation must link to the English pair');
 assert.strictEqual((ptPageHtml.match(/class="lang-switch"/g) || []).length, 1);
 assert((ptPageHtml.match(/class="glossary-entry"/g) || []).length === GLOSSARY_PT.length);
-console.log('Resources architecture tests passed: manifest, pairs, homepage cards, routes, sitemap, global navigation, and resource template.');
+console.log('Resources architecture tests passed: manifest, pairs, homepage cards, routes, sitemap, global navigation, glossary letter filtering, and resource template.');

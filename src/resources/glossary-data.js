@@ -279,11 +279,11 @@ function renderGlossaryBody(locale = 'en') {
   const categories = [...new Set(entries.map((entry) => entry.category))];
   const letters = [...new Set(entries.map((entry) => entry.term[0].toUpperCase()))].sort();
   const labels = locale === 'pt-BR'
-    ? { search: 'Buscar um termo', all: 'Todos', why: 'Por que importa', note: 'Nota de jurisdição', related: 'Termos relacionados', sources: 'Fontes' }
-    : { search: 'Search the glossary', all: 'All', why: 'Why it matters', note: 'Jurisdiction note', related: 'Related terms', sources: 'Sources' };
+    ? { search: 'Buscar um termo', all: 'Todos', letterFilter: 'Filtrar pela letra inicial', why: 'Por que importa', note: 'Nota de jurisdição', related: 'Termos relacionados', sources: 'Fontes' }
+    : { search: 'Search the glossary', all: 'All', letterFilter: 'Filter by initial letter', why: 'Why it matters', note: 'Jurisdiction note', related: 'Related terms', sources: 'Sources' };
   const filters = categories.map((category) => `<button type="button" aria-pressed="false" data-glossary-filter="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join('');
-  const letterNav = letters.map((letter) => `<a href="#glossary-${letter.toLowerCase()}">${letter}</a>`).join('');
-  const entriesHtml = entries.map((entry) => `<article class="glossary-entry" id="glossary-${escapeHtml(entry.term.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}" data-glossary-term="${escapeHtml(entry.term.toLowerCase())}" data-glossary-category="${escapeHtml(entry.category)}">
+  const letterNav = letters.map((letter) => `<button type="button" aria-pressed="false" data-glossary-letter="${escapeHtml(letter)}">${escapeHtml(letter)}</button>`).join('');
+  const entriesHtml = entries.map((entry) => `<article class="glossary-entry" id="glossary-${escapeHtml(entry.term.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}" data-glossary-term="${escapeHtml(entry.term.toLowerCase())}" data-glossary-category="${escapeHtml(entry.category)}" data-glossary-letter="${escapeHtml(entry.term[0].toUpperCase())}">
   <div class="glossary-entry-meta">${escapeHtml(entry.category)}</div>
   <h2>${escapeHtml(entry.term)}</h2>
   <p>${escapeHtml(entry.plainEnglishDefinition)}</p>
@@ -299,7 +299,7 @@ function renderGlossaryBody(locale = 'en') {
 <div class="glossary-tools">
   <label><span class="sr-only">${escapeHtml(labels.search)}</span><input type="search" data-glossary-search placeholder="${escapeHtml(labels.search)}" /></label>
   <div class="glossary-filters"><button type="button" class="on" aria-pressed="true" data-glossary-filter="all">${escapeHtml(labels.all)}</button>${filters}</div>
-  <nav class="glossary-letters" aria-label="A–Z">${letterNav}</nav>
+  <nav class="glossary-letters" aria-label="${escapeHtml(labels.letterFilter)}">${letterNav}</nav>
 </div>
 <div class="glossary-entries">${entriesHtml}</div>
 <section class="resource-references"><h2>${escapeHtml(labels.sources)}</h2><ul>${references}</ul></section>`;

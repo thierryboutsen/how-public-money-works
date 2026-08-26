@@ -66,16 +66,27 @@
 <footer class="foot"><div class="foot-bottom"><span>{{siteName}}</span><span>How Public Money Works</span></div></footer>
 <script src="{{sharedJsPath}}"></script>
 <script>
-  document.querySelectorAll('[data-glossary-search], [data-glossary-filter]').forEach(function (control) {
+  document.querySelectorAll('[data-glossary-search]').forEach(function (control) {
     control.addEventListener('input', filterGlossary);
+  });
+  document.querySelectorAll('[data-glossary-filter], [data-glossary-letter]').forEach(function (control) {
     control.addEventListener('click', filterGlossary);
   });
+  function resetGlossaryLetters() {
+    document.querySelectorAll('[data-glossary-letter]').forEach(function (button) {
+      button.classList.remove('on');
+      button.setAttribute('aria-pressed', 'false');
+    });
+  }
   function filterGlossary(event) {
     var root = document.querySelector('.glossary-entries');
     if (!root) return;
     var search = (document.querySelector('[data-glossary-search]')?.value || '').toLowerCase().trim();
-    var active = document.querySelector('[data-glossary-filter].on');
-    var category = active ? active.getAttribute('data-glossary-filter') : 'all';
+    var activeCategory = document.querySelector('[data-glossary-filter].on');
+    var category = activeCategory ? activeCategory.getAttribute('data-glossary-filter') : 'all';
+    var activeLetter = document.querySelector('[data-glossary-letter].on');
+    var letter = activeLetter ? activeLetter.getAttribute('data-glossary-letter') : 'all';
+
     if (event && event.target.matches('[data-glossary-filter]')) {
       document.querySelectorAll('[data-glossary-filter]').forEach(function (button) {
         button.classList.remove('on');
@@ -84,11 +95,29 @@
       event.target.classList.add('on');
       event.target.setAttribute('aria-pressed', 'true');
       category = event.target.getAttribute('data-glossary-filter');
+      if (category === 'all') {
+        resetGlossaryLetters();
+        letter = 'all';
+      }
     }
+
+    if (event && event.target.matches('[data-glossary-letter]')) {
+      var wasActive = event.target.classList.contains('on');
+      resetGlossaryLetters();
+      if (wasActive) {
+        letter = 'all';
+      } else {
+        event.target.classList.add('on');
+        event.target.setAttribute('aria-pressed', 'true');
+        letter = event.target.getAttribute('data-glossary-letter');
+      }
+    }
+
     root.querySelectorAll('[data-glossary-term]').forEach(function (entry) {
       var matchesSearch = !search || entry.getAttribute('data-glossary-term').indexOf(search) >= 0;
       var matchesCategory = category === 'all' || entry.getAttribute('data-glossary-category') === category;
-      entry.hidden = !(matchesSearch && matchesCategory);
+      var matchesLetter = letter === 'all' || entry.getAttribute('data-glossary-letter') === letter;
+      entry.hidden = !(matchesSearch && matchesCategory && matchesLetter);
     });
   }
 </script>
