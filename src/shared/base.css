@@ -621,3 +621,48 @@ input:focus-visible {
 .lang-fade-out {
   opacity: 0;
 }
+
+/* ----- Permanent resource pages ----- */
+.resource-page { background: var(--bg); color: var(--ink); }
+.resource-shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+.resource-masthead { background: var(--bg-deep); color: var(--ivory); padding: 34px 0 86px; }
+.resource-topline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 92px; font: 500 11px/1.2 var(--font-ui); letter-spacing: .22em; text-transform: uppercase; }
+.resource-topline a { color: var(--ivory); }
+.resource-label { color: var(--gold-soft); font: 500 11px/1.2 var(--font-ui); letter-spacing: .3em; text-transform: uppercase; margin-bottom: 22px; }
+.resource-masthead h1 { max-width: 860px; margin: 0 0 24px; color: var(--ivory); font: 500 clamp(44px, 7vw, 84px)/1.04 var(--font-display); letter-spacing: -.02em; }
+.resource-subtitle { max-width: 680px; margin: 0; color: var(--ivory-soft); font: italic 21px/1.5 var(--font-editorial); }
+.resource-byline { margin: 26px 0 0; color: var(--gold-soft); font: 11px/1.4 var(--font-ui); letter-spacing: .18em; text-transform: uppercase; }
+.resource-body { padding: 82px 0 110px; background: var(--bg-paper); }
+.resource-layout { display: grid; grid-template-columns: minmax(0, 760px) 220px; gap: 72px; align-items: start; }
+.resource-content { font: 18px/1.7 var(--font-editorial); color: var(--ink-soft); }
+.resource-content h2 { margin: 48px 0 16px; color: var(--ink); font: 500 32px/1.15 var(--font-display); }
+.resource-content p { margin: 0 0 22px; }
+.resource-content ul, .resource-content ol { padding-left: 26px; }
+.resource-content a { color: var(--gold-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.resource-content table { width: 100%; border-collapse: collapse; margin: 28px 0; font: 14px/1.5 var(--font-ui); }
+.resource-content th, .resource-content td { padding: 13px 14px; border: 1px solid var(--rule-soft); text-align: left; vertical-align: top; }
+.resource-content th { color: var(--ink); background: var(--bg); font-weight: 600; }
+.resource-content .resource-references { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--rule-soft); font-size: 15px; }
+.resource-updated { margin: 0; color: var(--muted); font: 11px/1.5 var(--font-ui); letter-spacing: .18em; text-transform: uppercase; }
+.glossary-tools { padding: 24px; margin-bottom: 42px; background: var(--bg); border: 1px solid var(--rule-soft); }
+.glossary-tools input { width: 100%; min-height: 46px; padding: 11px 14px; border: 1px solid var(--rule-soft); background: var(--bg-paper); font: 16px/1.3 var(--font-editorial); }
+.glossary-filters, .glossary-letters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.glossary-filters button { padding: 8px 11px; border: 1px solid var(--rule-soft); background: transparent; color: var(--ink-soft); cursor: pointer; font: 10px/1.2 var(--font-ui); letter-spacing: .12em; text-transform: uppercase; }
+.glossary-filters button.on, .glossary-filters button:hover { border-color: var(--gold); color: var(--ink); background: var(--bg-paper); }
+.glossary-letters a { color: var(--gold-deep); font: 600 12px/1 var(--font-ui); }
+.glossary-entry { padding: 28px 0; border-top: 1px solid var(--rule-soft); scroll-margin-top: 24px; }
+.glossary-entry[hidden] { display: none; }
+.glossary-entry-meta { color: var(--gold-deep); font: 10px/1.2 var(--font-ui); letter-spacing: .25em; text-transform: uppercase; }
+.glossary-entry h2 { margin-top: 10px; }
+.glossary-related { font-size: 15px; }
+@media (max-width: 760px) {
+  .resource-shell { width: min(100% - 32px, 680px); }
+  .resource-masthead { padding: 24px 0 58px; }
+  .resource-topline { margin-bottom: 62px; }
+  .resource-masthead h1 { font-size: clamp(42px, 13vw, 64px); }
+  .resource-subtitle { font-size: 18px; }
+  .resource-body { padding: 54px 0 76px; }
+  .resource-layout { display: block; }
+  .resource-updated { margin-top: 44px; }
+  .resource-content { font-size: 17px; }
+}

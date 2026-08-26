@@ -81,41 +81,9 @@ const TRANSLATIONS = {
     "about-btn": "Contact Eliana",
     "about-caption-1": "Eliana Faria Lima · Founder",
     "about-caption-2": "How Public Money Works · Civic education",
-    
-    // Resources Section
     "res-eyebrow": "Resources",
     "res-title": "A small library,",
     "res-title-accent": "freely available.",
-    
-    "res-01-kind": "Reference",
-    "res-01-title": "Glossary of Public Finance",
-    "res-01-desc": "An evolving A–Z of public-finance terms, in plain English. From appropriation to zero-based budgeting.",
-    "res-coming-soon": "Coming soon",
-    
-    "res-02-kind": "Article guide",
-    "res-02-title": "How to Read a City Budget",
-    "res-02-desc": "A plain-language article about what a city budget is, how it shapes public choices, and why residents may want to read it.",
-    "res-02-action": "Read article →",
-    
-    "res-03-kind": "Article guide",
-    "res-03-title": "Where Do Your Local Taxes Actually Go?",
-    "res-03-desc": "A conceptual guide to revenue sources, local governments, funds, and the services they support.",
-    "res-03-action": "Read article →",
-    
-    "res-04-kind": "Index",
-    "res-04-title": "Open-Data Portals — A Map",
-    "res-04-desc": "Where to find your city's, county's, and state's published financial data — with notes on what each portal offers.",
-    "res-04-action": "Open index →",
-    
-    "res-05-kind": "Bibliography",
-    "res-05-title": "Reading List · Civic Finance",
-    "res-05-desc": "Books and long-form essays for citizens, students, and local-government practitioners — curated and annotated.",
-    "res-05-action": "View list →",
-    
-    "res-06-kind": "Directory",
-    "res-06-title": "Annual Reports — Where to Find Them",
-    "res-06-desc": "A directory of where to find the comprehensive annual financial reports for U.S. cities, counties, and states.",
-    "res-06-action": "Open directory →",
     
     // Contact Section
     "contact-eyebrow": "Get in touch",
@@ -144,7 +112,7 @@ const TRANSLATIONS = {
     "foot-tagline": "Bringing clarity to public finance.",
     "foot-featured-link": "Latest essays",
     "foot-category-link": "By category",
-    "foot-glossary-soon": "Glossary · Coming soon",
+    "foot-glossary-link": "Glossary",
     "foot-updates-link": "Updates · Coming soon",
 
     // Blog Index specific
@@ -244,41 +212,9 @@ const TRANSLATIONS = {
     "about-btn": "Falar com Eliana",
     "about-caption-1": "Eliana Faria Lima · Fundadora",
     "about-caption-2": "How Public Money Works · Educação cívica",
-    
-    // Resources Section
     "res-eyebrow": "Recursos",
     "res-title": "Uma pequena biblioteca,",
     "res-title-accent": "disponível gratuitamente.",
-    
-    "res-01-kind": "Referência",
-    "res-01-title": "Glossário de Finanças Públicas",
-    "res-01-desc": "Um A–Z em constante evolução dos termos de finanças públicas, em linguagem simples. De dotação a orçamento base zero.",
-    "res-coming-soon": "Em breve",
-    
-    "res-02-kind": "Artigo-guia",
-    "res-02-title": "Como Ler um Orçamento Municipal",
-    "res-02-desc": "Um artigo em linguagem simples sobre o que é um orçamento municipal, como ele orienta escolhas públicas e por que vale a pena consultá-lo.",
-    "res-02-action": "Ler artigo →",
-    
-    "res-03-kind": "Artigo-guia",
-    "res-03-title": "Para Onde Vão os Seus Impostos Locais?",
-    "res-03-desc": "Um guia conceitual sobre fontes de receita, governos locais, fundos e os serviços que eles sustentam.",
-    "res-03-action": "Ler artigo →",
-    
-    "res-04-kind": "Índice",
-    "res-04-title": "Portais de Dados Abertos — Um Mapa",
-    "res-04-desc": "Onde encontrar os dados financeiros publicados de sua cidade, condado e estado — com observações sobre o que cada portal oferece.",
-    "res-04-action": "Abrir índice →",
-    
-    "res-05-kind": "Bibliografia",
-    "res-05-title": "Lista de Leitura · Finanças Cívicas",
-    "res-05-desc": "Livros e artigos de fôlego para cidadãos, estudantes e profissionais de governos locais — curados e anotados.",
-    "res-05-action": "Ver lista →",
-    
-    "res-06-kind": "Diretório",
-    "res-06-title": "Relatórios Anuais — Onde Encontrá-los",
-    "res-06-desc": "Um diretório de onde encontrar os relatórios financeiros anuais abrangentes de cidades, condados e estados dos EUA.",
-    "res-06-action": "Abrir diretório →",
     
     // Contact Section
     "contact-eyebrow": "Contato",
@@ -307,7 +243,7 @@ const TRANSLATIONS = {
     "foot-tagline": "Trazendo clareza às finanças públicas.",
     "foot-featured-link": "Artigos mais recentes",
     "foot-category-link": "Por categoria",
-    "foot-glossary-soon": "Glossário · Em breve",
+    "foot-glossary-link": "Glossário",
     "foot-updates-link": "Atualizações · Em breve",
 
     // Blog Index specific
@@ -357,7 +293,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2. Setup Bilingual Language System
   const langSwitch = document.querySelector(".lang-switch");
   const pageLanguage = document.body.getAttribute("data-content-language");
-  let currentLang = pageLanguage || localStorage.getItem("eliana-site-lang") || "en";
+  let currentLang = pageLanguage === "pt-BR"
+    ? "pt"
+    : (pageLanguage || localStorage.getItem("eliana-site-lang") || "en");
 
   const applyLanguage = (lang) => {
     if (!TRANSLATIONS[lang]) lang = "en";
