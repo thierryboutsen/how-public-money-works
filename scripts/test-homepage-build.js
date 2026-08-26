@@ -94,6 +94,12 @@ assert(!/successfully subscribed|inscrição foi realizada com sucesso/i.test(re
 assert(rendered.includes('Coming soon'), 'unavailable resources and updates must be identified honestly');
 assert(rendered.includes('href="/where-do-your-local-taxes-actually-go"'), 'live resource must link to its article route');
 assert(!/Vol\. I|Twelve Essays|Doze Artigos/.test(rendered), 'homepage must not contain fixed-volume language');
+assert(/\.hero-civic \.image-wrap \{[^}]*display:\s*flex;[^}]*flex-direction:\s*column;[^}]*\}/.test(template), 'homepage hero image and editorial card must use normal-flow stacking');
+const heroImageCardRules = [...template.matchAll(/\.hero-civic \.image-card \{([^}]*)\}/g)].map((match) => match[1]);
+const heroImageCardRule = heroImageCardRules[0] || '';
+assert(/position:\s*relative;/.test(heroImageCardRule) && /align-self:\s*flex-end;/.test(heroImageCardRule), 'desktop editorial card must remain in normal flow below the hero image');
+assert(!/position:\s*absolute;/.test(heroImageCardRule), 'homepage editorial card must never return to absolute overlay positioning');
+assert(heroImageCardRules.some((rule) => /align-self:\s*stretch;/.test(rule) && /width:\s*100%;/.test(rule)), 'mobile editorial card must stack at full available width without overlap');
 
 const firstManifest = createSharedAssetManifest();
 const secondManifest = createSharedAssetManifest();
