@@ -29,7 +29,7 @@ draftAllowed: true
 publishAllowed: false
 canonicalDecision: "pending-human-approval"
 slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
+humanDraftApproval: "approved"
 publicationApproval: "pending"
 translationValidationStatus: "validated"
 requestedChanges: []
@@ -58,15 +58,17 @@ Para a próxima parte do caminho, veja [Para onde vão seus impostos locais?](/p
 
 Uma **fee** pode estar associada a serviço, permit, license, facility, regulação ou outra função pública. Em muitos casos, a relação é mais direta que num imposto amplo, mas não existe uma fórmula universal.
 
-O valor da fee nem sempre equivale ao custo marginal exato de uma transação. Lei e política podem definir quais custos são recuperáveis, quem paga, se há exceções e onde a receita é registrada.
+Não presuma que o valor de uma fee corresponda ao custo marginal exato de uma única transação. Lei e política podem definir quais custos são recuperáveis, quem paga, se há exceções e onde a receita é registrada.
 
 Antes de concluir, leia a fee schedule, o code, o material do permit ou a explicação da cobrança. Um nome conhecido ajuda, mas não encerra a classificação jurídica.
+
+Classificações estatísticas e jurídicas nem sempre coincidem. No sistema de finanças governamentais do Census Bureau, current charges são diferenciadas de license taxes, e algumas fees ligadas a licenciamento ou regulação podem ser classificadas como license taxes para fins estatísticos. É mais uma razão para consultar a regra local aplicável, em vez de confiar apenas na palavra “fee”.
 
 ## Fines respondem a violações ou penalidades
 
 Uma **fine** costuma estar ligada a violação, enforcement ou penalidade, e não ao acesso ordinário a um serviço. O aviso deve identificar a suposta infração, autoridade, valor, prazo e procedimento de revisão ou pagamento.
 
-Essa distinção não significa que fees e fines jamais apareçam juntas numa tabela administrativa. Governos podem agrupar recebimentos para apresentação, e a terminologia jurídica varia.
+Categorias estatísticas também podem diferir dos rótulos do dia a dia. O Census Bureau, por exemplo, define separadamente current charges e fines and forfeits, enquanto trata algumas fees ligadas a licenciamento como license taxes. Um relatório local pode usar seus próprios rótulos jurídicos ou contábeis; por isso, o título de uma tabela, sozinho, não resolve a classificação.
 
 Se uma cobrança específica for contestada, use o aviso oficial e o procedimento local. Um artigo educativo geral não determina validade ou natureza jurídica.
 
@@ -108,7 +110,7 @@ A biblioteca de [Publicações](/insights) reúne mais guias para ler orçamento
 
 <!--
 Editorial review notes:
-- Human draft approval is pending.
+- Human draft approval completed on 2026-08-30.
 - Publication approval is pending.
 - A classificação jurídica de uma cobrança específica exige documentos oficiais.
 - publishAllowed remains false.
@@ -120,14 +122,14 @@ Factual validation checklist:
 - claim: Fees podem estar ligadas a serviços, permits, licenses, facilities ou funções públicas.
   sourceUsed: Census Classification Manual
   status: conceptually-validated
-- claim: Uma fee não equivale universalmente ao custo exato de um serviço.
-  sourceUsed: Census Classification Manual
+- claim: O rótulo “fee” não deve ser presumido como prova de uma relação exata entre a cobrança e o custo de uma única transação.
+  sourceUsed: Census Government Finance Glossary; Census Classification Manual
   status: jurisdictional-variation-validated-no-national-rule-asserted
 - claim: Fines costumam estar ligadas a violações ou penalidades.
   sourceUsed: Census Classification Manual
   status: conceptually-validated
-- claim: Fees e fines podem aparecer juntas em agrupamentos administrativos.
-  sourceUsed: Census Classification Manual
+- claim: O Census distingue current charges de fines and forfeits, enquanto algumas fees ligadas a licenciamento são classificadas como license taxes.
+  sourceUsed: Census Government Finance Glossary; Census Classification Manual
   status: conceptually-validated
 - claim: A classificação de uma cobrança específica depende de documentos oficiais.
   sourceUsed: Census Classification Manual
