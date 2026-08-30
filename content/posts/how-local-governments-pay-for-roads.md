@@ -1,43 +1,54 @@
 ---
-title: "How Local Governments Pay for Roads and Infrastructure"
-subtitle: "A practical guide to ownership, maintenance, capital projects, grants, and shared funding."
-slug: "how-local-governments-pay-for-roads"
-language: "en"
-translationKey: "local-road-funding"
+title: How Local Governments Pay for Roads and Infrastructure
+subtitle: A practical guide to ownership, maintenance, capital projects, grants, and shared funding.
+slug: how-local-governments-pay-for-roads
+language: en
+translationKey: local-road-funding
 translations:
-  pt-BR: "/pt-br/como-governos-locais-financiam-ruas-e-estradas"
-targetPublicationDate: "2026-08-27"
-author: "Eliana Faria Lima"
-category: "Public Services & Infrastructure"
-tags: [local roads, infrastructure funding, maintenance, capital projects]
-topicAngleSignature: "local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources"
-primaryKeyword: "how local governments pay for roads"
-secondaryKeywords: [local road funding, infrastructure funding, road maintenance]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "Road ownership, maintenance responsibility, project funding, and reimbursement may involve different governments and funding sources."
-featuredImage: "/assets/article-local-road-funding-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Editorial illustration of a road, bridge, maintenance equipment, and several connected public funding paths."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/como-governos-locais-financiam-ruas-e-estradas
+targetPublicationDate: 2026-08-27
+author: Eliana Faria Lima
+category: Public Services & Infrastructure
+tags:
+  - local roads
+  - infrastructure funding
+  - maintenance
+  - capital projects
+topicAngleSignature: local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources
+primaryKeyword: how local governments pay for roads
+secondaryKeywords:
+  - local road funding
+  - infrastructure funding
+  - road maintenance
+searchIntent: informational
+readingTime: 7 min read
+excerpt: Road ownership, maintenance responsibility, project funding, and reimbursement may involve different governments and funding sources.
+featuredImage: /assets/article-local-road-funding-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Editorial illustration of a road, bridge, maintenance equipment, and several connected public funding paths.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "How Local Governments Pay for Roads"
-metaDescription: "See how road ownership, maintenance, capital projects, grants, and shared funding shape who pays for local infrastructure—and why it varies."
+seoTitle: How Local Governments Pay for Roads
+metaDescription: See how road ownership, maintenance, capital projects, grants, and shared funding shape who pays for local infrastructure—and why it varies.
+date: 2026-08-30
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # How Local Governments Pay for Roads and Infrastructure

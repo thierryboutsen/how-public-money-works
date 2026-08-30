@@ -1,43 +1,54 @@
 ---
-title: "Como governos locais financiam ruas, estradas e infraestrutura"
-subtitle: "Um guia prático sobre responsabilidade, manutenção, projetos de capital, grants e financiamento compartilhado."
-slug: "como-governos-locais-financiam-ruas-e-estradas"
-language: "pt-BR"
-translationKey: "local-road-funding"
+title: Como governos locais financiam ruas, estradas e infraestrutura
+subtitle: Um guia prático sobre responsabilidade, manutenção, projetos de capital, grants e financiamento compartilhado.
+slug: como-governos-locais-financiam-ruas-e-estradas
+language: pt-BR
+translationKey: local-road-funding
 translations:
-  en: "/how-local-governments-pay-for-roads"
-targetPublicationDate: "2026-08-27"
-author: "Eliana Faria Lima"
-category: "Serviços Públicos e Infraestrutura"
-tags: [vias locais, infraestrutura pública, manutenção, projetos de capital]
-topicAngleSignature: "local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources"
-primaryKeyword: "como governos locais financiam estradas"
-secondaryKeywords: [financiamento viário, infraestrutura local, manutenção de ruas]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Responsabilidade pela via, manutenção, execução do projeto e financiamento podem envolver governos e fontes diferentes."
-featuredImage: "/assets/article-local-road-funding-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração editorial de uma estrada, uma ponte, equipamentos de manutenção e diferentes caminhos de financiamento público conectados."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /how-local-governments-pay-for-roads
+targetPublicationDate: 2026-08-27
+author: Eliana Faria Lima
+category: Serviços Públicos e Infraestrutura
+tags:
+  - vias locais
+  - infraestrutura pública
+  - manutenção
+  - projetos de capital
+topicAngleSignature: local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources
+primaryKeyword: como governos locais financiam estradas
+secondaryKeywords:
+  - financiamento viário
+  - infraestrutura local
+  - manutenção de ruas
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Responsabilidade pela via, manutenção, execução do projeto e financiamento podem envolver governos e fontes diferentes.
+featuredImage: /assets/article-local-road-funding-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração editorial de uma estrada, uma ponte, equipamentos de manutenção e diferentes caminhos de financiamento público conectados.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como governos locais financiam ruas e estradas"
-metaDescription: "Veja como responsabilidade, manutenção, projetos, grants e financiamento compartilhado definem quem paga pela infraestrutura local — e por que isso varia."
+seoTitle: Como governos locais financiam ruas e estradas
+metaDescription: Veja como responsabilidade, manutenção, projetos, grants e financiamento compartilhado definem quem paga pela infraestrutura local — e por que isso varia.
+date: 2026-08-30
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Como governos locais financiam ruas, estradas e infraestrutura
