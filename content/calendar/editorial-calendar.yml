@@ -90,6 +90,11 @@ slots:
     backupTopic: How Local Governments Plan for Long-Term Infrastructure Costs
     readiness: awaiting-human-review
     publicationDecision: pending
+    recoveryScheduledDate: 2026-08-30
+    recoveryReason: scheduled workflow validation regression + missed publication slot
+    recoveryStatus: recovered
+    actualPublishedAt: 2026-08-30
+    recoveredArticleSlug: how-local-governments-pay-for-roads
   - date: 2026-09-01
     slot: Tuesday
     status: selected
@@ -199,8 +204,11 @@ recoverySlots:
     recoveryTime: 05:00
     recoveryReason: scheduled workflow validation regression + missed publication slot
     articleSlug: how-local-governments-pay-for-roads
-    status: manual-recovery-authorized
-    publicationDecision: pending
+    status: published
+    publicationDecision: published
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-08-30
 rules:
   - No topic becomes a brief or draft without the required human topic and brief approvals
   - Publication review is preferably human; silence may use the auto-publish fallback only after cutoff and only when every gate passes

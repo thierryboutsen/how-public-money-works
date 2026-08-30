@@ -276,3 +276,41 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-08-25
+  - slug: como-governos-locais-financiam-ruas-e-estradas
+    title: Como governos locais financiam ruas, estradas e infraestrutura
+    language: pt-BR
+    status: published
+    publishDate: 2026-08-30
+    category: Serviços Públicos e Infraestrutura
+    tags:
+      - vias locais
+      - infraestrutura pública
+      - manutenção
+      - projetos de capital
+    duplicateCheckSignature: local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-08-30
+    originalScheduledDate: 2026-08-27
+    recoveryScheduledDate: 2026-08-30
+    recoveryReason: scheduled workflow validation regression + missed publication slot
+    actualPublishedAt: 2026-08-30
+  - slug: how-local-governments-pay-for-roads
+    title: How Local Governments Pay for Roads and Infrastructure
+    language: en
+    status: published
+    publishDate: 2026-08-30
+    category: Public Services & Infrastructure
+    tags:
+      - local roads
+      - infrastructure funding
+      - maintenance
+      - capital projects
+    duplicateCheckSignature: local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-08-30
+    originalScheduledDate: 2026-08-27
+    recoveryScheduledDate: 2026-08-30
+    recoveryReason: scheduled workflow validation regression + missed publication slot
+    actualPublishedAt: 2026-08-30

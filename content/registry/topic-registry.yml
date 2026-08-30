@@ -52,6 +52,12 @@ coveredTopics:
     status: covered
     relatedSlug: general-fund-vs-special-revenue-funds
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Public Services & Infrastructure
+    subtopic: How Local Governments Pay for Roads and Infrastructure
+    angle: local-roads|understand-funding-mix|ownership-maintenance-capital-and-intergovernmental-sources
+    status: covered
+    relatedSlug: how-local-governments-pay-for-roads
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination
