@@ -11,6 +11,7 @@ const {
   validateResourceManifest
 } = require('./src/resources/manifest');
 const { renderGlossaryBody, GLOSSARY_EN, GLOSSARY_PT } = require('./src/resources/glossary-data');
+const { renderAnnualReportsBody } = require('./src/resources/annual-reports-data');
 const {
   ROOT_DIR,
   listMarkdownFiles,
@@ -399,8 +400,8 @@ function renderResourceCards(resources = RESOURCE_MANIFEST) {
     const linkAttributes = isPublished
       ? ` href="${escapeHtml(href)}" data-localize-link data-href-en="${escapeHtml(href)}" data-href-pt="${escapeHtml(ptHref)}"`
       : '';
-    const action = isPublished ? resource.action : resource.locale === 'en' ? 'Coming soon' : 'Em breve';
-    const ptAction = pairedPublished ? pair.action : resource.locale === 'en' ? 'Available in English →' : 'Disponível em inglês →';
+    const action = (isPublished ? resource.action : resource.locale === 'en' ? 'Coming soon' : 'Em breve').replace(/\s*→\s*$/, '');
+    const ptAction = (pairedPublished ? pair.action : resource.locale === 'en' ? 'Available in English →' : 'Disponível em inglês →').replace(/\s*→\s*$/, '');
     return `<${tag} class="res-tile${isPublished ? '' : ' coming-soon'}"${linkAttributes} data-resource-id="${escapeHtml(resource.id)}" data-resource-status="${escapeHtml(resource.status)}">
       <div class="kind" data-localize-text ${localizedResourceAttributes(resource, pair, 'category')}>${escapeHtml(resource.category)}</div>
       <h3 data-localize-text ${localizedResourceAttributes(resource, pair, 'title')}>${escapeHtml(resource.title)}</h3>
@@ -453,7 +454,9 @@ function renderResourcePage(resource, template, options = {}) {
     : '';
   const resourceContent = resource.content?.source === 'src/resources/glossary-data.js'
     ? { bodyHtml: renderGlossaryBody(resource.locale), referencesHtml: '' }
-    : resource.content;
+    : resource.content?.source === 'src/resources/annual-reports-data.js'
+      ? renderAnnualReportsBody(resource.locale)
+      : resource.content;
   return replaceTokens(template, {
     documentTitle: escapeHtml(resource.seoTitle || `${resource.title} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(resource.locale),

@@ -634,10 +634,14 @@ input:focus-visible {
 .resource-layout { display: grid; grid-template-columns: minmax(0, 760px) 220px; gap: 72px; align-items: start; }
 .resource-content { font: 18px/1.7 var(--font-editorial); color: var(--ink-soft); }
 .resource-content h2 { margin: 48px 0 16px; color: var(--ink); font: 500 32px/1.15 var(--font-display); }
+.resource-content h3 { margin: 30px 0 12px; color: var(--ink); font: 600 17px/1.3 var(--font-ui); letter-spacing: .04em; text-transform: uppercase; }
 .resource-content p { margin: 0 0 22px; }
 .resource-content ul, .resource-content ol { padding-left: 26px; }
+.resource-content li { margin-bottom: 10px; }
 .resource-content a { color: var(--gold-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.resource-content table { width: 100%; border-collapse: collapse; margin: 28px 0; font: 14px/1.5 var(--font-ui); }
+.resource-content code { padding: 2px 5px; background: var(--bg); border: 1px solid var(--rule-soft); font-size: .82em; }
+.resource-table-wrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.resource-content table { width: 100%; min-width: 680px; border-collapse: collapse; margin: 28px 0; font: 14px/1.5 var(--font-ui); }
 .resource-content th, .resource-content td { padding: 13px 14px; border: 1px solid var(--rule-soft); text-align: left; vertical-align: top; }
 .resource-content th { color: var(--ink); background: var(--bg); font-weight: 600; }
 .resource-content .resource-references { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--rule-soft); font-size: 15px; }
