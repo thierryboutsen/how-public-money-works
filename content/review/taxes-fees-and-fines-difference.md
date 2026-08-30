@@ -29,7 +29,7 @@ draftAllowed: true
 publishAllowed: false
 canonicalDecision: "pending-human-approval"
 slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
+humanDraftApproval: "approved"
 publicationApproval: "pending"
 translationValidationStatus: "validated"
 requestedChanges: []
@@ -58,15 +58,17 @@ For the next part of that path, see [Where Do Your Local Taxes Actually Go?](/wh
 
 A fee may be associated with a service, permit, license, facility, regulatory activity, or other public function. The relationship is more direct than a broad tax in many cases, but it should not be described as one universal formula.
 
-The amount of a fee does not always equal the exact marginal cost of one transaction. Law and policy may define which costs can be recovered, which users pay, whether exemptions apply, and where the revenue is recorded.
+Do not assume that the amount of a fee equals the exact marginal cost of one transaction. Law and policy may define which costs can be recovered, which users pay, whether exemptions apply, and where the revenue is recorded.
 
 Before concluding that a charge is a fee, read the official fee schedule, code, permit material, or billing explanation. A familiar label can be informative without resolving the legal classification.
+
+Statistical and legal classifications do not always line up. In the Census Bureau's government-finance framework, current charges are distinguished from license taxes, and some fees related to licensing or regulatory activity can be classified as license taxes for statistical reporting. That is another reason to check the controlling local rule rather than rely on the word “fee” alone.
 
 ## Fines respond to violations or penalties
 
 A fine is generally connected to a violation, enforcement action, or penalty rather than ordinary access to a service. The notice should identify the alleged violation, authority, amount, deadline, and available review or payment process.
 
-This conceptual distinction does not mean fees and fines can never appear together in an administrative table or revenue report. Governments may group receipts for reporting convenience, and legal terminology varies.
+Statistical categories can also differ from everyday labels. The Census Bureau, for example, separately defines current charges and fines and forfeits, while treating some licensing-related fees as license taxes. A local report may use its own legal or accounting labels, so the table heading alone does not settle the classification.
 
 If a specific charge is contested, use the official notice and applicable local procedure. A general educational article cannot determine the legal character or validity of that charge.
 
@@ -110,7 +112,7 @@ The [Insights library](/insights) offers more guides for reading local budgets, 
 
 <!--
 Editorial review notes:
-- Human draft approval is pending.
+- Human draft approval completed on 2026-08-30.
 - Publication approval is pending.
 - Legal classification of any specific charge requires its authoritative documents.
 - publishAllowed remains false.
@@ -122,14 +124,14 @@ Factual validation checklist:
 - claim: Fees may be associated with services, permits, licenses, facilities, or public functions.
   sourceUsed: Census Classification Manual
   status: conceptually-validated
-- claim: A fee does not universally equal the exact cost of one service.
-  sourceUsed: Census Classification Manual
+- claim: The label “fee” should not be assumed to establish an exact one-transaction cost relationship.
+  sourceUsed: Census Government Finance Glossary; Census Classification Manual
   status: jurisdictional-variation-validated-no-national-rule-asserted
 - claim: Fines generally relate to violations or penalties.
   sourceUsed: Census Classification Manual
   status: conceptually-validated
-- claim: Fees and fines may appear together in administrative groupings.
-  sourceUsed: Census Classification Manual
+- claim: Census distinguishes current charges from fines and forfeits, while some licensing-related fees are classified as license taxes.
+  sourceUsed: Census Government Finance Glossary; Census Classification Manual
   status: conceptually-validated
 - claim: A specific charge's legal classification depends on authoritative documents.
   sourceUsed: Census Classification Manual
