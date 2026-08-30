@@ -25,7 +25,7 @@ assert(GLOSSARY_EN.length >= 35 && GLOSSARY_EN.length <= 50);
 assert.strictEqual(GLOSSARY_EN.length, GLOSSARY_PT.length);
 assert(GLOSSARY_EN.every((entry) => entry.term && entry.plainEnglishDefinition && entry.whyItMatters && entry.jurisdictionNote && entry.sources.length > 0));
 assert(GLOSSARY_EN.every((entry) => entry.relatedTerms.length >= 1));
-assert.strictEqual(RESOURCE_MANIFEST.filter((resource) => resource.status === 'published').length, 5);
+assert.strictEqual(RESOURCE_MANIFEST.filter((resource) => resource.status === 'published').length, 7);
 const glossaryEn = RESOURCE_MANIFEST.find((resource) => resource.id === 'glossary-of-public-finance-en');
 const glossaryPt = RESOURCE_MANIFEST.find((resource) => resource.id === 'glossario-de-financas-publicas-pt-br');
 assert.strictEqual(glossaryEn.status, 'published');
@@ -40,14 +40,24 @@ assert.strictEqual(glossaryPt.hreflang.en, glossaryEn.canonical);
 const annualEn = RESOURCE_MANIFEST.find((resource) => resource.id === 'annual-reports-where-to-find-them-en');
 const annualPt = RESOURCE_MANIFEST.find((resource) => resource.id === 'relatorios-anuais-onde-encontrar-pt-br');
 assert(annualEn && annualPt, 'Annual Reports EN/PT resources must exist');
-assert.strictEqual(annualEn.status, 'coming-soon');
-assert.strictEqual(annualPt.status, 'coming-soon');
-assert.strictEqual(annualEn.contentStatus, 'draft');
-assert.strictEqual(annualPt.reviewStatus, 'draft');
-assert.strictEqual(annualEn.canonical, null);
-assert.strictEqual(annualPt.canonical, null);
-assert.deepStrictEqual(annualEn.hreflang, {});
-assert.deepStrictEqual(annualPt.hreflang, {});
+assert.strictEqual(annualEn.status, 'published');
+assert.strictEqual(annualPt.status, 'published');
+assert.strictEqual(annualEn.contentStatus, 'approved');
+assert.strictEqual(annualPt.contentStatus, 'approved');
+assert.strictEqual(annualEn.reviewStatus, 'approved');
+assert.strictEqual(annualPt.reviewStatus, 'approved');
+assert.strictEqual(annualEn.canonical, 'https://www.luminasmart.company/resources/annual-reports-where-to-find-them');
+assert.strictEqual(annualPt.canonical, 'https://www.luminasmart.company/pt-br/resources/relatorios-anuais-onde-encontrar');
+assert.strictEqual(annualEn.hreflang.en, annualEn.canonical);
+assert.strictEqual(annualEn.hreflang['pt-BR'], annualPt.canonical);
+assert.strictEqual(annualPt.hreflang.en, annualEn.canonical);
+assert.strictEqual(annualPt.hreflang['pt-BR'], annualPt.canonical);
+assert.strictEqual(annualEn.publishedAt, '2026-08-30');
+assert.strictEqual(annualPt.publishedAt, '2026-08-30');
+assert.strictEqual(annualEn.updatedAt, '2026-08-30');
+assert.strictEqual(annualPt.updatedAt, '2026-08-30');
+assert.strictEqual(annualEn.action, 'Read guide →');
+assert.strictEqual(annualPt.action, 'Ler guia →');
 assert.strictEqual(annualEn.content.source, 'src/resources/annual-reports-data.js');
 assert.strictEqual(annualPt.content.source, 'src/resources/annual-reports-data.js');
 assert.strictEqual(annualEn.pairedResourceId, annualPt.id);
@@ -90,7 +100,8 @@ assert(renderedCards.includes('data-resource-status="coming-soon"'));
 assert(renderedCards.includes('href="/resources/glossary-of-public-finance"'), 'published glossary must receive an English link');
 assert(renderedCards.includes('data-href-pt="/pt-br/resources/glossario-de-financas-publicas"'), 'published glossary must receive a Portuguese link');
 assert(!renderedCards.includes('href="/resources/open-data-portals"'), 'remaining coming-soon resources must not receive public links');
-assert(!renderedCards.includes('href="/resources/annual-reports-where-to-find-them"'), 'Annual Reports must remain non-clickable while coming-soon');
+assert(renderedCards.includes('href="/resources/annual-reports-where-to-find-them"'), 'published Annual Reports must receive an English link');
+assert(renderedCards.includes('data-href-pt="/pt-br/resources/relatorios-anuais-onde-encontrar"'), 'published Annual Reports must receive a Portuguese link');
 assert(renderedCards.includes('href="/what-is-a-city-budget-and-why-should-you-care"'));
 assert(renderedCards.includes('href="/where-do-your-local-taxes-actually-go"'));
 
@@ -105,37 +116,16 @@ assert(sitemap.includes('/resources/glossary-of-public-finance'));
 assert(sitemap.includes('/pt-br/resources/glossario-de-financas-publicas'));
 assert(!sitemap.includes('/resources/open-data-portals'));
 assert(!sitemap.includes('/resources/civic-finance-reading-list'));
-assert(!sitemap.includes('/resources/annual-reports-where-to-find-them'));
-assert(!sitemap.includes('/pt-br/resources/relatorios-anuais-onde-encontrar'));
+assert(sitemap.includes('/resources/annual-reports-where-to-find-them'));
+assert(sitemap.includes('/pt-br/resources/relatorios-anuais-onde-encontrar'));
+assert(sitemap.includes('hreflang="x-default" href="https://www.luminasmart.company/resources/annual-reports-where-to-find-them"'));
 
 const resourceTemplate = fs.readFileSync(path.join(__dirname, '..', 'src', 'templates', 'resource.html'), 'utf8');
 const resourceCss = fs.readFileSync(path.join(__dirname, '..', 'src', 'shared', 'base.css'), 'utf8');
 assert(resourceCss.includes('.resource-table-wrap { max-width: 100%; overflow-x: auto;'), 'resource tables must be horizontally scrollable on narrow screens');
 
-const annualCanonicalEn = 'https://www.luminasmart.company/resources/annual-reports-where-to-find-them';
-const annualCanonicalPt = 'https://www.luminasmart.company/pt-br/resources/relatorios-anuais-onde-encontrar';
-const annualPreviewEn = {
-  ...annualEn,
-  status: 'published',
-  contentStatus: 'approved',
-  reviewStatus: 'approved',
-  canonical: annualCanonicalEn,
-  hreflang: { en: annualCanonicalEn, 'pt-BR': annualCanonicalPt },
-  publishedAt: '2026-08-26',
-  updatedAt: '2026-08-26'
-};
-const annualPreviewPt = {
-  ...annualPt,
-  status: 'published',
-  contentStatus: 'approved',
-  reviewStatus: 'approved',
-  canonical: annualCanonicalPt,
-  hreflang: { en: annualCanonicalEn, 'pt-BR': annualCanonicalPt },
-  publishedAt: '2026-08-26',
-  updatedAt: '2026-08-26'
-};
-const annualPreviewEnHtml = renderResourcePage(annualPreviewEn, resourceTemplate);
-const annualPreviewPtHtml = renderResourcePage(annualPreviewPt, resourceTemplate);
+const annualPreviewEnHtml = renderResourcePage(annualEn, resourceTemplate);
+const annualPreviewPtHtml = renderResourcePage(annualPt, resourceTemplate);
 assert(annualPreviewEnHtml.includes('Annual Reports — Where to Find Them'));
 assert(annualPreviewEnHtml.includes('Start with the report name'));
 assert(annualPreviewEnHtml.includes('Official examples by government level'));
@@ -144,12 +134,15 @@ assert(annualPreviewEnHtml.includes(SOURCE_LINKS.illinois));
 assert(annualPreviewEnHtml.includes(SOURCE_LINKS.northCarolina));
 assert(annualPreviewEnHtml.includes('<table>'));
 assert(annualPreviewEnHtml.includes('rel="canonical"'));
+assert(annualPreviewEnHtml.includes('hreflang="x-default" href="https://www.luminasmart.company/resources/annual-reports-where-to-find-them"'));
 assert(annualPreviewEnHtml.includes('application/ld+json'));
+assert(annualPreviewEnHtml.includes('"datePublished": "2026-08-30"'));
 assert(!annualPreviewEnHtml.includes('{{'));
 assert(annualPreviewPtHtml.includes('Relatórios Anuais — Onde Encontrá-los'));
 assert(annualPreviewPtHtml.includes('Comece pelo nome do relatório'));
 assert(annualPreviewPtHtml.includes('Exemplos oficiais por nível de governo'));
 assert(annualPreviewPtHtml.includes('lang="pt-BR"'));
+assert(annualPreviewPtHtml.includes('<link rel="canonical" href="https://www.luminasmart.company/pt-br/resources/relatorios-anuais-onde-encontrar"'));
 assert(!annualPreviewPtHtml.includes('{{'));
 
 const pageResource = glossaryEn;

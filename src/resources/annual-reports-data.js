@@ -33,7 +33,7 @@ const CONTENT = Object.freeze({
       '<strong>A Financial Reports, Accounting, Investor Relations, or Reports section.</strong> The report may be filed under a department rather than linked from the homepage.',
       '<strong>A state controller, comptroller, auditor, or statewide reporting repository.</strong> These can be especially useful for state reports and, in some jurisdictions, local-government filings.',
       '<strong>EMMA for municipal-securities disclosures.</strong> The Municipal Securities Rulemaking Board’s EMMA system is the official source for municipal continuing-disclosure documents and can include annual financial information and audited financial statements associated with municipal securities.',
-      '<strong>An official-domain search as a fallback.</strong> Try searches such as <code>site:cityname.gov ACFR</code>, <code>site:countyname.gov annual financial report</code>, or <code>site:state.xx.us audited financial statements</code>.'
+      '<strong>An official-domain search as a last resort.</strong> Try searches such as <code>site:cityname.gov ACFR</code>, <code>site:countyname.gov annual financial report</code>, or <code>site:state.xx.us audited financial statements</code>.'
     ],
     verifyTitle: 'How to verify the document',
     verifyIntro: 'Before relying on a report, check:',
