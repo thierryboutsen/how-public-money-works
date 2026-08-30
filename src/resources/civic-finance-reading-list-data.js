@@ -189,6 +189,21 @@ function localizedAccess(access, locale) {
   return access.replace('Free digital edition', 'Edição digital gratuita').replace('Free PDF', 'PDF gratuito').replace('Free', 'Gratuito').replace('Book / library / sample', 'Livro / biblioteca / amostra').replace('Book / library', 'Livro / biblioteca').replace('Professional publication / library', 'Publicação profissional / biblioteca');
 }
 
+function localizedLabel(label, locale) {
+  if (locale !== 'pt-BR') return label;
+  const labels = {
+    'Start here · Practical guide': 'Comece aqui · Guia prático',
+    'Practical guide': 'Guia prático',
+    'Practical explainer': 'Explicação prática',
+    'Technical reference': 'Referência técnica',
+    'Foundational reference': 'Referência fundamental',
+    'Professional standard': 'Norma profissional',
+    'Classic framework': 'Estrutura clássica',
+    'Current textbook': 'Livro-texto atual'
+  };
+  return labels[label] || label;
+}
+
 function renderMeta(item, locale) {
   const parts = [localizedLevel(item.level, locale), localizedAccess(item.access, locale)];
   if (item.year) parts.push(item.year);
@@ -200,14 +215,17 @@ function renderQuickPath(locale) {
   return `<ol class="reading-quick-list">${items.map((item) => `<li><a href="#reading-${escapeHtml(item.id)}"><span class="reading-quick-num">${String(item.quick).padStart(2, '0')}</span><span><strong>${escapeHtml(item.quickTitle || item.title)}</strong><small>${escapeHtml(item.creator)}</small></span></a></li>`).join('')}</ol>`;
 }
 
-function renderCover(item) {
-  if (item.coverAsset) return `<img src="${escapeHtml(item.coverAsset)}" alt="Cover of ${escapeHtml(item.title)}" loading="lazy" decoding="async" />`;
+function renderCover(item, locale) {
+  if (item.coverAsset) {
+    const altPrefix = locale === 'pt-BR' ? 'Capa de' : 'Cover of';
+    return `<img src="${escapeHtml(item.coverAsset)}" alt="${escapeHtml(altPrefix)} ${escapeHtml(item.title)}" loading="lazy" decoding="async" />`;
+  }
   const shortCreator = item.creator.split('·')[0].trim();
-  return `<div class="reading-cover-placeholder reading-cover-${escapeHtml(item.coverKind || 'book')}"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(shortCreator)}</small></div>`;
+  return `<div class="reading-cover-placeholder reading-cover-${escapeHtml(item.coverKind || 'book')}"><span>${escapeHtml(localizedLabel(item.label, locale))}</span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(shortCreator)}</small></div>`;
 }
 
 function renderBookshelf(locale, copy) {
-  return `<div class="reading-bookshelf">${ITEMS.filter((item) => item.bookshelf).sort((a, b) => a.shelfOrder - b.shelfOrder).map((item) => `<a class="reading-book" href="#reading-${escapeHtml(item.id)}"><div class="reading-book-cover">${renderCover(item)}</div><div class="reading-book-meta"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.year || '')}${item.label === 'Classic framework' ? (locale === 'pt-BR' ? ' · Clássico' : ' · Classic') : ''}</span></div></a>`).join('')}</div>`;
+  return `<div class="reading-bookshelf">${ITEMS.filter((item) => item.bookshelf).sort((a, b) => a.shelfOrder - b.shelfOrder).map((item) => `<a class="reading-book" href="#reading-${escapeHtml(item.id)}"><div class="reading-book-cover">${renderCover(item, locale)}</div><div class="reading-book-meta"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.year || '')}${item.label === 'Classic framework' ? (locale === 'pt-BR' ? ' · Clássico' : ' · Classic') : ''}</span></div></a>`).join('')}</div>`;
 }
 
 function renderTrackNav(locale) {
@@ -219,7 +237,7 @@ function renderItem(item, locale, copy) {
   return `<article class="reading-item" id="reading-${escapeHtml(item.id)}">
     <div class="reading-item-number">${String(ITEMS.indexOf(item) + 1).padStart(2, '0')}</div>
     <div class="reading-item-main">
-      <div class="reading-item-label">${escapeHtml(item.label)}</div>
+      <div class="reading-item-label">${escapeHtml(localizedLabel(item.label, locale))}</div>
       <h3>${escapeHtml(item.title)}</h3>
       <p class="reading-creator">${escapeHtml(item.creator)}</p>
       <div class="reading-item-meta">${renderMeta(item, locale)}</div>
@@ -242,9 +260,9 @@ function renderCivicFinanceReadingListBody(locale = 'en') {
   const bodyHtml = [
     `<p class="reading-intro">${escapeHtml(copy.intro)}</p>`,
     `<aside class="reading-how"><div class="reading-how-label">${escapeHtml(copy.howTitle)}</div><p>${escapeHtml(copy.howText)}</p></aside>`,
-    `<section class="reading-quick"><div class="reading-section-kicker">01 · START</div><h2>${escapeHtml(copy.quickTitle)}</h2><p>${escapeHtml(copy.quickIntro)}</p>${renderQuickPath(locale)}</section>`,
-    `<section class="reading-shelf"><div class="reading-section-kicker">02 · BOOKSHELF</div><h2>${escapeHtml(copy.shelfTitle)}</h2><p>${escapeHtml(copy.shelfIntro)}</p>${renderBookshelf(locale, copy)}</section>`,
-    `<section class="reading-map"><div class="reading-section-kicker">03 · PATHS</div><h2>${escapeHtml(copy.tracksTitle)}</h2>${renderTrackNav(locale)}</section>`,
+    `<section class="reading-quick"><div class="reading-section-kicker">${locale === 'pt-BR' ? '01 · COMEÇAR' : '01 · START'}</div><h2>${escapeHtml(copy.quickTitle)}</h2><p>${escapeHtml(copy.quickIntro)}</p>${renderQuickPath(locale)}</section>`,
+    `<section class="reading-shelf"><div class="reading-section-kicker">${locale === 'pt-BR' ? '02 · ESTANTE' : '02 · BOOKSHELF'}</div><h2>${escapeHtml(copy.shelfTitle)}</h2><p>${escapeHtml(copy.shelfIntro)}</p>${renderBookshelf(locale, copy)}</section>`,
+    `<section class="reading-map"><div class="reading-section-kicker">${locale === 'pt-BR' ? '03 · TRILHAS' : '03 · PATHS'}</div><h2>${escapeHtml(copy.tracksTitle)}</h2>${renderTrackNav(locale)}</section>`,
     renderTracks(locale, copy),
     `<section class="reading-methodology"><h2>${escapeHtml(copy.methodologyTitle)}</h2><p>${escapeHtml(copy.methodology)}</p></section>`
   ].join('\n');

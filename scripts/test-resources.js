@@ -127,6 +127,13 @@ assert(readingPtContent.bodyHtml.includes('Se você ler apenas cinco coisas'));
 assert(readingPtContent.bodyHtml.includes('A estante de referências fundamentais'));
 assert(readingPtContent.bodyHtml.includes('Por que ler'));
 assert(readingPtContent.bodyHtml.includes('Ajuda a entender'));
+assert(readingPtContent.bodyHtml.includes('Comece aqui · Guia prático'));
+assert(readingPtContent.bodyHtml.includes('Referência técnica'));
+assert(readingPtContent.bodyHtml.includes('Referência fundamental'));
+assert(readingPtContent.bodyHtml.includes('01 · COMEÇAR'));
+assert(readingPtContent.bodyHtml.includes('02 · ESTANTE'));
+assert(readingPtContent.bodyHtml.includes('03 · TRILHAS'));
+assert(!readingPtContent.bodyHtml.includes('Start here · Practical guide'));
 assert.strictEqual((readingPtContent.bodyHtml.match(/class="reading-item"/g) || []).length, 25);
 
 const duplicateSlug = RESOURCE_MANIFEST.map((resource) => ({ ...resource }));
