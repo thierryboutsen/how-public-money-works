@@ -194,6 +194,13 @@ recoverySlots:
     result: published
     publicationPath: auto-publish-fallback
     publishedAt: 2026-08-23
+  - originalScheduledDate: 2026-08-27
+    recoveryScheduledDate: 2026-08-30
+    recoveryTime: 05:00
+    recoveryReason: scheduled workflow validation regression + missed publication slot
+    articleSlug: how-local-governments-pay-for-roads
+    status: manual-recovery-authorized
+    publicationDecision: pending
 rules:
   - No topic becomes a brief or draft without the required human topic and brief approvals
   - Publication review is preferably human; silence may use the auto-publish fallback only after cutoff and only when every gate passes

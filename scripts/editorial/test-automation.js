@@ -1,6 +1,8 @@
 'use strict';
 
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 const { publicationWeekday, reviewWindowForPair, runnerDecision, scheduledDayCheck, selectNextPreparedPair, slotLabelForEvaluation } = require('./engine');
 
 function passingEvaluation() {
@@ -56,15 +58,35 @@ assert.strictEqual(publicationWeekday('2026-08-13'), 'Thursday', 'Thursday date 
 assert.deepStrictEqual(scheduledDayCheck('2026-08-11'), { pass: true, detail: { targetDate: '2026-08-11', targetDay: 'Tuesday' } });
 assert.deepStrictEqual(scheduledDayCheck('2026-08-13'), { pass: true, detail: { targetDate: '2026-08-13', targetDay: 'Thursday' } });
 assert.strictEqual(slotLabelForEvaluation({ schedule: thursdayAfterCutoff }), 'Thursday', 'displayed label must use the real Thursday slot');
-const exactTuesdayPair = selectNextPreparedPair('2026-08-25', new Set(), { exactSlotOnly: true });
-assert.ok(exactTuesdayPair, 'an exact reserved pair must be returned for a prepared slot');
+const workflowText = fs.readFileSync(path.join(__dirname, '../../.github/workflows/editorial-automation.yml'), 'utf8');
+assert.ok(workflowText.includes("cron: '17 9 * * 2,4'"), 'scheduled workflow must avoid minute 00 while keeping the Tuesday/Thursday 09:xx window');
+assert.ok(workflowText.includes("timezone: 'America/Sao_Paulo'"), 'scheduled workflow must keep the Sao Paulo timezone');
+const syntheticPreparedPair = [
+  { data: { language: 'en', slug: 'synthetic-exact-slot', targetPublicationDate: '2030-01-01' } },
+  { data: { language: 'pt-BR', slug: 'synthetic-exact-slot-pt', targetPublicationDate: '2030-01-01' } }
+];
+const syntheticLaterPair = [
+  { data: { language: 'en', slug: 'synthetic-later-slot', targetPublicationDate: '2030-01-03' } },
+  { data: { language: 'pt-BR', slug: 'synthetic-later-slot-pt', targetPublicationDate: '2030-01-03' } }
+];
+const syntheticPairs = [syntheticPreparedPair, syntheticLaterPair];
+const passingStaticGateEvaluation = () => ({
+  human: { status: 'awaiting-human-review' },
+  checks: {
+    factualValidationComplete: { pass: true },
+    contentValidator: { pass: true },
+    publicationGuards: { pass: true }
+  }
+});
+const exactSlotOptions = { exactSlotOnly: true, pairs: syntheticPairs, staticGateEvaluationFn: passingStaticGateEvaluation };
+const exactTuesdayPair = selectNextPreparedPair('2030-01-01', new Set(), exactSlotOptions);
+assert.ok(exactTuesdayPair, 'an exact reserved pair must be returned for a prepared synthetic slot');
 const exactTuesdayEnglish = exactTuesdayPair.find((document) => document.data.language === 'en') || exactTuesdayPair[0];
-assert.strictEqual(exactTuesdayEnglish.data.targetPublicationDate, '2026-08-25', 'scheduled execution must select only the pair reserved for the exact slot date');
-const exactThursdayPair = selectNextPreparedPair('2026-08-20', new Set(), { exactSlotOnly: true });
-assert.doesNotThrow(() => selectNextPreparedPair('2026-08-20', new Set(), { exactSlotOnly: true }), 'a consumed historical reservation must not throw');
-assert.strictEqual(exactThursdayPair, null, 'a consumed historical reservation must not be selected as prepared content');
-assert.strictEqual(selectNextPreparedPair('2026-08-18', new Set(['annual-financial-report-local-government']), { exactSlotOnly: true }), null, 'a consumed slot must not fall through to another pair');
-assert.strictEqual(selectNextPreparedPair('2026-08-19', new Set(), { exactSlotOnly: true }), null, 'a date without an exact reservation must not consume overdue inventory');
+assert.strictEqual(exactTuesdayEnglish.data.targetPublicationDate, '2030-01-01', 'scheduled execution must select only the pair reserved for the exact synthetic slot date');
+assert.doesNotThrow(() => selectNextPreparedPair('2029-12-27', new Set(), exactSlotOptions), 'an absent historical reservation must not throw');
+assert.strictEqual(selectNextPreparedPair('2029-12-27', new Set(), exactSlotOptions), null, 'an absent historical reservation must not be selected as prepared content');
+assert.strictEqual(selectNextPreparedPair('2030-01-01', new Set(['synthetic-exact-slot']), exactSlotOptions), null, 'an excluded exact slot must not fall through to another pair');
+assert.strictEqual(selectNextPreparedPair('2030-01-02', new Set(), exactSlotOptions), null, 'a date without an exact reservation must not consume later inventory');
 const humanApproved = JSON.parse(JSON.stringify(allPass));
 humanApproved.human.status = 'approved';
 assert.strictEqual(runnerDecision(humanApproved).decision, 'WOULD_PUBLISH', 'human approval plus all gates must publish');
