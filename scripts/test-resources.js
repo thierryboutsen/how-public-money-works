@@ -102,6 +102,10 @@ assert(renderedCards.includes('data-href-pt="/pt-br/resources/glossario-de-finan
 assert(!renderedCards.includes('href="/resources/open-data-portals"'), 'remaining coming-soon resources must not receive public links');
 assert(renderedCards.includes('href="/resources/annual-reports-where-to-find-them"'), 'published Annual Reports must receive an English link');
 assert(renderedCards.includes('data-href-pt="/pt-br/resources/relatorios-anuais-onde-encontrar"'), 'published Annual Reports must receive a Portuguese link');
+assert(renderedCards.includes('data-text-en="Read guide"'), 'resource card action text must rely on the shared CSS arrow instead of embedding a duplicate arrow');
+assert(renderedCards.includes('data-text-pt="Ler guia"'), 'Portuguese resource card action must rely on the shared CSS arrow instead of embedding a duplicate arrow');
+assert(!renderedCards.includes('Read guide →'), 'resource card markup must not embed an arrow when .arrow::after already supplies one');
+assert(!renderedCards.includes('Ler guia →'), 'Portuguese resource card markup must not embed a duplicate arrow');
 assert(renderedCards.includes('href="/what-is-a-city-budget-and-why-should-you-care"'));
 assert(renderedCards.includes('href="/where-do-your-local-taxes-actually-go"'));
 

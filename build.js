@@ -400,8 +400,8 @@ function renderResourceCards(resources = RESOURCE_MANIFEST) {
     const linkAttributes = isPublished
       ? ` href="${escapeHtml(href)}" data-localize-link data-href-en="${escapeHtml(href)}" data-href-pt="${escapeHtml(ptHref)}"`
       : '';
-    const action = isPublished ? resource.action : resource.locale === 'en' ? 'Coming soon' : 'Em breve';
-    const ptAction = pairedPublished ? pair.action : resource.locale === 'en' ? 'Available in English →' : 'Disponível em inglês →';
+    const action = (isPublished ? resource.action : resource.locale === 'en' ? 'Coming soon' : 'Em breve').replace(/\s*→\s*$/, '');
+    const ptAction = (pairedPublished ? pair.action : resource.locale === 'en' ? 'Available in English →' : 'Disponível em inglês →').replace(/\s*→\s*$/, '');
     return `<${tag} class="res-tile${isPublished ? '' : ' coming-soon'}"${linkAttributes} data-resource-id="${escapeHtml(resource.id)}" data-resource-status="${escapeHtml(resource.status)}">
       <div class="kind" data-localize-text ${localizedResourceAttributes(resource, pair, 'category')}>${escapeHtml(resource.category)}</div>
       <h3 data-localize-text ${localizedResourceAttributes(resource, pair, 'title')}>${escapeHtml(resource.title)}</h3>
