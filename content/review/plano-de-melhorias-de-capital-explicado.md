@@ -29,7 +29,7 @@ draftAllowed: true
 publishAllowed: false
 canonicalDecision: "pending-human-approval"
 slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
+humanDraftApproval: "approved"
 publicationApproval: "pending"
 translationValidationStatus: "validated"
 requestedChanges: []
@@ -113,11 +113,11 @@ O objetivo não é prever cada data de obra. É entender onde o projeto está en
 
 - [Federal Highway Administration — Capital Improvement Programming Primer](https://www.fhwa.dot.gov/ipd/pdfs/value_capture/fhwa_hin_21_002.pdf)
 - [Federal Highway Administration PlanWorks — Capital Improvement](https://fhwaapps.fhwa.dot.gov/planworks/Applications/Show/capital-improvement)
-- [Federal Highway Administration — Capital Improvement Plan FAQ](https://www.fhwa.dot.gov/ipd/value_capture/defined/faq_joint_development.aspx)
+- [Federal Highway Administration — Frequently Asked Questions: Joint Development (seção sobre CIP)](https://www.fhwa.dot.gov/ipd/value_capture/defined/faq_joint_development.aspx)
 
 <!--
 Editorial review notes:
-- Human draft approval is pending.
+- Human draft approval completed on 2026-08-30.
 - Publication approval is pending.
 - O artigo não afirma que um projeto listado esteja autorizado ou financiado.
 - publishAllowed remains false.
@@ -130,7 +130,7 @@ Factual validation checklist:
   sourceUsed: FHWA PlanWorks Capital Improvement
   status: conceptually-validated
 - claim: O CIP pode incluir projetos, cronogramas, planos e estudos.
-  sourceUsed: FHWA Capital Improvement Plan FAQ
+  sourceUsed: FHWA Frequently Asked Questions: Joint Development — CIP section
   status: conceptually-validated
 - claim: Inclusão não estabelece autorização jurídica ou financiamento completo universal.
   sourceUsed: FHWA Capital Improvement Programming Primer
