@@ -11,6 +11,7 @@ const {
 } = require('../src/resources/manifest');
 const { GLOSSARY_EN, GLOSSARY_PT, renderGlossaryBody } = require('../src/resources/glossary-data');
 const { SOURCE_LINKS, renderAnnualReportsBody } = require('../src/resources/annual-reports-data');
+const { TRACKS: READING_TRACKS, ITEMS: READING_ITEMS, renderCivicFinanceReadingListBody } = require('../src/resources/civic-finance-reading-list-data');
 const {
   generateSitemap,
   renderIndexPage,
@@ -85,6 +86,49 @@ assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.northCarolina));
 assert(annualEnContent.referencesHtml.includes(SOURCE_LINKS.emmaAbout));
 assert(annualEnContent.bodyHtml.includes(SOURCE_LINKS.emmaPortal));
 
+const readingEn = RESOURCE_MANIFEST.find((resource) => resource.id === 'civic-finance-reading-list-en');
+const readingPt = RESOURCE_MANIFEST.find((resource) => resource.id === 'lista-de-leituras-financas-civicas-pt-br');
+assert(readingEn && readingPt, 'Reading List EN/PT resources must exist');
+assert.strictEqual(readingEn.status, 'coming-soon');
+assert.strictEqual(readingPt.status, 'coming-soon');
+assert.strictEqual(readingEn.contentStatus, 'draft');
+assert.strictEqual(readingPt.contentStatus, 'draft');
+assert.strictEqual(readingEn.reviewStatus, 'draft');
+assert.strictEqual(readingPt.reviewStatus, 'draft');
+assert.strictEqual(readingEn.canonical, null);
+assert.strictEqual(readingPt.canonical, null);
+assert.deepStrictEqual(readingEn.hreflang, {});
+assert.deepStrictEqual(readingPt.hreflang, {});
+assert.strictEqual(readingEn.pairedResourceId, readingPt.id);
+assert.strictEqual(readingPt.pairedResourceId, readingEn.id);
+assert.strictEqual(readingEn.content.source, 'src/resources/civic-finance-reading-list-data.js');
+assert.strictEqual(readingPt.content.source, 'src/resources/civic-finance-reading-list-data.js');
+assert.strictEqual(READING_ITEMS.length, 25, 'Reading List V1 must contain exactly 25 curated items');
+assert.strictEqual(READING_TRACKS.length, 8, 'Reading List V1 must contain exactly eight learning tracks');
+assert.strictEqual(READING_ITEMS.filter((item) => item.quick).length, 5, 'starter pathway must contain exactly five steps');
+assert.strictEqual(READING_ITEMS.filter((item) => item.bookshelf).length, 7, 'foundational bookshelf must contain exactly seven references');
+assert(READING_ITEMS.every((item) => /^https:\/\//.test(item.url)), 'Reading List sources must use HTTPS');
+assert(READING_ITEMS.every((item) => item.why?.en && item.why?.pt && item.helps?.en && item.helps?.pt), 'every Reading List item must have paired EN/PT-BR annotations');
+assert(READING_ITEMS.every((item) => !/amazon\.|ebay\.|abebooks\./i.test(item.url)), 'Reading List must not use marketplace or affiliate-style source links');
+
+const readingEnContent = renderCivicFinanceReadingListBody('en');
+const readingPtContent = renderCivicFinanceReadingListBody('pt-BR');
+assert(readingEnContent.bodyHtml.includes('If you only read five things'));
+assert(readingEnContent.bodyHtml.includes('The foundational bookshelf'));
+assert(readingEnContent.bodyHtml.includes('Government Finances Glossary + Classification Manual'));
+assert.strictEqual((readingEnContent.bodyHtml.match(/class="reading-quick-num"/g) || []).length, 5);
+assert.strictEqual((readingEnContent.bodyHtml.match(/class="reading-book"/g) || []).length, 7);
+assert.strictEqual((readingEnContent.bodyHtml.match(/class="reading-cover-placeholder/g) || []).length, 7, 'bookshelf must have safe typographic placeholders until approved cover assets are added');
+assert.strictEqual((readingEnContent.bodyHtml.match(/class="reading-track"/g) || []).length, 8);
+assert.strictEqual((readingEnContent.bodyHtml.match(/class="reading-item"/g) || []).length, 25);
+assert(readingEnContent.bodyHtml.includes('Why read it'));
+assert(readingEnContent.bodyHtml.includes('Helps you understand'));
+assert(readingPtContent.bodyHtml.includes('Se você ler apenas cinco coisas'));
+assert(readingPtContent.bodyHtml.includes('A estante de referências fundamentais'));
+assert(readingPtContent.bodyHtml.includes('Por que ler'));
+assert(readingPtContent.bodyHtml.includes('Ajuda a entender'));
+assert.strictEqual((readingPtContent.bodyHtml.match(/class="reading-item"/g) || []).length, 25);
+
 const duplicateSlug = RESOURCE_MANIFEST.map((resource) => ({ ...resource }));
 duplicateSlug.push({ ...duplicateSlug[0], id: 'duplicate-resource', pairedResourceId: duplicateSlug[1].id });
 assert(validateResourceManifest(duplicateSlug).errors.some((error) => /duplicate slug/.test(error)), 'duplicate slugs must fail');
@@ -100,6 +144,7 @@ assert(renderedCards.includes('data-resource-status="coming-soon"'));
 assert(renderedCards.includes('href="/resources/glossary-of-public-finance"'), 'published glossary must receive an English link');
 assert(renderedCards.includes('data-href-pt="/pt-br/resources/glossario-de-financas-publicas"'), 'published glossary must receive a Portuguese link');
 assert(!renderedCards.includes('href="/resources/open-data-portals"'), 'remaining coming-soon resources must not receive public links');
+assert(!renderedCards.includes('href="/resources/civic-finance-reading-list"'), 'Reading List must remain unlinked while coming-soon');
 assert(renderedCards.includes('href="/resources/annual-reports-where-to-find-them"'), 'published Annual Reports must receive an English link');
 assert(renderedCards.includes('data-href-pt="/pt-br/resources/relatorios-anuais-onde-encontrar"'), 'published Annual Reports must receive a Portuguese link');
 assert(renderedCards.includes('data-text-en="Read guide"'), 'resource card action text must rely on the shared CSS arrow instead of embedding a duplicate arrow');
@@ -120,6 +165,7 @@ assert(sitemap.includes('/resources/glossary-of-public-finance'));
 assert(sitemap.includes('/pt-br/resources/glossario-de-financas-publicas'));
 assert(!sitemap.includes('/resources/open-data-portals'));
 assert(!sitemap.includes('/resources/civic-finance-reading-list'));
+assert(!sitemap.includes('/pt-br/resources/lista-de-leituras-financas-civicas'));
 assert(sitemap.includes('/resources/annual-reports-where-to-find-them'));
 assert(sitemap.includes('/pt-br/resources/relatorios-anuais-onde-encontrar'));
 assert(sitemap.includes('hreflang="x-default" href="https://www.luminasmart.company/resources/annual-reports-where-to-find-them"'));
@@ -127,6 +173,30 @@ assert(sitemap.includes('hreflang="x-default" href="https://www.luminasmart.comp
 const resourceTemplate = fs.readFileSync(path.join(__dirname, '..', 'src', 'templates', 'resource.html'), 'utf8');
 const resourceCss = fs.readFileSync(path.join(__dirname, '..', 'src', 'shared', 'base.css'), 'utf8');
 assert(resourceCss.includes('.resource-table-wrap { max-width: 100%; overflow-x: auto;'), 'resource tables must be horizontally scrollable on narrow screens');
+assert(resourceCss.includes('.reading-bookshelf { display: grid; grid-auto-flow: column;'), 'Reading List bookshelf must support horizontal cover browsing');
+assert(resourceCss.includes('.reading-track-nav { display: grid;'), 'Reading List must expose a responsive learning-track navigation');
+assert(resourceCss.includes('.resource-content .reading-item h3'), 'Reading List item titles must override generic uppercase resource h3 styling');
+
+const readingPreviewResource = {
+  ...readingEn,
+  status: 'published',
+  canonical: 'https://www.luminasmart.company/resources/civic-finance-reading-list',
+  hreflang: {
+    en: 'https://www.luminasmart.company/resources/civic-finance-reading-list',
+    'pt-BR': 'https://www.luminasmart.company/pt-br/resources/lista-de-leituras-financas-civicas'
+  },
+  publishedAt: '2026-08-30',
+  updatedAt: '2026-08-30'
+};
+const readingPreviewHtml = renderResourcePage(readingPreviewResource, resourceTemplate);
+assert(readingPreviewHtml.includes('Reading List · Civic Finance'));
+assert(readingPreviewHtml.includes('If you only read five things'));
+assert.strictEqual((readingPreviewHtml.match(/class="reading-item"/g) || []).length, 25);
+assert(readingPreviewHtml.includes('CollectionPage'));
+assert(readingPreviewHtml.includes('"@type": "ItemList"'));
+assert(readingPreviewHtml.includes('"numberOfItems": 25'));
+assert(readingPreviewHtml.includes('"position": 25'));
+assert(!readingPreviewHtml.includes('{{'));
 
 const annualPreviewEnHtml = renderResourcePage(annualEn, resourceTemplate);
 const annualPreviewPtHtml = renderResourcePage(annualPt, resourceTemplate);
@@ -272,4 +342,4 @@ assert(ptPageHtml.includes('<nav class="nav civic" aria-label="Primary navigatio
 assert(ptPageHtml.includes('href="/resources/glossary-of-public-finance" hreflang="en"'), 'PT-BR resource navigation must link to the English pair');
 assert.strictEqual((ptPageHtml.match(/class="lang-switch"/g) || []).length, 1);
 assert((ptPageHtml.match(/class="glossary-entry"/g) || []).length === GLOSSARY_PT.length);
-console.log('Resources architecture tests passed: manifest, pairs, homepage cards, routes, sitemap, global navigation, glossary letter filtering, and resource template.');
+console.log('Resources architecture tests passed: manifest, pairs, homepage cards, routes, sitemap, Reading List draft architecture, global navigation, glossary letter filtering, and resource template.');

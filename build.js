@@ -12,6 +12,7 @@ const {
 } = require('./src/resources/manifest');
 const { renderGlossaryBody, GLOSSARY_EN, GLOSSARY_PT } = require('./src/resources/glossary-data');
 const { renderAnnualReportsBody } = require('./src/resources/annual-reports-data');
+const { renderCivicFinanceReadingListBody, ITEMS: READING_ITEMS } = require('./src/resources/civic-finance-reading-list-data');
 const {
   ROOT_DIR,
   listMarkdownFiles,
@@ -413,9 +414,10 @@ function renderResourceCards(resources = RESOURCE_MANIFEST) {
 
 function buildResourceJsonLd(resource, canonicalUrl) {
   const isGlossary = resource.content?.source === 'src/resources/glossary-data.js';
+  const isReadingList = resource.content?.source === 'src/resources/civic-finance-reading-list-data.js';
   const schema = {
     '@context': 'https://schema.org',
-    '@type': isGlossary ? ['WebPage', 'DefinedTermSet'] : 'WebPage',
+    '@type': isGlossary ? ['WebPage', 'DefinedTermSet'] : isReadingList ? ['WebPage', 'CollectionPage'] : 'WebPage',
     '@id': canonicalUrl,
     name: resource.title,
     description: resource.description,
@@ -434,6 +436,18 @@ function buildResourceJsonLd(resource, canonicalUrl) {
       inLanguage: resource.locale,
       inDefinedTermSet: { '@id': canonicalUrl }
     }));
+  }
+  if (isReadingList) {
+    schema.mainEntity = {
+      '@type': 'ItemList',
+      numberOfItems: READING_ITEMS.length,
+      itemListElement: READING_ITEMS.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.title,
+        url: item.url
+      }))
+    };
   }
   if (resource.updatedAt) schema.dateModified = resource.updatedAt;
   if (resource.publishedAt) schema.datePublished = resource.publishedAt;
@@ -456,7 +470,9 @@ function renderResourcePage(resource, template, options = {}) {
     ? { bodyHtml: renderGlossaryBody(resource.locale), referencesHtml: '' }
     : resource.content?.source === 'src/resources/annual-reports-data.js'
       ? renderAnnualReportsBody(resource.locale)
-      : resource.content;
+      : resource.content?.source === 'src/resources/civic-finance-reading-list-data.js'
+        ? renderCivicFinanceReadingListBody(resource.locale)
+        : resource.content;
   return replaceTokens(template, {
     documentTitle: escapeHtml(resource.seoTitle || `${resource.title} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(resource.locale),
