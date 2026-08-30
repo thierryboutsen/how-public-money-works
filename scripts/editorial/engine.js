@@ -538,12 +538,13 @@ async function inventory(options = {}) {
 }
 
 function selectNextPreparedPair(slotDate, excludedSlugs = new Set(), options = {}) {
-  const pairs = choosePair();
+  const pairs = Array.isArray(options.pairs) ? options.pairs : choosePair();
+  const evaluateStaticGates = options.staticGateEvaluationFn || staticGateEvaluation;
   const candidates = pairs.filter((pair) => {
     const english = pair.find((document) => document.data.language === 'en') || pair[0];
     if (excludedSlugs.has(english.data.slug)) return false;
     if (!english.data.targetPublicationDate || english.data.targetPublicationDate > slotDate) return false;
-    const evaluation = staticGateEvaluation(pair);
+    const evaluation = evaluateStaticGates(pair);
     return !['rejected', 'changes-requested'].includes(evaluation.human.status)
       && Object.entries(evaluation.checks)
         .filter(([name]) => !['contentValidator', 'publicationGuards'].includes(name))
