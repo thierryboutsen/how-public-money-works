@@ -12,6 +12,7 @@ const {
 } = require('./src/resources/manifest');
 const { renderGlossaryBody, GLOSSARY_EN, GLOSSARY_PT } = require('./src/resources/glossary-data');
 const { renderAnnualReportsBody } = require('./src/resources/annual-reports-data');
+const { renderCivicFinanceReadingListBody, ITEMS: READING_ITEMS } = require('./src/resources/civic-finance-reading-list-data');
 const {
   ROOT_DIR,
   listMarkdownFiles,
@@ -413,9 +414,10 @@ function renderResourceCards(resources = RESOURCE_MANIFEST) {
 
 function buildResourceJsonLd(resource, canonicalUrl) {
   const isGlossary = resource.content?.source === 'src/resources/glossary-data.js';
+  const isReadingList = resource.content?.source === 'src/resources/civic-finance-reading-list-data.js';
   const schema = {
     '@context': 'https://schema.org',
-    '@type': isGlossary ? ['WebPage', 'DefinedTermSet'] : 'WebPage',
+    '@type': isGlossary ? ['WebPage', 'DefinedTermSet'] : isReadingList ? ['WebPage', 'CollectionPage'] : 'WebPage',
     '@id': canonicalUrl,
     name: resource.title,
     description: resource.description,
@@ -435,36 +437,53 @@ function buildResourceJsonLd(resource, canonicalUrl) {
       inDefinedTermSet: { '@id': canonicalUrl }
     }));
   }
+  if (isReadingList) {
+    schema.mainEntity = {
+      '@type': 'ItemList',
+      numberOfItems: READING_ITEMS.length,
+      itemListElement: READING_ITEMS.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.title,
+        url: item.url
+      }))
+    };
+  }
   if (resource.updatedAt) schema.dateModified = resource.updatedAt;
   if (resource.publishedAt) schema.datePublished = resource.publishedAt;
   return JSON.stringify(schema, null, 2).replace(/</g, '\\u003c');
 }
 
 function renderResourcePage(resource, template, options = {}) {
-  if (resource.status !== 'published') throw new Error(`${resource.id}: only published resources can be rendered`);
-  if (!resource.content) throw new Error(`${resource.id}: published resource has no content payload`);
+  const isPreview = options.mode === 'preview';
+  if (resource.status !== 'published' && !isPreview) throw new Error(`${resource.id}: only published resources can be rendered outside preview mode`);
+  if (!resource.content) throw new Error(`${resource.id}: resource has no content payload`);
   const pair = findResourcePair(resource);
   const canonicalUrl = absoluteUrl(resource.route);
-  const alternateLinks = Object.entries(resource.hreflang || {})
+  const alternateLinks = isPreview ? '' : Object.entries(resource.hreflang || {})
     .map(([language, url]) => `<link rel="alternate" hreflang="${escapeHtml(language)}" href="${escapeHtml(url)}" />`)
     .concat(`<link rel="alternate" hreflang="x-default" href="${escapeHtml(resource.hreflang.en || canonicalUrl)}" />`)
     .join('\n');
-  const languageSwitchHtml = pair?.status === 'published'
+  const languageSwitchHtml = (pair?.status === 'published' || (isPreview && pair?.content?.type))
     ? `<div class="lang-switch" aria-label="${resource.locale === 'pt-BR' ? 'Idioma do recurso' : 'Resource language'}"><a href="${escapeHtml(resource.locale === 'en' ? resource.route : pair.route)}" hreflang="en" lang="en" data-lang="EN"${resource.locale === 'en' ? ' class="on" aria-current="page"' : ''}>EN</a><span aria-hidden="true">/</span><a href="${escapeHtml(resource.locale === 'pt-BR' ? resource.route : pair.route)}" hreflang="pt-BR" lang="pt-BR" data-lang="PT"${resource.locale === 'pt-BR' ? ' class="on" aria-current="page"' : ''}>PT-BR</a></div>`
     : '';
   const resourceContent = resource.content?.source === 'src/resources/glossary-data.js'
     ? { bodyHtml: renderGlossaryBody(resource.locale), referencesHtml: '' }
     : resource.content?.source === 'src/resources/annual-reports-data.js'
       ? renderAnnualReportsBody(resource.locale)
-      : resource.content;
+      : resource.content?.source === 'src/resources/civic-finance-reading-list-data.js'
+        ? renderCivicFinanceReadingListBody(resource.locale)
+        : resource.content;
   return replaceTokens(template, {
     documentTitle: escapeHtml(resource.seoTitle || `${resource.title} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(resource.locale),
     metaDescription: escapeHtml(resource.metaDescription || resource.description),
-    canonicalUrl: escapeHtml(canonicalUrl),
+    robotsDirective: isPreview ? 'noindex,nofollow' : 'index, follow',
+    canonicalLink: isPreview ? '' : `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
+    ogUrlMeta: isPreview ? '' : `<meta property="og:url" content="${escapeHtml(canonicalUrl)}" />`,
     alternateLinks,
     ogLocale: escapeHtml(siteConfig.localeByLanguage[resource.locale]),
-    ogAlternateLocaleMeta: Object.keys(resource.hreflang || {})
+    ogAlternateLocaleMeta: isPreview ? '' : Object.keys(resource.hreflang || {})
       .filter((language) => language !== resource.locale && siteConfig.localeByLanguage[language])
       .map((language) => `<meta property="og:locale:alternate" content="${escapeHtml(siteConfig.localeByLanguage[language])}" />`).join('\n'),
     ogImageUrl: escapeHtml(imageUrl(siteConfig.defaultSocialImage)),
@@ -479,7 +498,7 @@ function renderResourcePage(resource, template, options = {}) {
       ? `Por ${siteConfig.defaultAuthor} · How Public Money Works`
       : `By ${siteConfig.defaultAuthor} · How Public Money Works`),
     languageSwitchHtml,
-    jsonLdScript: `<script type="application/ld+json">\n${buildResourceJsonLd(resource, canonicalUrl)}\n</script>`,
+    jsonLdScript: isPreview ? '' : `<script type="application/ld+json">\n${buildResourceJsonLd(resource, canonicalUrl)}\n</script>`,
     siteName: escapeHtml(siteConfig.siteName),
     sharedCssPath: escapeHtml(options.sharedAssets?.css || createSharedAssetManifest().css),
     sharedJsPath: escapeHtml(options.sharedAssets?.js || createSharedAssetManifest().js)

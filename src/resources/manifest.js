@@ -202,9 +202,13 @@ const RESOURCE_MANIFEST = Object.freeze([
     title: 'Reading List · Civic Finance',
     shortTitle: 'Civic Finance Reading List',
     category: 'Bibliography',
-    description: 'Books and long-form essays for citizens, students, and local-government practitioners — curated and annotated.',
-    subtitle: 'A prepared bibliography structure for civic-finance reading.',
+    description: 'A curated learning path through U.S. state and local public finance, with annotated institutional resources, professional references, and foundational books.',
+    subtitle: 'A curated path through U.S. state and local public finance — from budgets and taxes to financial statements, municipal debt, fiscal condition, and accountability.',
     status: 'coming-soon',
+    contentStatus: 'draft',
+    reviewStatus: 'draft',
+    seoTitle: 'Civic Finance Reading List | U.S. Public Finance Resources | Lumina Smart Strategies',
+    metaDescription: 'A curated reading list for understanding U.S. state and local public finance, including budgeting, government accounting, municipal debt, taxation, fiscal health, and transparency.',
     route: '/resources/civic-finance-reading-list',
     pairedResourceId: 'lista-de-leituras-financas-civicas-pt-br',
     canonical: null,
@@ -214,7 +218,7 @@ const RESOURCE_MANIFEST = Object.freeze([
     publishedAt: null,
     updatedAt: null,
     action: 'Coming soon',
-    content: null
+    content: { type: 'page', source: 'src/resources/civic-finance-reading-list-data.js' }
   },
   {
     id: 'lista-de-leituras-financas-civicas-pt-br',
@@ -223,9 +227,13 @@ const RESOURCE_MANIFEST = Object.freeze([
     title: 'Lista de Leitura · Finanças Cívicas',
     shortTitle: 'Lista de Leitura · Finanças Cívicas',
     category: 'Bibliografia',
-    description: 'Uma estrutura preparada para uma bibliografia de finanças cívicas.',
-    subtitle: 'Uma estrutura preparada para uma bibliografia de finanças cívicas.',
+    description: 'Uma trilha de aprendizagem curada sobre finanças públicas estaduais e locais dos EUA, com recursos institucionais, referências profissionais e livros fundamentais.',
+    subtitle: 'Um percurso curado pelas finanças públicas estaduais e locais dos Estados Unidos — de orçamento e tributação a demonstrações financeiras, dívida municipal, condição fiscal e accountability.',
     status: 'coming-soon',
+    contentStatus: 'draft',
+    reviewStatus: 'draft',
+    seoTitle: 'Lista de Leitura de Finanças Públicas dos EUA | Lumina Smart Strategies',
+    metaDescription: 'Uma lista de leitura curada para entender finanças públicas estaduais e locais dos EUA: orçamento, contabilidade governamental, dívida municipal, tributação, saúde fiscal e transparência.',
     route: '/pt-br/resources/lista-de-leituras-financas-civicas',
     pairedResourceId: 'civic-finance-reading-list-en',
     canonical: null,
@@ -235,7 +243,7 @@ const RESOURCE_MANIFEST = Object.freeze([
     publishedAt: null,
     updatedAt: null,
     action: 'Em breve',
-    content: null
+    content: { type: 'page', source: 'src/resources/civic-finance-reading-list-data.js' }
   },
   {
     id: 'annual-reports-where-to-find-them-en',
