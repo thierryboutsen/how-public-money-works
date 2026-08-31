@@ -205,6 +205,15 @@ assert(readingPreviewHtml.includes('"numberOfItems": 25'));
 assert(readingPreviewHtml.includes('"position": 25'));
 assert(!readingPreviewHtml.includes('{{'));
 
+const readingDraftPreviewHtml = renderResourcePage(readingEn, resourceTemplate, { mode: 'preview' });
+assert(readingDraftPreviewHtml.includes('<meta name="robots" content="noindex,nofollow" />'));
+assert(!readingDraftPreviewHtml.includes('<link rel="canonical"'));
+assert(!readingDraftPreviewHtml.includes('<meta property="og:url"'));
+assert(!readingDraftPreviewHtml.includes('application/ld+json'));
+assert.strictEqual((readingDraftPreviewHtml.match(/class="lang-switch"/g) || []).length, 1);
+assert(readingDraftPreviewHtml.includes('/pt-br/resources/lista-de-leituras-financas-civicas'));
+assert(!readingDraftPreviewHtml.includes('{{'));
+
 const annualPreviewEnHtml = renderResourcePage(annualEn, resourceTemplate);
 const annualPreviewPtHtml = renderResourcePage(annualPt, resourceTemplate);
 assert(annualPreviewEnHtml.includes('Annual Reports — Where to Find Them'));

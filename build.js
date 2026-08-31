@@ -455,15 +455,16 @@ function buildResourceJsonLd(resource, canonicalUrl) {
 }
 
 function renderResourcePage(resource, template, options = {}) {
-  if (resource.status !== 'published') throw new Error(`${resource.id}: only published resources can be rendered`);
-  if (!resource.content) throw new Error(`${resource.id}: published resource has no content payload`);
+  const isPreview = options.mode === 'preview';
+  if (resource.status !== 'published' && !isPreview) throw new Error(`${resource.id}: only published resources can be rendered outside preview mode`);
+  if (!resource.content) throw new Error(`${resource.id}: resource has no content payload`);
   const pair = findResourcePair(resource);
   const canonicalUrl = absoluteUrl(resource.route);
-  const alternateLinks = Object.entries(resource.hreflang || {})
+  const alternateLinks = isPreview ? '' : Object.entries(resource.hreflang || {})
     .map(([language, url]) => `<link rel="alternate" hreflang="${escapeHtml(language)}" href="${escapeHtml(url)}" />`)
     .concat(`<link rel="alternate" hreflang="x-default" href="${escapeHtml(resource.hreflang.en || canonicalUrl)}" />`)
     .join('\n');
-  const languageSwitchHtml = pair?.status === 'published'
+  const languageSwitchHtml = (pair?.status === 'published' || (isPreview && pair?.content?.type))
     ? `<div class="lang-switch" aria-label="${resource.locale === 'pt-BR' ? 'Idioma do recurso' : 'Resource language'}"><a href="${escapeHtml(resource.locale === 'en' ? resource.route : pair.route)}" hreflang="en" lang="en" data-lang="EN"${resource.locale === 'en' ? ' class="on" aria-current="page"' : ''}>EN</a><span aria-hidden="true">/</span><a href="${escapeHtml(resource.locale === 'pt-BR' ? resource.route : pair.route)}" hreflang="pt-BR" lang="pt-BR" data-lang="PT"${resource.locale === 'pt-BR' ? ' class="on" aria-current="page"' : ''}>PT-BR</a></div>`
     : '';
   const resourceContent = resource.content?.source === 'src/resources/glossary-data.js'
@@ -477,10 +478,12 @@ function renderResourcePage(resource, template, options = {}) {
     documentTitle: escapeHtml(resource.seoTitle || `${resource.title} — ${siteConfig.siteName}`),
     htmlLanguage: escapeHtml(resource.locale),
     metaDescription: escapeHtml(resource.metaDescription || resource.description),
-    canonicalUrl: escapeHtml(canonicalUrl),
+    robotsDirective: isPreview ? 'noindex,nofollow' : 'index, follow',
+    canonicalLink: isPreview ? '' : `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
+    ogUrlMeta: isPreview ? '' : `<meta property="og:url" content="${escapeHtml(canonicalUrl)}" />`,
     alternateLinks,
     ogLocale: escapeHtml(siteConfig.localeByLanguage[resource.locale]),
-    ogAlternateLocaleMeta: Object.keys(resource.hreflang || {})
+    ogAlternateLocaleMeta: isPreview ? '' : Object.keys(resource.hreflang || {})
       .filter((language) => language !== resource.locale && siteConfig.localeByLanguage[language])
       .map((language) => `<meta property="og:locale:alternate" content="${escapeHtml(siteConfig.localeByLanguage[language])}" />`).join('\n'),
     ogImageUrl: escapeHtml(imageUrl(siteConfig.defaultSocialImage)),
@@ -495,7 +498,7 @@ function renderResourcePage(resource, template, options = {}) {
       ? `Por ${siteConfig.defaultAuthor} · How Public Money Works`
       : `By ${siteConfig.defaultAuthor} · How Public Money Works`),
     languageSwitchHtml,
-    jsonLdScript: `<script type="application/ld+json">\n${buildResourceJsonLd(resource, canonicalUrl)}\n</script>`,
+    jsonLdScript: isPreview ? '' : `<script type="application/ld+json">\n${buildResourceJsonLd(resource, canonicalUrl)}\n</script>`,
     siteName: escapeHtml(siteConfig.siteName),
     sharedCssPath: escapeHtml(options.sharedAssets?.css || createSharedAssetManifest().css),
     sharedJsPath: escapeHtml(options.sharedAssets?.js || createSharedAssetManifest().js)
