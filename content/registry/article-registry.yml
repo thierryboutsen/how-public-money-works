@@ -314,3 +314,33 @@ articles:
     recoveryScheduledDate: 2026-08-30
     recoveryReason: scheduled workflow validation regression + missed publication slot
     actualPublishedAt: 2026-08-30
+  - slug: capital-improvement-plan-explained
+    title: What Is a Capital Improvement Plan—and How Should You Read One?
+    language: en
+    status: published
+    publishDate: 2026-09-01
+    category: Public Services & Infrastructure
+    tags:
+      - capital improvement plan
+      - infrastructure
+      - capital projects
+      - public planning
+    duplicateCheckSignature: capital-improvement-plan|read-long-term-priorities|project-ranking-funding-and-operating-impact
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-09-01
+  - slug: plano-de-melhorias-de-capital-explicado
+    title: O que é um Capital Improvement Plan — e como ler esse documento?
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-01
+    category: Serviços Públicos e Infraestrutura
+    tags:
+      - Capital Improvement Plan
+      - infraestrutura
+      - projetos de capital
+      - planejamento público
+    duplicateCheckSignature: capital-improvement-plan|read-long-term-priorities|project-ranking-funding-and-operating-impact
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-09-01

@@ -97,12 +97,15 @@ slots:
     recoveredArticleSlug: how-local-governments-pay-for-roads
   - date: 2026-09-01
     slot: Tuesday
-    status: selected
+    status: published
     plannedTopic: What Is a Capital Improvement Plan—and How Should You Read One?
     articleSlug: capital-improvement-plan-explained
     backupTopic: How Local Governments Plan for Long-Term Infrastructure Costs
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: human-approved
+    publishedAt: 2026-09-01
   - date: 2026-09-03
     slot: Thursday
     status: selected

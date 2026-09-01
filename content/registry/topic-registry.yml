@@ -58,6 +58,12 @@ coveredTopics:
     status: covered
     relatedSlug: how-local-governments-pay-for-roads
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Public Services & Infrastructure
+    subtopic: What Is a Capital Improvement Plan—and How Should You Read One?
+    angle: capital-improvement-plan|read-long-term-priorities|project-ranking-funding-and-operating-impact
+    status: covered
+    relatedSlug: capital-improvement-plan-explained
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination
