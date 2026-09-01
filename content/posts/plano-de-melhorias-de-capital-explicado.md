@@ -1,43 +1,53 @@
 ---
-title: "O que é um Capital Improvement Plan — e como ler esse documento?"
-subtitle: "Um guia sobre prioridades, cronogramas, premissas de financiamento e decisões que ainda precisam acontecer."
-slug: "plano-de-melhorias-de-capital-explicado"
-language: "pt-BR"
-translationKey: "capital-improvement-plan"
+title: O que é um Capital Improvement Plan — e como ler esse documento?
+subtitle: Um guia sobre prioridades, cronogramas, premissas de financiamento e decisões que ainda precisam acontecer.
+slug: plano-de-melhorias-de-capital-explicado
+language: pt-BR
+translationKey: capital-improvement-plan
 translations:
-  en: "/capital-improvement-plan-explained"
-targetPublicationDate: "2026-09-01"
-author: "Eliana Faria Lima"
-category: "Serviços Públicos e Infraestrutura"
-tags: [Capital Improvement Plan, infraestrutura, projetos de capital, planejamento público]
-topicAngleSignature: "capital-improvement-plan|read-long-term-priorities|project-ranking-funding-and-operating-impact"
-primaryKeyword: "o que é Capital Improvement Plan"
-secondaryKeywords: [CIP governo local, projetos de capital, plano de infraestrutura]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Um Capital Improvement Plan mostra prioridades, cronogramas e premissas, mas a presença de um projeto nem sempre significa autorização final ou financiamento completo."
-featuredImage: "/assets/article-capital-improvement-plan-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual de projetos de infraestrutura organizados numa linha do tempo abstrata sobre uma prancheta."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "medium"
+  en: /capital-improvement-plan-explained
+targetPublicationDate: 2026-09-01
+author: Eliana Faria Lima
+category: Serviços Públicos e Infraestrutura
+tags:
+  - Capital Improvement Plan
+  - infraestrutura
+  - projetos de capital
+  - planejamento público
+topicAngleSignature: capital-improvement-plan|read-long-term-priorities|project-ranking-funding-and-operating-impact
+primaryKeyword: o que é Capital Improvement Plan
+secondaryKeywords:
+  - CIP governo local
+  - projetos de capital
+  - plano de infraestrutura
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Um Capital Improvement Plan mostra prioridades, cronogramas e premissas, mas a presença de um projeto nem sempre significa autorização final ou financiamento completo.
+featuredImage: /assets/article-capital-improvement-plan-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual de projetos de infraestrutura organizados numa linha do tempo abstrata sobre uma prancheta.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "approved"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: approved
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como ler um Capital Improvement Plan"
-metaDescription: "Entenda o que um Capital Improvement Plan mostra sobre projetos, prazos, recursos e prioridades — e o que a presença no plano não garante."
+seoTitle: Como ler um Capital Improvement Plan
+metaDescription: Entenda o que um Capital Improvement Plan mostra sobre projetos, prazos, recursos e prioridades — e o que a presença no plano não garante.
+date: 2026-09-01
+publicationPath: human-approved
+autoPublishEligible: true
 ---
 
 # O que é um Capital Improvement Plan — e como ler esse documento?
