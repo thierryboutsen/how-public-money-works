@@ -1,43 +1,53 @@
 ---
 title: "Taxes, Fees, and Fines: What's the Difference?"
-subtitle: "A plain-English comparison of why government charges arise, what they may support, and where local rules matter."
-slug: "taxes-fees-and-fines-difference"
-language: "en"
-translationKey: "taxes-fees-fines"
+subtitle: A plain-English comparison of why government charges arise, what they may support, and where local rules matter.
+slug: taxes-fees-and-fines-difference
+language: en
+translationKey: taxes-fees-fines
 translations:
-  pt-BR: "/pt-br/impostos-taxas-e-multas-diferenca"
-targetPublicationDate: "2026-09-03"
-author: "Eliana Faria Lima"
-category: "Your Tax Dollars"
-tags: [taxes, fees, fines, public revenue]
-topicAngleSignature: "public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger"
-primaryKeyword: "taxes fees and fines difference"
-secondaryKeywords: [government fees, public revenue, fines and penalties]
-searchIntent: "informational"
-readingTime: "6 min read"
-excerpt: "Taxes, fees, and fines can all appear as government revenue, but they arise from different obligations. The controlling legal classification remains local."
-featuredImage: "/assets/article-taxes-fees-fines-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual comparison of a tax document, a public service permit, and a penalty notice as three distinct government charges."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/impostos-taxas-e-multas-diferenca
+targetPublicationDate: 2026-09-03
+author: Eliana Faria Lima
+category: Your Tax Dollars
+tags:
+  - taxes
+  - fees
+  - fines
+  - public revenue
+topicAngleSignature: public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger
+primaryKeyword: taxes fees and fines difference
+secondaryKeywords:
+  - government fees
+  - public revenue
+  - fines and penalties
+searchIntent: informational
+readingTime: 6 min read
+excerpt: Taxes, fees, and fines can all appear as government revenue, but they arise from different obligations. The controlling legal classification remains local.
+featuredImage: /assets/article-taxes-fees-fines-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual comparison of a tax document, a public service permit, and a penalty notice as three distinct government charges.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "approved"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: approved
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
 seoTitle: "Taxes, Fees, and Fines: Key Differences"
-metaDescription: "Understand how taxes, fees, and fines differ, what may trigger each charge, and why official local rules matter more than the label alone."
+metaDescription: Understand how taxes, fees, and fines differ, what may trigger each charge, and why official local rules matter more than the label alone.
+date: 2026-09-03
+publicationPath: human-approved
+autoPublishEligible: true
 ---
 
 # Taxes, Fees, and Fines: What's the Difference?

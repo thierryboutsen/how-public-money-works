@@ -1,43 +1,53 @@
 ---
 title: "Impostos, fees e fines: qual é a diferença?"
-subtitle: "Uma comparação clara sobre por que cobranças públicas surgem, o que podem sustentar e onde as regras locais importam."
-slug: "impostos-taxas-e-multas-diferenca"
-language: "pt-BR"
-translationKey: "taxes-fees-fines"
+subtitle: Uma comparação clara sobre por que cobranças públicas surgem, o que podem sustentar e onde as regras locais importam.
+slug: impostos-taxas-e-multas-diferenca
+language: pt-BR
+translationKey: taxes-fees-fines
 translations:
-  en: "/taxes-fees-and-fines-difference"
-targetPublicationDate: "2026-09-03"
-author: "Eliana Faria Lima"
-category: "Seus Impostos"
-tags: [impostos, fees, fines, receitas públicas]
-topicAngleSignature: "public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger"
-primaryKeyword: "diferença entre taxes fees e fines"
-secondaryKeywords: [cobranças governamentais, receita pública, multas]
-searchIntent: "informational"
-readingTime: "6 min de leitura"
-excerpt: "Taxes, fees e fines podem aparecer como receita pública, mas nascem de obrigações diferentes. A classificação jurídica depende das regras locais."
-featuredImage: "/assets/article-taxes-fees-fines-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Comparação conceitual entre um documento tributário, uma licença de serviço público e um aviso de penalidade como cobranças distintas."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /taxes-fees-and-fines-difference
+targetPublicationDate: 2026-09-03
+author: Eliana Faria Lima
+category: Seus Impostos
+tags:
+  - impostos
+  - fees
+  - fines
+  - receitas públicas
+topicAngleSignature: public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger
+primaryKeyword: diferença entre taxes fees e fines
+secondaryKeywords:
+  - cobranças governamentais
+  - receita pública
+  - multas
+searchIntent: informational
+readingTime: 6 min de leitura
+excerpt: Taxes, fees e fines podem aparecer como receita pública, mas nascem de obrigações diferentes. A classificação jurídica depende das regras locais.
+featuredImage: /assets/article-taxes-fees-fines-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Comparação conceitual entre um documento tributário, uma licença de serviço público e um aviso de penalidade como cobranças distintas.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "approved"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: approved
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
 seoTitle: "Impostos, fees e fines: diferenças essenciais"
-metaDescription: "Entenda como taxes, fees e fines diferem, o que pode gerar cada cobrança e por que as regras oficiais importam mais que o nome usado."
+metaDescription: Entenda como taxes, fees e fines diferem, o que pode gerar cada cobrança e por que as regras oficiais importam mais que o nome usado.
+date: 2026-09-03
+publicationPath: human-approved
+autoPublishEligible: true
 ---
 
 # Impostos, fees e fines: qual é a diferença?
