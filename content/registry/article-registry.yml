@@ -344,3 +344,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: human-approved
     lastReviewed: 2026-09-01
+  - slug: impostos-taxas-e-multas-diferenca
+    title: "Impostos, fees e fines: qual é a diferença?"
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-03
+    category: Seus Impostos
+    tags:
+      - impostos
+      - fees
+      - fines
+      - receitas públicas
+    duplicateCheckSignature: public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-09-03
+  - slug: taxes-fees-and-fines-difference
+    title: "Taxes, Fees, and Fines: What's the Difference?"
+    language: en
+    status: published
+    publishDate: 2026-09-03
+    category: Your Tax Dollars
+    tags:
+      - taxes
+      - fees
+      - fines
+      - public revenue
+    duplicateCheckSignature: public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    lastReviewed: 2026-09-03

@@ -108,12 +108,15 @@ slots:
     publishedAt: 2026-09-01
   - date: 2026-09-03
     slot: Thursday
-    status: selected
+    status: published
     plannedTopic: "Taxes, Fees, and Fines: What's the Difference?"
     articleSlug: taxes-fees-and-fines-difference
     backupTopic: null
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: human-approved
+    publishedAt: 2026-09-03
   - date: 2026-09-08
     slot: Tuesday
     status: selected

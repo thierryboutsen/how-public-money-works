@@ -64,6 +64,12 @@ coveredTopics:
     status: covered
     relatedSlug: capital-improvement-plan-explained
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Your Tax Dollars
+    subtopic: "Taxes, Fees, and Fines: What's the Difference?"
+    angle: public-revenue-types|distinguish-obligations|tax-fee-fine-purpose-and-trigger
+    status: covered
+    relatedSlug: taxes-fees-and-fines-difference
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination
