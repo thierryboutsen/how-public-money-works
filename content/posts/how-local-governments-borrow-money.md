@@ -1,43 +1,54 @@
 ---
-title: "How Does a Local Government Borrow Money?"
-subtitle: "From public purpose and authorization to bonds, repayment sources, and the documents residents can read."
-slug: "how-local-governments-borrow-money"
-language: "en"
-translationKey: "local-government-borrowing"
+title: How Does a Local Government Borrow Money?
+subtitle: From public purpose and authorization to bonds, repayment sources, and the documents residents can read.
+slug: how-local-governments-borrow-money
+language: en
+translationKey: local-government-borrowing
 translations:
-  pt-BR: "/pt-br/como-governos-locais-tomam-dinheiro-emprestado"
-targetPublicationDate: "2026-09-08"
-author: "Eliana Faria Lima"
-category: "Public Finance Basics"
-tags: [municipal debt, municipal bonds, borrowing, capital finance]
-topicAngleSignature: "local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure"
-primaryKeyword: "how local governments borrow money"
-secondaryKeywords: [municipal bonds, local government debt, bond repayment]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "Local borrowing connects a public purpose with legal authorization, debt documents, pledged repayment sources, and future budget obligations."
-featuredImage: "/assets/article-local-government-borrowing-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual illustration connecting a public infrastructure project to debt documents and a sequence of future repayment steps."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/como-governos-locais-tomam-dinheiro-emprestado
+targetPublicationDate: 2026-09-08
+author: Eliana Faria Lima
+category: Public Finance Basics
+tags:
+  - municipal debt
+  - municipal bonds
+  - borrowing
+  - capital finance
+topicAngleSignature: local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure
+primaryKeyword: how local governments borrow money
+secondaryKeywords:
+  - municipal bonds
+  - local government debt
+  - bond repayment
+searchIntent: informational
+readingTime: 7 min read
+excerpt: Local borrowing connects a public purpose with legal authorization, debt documents, pledged repayment sources, and future budget obligations.
+featuredImage: /assets/article-local-government-borrowing-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual illustration connecting a public infrastructure project to debt documents and a sequence of future repayment steps.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "How Local Governments Borrow Money"
-metaDescription: "Learn how local borrowing moves from authorization to municipal bonds, repayment sources, public disclosures, and future budget obligations."
+seoTitle: How Local Governments Borrow Money
+metaDescription: Learn how local borrowing moves from authorization to municipal bonds, repayment sources, public disclosures, and future budget obligations.
+date: 2026-09-08
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # How Does a Local Government Borrow Money?

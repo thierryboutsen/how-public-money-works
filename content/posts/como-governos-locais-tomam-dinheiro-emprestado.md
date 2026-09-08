@@ -1,43 +1,54 @@
 ---
-title: "Como governos locais tomam dinheiro emprestado?"
-subtitle: "Da finalidade pública e autorização aos bonds, fontes de pagamento e documentos que o cidadão pode ler."
-slug: "como-governos-locais-tomam-dinheiro-emprestado"
-language: "pt-BR"
-translationKey: "local-government-borrowing"
+title: Como governos locais tomam dinheiro emprestado?
+subtitle: Da finalidade pública e autorização aos bonds, fontes de pagamento e documentos que o cidadão pode ler.
+slug: como-governos-locais-tomam-dinheiro-emprestado
+language: pt-BR
+translationKey: local-government-borrowing
 translations:
-  en: "/how-local-governments-borrow-money"
-targetPublicationDate: "2026-09-08"
-author: "Eliana Faria Lima"
-category: "Fundamentos de Finanças Públicas"
-tags: [dívida municipal, municipal bonds, empréstimos públicos, projetos de capital]
-topicAngleSignature: "local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure"
-primaryKeyword: "como governos locais tomam dinheiro emprestado"
-secondaryKeywords: [municipal bonds, dívida local, pagamento de bonds]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "O empréstimo local conecta uma finalidade pública à autorização, documentos da dívida, fontes prometidas para pagamento e obrigações futuras."
-featuredImage: "/assets/article-local-government-borrowing-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual conectando um projeto de infraestrutura a documentos de dívida e etapas futuras de pagamento."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /how-local-governments-borrow-money
+targetPublicationDate: 2026-09-08
+author: Eliana Faria Lima
+category: Fundamentos de Finanças Públicas
+tags:
+  - dívida municipal
+  - municipal bonds
+  - empréstimos públicos
+  - projetos de capital
+topicAngleSignature: local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure
+primaryKeyword: como governos locais tomam dinheiro emprestado
+secondaryKeywords:
+  - municipal bonds
+  - dívida local
+  - pagamento de bonds
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: O empréstimo local conecta uma finalidade pública à autorização, documentos da dívida, fontes prometidas para pagamento e obrigações futuras.
+featuredImage: /assets/article-local-government-borrowing-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual conectando um projeto de infraestrutura a documentos de dívida e etapas futuras de pagamento.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como governos locais tomam dinheiro emprestado"
-metaDescription: "Entenda como o empréstimo local passa por autorização, municipal bonds, fontes de pagamento, divulgações públicas e obrigações futuras."
+seoTitle: Como governos locais tomam dinheiro emprestado
+metaDescription: Entenda como o empréstimo local passa por autorização, municipal bonds, fontes de pagamento, divulgações públicas e obrigações futuras.
+date: 2026-09-08
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Como governos locais tomam dinheiro emprestado?
