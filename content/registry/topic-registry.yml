@@ -70,6 +70,12 @@ coveredTopics:
     status: covered
     relatedSlug: taxes-fees-and-fines-difference
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Public Finance Basics
+    subtopic: How Does a Local Government Borrow Money?
+    angle: local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure
+    status: covered
+    relatedSlug: how-local-governments-borrow-money
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

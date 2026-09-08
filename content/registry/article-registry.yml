@@ -374,3 +374,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: human-approved
     lastReviewed: 2026-09-03
+  - slug: como-governos-locais-tomam-dinheiro-emprestado
+    title: Como governos locais tomam dinheiro emprestado?
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-08
+    category: Fundamentos de Finanças Públicas
+    tags:
+      - dívida municipal
+      - municipal bonds
+      - empréstimos públicos
+      - projetos de capital
+    duplicateCheckSignature: local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-08
+  - slug: how-local-governments-borrow-money
+    title: How Does a Local Government Borrow Money?
+    language: en
+    status: published
+    publishDate: 2026-09-08
+    category: Public Finance Basics
+    tags:
+      - municipal debt
+      - municipal bonds
+      - borrowing
+      - capital finance
+    duplicateCheckSignature: local-borrowing|understand-debt-lifecycle|authorization-security-sale-repayment-and-disclosure
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-08
