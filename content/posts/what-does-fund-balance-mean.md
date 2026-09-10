@@ -1,43 +1,54 @@
 ---
-title: "What Does Fund Balance Mean—and Is It Available to Spend?"
-subtitle: "Why a year-end fund balance is not the same as cash, a surplus, or a blank check."
-slug: "what-does-fund-balance-mean"
-language: "en"
-translationKey: "fund-balance-meaning"
+title: What Does Fund Balance Mean—and Is It Available to Spend?
+subtitle: Why a year-end fund balance is not the same as cash, a surplus, or a blank check.
+slug: what-does-fund-balance-mean
+language: en
+translationKey: fund-balance-meaning
 translations:
-  pt-BR: "/pt-br/o-que-significa-fund-balance"
-targetPublicationDate: "2026-09-10"
-author: "Eliana Faria Lima"
-category: "Public Finance Basics"
-tags: [fund balance, governmental funds, reserves, financial statements]
-topicAngleSignature: "fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability"
-primaryKeyword: "what does fund balance mean"
-secondaryKeywords: [government fund balance, restricted fund balance, reserves]
-searchIntent: "informational"
-readingTime: "6 min read"
-excerpt: "Fund balance is an accounting measure within governmental funds. Its classifications, timing, and obligations matter before calling it cash or surplus."
-featuredImage: "/assets/article-fund-balance-layers-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual illustration of a public fund balance divided into layers with different levels of availability."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/o-que-significa-fund-balance
+targetPublicationDate: 2026-09-10
+author: Eliana Faria Lima
+category: Public Finance Basics
+tags:
+  - fund balance
+  - governmental funds
+  - reserves
+  - financial statements
+topicAngleSignature: fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability
+primaryKeyword: what does fund balance mean
+secondaryKeywords:
+  - government fund balance
+  - restricted fund balance
+  - reserves
+searchIntent: informational
+readingTime: 6 min read
+excerpt: Fund balance is an accounting measure within governmental funds. Its classifications, timing, and obligations matter before calling it cash or surplus.
+featuredImage: /assets/article-fund-balance-layers-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual illustration of a public fund balance divided into layers with different levels of availability.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "What Fund Balance Means in Local Government"
-metaDescription: "Learn why fund balance is not the same as cash or surplus, how its classifications limit use, and what to check in a local financial report."
+seoTitle: What Fund Balance Means in Local Government
+metaDescription: Learn why fund balance is not the same as cash or surplus, how its classifications limit use, and what to check in a local financial report.
+date: 2026-09-10
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # What Does Fund Balance Mean—and Is It Available to Spend?

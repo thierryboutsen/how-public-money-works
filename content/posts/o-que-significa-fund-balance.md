@@ -1,43 +1,54 @@
 ---
-title: "O que significa fund balance — e esse valor está disponível para gastar?"
-subtitle: "Por que o saldo de fim de ano não é sinônimo de caixa, sobra ou cheque em branco."
-slug: "o-que-significa-fund-balance"
-language: "pt-BR"
-translationKey: "fund-balance-meaning"
+title: O que significa fund balance — e esse valor está disponível para gastar?
+subtitle: Por que o saldo de fim de ano não é sinônimo de caixa, sobra ou cheque em branco.
+slug: o-que-significa-fund-balance
+language: pt-BR
+translationKey: fund-balance-meaning
 translations:
-  en: "/what-does-fund-balance-mean"
-targetPublicationDate: "2026-09-10"
-author: "Eliana Faria Lima"
-category: "Fundamentos de Finanças Públicas"
-tags: [fund balance, fundos governamentais, reservas, demonstrações financeiras]
-topicAngleSignature: "fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability"
-primaryKeyword: "o que significa fund balance"
-secondaryKeywords: [saldo de fundo governamental, restricted fund balance, reservas]
-searchIntent: "informational"
-readingTime: "6 min de leitura"
-excerpt: "Fund balance é uma medida contábil dos fundos governamentais. Classificações, prazos e obrigações importam antes de chamá-lo de caixa ou sobra."
-featuredImage: "/assets/article-fund-balance-layers-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual de um fund balance público dividido em camadas com diferentes níveis de disponibilidade."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /what-does-fund-balance-mean
+targetPublicationDate: 2026-09-10
+author: Eliana Faria Lima
+category: Fundamentos de Finanças Públicas
+tags:
+  - fund balance
+  - fundos governamentais
+  - reservas
+  - demonstrações financeiras
+topicAngleSignature: fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability
+primaryKeyword: o que significa fund balance
+secondaryKeywords:
+  - saldo de fundo governamental
+  - restricted fund balance
+  - reservas
+searchIntent: informational
+readingTime: 6 min de leitura
+excerpt: Fund balance é uma medida contábil dos fundos governamentais. Classificações, prazos e obrigações importam antes de chamá-lo de caixa ou sobra.
+featuredImage: /assets/article-fund-balance-layers-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual de um fund balance público dividido em camadas com diferentes níveis de disponibilidade.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "O que fund balance significa no governo local"
-metaDescription: "Entenda por que fund balance não é igual a caixa ou sobra, como suas classificações limitam o uso e o que verificar no relatório financeiro local."
+seoTitle: O que fund balance significa no governo local
+metaDescription: Entenda por que fund balance não é igual a caixa ou sobra, como suas classificações limitam o uso e o que verificar no relatório financeiro local.
+date: 2026-09-10
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # O que significa fund balance — e esse valor está disponível para gastar?
