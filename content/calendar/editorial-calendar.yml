@@ -130,12 +130,15 @@ slots:
     publishedAt: 2026-09-08
   - date: 2026-09-10
     slot: Thursday
-    status: selected
+    status: published
     plannedTopic: What Does Fund Balance Mean—and Is It Available to Spend?
     articleSlug: what-does-fund-balance-mean
     backupTopic: Why Governments Use Restricted Revenue
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-09-10
   - date: 2026-09-15
     slot: Tuesday
     status: selected

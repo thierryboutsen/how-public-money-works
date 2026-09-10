@@ -76,6 +76,12 @@ coveredTopics:
     status: covered
     relatedSlug: how-local-governments-borrow-money
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Public Finance Basics
+    subtopic: What Does Fund Balance Mean—and Is It Available to Spend?
+    angle: fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability
+    status: covered
+    relatedSlug: what-does-fund-balance-mean
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

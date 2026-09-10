@@ -404,3 +404,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-09-08
+  - slug: o-que-significa-fund-balance
+    title: O que significa fund balance — e esse valor está disponível para gastar?
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-10
+    category: Fundamentos de Finanças Públicas
+    tags:
+      - fund balance
+      - fundos governamentais
+      - reservas
+      - demonstrações financeiras
+    duplicateCheckSignature: fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-10
+  - slug: what-does-fund-balance-mean
+    title: What Does Fund Balance Mean—and Is It Available to Spend?
+    language: en
+    status: published
+    publishDate: 2026-09-10
+    category: Public Finance Basics
+    tags:
+      - fund balance
+      - governmental funds
+      - reserves
+      - financial statements
+    duplicateCheckSignature: fund-balance|interpret-year-end-position|cash-constraints-timing-and-availability
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-10
