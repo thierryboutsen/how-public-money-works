@@ -82,6 +82,12 @@ coveredTopics:
     status: covered
     relatedSlug: what-does-fund-balance-mean
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Local Government Explained
+    subtopic: What Is a Special District—and Why Might It Be on Your Public-Money Map?
+    angle: special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability
+    status: covered
+    relatedSlug: what-is-a-special-district
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

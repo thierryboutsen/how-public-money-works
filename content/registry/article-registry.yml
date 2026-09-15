@@ -434,3 +434,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-09-10
+  - slug: o-que-e-um-special-district
+    title: O que é um special district — e por que ele aparece no mapa do dinheiro público?
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-15
+    category: Governo Local Explicado
+    tags:
+      - special districts
+      - governo local
+      - serviços públicos
+      - autoridade tributária
+    duplicateCheckSignature: special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-15
+  - slug: what-is-a-special-district
+    title: What Is a Special District—and Why Might It Be on Your Public-Money Map?
+    language: en
+    status: published
+    publishDate: 2026-09-15
+    category: Local Government Explained
+    tags:
+      - special districts
+      - local government
+      - public services
+      - taxing authority
+    duplicateCheckSignature: special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-15

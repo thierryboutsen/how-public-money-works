@@ -141,12 +141,15 @@ slots:
     publishedAt: 2026-09-10
   - date: 2026-09-15
     slot: Tuesday
-    status: selected
+    status: published
     plannedTopic: What Is a Special District—and Why Might It Be on Your Public-Money Map?
     articleSlug: what-is-a-special-district
     backupTopic: null
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-09-15
   - date: 2026-09-17
     slot: Thursday
     status: selected
