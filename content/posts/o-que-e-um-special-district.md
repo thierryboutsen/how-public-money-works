@@ -1,43 +1,54 @@
 ---
-title: "O que é um special district — e por que ele aparece no mapa do dinheiro público?"
-subtitle: "Como entidades locais de finalidade limitada convivem com cities, counties e school districts."
-slug: "o-que-e-um-special-district"
-language: "pt-BR"
-translationKey: "special-district-explained"
+title: O que é um special district — e por que ele aparece no mapa do dinheiro público?
+subtitle: Como entidades locais de finalidade limitada convivem com cities, counties e school districts.
+slug: o-que-e-um-special-district
+language: pt-BR
+translationKey: special-district-explained
 translations:
-  en: "/what-is-a-special-district"
-targetPublicationDate: "2026-09-15"
-author: "Eliana Faria Lima"
-category: "Governo Local Explicado"
-tags: [special districts, governo local, serviços públicos, autoridade tributária]
-topicAngleSignature: "special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability"
-primaryKeyword: "o que é special district"
-secondaryKeywords: [special district government, autoridade local, serviços públicos]
-searchIntent: "informational"
-readingTime: "6 min de leitura"
-excerpt: "Special districts podem prestar funções públicas fora da city ou county. Autonomia, autoridade e accountability dependem da lei estadual."
-featuredImage: "/assets/article-special-district-boundaries-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Mapa conceitual de áreas sobrepostas de água, transporte e segurança pública administradas por entidades locais separadas."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /what-is-a-special-district
+targetPublicationDate: 2026-09-15
+author: Eliana Faria Lima
+category: Governo Local Explicado
+tags:
+  - special districts
+  - governo local
+  - serviços públicos
+  - autoridade tributária
+topicAngleSignature: special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability
+primaryKeyword: o que é special district
+secondaryKeywords:
+  - special district government
+  - autoridade local
+  - serviços públicos
+searchIntent: informational
+readingTime: 6 min de leitura
+excerpt: Special districts podem prestar funções públicas fora da city ou county. Autonomia, autoridade e accountability dependem da lei estadual.
+featuredImage: /assets/article-special-district-boundaries-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Mapa conceitual de áreas sobrepostas de água, transporte e segurança pública administradas por entidades locais separadas.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "O que é um special district?"
-metaDescription: "Entenda como special districts prestam funções limitadas, por que a autoridade varia por estado e quais registros mostram governança e recursos."
+seoTitle: O que é um special district?
+metaDescription: Entenda como special districts prestam funções limitadas, por que a autoridade varia por estado e quais registros mostram governança e recursos.
+date: 2026-09-15
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # O que é um special district — e por que ele aparece no mapa do dinheiro público?

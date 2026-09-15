@@ -1,43 +1,54 @@
 ---
-title: "What Is a Special District—and Why Might It Be on Your Public-Money Map?"
-subtitle: "How limited-purpose local entities fit alongside cities, counties, and school districts."
-slug: "what-is-a-special-district"
-language: "en"
-translationKey: "special-district-explained"
+title: What Is a Special District—and Why Might It Be on Your Public-Money Map?
+subtitle: How limited-purpose local entities fit alongside cities, counties, and school districts.
+slug: what-is-a-special-district
+language: en
+translationKey: special-district-explained
 translations:
-  pt-BR: "/pt-br/o-que-e-um-special-district"
-targetPublicationDate: "2026-09-15"
-author: "Eliana Faria Lima"
-category: "Local Government Explained"
-tags: [special districts, local government, public services, taxing authority]
-topicAngleSignature: "special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability"
-primaryKeyword: "what is a special district"
-secondaryKeywords: [special district government, local authority, public services]
-searchIntent: "informational"
-readingTime: "6 min read"
-excerpt: "Special districts can provide limited public functions outside city or county government. Their autonomy, authority, and accountability depend on state law."
-featuredImage: "/assets/article-special-district-boundaries-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual map of overlapping service areas for water, transit, and public safety governed by separate local entities."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/o-que-e-um-special-district
+targetPublicationDate: 2026-09-15
+author: Eliana Faria Lima
+category: Local Government Explained
+tags:
+  - special districts
+  - local government
+  - public services
+  - taxing authority
+topicAngleSignature: special-districts|identify-responsible-entity|state-law-autonomy-boundaries-and-accountability
+primaryKeyword: what is a special district
+secondaryKeywords:
+  - special district government
+  - local authority
+  - public services
+searchIntent: informational
+readingTime: 6 min read
+excerpt: Special districts can provide limited public functions outside city or county government. Their autonomy, authority, and accountability depend on state law.
+featuredImage: /assets/article-special-district-boundaries-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual map of overlapping service areas for water, transit, and public safety governed by separate local entities.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "What Is a Special District?"
-metaDescription: "Learn how special districts provide limited public functions, why their authority varies by state, and which records reveal governance and funding."
+seoTitle: What Is a Special District?
+metaDescription: Learn how special districts provide limited public functions, why their authority varies by state, and which records reveal governance and funding.
+date: 2026-09-15
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # What Is a Special District—and Why Might It Be on Your Public-Money Map?
