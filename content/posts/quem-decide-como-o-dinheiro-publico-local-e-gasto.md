@@ -1,43 +1,54 @@
 ---
-title: "Quem decide como o dinheiro público local é gasto?"
-subtitle: "Um mapa prático de propostas, participação, autorização do governing body, execução e fiscalização."
-slug: "quem-decide-como-o-dinheiro-publico-local-e-gasto"
-language: "pt-BR"
-translationKey: "local-public-spending-decisions"
+title: Quem decide como o dinheiro público local é gasto?
+subtitle: Um mapa prático de propostas, participação, autorização do governing body, execução e fiscalização.
+slug: quem-decide-como-o-dinheiro-publico-local-e-gasto
+language: pt-BR
+translationKey: local-public-spending-decisions
 translations:
-  en: "/who-decides-local-public-spending"
-targetPublicationDate: "2026-09-17"
-author: "Eliana Faria Lima"
-category: "Participação Cidadã"
-tags: [decisões orçamentárias, governing body, participação pública, appropriations]
-topicAngleSignature: "local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight"
-primaryKeyword: "quem decide os gastos do governo local"
-secondaryKeywords: [aprovação do orçamento, governing body, participação pública]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Decisões de gasto local passam por proposta, participação, autorização formal, execução e fiscalização — não por uma única pessoa."
-featuredImage: "/assets/article-local-spending-decisions-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual vista de cima mostrando uma proposta de gasto passando por revisão, autorização, execução e fiscalização."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /who-decides-local-public-spending
+targetPublicationDate: 2026-09-17
+author: Eliana Faria Lima
+category: Participação Cidadã
+tags:
+  - decisões orçamentárias
+  - governing body
+  - participação pública
+  - appropriations
+topicAngleSignature: local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight
+primaryKeyword: quem decide os gastos do governo local
+secondaryKeywords:
+  - aprovação do orçamento
+  - governing body
+  - participação pública
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Decisões de gasto local passam por proposta, participação, autorização formal, execução e fiscalização — não por uma única pessoa.
+featuredImage: /assets/article-local-spending-decisions-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual vista de cima mostrando uma proposta de gasto passando por revisão, autorização, execução e fiscalização.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Quem decide os gastos do governo local?"
-metaDescription: "Veja como gastos locais passam de propostas e participação à autorização do governing body, execução administrativa e fiscalização posterior."
+seoTitle: Quem decide os gastos do governo local?
+metaDescription: Veja como gastos locais passam de propostas e participação à autorização do governing body, execução administrativa e fiscalização posterior.
+date: 2026-09-17
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Quem decide como o dinheiro público local é gasto?

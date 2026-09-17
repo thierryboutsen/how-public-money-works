@@ -1,43 +1,54 @@
 ---
-title: "Who Actually Decides How Local Public Money Is Spent?"
-subtitle: "A practical map of proposals, public input, governing-body authorization, administration, and oversight."
-slug: "who-decides-local-public-spending"
-language: "en"
-translationKey: "local-public-spending-decisions"
+title: Who Actually Decides How Local Public Money Is Spent?
+subtitle: A practical map of proposals, public input, governing-body authorization, administration, and oversight.
+slug: who-decides-local-public-spending
+language: en
+translationKey: local-public-spending-decisions
 translations:
-  pt-BR: "/pt-br/quem-decide-como-o-dinheiro-publico-local-e-gasto"
-targetPublicationDate: "2026-09-17"
-author: "Eliana Faria Lima"
-category: "Citizen Participation"
-tags: [budget decisions, governing body, public participation, appropriations]
-topicAngleSignature: "local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight"
-primaryKeyword: "who decides local government spending"
-secondaryKeywords: [budget approval, governing body, public participation]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "Local spending decisions move through proposals, public review, formal authorization, administration, and oversight rather than one decision-maker."
-featuredImage: "/assets/article-local-spending-decisions-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Top-down conceptual illustration of a public spending proposal moving through review, authorization, administration, and oversight."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/quem-decide-como-o-dinheiro-publico-local-e-gasto
+targetPublicationDate: 2026-09-17
+author: Eliana Faria Lima
+category: Citizen Participation
+tags:
+  - budget decisions
+  - governing body
+  - public participation
+  - appropriations
+topicAngleSignature: local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight
+primaryKeyword: who decides local government spending
+secondaryKeywords:
+  - budget approval
+  - governing body
+  - public participation
+searchIntent: informational
+readingTime: 7 min read
+excerpt: Local spending decisions move through proposals, public review, formal authorization, administration, and oversight rather than one decision-maker.
+featuredImage: /assets/article-local-spending-decisions-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Top-down conceptual illustration of a public spending proposal moving through review, authorization, administration, and oversight.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Who Decides Local Government Spending?"
-metaDescription: "See how local spending moves from staff proposals and public input to governing-body authorization, administration, and later oversight."
+seoTitle: Who Decides Local Government Spending?
+metaDescription: See how local spending moves from staff proposals and public input to governing-body authorization, administration, and later oversight.
+date: 2026-09-17
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Who Actually Decides How Local Public Money Is Spent?
