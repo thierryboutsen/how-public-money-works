@@ -464,3 +464,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-09-15
+  - slug: quem-decide-como-o-dinheiro-publico-local-e-gasto
+    title: Quem decide como o dinheiro público local é gasto?
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-17
+    category: Participação Cidadã
+    tags:
+      - decisões orçamentárias
+      - governing body
+      - participação pública
+      - appropriations
+    duplicateCheckSignature: local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-17
+  - slug: who-decides-local-public-spending
+    title: Who Actually Decides How Local Public Money Is Spent?
+    language: en
+    status: published
+    publishDate: 2026-09-17
+    category: Citizen Participation
+    tags:
+      - budget decisions
+      - governing body
+      - public participation
+      - appropriations
+    duplicateCheckSignature: local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-17

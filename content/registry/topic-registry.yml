@@ -88,6 +88,12 @@ coveredTopics:
     status: covered
     relatedSlug: what-is-a-special-district
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Citizen Participation
+    subtopic: Who Actually Decides How Local Public Money Is Spent?
+    angle: local-spending-decisions|find-decision-point|proposal-authorization-administration-and-oversight
+    status: covered
+    relatedSlug: who-decides-local-public-spending
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination
