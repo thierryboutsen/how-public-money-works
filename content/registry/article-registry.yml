@@ -494,3 +494,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-09-17
+  - slug: local-budget-changes-midyear
+    title: What Happens When a Local Government Changes Its Budget Midyear?
+    language: en
+    status: published
+    publishDate: 2026-09-22
+    category: Transparency & Accountability
+    tags:
+      - budget amendment
+      - supplemental budget
+      - appropriations
+      - budget monitoring
+    duplicateCheckSignature: midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-22
+  - slug: mudancas-no-orcamento-local-durante-o-ano
+    title: O que acontece quando o governo local muda o orçamento durante o ano?
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-22
+    category: Transparência e Prestação de Contas
+    tags:
+      - budget amendment
+      - supplemental budget
+      - appropriations
+      - acompanhamento orçamentário
+    duplicateCheckSignature: midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-22

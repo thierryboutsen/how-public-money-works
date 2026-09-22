@@ -163,12 +163,15 @@ slots:
     publishedAt: 2026-09-17
   - date: 2026-09-22
     slot: Tuesday
-    status: selected
+    status: published
     plannedTopic: What Happens When a Local Government Changes Its Budget Midyear?
     articleSlug: local-budget-changes-midyear
     backupTopic: null
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-09-22
   - date: 2026-09-24
     slot: Thursday
     status: selected

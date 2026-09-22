@@ -94,6 +94,12 @@ coveredTopics:
     status: covered
     relatedSlug: who-decides-local-public-spending
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Transparency & Accountability
+    subtopic: What Happens When a Local Government Changes Its Budget Midyear?
+    angle: midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting
+    status: covered
+    relatedSlug: local-budget-changes-midyear
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination
