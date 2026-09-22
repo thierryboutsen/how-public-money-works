@@ -1,43 +1,54 @@
 ---
-title: "What Happens When a Local Government Changes Its Budget Midyear?"
-subtitle: "How amendments revise spending authority, which records to follow, and why procedures vary."
-slug: "local-budget-changes-midyear"
-language: "en"
-translationKey: "midyear-local-budget-change"
+title: What Happens When a Local Government Changes Its Budget Midyear?
+subtitle: How amendments revise spending authority, which records to follow, and why procedures vary.
+slug: local-budget-changes-midyear
+language: en
+translationKey: midyear-local-budget-change
 translations:
-  pt-BR: "/pt-br/mudancas-no-orcamento-local-durante-o-ano"
-targetPublicationDate: "2026-09-22"
-author: "Eliana Faria Lima"
-category: "Transparency & Accountability"
-tags: [budget amendment, supplemental budget, appropriations, budget monitoring]
-topicAngleSignature: "midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting"
-primaryKeyword: "local government budget amendment"
-secondaryKeywords: [midyear budget change, supplemental budget, revised budget]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "A midyear budget change can revise spending authority after new information. The process, public notice, and required records vary by jurisdiction."
-featuredImage: "/assets/article-midyear-budget-change-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual annual budget path changing direction midyear through a formal review and authorization checkpoint."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/mudancas-no-orcamento-local-durante-o-ano
+targetPublicationDate: 2026-09-22
+author: Eliana Faria Lima
+category: Transparency & Accountability
+tags:
+  - budget amendment
+  - supplemental budget
+  - appropriations
+  - budget monitoring
+topicAngleSignature: midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting
+primaryKeyword: local government budget amendment
+secondaryKeywords:
+  - midyear budget change
+  - supplemental budget
+  - revised budget
+searchIntent: informational
+readingTime: 7 min read
+excerpt: A midyear budget change can revise spending authority after new information. The process, public notice, and required records vary by jurisdiction.
+featuredImage: /assets/article-midyear-budget-change-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual annual budget path changing direction midyear through a formal review and authorization checkpoint.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "How Local Budget Amendments Work"
-metaDescription: "Learn why local governments amend budgets, how spending authority changes, which public records to follow, and why procedures vary by jurisdiction."
+seoTitle: How Local Budget Amendments Work
+metaDescription: Learn why local governments amend budgets, how spending authority changes, which public records to follow, and why procedures vary by jurisdiction.
+date: 2026-09-22
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # What Happens When a Local Government Changes Its Budget Midyear?

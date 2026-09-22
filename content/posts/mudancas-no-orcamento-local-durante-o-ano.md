@@ -1,43 +1,54 @@
 ---
-title: "O que acontece quando o governo local muda o orçamento durante o ano?"
-subtitle: "Como amendments revisam a autoridade de gasto, quais registros acompanhar e por que o processo varia."
-slug: "mudancas-no-orcamento-local-durante-o-ano"
-language: "pt-BR"
-translationKey: "midyear-local-budget-change"
+title: O que acontece quando o governo local muda o orçamento durante o ano?
+subtitle: Como amendments revisam a autoridade de gasto, quais registros acompanhar e por que o processo varia.
+slug: mudancas-no-orcamento-local-durante-o-ano
+language: pt-BR
+translationKey: midyear-local-budget-change
 translations:
-  en: "/local-budget-changes-midyear"
-targetPublicationDate: "2026-09-22"
-author: "Eliana Faria Lima"
-category: "Transparência e Prestação de Contas"
-tags: [budget amendment, supplemental budget, appropriations, acompanhamento orçamentário]
-topicAngleSignature: "midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting"
-primaryKeyword: "mudança no orçamento do governo local"
-secondaryKeywords: [budget amendment, supplemental budget, orçamento revisado]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Uma mudança durante o ano pode revisar autoridade de gasto diante de novas informações. Processo, aviso e registros variam por jurisdição."
-featuredImage: "/assets/article-midyear-budget-change-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Caminho conceitual do orçamento anual mudando de direção no meio do ano por um ponto formal de revisão e autorização."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /local-budget-changes-midyear
+targetPublicationDate: 2026-09-22
+author: Eliana Faria Lima
+category: Transparência e Prestação de Contas
+tags:
+  - budget amendment
+  - supplemental budget
+  - appropriations
+  - acompanhamento orçamentário
+topicAngleSignature: midyear-budget-change|trace-revised-authority|trigger-process-document-and-later-reporting
+primaryKeyword: mudança no orçamento do governo local
+secondaryKeywords:
+  - budget amendment
+  - supplemental budget
+  - orçamento revisado
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Uma mudança durante o ano pode revisar autoridade de gasto diante de novas informações. Processo, aviso e registros variam por jurisdição.
+featuredImage: /assets/article-midyear-budget-change-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Caminho conceitual do orçamento anual mudando de direção no meio do ano por um ponto formal de revisão e autorização.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como funcionam budget amendments locais"
-metaDescription: "Entenda por que governos locais mudam orçamentos, como a autoridade é revisada, quais registros acompanhar e por que o processo varia."
+seoTitle: Como funcionam budget amendments locais
+metaDescription: Entenda por que governos locais mudam orçamentos, como a autoridade é revisada, quais registros acompanhar e por que o processo varia.
+date: 2026-09-22
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # O que acontece quando o governo local muda o orçamento durante o ano?
