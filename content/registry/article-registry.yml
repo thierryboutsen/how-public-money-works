@@ -524,3 +524,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-09-22
+  - slug: como-encontrar-documentos-financeiros-do-governo-local
+    title: Como encontrar e entender documentos financeiros do governo local
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-24
+    category: Participação Cidadã
+    tags:
+      - registros públicos
+      - orçamento local
+      - relatório financeiro
+      - agendas
+    duplicateCheckSignature: local-financial-documents|find-authoritative-record|question-entity-period-document-and-version
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-24
+  - slug: find-local-government-financial-documents
+    title: How to Find and Understand Your Local Government's Financial Documents
+    language: en
+    status: published
+    publishDate: 2026-09-24
+    category: Citizen Participation
+    tags:
+      - public records
+      - local budget
+      - financial report
+      - meeting agendas
+    duplicateCheckSignature: local-financial-documents|find-authoritative-record|question-entity-period-document-and-version
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-24

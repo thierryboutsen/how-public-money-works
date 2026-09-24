@@ -100,6 +100,12 @@ coveredTopics:
     status: covered
     relatedSlug: local-budget-changes-midyear
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Citizen Participation
+    subtopic: How to Find and Understand Your Local Government's Financial Documents
+    angle: local-financial-documents|find-authoritative-record|question-entity-period-document-and-version
+    status: covered
+    relatedSlug: find-local-government-financial-documents
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

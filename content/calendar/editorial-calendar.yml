@@ -174,12 +174,15 @@ slots:
     publishedAt: 2026-09-22
   - date: 2026-09-24
     slot: Thursday
-    status: selected
+    status: published
     plannedTopic: How to Find and Understand Your Local Government's Financial Documents
     articleSlug: find-local-government-financial-documents
     backupTopic: How to Read a Local Government Financial Report
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-09-24
   - date: 2026-09-29
     slot: Tuesday
     status: selected
