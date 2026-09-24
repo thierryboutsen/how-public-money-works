@@ -1,43 +1,54 @@
 ---
-title: "Como encontrar e entender documentos financeiros do governo local"
-subtitle: "Um método prático para budgets, relatórios, audits, agendas, capital plans e registros de dívida."
-slug: "como-encontrar-documentos-financeiros-do-governo-local"
-language: "pt-BR"
-translationKey: "find-local-financial-documents"
+title: Como encontrar e entender documentos financeiros do governo local
+subtitle: Um método prático para budgets, relatórios, audits, agendas, capital plans e registros de dívida.
+slug: como-encontrar-documentos-financeiros-do-governo-local
+language: pt-BR
+translationKey: find-local-financial-documents
 translations:
-  en: "/find-local-government-financial-documents"
-targetPublicationDate: "2026-09-24"
-author: "Eliana Faria Lima"
-category: "Participação Cidadã"
-tags: [registros públicos, orçamento local, relatório financeiro, agendas]
-topicAngleSignature: "local-financial-documents|find-authoritative-record|question-entity-period-document-and-version"
-primaryKeyword: "encontrar documentos financeiros do governo local"
-secondaryKeywords: [documentos orçamentários, relatório financeiro anual, registros públicos]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Uma pesquisa confiável começa pela pergunta, governo responsável, período fiscal, tipo de documento e versão oficial."
-featuredImage: "/assets/article-financial-document-search-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Mesa conceitual de pesquisa conectando uma pergunta cívica a budget, agenda, audit, capital plan e relatório financeiro oficiais."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "medium"
+  en: /find-local-government-financial-documents
+targetPublicationDate: 2026-09-24
+author: Eliana Faria Lima
+category: Participação Cidadã
+tags:
+  - registros públicos
+  - orçamento local
+  - relatório financeiro
+  - agendas
+topicAngleSignature: local-financial-documents|find-authoritative-record|question-entity-period-document-and-version
+primaryKeyword: encontrar documentos financeiros do governo local
+secondaryKeywords:
+  - documentos orçamentários
+  - relatório financeiro anual
+  - registros públicos
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Uma pesquisa confiável começa pela pergunta, governo responsável, período fiscal, tipo de documento e versão oficial.
+featuredImage: /assets/article-financial-document-search-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Mesa conceitual de pesquisa conectando uma pergunta cívica a budget, agenda, audit, capital plan e relatório financeiro oficiais.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como encontrar documentos financeiros locais"
-metaDescription: "Use um método prático para encontrar budgets, relatórios, audits, capital plans, agendas e dívida oficiais — e confirmar a versão correta."
+seoTitle: Como encontrar documentos financeiros locais
+metaDescription: Use um método prático para encontrar budgets, relatórios, audits, capital plans, agendas e dívida oficiais — e confirmar a versão correta.
+date: 2026-09-24
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Como encontrar e entender documentos financeiros do governo local

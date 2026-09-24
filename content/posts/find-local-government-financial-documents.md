@@ -1,43 +1,54 @@
 ---
-title: "How to Find and Understand Your Local Government's Financial Documents"
-subtitle: "A practical search method for budgets, reports, audits, agendas, capital plans, and debt records."
-slug: "find-local-government-financial-documents"
-language: "en"
-translationKey: "find-local-financial-documents"
+title: How to Find and Understand Your Local Government's Financial Documents
+subtitle: A practical search method for budgets, reports, audits, agendas, capital plans, and debt records.
+slug: find-local-government-financial-documents
+language: en
+translationKey: find-local-financial-documents
 translations:
-  pt-BR: "/pt-br/como-encontrar-documentos-financeiros-do-governo-local"
-targetPublicationDate: "2026-09-24"
-author: "Eliana Faria Lima"
-category: "Citizen Participation"
-tags: [public records, local budget, financial report, meeting agendas]
-topicAngleSignature: "local-financial-documents|find-authoritative-record|question-entity-period-document-and-version"
-primaryKeyword: "find local government financial documents"
-secondaryKeywords: [local budget documents, annual financial report, public records]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "A reliable search begins with your question, the responsible government, the fiscal period, the document type, and the authoritative version."
-featuredImage: "/assets/article-financial-document-search-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual research desk connecting one civic question to an official budget, agenda, audit, capital plan, and financial report."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "medium"
+  pt-BR: /pt-br/como-encontrar-documentos-financeiros-do-governo-local
+targetPublicationDate: 2026-09-24
+author: Eliana Faria Lima
+category: Citizen Participation
+tags:
+  - public records
+  - local budget
+  - financial report
+  - meeting agendas
+topicAngleSignature: local-financial-documents|find-authoritative-record|question-entity-period-document-and-version
+primaryKeyword: find local government financial documents
+secondaryKeywords:
+  - local budget documents
+  - annual financial report
+  - public records
+searchIntent: informational
+readingTime: 7 min read
+excerpt: A reliable search begins with your question, the responsible government, the fiscal period, the document type, and the authoritative version.
+featuredImage: /assets/article-financial-document-search-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual research desk connecting one civic question to an official budget, agenda, audit, capital plan, and financial report.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "How to Find Local Government Financial Documents"
-metaDescription: "Use a practical method to find official local budgets, financial reports, audits, capital plans, agendas, and debt records—and verify the right version."
+seoTitle: How to Find Local Government Financial Documents
+metaDescription: Use a practical method to find official local budgets, financial reports, audits, capital plans, agendas, and debt records—and verify the right version.
+date: 2026-09-24
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # How to Find and Understand Your Local Government's Financial Documents
