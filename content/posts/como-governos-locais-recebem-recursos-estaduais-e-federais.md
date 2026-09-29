@@ -1,43 +1,54 @@
 ---
-title: "Como governos locais recebem recursos estaduais e federais"
-subtitle: "Da elegibilidade e award às condições, reimbursement, orçamento local e prestação de contas."
-slug: "como-governos-locais-recebem-recursos-estaduais-e-federais"
-language: "pt-BR"
-translationKey: "state-federal-local-funding"
+title: Como governos locais recebem recursos estaduais e federais
+subtitle: Da elegibilidade e award às condições, reimbursement, orçamento local e prestação de contas.
+slug: como-governos-locais-recebem-recursos-estaduais-e-federais
+language: pt-BR
+translationKey: state-federal-local-funding
 translations:
-  en: "/state-federal-funding-local-governments"
-targetPublicationDate: "2026-09-29"
-author: "Eliana Faria Lima"
-category: "Governo Local Explicado"
-tags: [intergovernmental revenue, grants, transfers, recursos federais]
-topicAngleSignature: "intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting"
-primaryKeyword: "recursos estaduais e federais para governos locais"
-secondaryKeywords: [intergovernmental revenue, government grants, reimbursement]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Recursos estaduais e federais podem passar por eligibility, award, condições, aceitação, gasto elegível, reimbursement e reporting antes de apoiar serviços."
-featuredImage: "/assets/article-intergovernmental-funding-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Camadas conceituais de instituições federal, estadual e local conectadas por um pacote condicionado de recursos e checkpoints de revisão."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  en: /state-federal-funding-local-governments
+targetPublicationDate: 2026-09-29
+author: Eliana Faria Lima
+category: Governo Local Explicado
+tags:
+  - intergovernmental revenue
+  - grants
+  - transfers
+  - recursos federais
+topicAngleSignature: intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting
+primaryKeyword: recursos estaduais e federais para governos locais
+secondaryKeywords:
+  - intergovernmental revenue
+  - government grants
+  - reimbursement
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Recursos estaduais e federais podem passar por eligibility, award, condições, aceitação, gasto elegível, reimbursement e reporting antes de apoiar serviços.
+featuredImage: /assets/article-intergovernmental-funding-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Camadas conceituais de instituições federal, estadual e local conectadas por um pacote condicionado de recursos e checkpoints de revisão.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Como recursos estaduais e federais chegam ao governo local"
-metaDescription: "Entenda como grants e recursos intergovernamentais passam de eligibility e award a orçamento, condições, reimbursement e reporting local."
+seoTitle: Como recursos estaduais e federais chegam ao governo local
+metaDescription: Entenda como grants e recursos intergovernamentais passam de eligibility e award a orçamento, condições, reimbursement e reporting local.
+date: 2026-09-29
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Como governos locais recebem recursos estaduais e federais

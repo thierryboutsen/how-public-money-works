@@ -1,43 +1,54 @@
 ---
-title: "How Local Governments Receive State and Federal Funding"
-subtitle: "From eligibility and awards to conditions, reimbursement, local budgets, and public reporting."
-slug: "state-federal-funding-local-governments"
-language: "en"
-translationKey: "state-federal-local-funding"
+title: How Local Governments Receive State and Federal Funding
+subtitle: From eligibility and awards to conditions, reimbursement, local budgets, and public reporting.
+slug: state-federal-funding-local-governments
+language: en
+translationKey: state-federal-local-funding
 translations:
-  pt-BR: "/pt-br/como-governos-locais-recebem-recursos-estaduais-e-federais"
-targetPublicationDate: "2026-09-29"
-author: "Eliana Faria Lima"
-category: "Local Government Explained"
-tags: [intergovernmental revenue, grants, transfers, federal funding]
-topicAngleSignature: "intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting"
-primaryKeyword: "state and federal funding for local governments"
-secondaryKeywords: [intergovernmental revenue, government grants, grant reimbursement]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "State and federal funding may pass through eligibility, award, conditions, local acceptance, eligible spending, reimbursement, and reporting before supporting services."
-featuredImage: "/assets/article-intergovernmental-funding-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Conceptual layers of federal, state, and local institutions connected by a conditioned funding package and review checkpoints."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "high"
+  pt-BR: /pt-br/como-governos-locais-recebem-recursos-estaduais-e-federais
+targetPublicationDate: 2026-09-29
+author: Eliana Faria Lima
+category: Local Government Explained
+tags:
+  - intergovernmental revenue
+  - grants
+  - transfers
+  - federal funding
+topicAngleSignature: intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting
+primaryKeyword: state and federal funding for local governments
+secondaryKeywords:
+  - intergovernmental revenue
+  - government grants
+  - grant reimbursement
+searchIntent: informational
+readingTime: 7 min read
+excerpt: State and federal funding may pass through eligibility, award, conditions, local acceptance, eligible spending, reimbursement, and reporting before supporting services.
+featuredImage: /assets/article-intergovernmental-funding-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Conceptual layers of federal, state, and local institutions connected by a conditioned funding package and review checkpoints.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: high
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "How State and Federal Funding Reaches Local Government"
-metaDescription: "Learn how grants and intergovernmental funding move from eligibility and award to local budgets, conditions, reimbursement, and public reporting."
+seoTitle: How State and Federal Funding Reaches Local Government
+metaDescription: Learn how grants and intergovernmental funding move from eligibility and award to local budgets, conditions, reimbursement, and public reporting.
+date: 2026-09-29
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # How Local Governments Receive State and Federal Funding
