@@ -185,12 +185,15 @@ slots:
     publishedAt: 2026-09-24
   - date: 2026-09-29
     slot: Tuesday
-    status: selected
+    status: published
     plannedTopic: How Local Governments Receive State and Federal Funding
     articleSlug: state-federal-funding-local-governments
     backupTopic: null
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-09-29
   - date: 2026-10-01
     slot: Thursday
     status: selected

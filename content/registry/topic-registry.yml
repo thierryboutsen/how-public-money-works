@@ -106,6 +106,12 @@ coveredTopics:
     status: covered
     relatedSlug: find-local-government-financial-documents
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Local Government Explained
+    subtopic: How Local Governments Receive State and Federal Funding
+    angle: intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting
+    status: covered
+    relatedSlug: state-federal-funding-local-governments
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

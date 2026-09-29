@@ -554,3 +554,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-09-24
+  - slug: como-governos-locais-recebem-recursos-estaduais-e-federais
+    title: Como governos locais recebem recursos estaduais e federais
+    language: pt-BR
+    status: published
+    publishDate: 2026-09-29
+    category: Governo Local Explicado
+    tags:
+      - intergovernmental revenue
+      - grants
+      - transfers
+      - recursos federais
+    duplicateCheckSignature: intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-29
+  - slug: state-federal-funding-local-governments
+    title: How Local Governments Receive State and Federal Funding
+    language: en
+    status: published
+    publishDate: 2026-09-29
+    category: Local Government Explained
+    tags:
+      - intergovernmental revenue
+      - grants
+      - transfers
+      - federal funding
+    duplicateCheckSignature: intergovernmental-funding|understand-award-lifecycle|eligibility-conditions-timing-match-and-reporting
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-09-29
