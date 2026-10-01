@@ -112,6 +112,12 @@ coveredTopics:
     status: covered
     relatedSlug: state-federal-funding-local-governments
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Public Finance Basics
+    subtopic: "Operating Budget vs. Capital Budget: What Each One Tells You"
+    angle: operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact
+    status: covered
+    relatedSlug: operating-budget-vs-capital-budget
+    notes: Marked covered only after successful deploy and public verification.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

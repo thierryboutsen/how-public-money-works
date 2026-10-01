@@ -584,3 +584,33 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-09-29
+  - slug: operating-budget-vs-capital-budget
+    title: "Operating Budget vs. Capital Budget: What Each One Tells You"
+    language: en
+    status: published
+    publishDate: 2026-10-01
+    category: Public Finance Basics
+    tags:
+      - operating budget
+      - capital budget
+      - public services
+      - infrastructure
+    duplicateCheckSignature: operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-10-01
+  - slug: orcamento-operacional-vs-orcamento-de-capital
+    title: "Operating budget vs. capital budget: o que cada um mostra"
+    language: pt-BR
+    status: published
+    publishDate: 2026-10-01
+    category: Fundamentos de Finanças Públicas
+    tags:
+      - operating budget
+      - capital budget
+      - serviços públicos
+      - infraestrutura
+    duplicateCheckSignature: operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: auto-publish-fallback
+    lastReviewed: 2026-10-01

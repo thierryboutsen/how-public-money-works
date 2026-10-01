@@ -196,12 +196,15 @@ slots:
     publishedAt: 2026-09-29
   - date: 2026-10-01
     slot: Thursday
-    status: selected
+    status: published
     plannedTopic: "Operating Budget vs. Capital Budget: What Each One Tells You"
     articleSlug: operating-budget-vs-capital-budget
     backupTopic: null
     readiness: awaiting-human-review
     publicationDecision: pending
+    result: published
+    publicationPath: auto-publish-fallback
+    publishedAt: 2026-10-01
 recoverySlots:
   - originalScheduledDate: 2026-08-18
     recoveryScheduledDate: 2026-08-22
