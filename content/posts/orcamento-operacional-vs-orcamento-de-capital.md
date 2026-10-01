@@ -1,43 +1,54 @@
 ---
 title: "Operating budget vs. capital budget: o que cada um mostra"
-subtitle: "Como serviços cotidianos, investimentos duradouros, financiamento e custos futuros se conectam."
-slug: "orcamento-operacional-vs-orcamento-de-capital"
-language: "pt-BR"
-translationKey: "operating-capital-budget"
+subtitle: Como serviços cotidianos, investimentos duradouros, financiamento e custos futuros se conectam.
+slug: orcamento-operacional-vs-orcamento-de-capital
+language: pt-BR
+translationKey: operating-capital-budget
 translations:
-  en: "/operating-budget-vs-capital-budget"
-targetPublicationDate: "2026-10-01"
-author: "Eliana Faria Lima"
-category: "Fundamentos de Finanças Públicas"
-tags: [operating budget, capital budget, serviços públicos, infraestrutura]
-topicAngleSignature: "operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact"
-primaryKeyword: "operating budget vs capital budget"
-secondaryKeywords: [gastos de capital, despesas operacionais, orçamento local]
-searchIntent: "informational"
-readingTime: "7 min de leitura"
-excerpt: "Operating e capital budgets descrevem decisões e horizontes diferentes, mas todo investimento duradouro pode afetar custos futuros de serviço."
-featuredImage: "/assets/article-operating-capital-budget-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Ilustração conceitual dividida entre serviços públicos recorrentes e projeto de infraestrutura duradouro conectados pelo ciclo orçamentário anual."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "pt-BR"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "medium"
+  en: /operating-budget-vs-capital-budget
+targetPublicationDate: 2026-10-01
+author: Eliana Faria Lima
+category: Fundamentos de Finanças Públicas
+tags:
+  - operating budget
+  - capital budget
+  - serviços públicos
+  - infraestrutura
+topicAngleSignature: operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact
+primaryKeyword: operating budget vs capital budget
+secondaryKeywords:
+  - gastos de capital
+  - despesas operacionais
+  - orçamento local
+searchIntent: informational
+readingTime: 7 min de leitura
+excerpt: Operating e capital budgets descrevem decisões e horizontes diferentes, mas todo investimento duradouro pode afetar custos futuros de serviço.
+featuredImage: /assets/article-operating-capital-budget-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Ilustração conceitual dividida entre serviços públicos recorrentes e projeto de infraestrutura duradouro conectados pelo ciclo orçamentário anual.
+status: published
+lifecycleStatus: published
+publicLanguage: pt-BR
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Operating budget vs. capital budget"
-metaDescription: "Compare operating e capital budgets, serviços e ativos duradouros, e entenda por que decisões de capital podem criar custos operacionais futuros."
+seoTitle: Operating budget vs. capital budget
+metaDescription: Compare operating e capital budgets, serviços e ativos duradouros, e entenda por que decisões de capital podem criar custos operacionais futuros.
+date: 2026-10-01
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Operating budget vs. capital budget: o que cada um mostra

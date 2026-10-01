@@ -1,43 +1,54 @@
 ---
 title: "Operating Budget vs. Capital Budget: What Each One Tells You"
-subtitle: "How everyday services, long-lived investments, financing, and future costs fit together."
-slug: "operating-budget-vs-capital-budget"
-language: "en"
-translationKey: "operating-capital-budget"
+subtitle: How everyday services, long-lived investments, financing, and future costs fit together.
+slug: operating-budget-vs-capital-budget
+language: en
+translationKey: operating-capital-budget
 translations:
-  pt-BR: "/pt-br/orcamento-operacional-vs-orcamento-de-capital"
-targetPublicationDate: "2026-10-01"
-author: "Eliana Faria Lima"
-category: "Public Finance Basics"
-tags: [operating budget, capital budget, public services, infrastructure]
-topicAngleSignature: "operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact"
-primaryKeyword: "operating budget vs capital budget"
-secondaryKeywords: [capital spending, operating expenses, local government budget]
-searchIntent: "informational"
-readingTime: "7 min read"
-excerpt: "Operating and capital budgets describe different time horizons and decisions, but every long-lived investment can affect future service costs."
-featuredImage: "/assets/article-operating-capital-budget-hero.jpg"
-featuredImageStatus: "ready"
-featuredImageAlt: "Split conceptual illustration of recurring public services and a long-lived infrastructure project connected by an annual budget cycle."
-status: "review"
-lifecycleStatus: "drafted"
-publicLanguage: "en"
-internalWorkflowLanguage: "pt-BR"
-sourceLevel: "conceptual-institutionally-validated"
-precisionRisk: "medium"
+  pt-BR: /pt-br/orcamento-operacional-vs-orcamento-de-capital
+targetPublicationDate: 2026-10-01
+author: Eliana Faria Lima
+category: Public Finance Basics
+tags:
+  - operating budget
+  - capital budget
+  - public services
+  - infrastructure
+topicAngleSignature: operating-capital-budgets|compare-time-horizons|service-cost-asset-investment-and-future-operating-impact
+primaryKeyword: operating budget vs capital budget
+secondaryKeywords:
+  - capital spending
+  - operating expenses
+  - local government budget
+searchIntent: informational
+readingTime: 7 min read
+excerpt: Operating and capital budgets describe different time horizons and decisions, but every long-lived investment can affect future service costs.
+featuredImage: /assets/article-operating-capital-budget-hero.jpg
+featuredImageStatus: ready
+featuredImageAlt: Split conceptual illustration of recurring public services and a long-lived infrastructure project connected by an annual budget cycle.
+status: published
+lifecycleStatus: published
+publicLanguage: en
+internalWorkflowLanguage: pt-BR
+sourceLevel: conceptual-institutionally-validated
+precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
-canonicalDecision: "pending-human-approval"
-slugDecision: "pending-human-approval"
-humanDraftApproval: "pending"
-publicationApproval: "pending"
-translationValidationStatus: "validated"
+publishAllowed: true
+canonicalDecision: approved
+slugDecision: approved
+humanDraftApproval: pending
+publicationApproval: approved
+translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []
-seoTitle: "Operating Budget vs. Capital Budget"
-metaDescription: "Compare operating and capital budgets, how each treats services and long-lived assets, and why capital choices can create future operating costs."
+seoTitle: Operating Budget vs. Capital Budget
+metaDescription: Compare operating and capital budgets, how each treats services and long-lived assets, and why capital choices can create future operating costs.
+date: 2026-10-01
+publicationPath: auto-publish-fallback
+autoPublishEligible: true
+humanReviewOutcome: no-response-by-cutoff
 ---
 
 # Operating Budget vs. Capital Budget: What Each One Tells You
