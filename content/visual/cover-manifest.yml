@@ -1,0 +1,146 @@
+version: 1
+styleId: premium-civic-editorial-v1
+policyStatus: active
+finalCoverRequired: true
+allowedFinalExtensions:
+  - .jpg
+  - .jpeg
+  - .png
+  - .webp
+goldStandardReferences:
+  - /assets/article-operating-capital-budget-hero.jpg
+  - /assets/article-local-government-borrowing-hero.jpg
+  - /assets/article-intergovernmental-funding-hero.jpg
+  - /assets/article-local-road-funding-hero.jpg
+  - /assets/article-property-tax-chain-hero.jpg
+  - /assets/article-fund-balance-layers-hero.jpg
+  - /assets/article-structural-budget-balance-hero.jpg
+  - /assets/article-one-time-revenue-ongoing-costs-hero.jpg
+covers:
+  - asset: /assets/article-annual-financial-report-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-capital-improvement-plan-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-city-budget-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-financial-document-search-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-fund-balance-layers-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-general-special-revenue-funds-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-intergovernmental-funding-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-local-government-audit-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-local-government-borrowing-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-local-road-funding-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-local-spending-decisions-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-local-taxes-flow-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-midyear-budget-change-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-operating-capital-budget-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-property-tax-chain-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-public-budget-hearing-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-special-district-boundaries-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-taxes-fees-fines-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: reference
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-structural-budget-balance-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+  - asset: /assets/article-one-time-revenue-ongoing-costs-hero.jpg
+    status: approved
+    style: premium-civic-editorial-v1
+    tier: gold-standard
+    approval: human-approved
+    referenceChecked: true
+retiredAssets:
+  - asset: /assets/article-structural-budget-balance-hero.svg
+    status: rejected-retired
+    reason: Emergency vector placeholder; does not meet premium civic editorial standard.
+  - asset: /assets/article-one-time-revenue-ongoing-costs-hero.svg
+    status: rejected-retired
+    reason: Emergency vector placeholder; does not meet premium civic editorial standard.

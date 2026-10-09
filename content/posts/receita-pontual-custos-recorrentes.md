@@ -23,7 +23,7 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 6 min de leitura
 excerpt: Dinheiro temporário pode resolver uma necessidade real hoje, mas não cria automaticamente a receita recorrente necessária para pagar o mesmo custo no próximo ano.
-featuredImage: /assets/article-one-time-revenue-ongoing-costs-hero.svg
+featuredImage: /assets/article-one-time-revenue-ongoing-costs-hero.jpg
 featuredImageStatus: ready
 featuredImageAlt: Uma pilha finita de documentos cívicos seguindo para blocos repetidos de serviços públicos anuais, ilustrando recursos temporários versus obrigações recorrentes.
 status: published

@@ -7,6 +7,8 @@ const YAML = require('yaml');
 const siteConfig = require('../site.config');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
+const VISUAL_STYLE_ID = 'premium-civic-editorial-v1';
+const VISUAL_MANIFEST_PATH = path.join(ROOT_DIR, 'content', 'visual', 'cover-manifest.yml');
 const SAFE_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 const NON_CONTENT_MARKDOWN = new Set(['README.md', 'brief-template.md']);
@@ -143,6 +145,116 @@ function validateFeaturedImageUniqueness(documents) {
   }
 
   return { pass: errors.length === 0, errors };
+}
+
+function loadVisualCoverManifest() {
+  if (!fs.existsSync(VISUAL_MANIFEST_PATH)) {
+    throw new Error(`visual cover manifest is missing: ${path.relative(ROOT_DIR, VISUAL_MANIFEST_PATH).replace(/\\/g, '/')}`);
+  }
+  const manifest = YAML.parse(fs.readFileSync(VISUAL_MANIFEST_PATH, 'utf8'), { maxAliasCount: 0, uniqueKeys: true }) || {};
+  if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
+    throw new Error('visual cover manifest must be a YAML mapping');
+  }
+  manifest.covers = Array.isArray(manifest.covers) ? manifest.covers : [];
+  manifest.retiredAssets = Array.isArray(manifest.retiredAssets) ? manifest.retiredAssets : [];
+  manifest.goldStandardReferences = Array.isArray(manifest.goldStandardReferences) ? manifest.goldStandardReferences : [];
+  manifest.allowedFinalExtensions = Array.isArray(manifest.allowedFinalExtensions) ? manifest.allowedFinalExtensions : [];
+  return manifest;
+}
+
+function validateVisualCoverStandard(documents, options = {}) {
+  const errors = [];
+  const warnings = [];
+  let manifest;
+  try {
+    manifest = loadVisualCoverManifest();
+  } catch (error) {
+    return { pass: false, errors: [`visualStandard FAIL: ${error.message}`], warnings, styleId: VISUAL_STYLE_ID };
+  }
+
+  if (manifest.styleId !== VISUAL_STYLE_ID) {
+    errors.push(`visualStandard FAIL: manifest styleId must be ${VISUAL_STYLE_ID}`);
+  }
+  if (manifest.policyStatus !== 'active') {
+    errors.push('visualStandard FAIL: visual policy must be active');
+  }
+
+  const byAsset = new Map();
+  for (const entry of manifest.covers) {
+    if (!entry || typeof entry.asset !== 'string') {
+      errors.push('visualStandard FAIL: every cover manifest entry requires an asset path');
+      continue;
+    }
+    if (byAsset.has(entry.asset)) {
+      errors.push(`visualStandard FAIL: duplicate cover manifest entry: ${entry.asset}`);
+      continue;
+    }
+    byAsset.set(entry.asset, entry);
+  }
+
+  if (manifest.goldStandardReferences.length < 4) {
+    errors.push('visualStandard FAIL: at least four gold-standard references are required');
+  }
+  for (const asset of manifest.goldStandardReferences) {
+    const entry = byAsset.get(asset);
+    if (!entry || entry.status !== 'approved' || entry.style !== VISUAL_STYLE_ID) {
+      errors.push(`visualStandard FAIL: gold-standard reference is not an approved ${VISUAL_STYLE_ID} cover: ${asset}`);
+    }
+  }
+
+  const retired = new Set(manifest.retiredAssets.map((entry) => entry?.asset).filter(Boolean));
+  const allowedExtensions = new Set(manifest.allowedFinalExtensions.map((value) => String(value).toLowerCase()));
+
+  for (const doc of documents) {
+    const isReview = doc.relativePath.startsWith('content/review/');
+    const strict = options.forceAll === true
+      || doc.data.status === 'published'
+      || (isReview && (
+        doc.data.humanDraftApproval === 'approved'
+        || doc.data.publicationApproval === 'approved'
+        || doc.data.publishAllowed === true
+      ));
+
+    if (!strict) continue;
+
+    if (!doc.data.featuredImage) {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: publication-ready content requires a featuredImage`);
+      continue;
+    }
+
+    if (retired.has(doc.data.featuredImage)) {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: retired emergency cover may not be used: ${doc.data.featuredImage}`);
+      continue;
+    }
+
+    const entry = byAsset.get(doc.data.featuredImage);
+    if (!entry) {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: featuredImage is not registered in cover-manifest.yml: ${doc.data.featuredImage}`);
+      continue;
+    }
+    if (entry.status !== 'approved') {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: cover status must be approved: ${doc.data.featuredImage}`);
+    }
+    if (entry.style !== VISUAL_STYLE_ID) {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: cover style must be ${VISUAL_STYLE_ID}: ${doc.data.featuredImage}`);
+    }
+    if (entry.approval !== 'human-approved') {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: cover requires human visual approval: ${doc.data.featuredImage}`);
+    }
+    if (entry.referenceChecked !== true) {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: gold-standard references must be checked before approval: ${doc.data.featuredImage}`);
+    }
+    const extension = path.extname(doc.data.featuredImage).toLowerCase();
+    if (!allowedExtensions.has(extension)) {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: final cover extension ${extension || '<none>'} is not allowed`);
+    }
+    const assetPath = sourceAssetPath(doc.data.featuredImage);
+    if (!assetPath || !fs.existsSync(assetPath)) {
+      errors.push(`${doc.relativePath}: visualStandard FAIL: approved cover asset is missing from src/assets: ${doc.data.featuredImage}`);
+    }
+  }
+
+  return { pass: errors.length === 0, errors, warnings, styleId: VISUAL_STYLE_ID };
 }
 
 function extractInternalLinks(markdown) {
@@ -307,6 +419,9 @@ function validateDocuments(documents, options = {}) {
   }
 
   errors.push(...validateFeaturedImageUniqueness(documents).errors);
+  const visualValidation = validateVisualCoverStandard(documents);
+  errors.push(...visualValidation.errors);
+  warnings.push(...visualValidation.warnings);
 
   if (options.requireReviewApproval) {
     for (const doc of documents.filter((item) => item.relativePath.startsWith('content/review/'))) {
@@ -331,6 +446,8 @@ function stripLeadingArticleH1(markdown, title) {
 
 module.exports = {
   ROOT_DIR,
+  VISUAL_STYLE_ID,
+  VISUAL_MANIFEST_PATH,
   SAFE_SLUG,
   DATE_ONLY,
   listMarkdownFiles,
@@ -343,6 +460,8 @@ module.exports = {
   absoluteUrl,
   sourceAssetPath,
   validateFeaturedImageUniqueness,
+  loadVisualCoverManifest,
+  validateVisualCoverStandard,
   extractInternalLinks,
   normalizeInternalRoute,
   validateDocuments,
