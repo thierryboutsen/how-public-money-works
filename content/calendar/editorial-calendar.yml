@@ -283,6 +283,27 @@ recoverySlots:
     publicationPath: human-approved
     publishedAt: 2026-10-09
     publicationCommitSha: 0e0ae77efb998563a113a57bd6b0c65ef7a51f26
+  - originalScheduledDate: 2026-11-26
+    recoveryScheduledDate: 2026-11-26
+    recoveryTime: 15:17
+    recoveryReason: additive Thanksgiving special after regular Thursday slot
+    articleSlug: thanksgiving-gratitude-community-2026
+    status: armed
+    publicationDecision: pending
+  - originalScheduledDate: 2026-12-25
+    recoveryScheduledDate: 2026-12-25
+    recoveryTime: 09:17
+    recoveryReason: Friday Christmas special outside regular Tuesday/Thursday cadence
+    articleSlug: christmas-community-kindness-2026
+    status: armed
+    publicationDecision: pending
+  - originalScheduledDate: 2027-01-01
+    recoveryScheduledDate: 2027-01-01
+    recoveryTime: 09:17
+    recoveryReason: Friday New Year special outside regular Tuesday/Thursday cadence
+    articleSlug: new-year-learning-clarity-2027
+    status: armed
+    publicationDecision: pending
 rules:
   - No topic becomes a brief or draft without the required human topic and brief approvals
   - Publication review is preferably human; silence may use the auto-publish fallback only after cutoff and only when every gate passes

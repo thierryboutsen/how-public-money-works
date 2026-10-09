@@ -1,0 +1,105 @@
+name: Editorial holiday specials 2026-2027
+
+on:
+  schedule:
+    - cron: '17 15 26 11 *'
+      timezone: 'America/Sao_Paulo'
+    - cron: '17 9 25 12 *'
+      timezone: 'America/Sao_Paulo'
+    - cron: '17 9 1 1 *'
+      timezone: 'America/Sao_Paulo'
+
+permissions:
+  contents: write
+  deployments: read
+
+concurrency:
+  group: editorial-holiday-specials
+  cancel-in-progress: false
+
+jobs:
+  publish-special:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Resolve one-time holiday slot
+        id: slot
+        shell: bash
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          case "$SCHEDULE" in
+            "17 15 26 11 *")
+              article="thanksgiving-gratitude-community-2026"
+              recovery_date="2026-11-26"
+              ;;
+            "17 9 25 12 *")
+              article="christmas-community-kindness-2026"
+              recovery_date="2026-12-25"
+              ;;
+            "17 9 1 1 *")
+              article="new-year-learning-clarity-2027"
+              recovery_date="2027-01-01"
+              ;;
+            *)
+              echo "Unknown scheduled expression: $SCHEDULE" >&2
+              exit 1
+              ;;
+          esac
+
+          current_date="$(TZ=America/Sao_Paulo date +%F)"
+          if [ "$current_date" != "$recovery_date" ]; then
+            echo "One-time holiday guard: expected $recovery_date, current $current_date. No publication will run."
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "article=$article" >> "$GITHUB_OUTPUT"
+          echo "recovery_date=$recovery_date" >> "$GITHUB_OUTPUT"
+          echo "should_run=true" >> "$GITHUB_OUTPUT"
+
+      - name: Check out production branch
+        if: steps.slot.outputs.should_run == 'true'
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        if: steps.slot.outputs.should_run == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        if: steps.slot.outputs.should_run == 'true'
+        run: npm ci
+
+      - name: Verify automation policy and guards
+        if: steps.slot.outputs.should_run == 'true'
+        run: |
+          npm run editorial:status
+          npm run content:test:frontmatter
+          npm run editorial:test
+          npm run editorial:test:transaction
+          npm run editorial:test:recovery-trigger
+
+      - name: Run exact holiday recovery publication
+        if: steps.slot.outputs.should_run == 'true'
+        shell: bash
+        env:
+          ARTICLE: ${{ steps.slot.outputs.article }}
+          RECOVERY_DATE: ${{ steps.slot.outputs.recovery_date }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          npm run editorial:run-slot -- "$ARTICLE" --execute "--recovery-date=$RECOVERY_DATE"
+
+      - name: Upload non-secret publication logs
+        if: always() && steps.slot.outputs.should_run == 'true'
+        uses: actions/upload-artifact@v6
+        with:
+          name: editorial-holiday-publication-logs
+          path: .editorial/logs/*.json
+          if-no-files-found: warn
