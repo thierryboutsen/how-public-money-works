@@ -118,6 +118,20 @@ coveredTopics:
     status: covered
     relatedSlug: operating-budget-vs-capital-budget
     notes: Marked covered only after successful deploy and public verification.
+  - topic: Public Finance Basics
+    subtopic: Structurally balanced budget
+    angle: Recurring resources versus recurring commitments
+    status: covered
+    relatedSlug: structurally-balanced-budget-explained
+    topicAngleSignature: structural-balance|legal-vs-sustainable|recurring-resources-and-ongoing-costs
+    notes: Recovered and publicly verified on 2026-10-09 for the missed 2026-10-06 slot.
+  - topic: Public Finance Basics
+    subtopic: One-time revenue and ongoing costs
+    angle: Temporary resources versus recurring obligations
+    status: covered
+    relatedSlug: one-time-revenue-ongoing-costs
+    topicAngleSignature: one-time-revenue|avoid-recurring-cost-dependency|temporary-resources-and-ongoing-services
+    notes: Recovered and publicly verified on 2026-10-09 for the missed 2026-10-08 slot.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination

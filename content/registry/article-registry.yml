@@ -614,3 +614,79 @@ articles:
     sourceLevel: conceptual-institutionally-validated
     publicationPath: auto-publish-fallback
     lastReviewed: 2026-10-01
+  - slug: structurally-balanced-budget-explained
+    title: "What Is a Structurally Balanced Budget—and Why Can a Balanced Budget Still Be Unsustainable?"
+    language: en
+    status: published
+    publishDate: 2026-10-09
+    category: Public Finance Basics
+    tags:
+      - structural balance
+      - balanced budget
+      - recurring revenue
+      - recurring expenditures
+      - reserves
+    duplicateCheckSignature: structural-balance|legal-vs-sustainable|recurring-resources-and-ongoing-costs
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-06
+    recoveryScheduledDate: 2026-10-09
+    publicationCommitSha: 0e0ae77efb998563a113a57bd6b0c65ef7a51f26
+    lastReviewed: 2026-10-09
+  - slug: orcamento-estruturalmente-equilibrado
+    title: "O que é um orçamento estruturalmente equilibrado — e por que um orçamento equilibrado ainda pode ser insustentável?"
+    language: pt-BR
+    translationOf: structurally-balanced-budget-explained
+    status: published
+    publishDate: 2026-10-09
+    category: Fundamentos de Finanças Públicas
+    tags:
+      - equilíbrio estrutural
+      - orçamento equilibrado
+      - receita recorrente
+      - despesas recorrentes
+      - reservas
+    duplicateCheckSignature: structural-balance|legal-vs-sustainable|recurring-resources-and-ongoing-costs
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-06
+    recoveryScheduledDate: 2026-10-09
+    publicationCommitSha: 0e0ae77efb998563a113a57bd6b0c65ef7a51f26
+    lastReviewed: 2026-10-09
+  - slug: one-time-revenue-ongoing-costs
+    title: "One-Time Revenue: Why Governments Should Be Careful Using It for Ongoing Costs"
+    language: en
+    status: published
+    publishDate: 2026-10-09
+    category: Public Finance Basics
+    tags:
+      - one-time revenue
+      - recurring expenditures
+      - financial policy
+      - structural balance
+    duplicateCheckSignature: one-time-revenue|avoid-recurring-cost-dependency|temporary-resources-and-ongoing-services
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-08
+    recoveryScheduledDate: 2026-10-09
+    publicationCommitSha: 0e0ae77efb998563a113a57bd6b0c65ef7a51f26
+    lastReviewed: 2026-10-09
+  - slug: receita-pontual-custos-recorrentes
+    title: "Receita pontual: por que governos devem ter cuidado ao usá-la para custos recorrentes"
+    language: pt-BR
+    translationOf: one-time-revenue-ongoing-costs
+    status: published
+    publishDate: 2026-10-09
+    category: Fundamentos de Finanças Públicas
+    tags:
+      - receita pontual
+      - despesas recorrentes
+      - política financeira
+      - equilíbrio estrutural
+    duplicateCheckSignature: one-time-revenue|avoid-recurring-cost-dependency|temporary-resources-and-ongoing-services
+    sourceLevel: conceptual-institutionally-validated
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-08
+    recoveryScheduledDate: 2026-10-09
+    publicationCommitSha: 0e0ae77efb998563a113a57bd6b0c65ef7a51f26
+    lastReviewed: 2026-10-09
