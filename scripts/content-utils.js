@@ -149,7 +149,7 @@ function validateFeaturedImageUniqueness(documents) {
 
 function loadVisualCoverManifest() {
   if (!fs.existsSync(VISUAL_MANIFEST_PATH)) {
-    throw new Error(`visual cover manifest is missing: ${path.relative(ROOT_DIR, VISUAL_MANIFEST_PATH).replace(/\\\\/g, '/')}`);
+    throw new Error(`visual cover manifest is missing: ${path.relative(ROOT_DIR, VISUAL_MANIFEST_PATH).replace(/\\/g, '/')}`);
   }
   const manifest = YAML.parse(fs.readFileSync(VISUAL_MANIFEST_PATH, 'utf8'), { maxAliasCount: 0, uniqueKeys: true }) || {};
   if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
