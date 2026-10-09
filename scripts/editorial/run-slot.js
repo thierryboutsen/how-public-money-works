@@ -57,7 +57,7 @@ async function main() {
   const localNow = zonedParts(now);
   let selected = null;
   if (execute && !identifier) {
-    const candidate = selectNextPreparedPair(localNow.date, new Set(), { exactSlotOnly: true });
+    const candidate = selectNextPreparedPair(localNow.date, new Set(), { exactSlotOnly: true, excludeRecoveryPairs: true });
     if (candidate) {
       const english = candidate.find((document) => document.data.language === 'en') || candidate[0];
       const response = await fetch(absoluteUrl(publicPathForDocument(english)), { method: 'HEAD', redirect: 'follow' });

@@ -4,6 +4,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 const YAML = require('yaml');
+const { selectNextPreparedPair } = require('./engine');
 
 const root = path.join(__dirname, '..', '..');
 const calendar = YAML.parse(fs.readFileSync(path.join(root, 'content', 'calendar', 'editorial-calendar.yml'), 'utf8'));
@@ -38,3 +39,56 @@ for (const slot of calendar.recoverySlots || []) {
 }
 
 console.log('Recovery trigger tests passed: normal cron policy is stable, armed slots require explicit triggers, and manual recovery slots remain date-scoped.');
+
+
+(function testRegularSlotCanExcludeArmedRecoveryPairs() {
+  const armedPair = [{
+    relativePath: 'content/review/thanksgiving-en.md',
+    data: {
+      language: 'en',
+      slug: 'thanksgiving-gratitude-community-2026',
+      translationKey: 'thanksgiving-gratitude-community-2026',
+      targetPublicationDate: '2026-11-26'
+    }
+  }, {
+    relativePath: 'content/review/thanksgiving-pt.md',
+    data: {
+      language: 'pt-BR',
+      slug: 'nota-de-thanksgiving-gratidao-comunidade-2026',
+      translationKey: 'thanksgiving-gratitude-community-2026',
+      targetPublicationDate: '2026-11-26'
+    }
+  }];
+  const regularPair = [{
+    relativePath: 'content/review/regular-en.md',
+    data: {
+      language: 'en',
+      slug: 'regular-slot',
+      translationKey: 'regular-slot',
+      targetPublicationDate: '2026-11-26'
+    }
+  }, {
+    relativePath: 'content/review/regular-pt.md',
+    data: {
+      language: 'pt-BR',
+      slug: 'slot-regular',
+      translationKey: 'regular-slot',
+      targetPublicationDate: '2026-11-26'
+    }
+  }];
+  const staticGateEvaluationFn = () => ({
+    human: { status: 'approved' },
+    checks: {
+      contentValidator: { pass: true },
+      publicationGuards: { pass: true },
+      other: { pass: true }
+    }
+  });
+  const selected = selectNextPreparedPair('2026-11-26', new Set(), {
+    pairs: [armedPair, regularPair],
+    exactSlotOnly: true,
+    excludeRecoveryPairs: true,
+    staticGateEvaluationFn
+  });
+  assert.strictEqual(selected, regularPair, 'regular slot must ignore the armed Thanksgiving recovery pair');
+})();
