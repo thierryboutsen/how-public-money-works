@@ -14,6 +14,7 @@ const {
   absoluteUrl,
   sourceAssetPath,
   validateFeaturedImageUniqueness,
+  validateVisualCoverStandard,
   validateDocuments
 } = require('../content-utils');
 
@@ -168,7 +169,9 @@ function imageCheck(pair) {
     else if (!sourceAssetPath(document.data.featuredImage) || !fs.existsSync(sourceAssetPath(document.data.featuredImage))) errors.push(`${document.data.slug}: featuredImage asset is missing`);
     if (!document.data.featuredImageAlt) errors.push(`${document.data.slug}: featuredImageAlt is missing`);
   }
-  return { pass: errors.length === 0, errors };
+  const visual = validateVisualCoverStandard(pair, { forceAll: true });
+  errors.push(...visual.errors);
+  return { pass: errors.length === 0, errors, visualStyle: visual.styleId };
 }
 
 function imageUniqueCheck() {

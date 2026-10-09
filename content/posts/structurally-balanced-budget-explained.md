@@ -24,7 +24,7 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 6 min read
 excerpt: A budget can balance for one year and still rely on temporary resources to support costs that return every year.
-featuredImage: /assets/article-structural-budget-balance-hero.svg
+featuredImage: /assets/article-structural-budget-balance-hero.jpg
 featuredImageStatus: ready
 featuredImageAlt: Layered civic budget documents separating recurring public services from a temporary one-time resource.
 status: published

@@ -23,7 +23,7 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 6 min read
 excerpt: Temporary money can solve a real need today, but it does not automatically create the recurring revenue required to pay the same ongoing cost next year.
-featuredImage: /assets/article-one-time-revenue-ongoing-costs-hero.svg
+featuredImage: /assets/article-one-time-revenue-ongoing-costs-hero.jpg
 featuredImageStatus: ready
 featuredImageAlt: A finite stack of civic documents flowing toward repeating annual public-service blocks, illustrating temporary resources versus recurring obligations.
 status: published

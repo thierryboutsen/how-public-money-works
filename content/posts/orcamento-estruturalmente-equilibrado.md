@@ -24,7 +24,7 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 6 min de leitura
 excerpt: Um orçamento pode fechar por um ano e ainda depender de recursos temporários para sustentar custos que voltam todos os anos.
-featuredImage: /assets/article-structural-budget-balance-hero.svg
+featuredImage: /assets/article-structural-budget-balance-hero.jpg
 featuredImageStatus: ready
 featuredImageAlt: Documentos orçamentários em camadas separando serviços públicos recorrentes de um recurso temporário e pontual.
 status: published
