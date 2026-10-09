@@ -546,6 +546,7 @@ function selectNextPreparedPair(slotDate, excludedSlugs = new Set(), options = {
   const candidates = pairs.filter((pair) => {
     const english = pair.find((document) => document.data.language === 'en') || pair[0];
     if (excludedSlugs.has(english.data.slug)) return false;
+    if (options.excludeRecoveryPairs && recoverySlotForPair(pair)) return false;
     if (!english.data.targetPublicationDate || english.data.targetPublicationDate > slotDate) return false;
     const evaluation = evaluateStaticGates(pair);
     return !['rejected', 'changes-requested'].includes(evaluation.human.status)
