@@ -137,6 +137,18 @@ covers:
     tier: gold-standard
     approval: human-approved
     referenceChecked: true
+  - asset: /assets/article-rainy-day-fund-vs-fund-balance-hero.jpg
+    status: candidate
+    style: premium-civic-editorial-v1
+    tier: candidate
+    approval: pending
+    referenceChecked: true
+  - asset: /assets/article-how-much-reserve-is-enough-hero.jpg
+    status: candidate
+    style: premium-civic-editorial-v1
+    tier: candidate
+    approval: pending
+    referenceChecked: true
 retiredAssets:
   - asset: /assets/article-structural-budget-balance-hero.svg
     status: rejected-retired

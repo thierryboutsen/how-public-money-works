@@ -24,6 +24,9 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 8 min read
 excerpt: A rainy-day reserve and fund balance can overlap, but they answer different questions about financial position, policy, purpose, and access.
+featuredImage: /assets/article-rainy-day-fund-vs-fund-balance-hero.jpg
+featuredImageStatus: candidate-pending-human-approval
+featuredImageAlt: Layered civic-finance illustration showing protected reserve resources flowing toward recurring public services over time.
 status: review
 lifecycleStatus: drafted
 publicLanguage: en
