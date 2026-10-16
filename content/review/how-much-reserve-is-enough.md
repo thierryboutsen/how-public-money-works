@@ -25,6 +25,9 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 9 min read
 excerpt: There is no single reserve percentage that fits every local government. A useful target starts with risks, volatility, access to resources, and replenishment policy.
+featuredImage: /assets/article-how-much-reserve-is-enough-hero.jpg
+featuredImageStatus: candidate-pending-human-approval
+featuredImageAlt: Civic-finance balance illustration comparing public-service obligations with financial reserves and budget resources.
 status: review
 lifecycleStatus: drafted
 publicLanguage: en

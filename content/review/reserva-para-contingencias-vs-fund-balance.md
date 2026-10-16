@@ -24,6 +24,9 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 8 min de leitura
 excerpt: Uma reserva para períodos difíceis e o fund balance podem se sobrepor, mas respondem a perguntas diferentes sobre posição financeira, política, finalidade e acesso.
+featuredImage: /assets/article-rainy-day-fund-vs-fund-balance-hero.jpg
+featuredImageStatus: candidate-pending-human-approval
+featuredImageAlt: Ilustração cívico-financeira em camadas mostrando recursos de reserva protegidos e sua relação com serviços públicos recorrentes ao longo do tempo.
 status: review
 lifecycleStatus: drafted
 publicLanguage: pt-BR

@@ -25,6 +25,9 @@ secondaryKeywords:
 searchIntent: informational
 readingTime: 9 min de leitura
 excerpt: Não existe um percentual único de reserva adequado a todo governo local. Uma meta útil começa pelos riscos, volatilidade, recursos disponíveis e política de recomposição.
+featuredImage: /assets/article-how-much-reserve-is-enough-hero.jpg
+featuredImageStatus: candidate-pending-human-approval
+featuredImageAlt: Ilustração cívico-financeira de equilíbrio comparando obrigações de serviços públicos com reservas e recursos orçamentários.
 status: review
 lifecycleStatus: drafted
 publicLanguage: pt-BR
