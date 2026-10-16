@@ -38,9 +38,7 @@ slugDecision: approved
 humanDraftApproval: pending
 publicationApproval: pending
 translationValidationStatus: validated
-requestedChanges:
-  - "Do not present one reserve percentage as universally correct."
-  - "Separate GFOA best-practice guidance from legal requirements."
+requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []

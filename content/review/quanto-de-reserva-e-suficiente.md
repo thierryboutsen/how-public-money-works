@@ -38,9 +38,7 @@ slugDecision: approved
 humanDraftApproval: pending
 publicationApproval: pending
 translationValidationStatus: validated
-requestedChanges:
-  - "Não apresentar um percentual de reserva como universalmente correto."
-  - "Separar orientação de boa prática da GFOA de exigências legais."
+requestedChanges: []
 p1Blockers: []
 p2Blockers: []
 securityWarnings: []

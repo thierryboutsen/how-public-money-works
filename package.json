@@ -31,7 +31,8 @@
     "editorial:test:inventory": "node scripts/editorial/test-inventory.js",
     "editorial:test:recovery-trigger": "node scripts/editorial/test-recovery-trigger.js",
     "test": "npm run content:validate && npm run content:test:visual",
-    "content:test:visual": "node scripts/test-visual-cover-policy.js"
+    "content:test:visual": "node scripts/test-visual-cover-policy.js",
+    "editorial:preflight": "node scripts/editorial/preflight-next-slot.js"
   },
   "dependencies": {
     "marked": "^18.0.4",
