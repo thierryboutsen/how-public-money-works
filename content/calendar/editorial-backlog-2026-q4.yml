@@ -1,0 +1,49 @@
+window:
+  start: "2026-10-06"
+  end: "2026-12-31"
+  requestedThrough: "2027-01-01"
+  cadence: "Tuesday/Thursday"
+  slots: 26
+  languages: [en, pt-BR]
+  publicationAuthorized: false
+  generatedAt: "2026-10-05"
+
+references:
+  masterPlan: "docs/editorial/Q4_2026_EDITORIAL_MASTER_PLAN.md"
+  coverPolicyId: "premium-civic-editorial-v1"
+
+rules:
+  qualityOverCadence: true
+  duplicateAnglesBlocked: true
+  sourceValidationRequired: true
+  languagePairsRequired: true
+  autoPublishFallbackRequiresAllGates: true
+  holidaySlotsRequireExplicitReview: true
+
+slots:
+  - { order: 1, date: "2026-10-06", slot: Tuesday, status: proposed, slug: "structurally-balanced-budget-explained", title: "What Is a Structurally Balanced Budget—and Why Can a Balanced Budget Still Be Unsustainable?", category: "Public Finance Basics", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 2, date: "2026-10-08", slot: Thursday, status: proposed, slug: "one-time-revenue-ongoing-costs", title: "One-Time Revenue: Why Governments Should Be Careful Using It for Ongoing Costs", category: "Public Finance Basics", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 3, date: "2026-10-13", slot: Tuesday, status: proposed, slug: "rainy-day-fund-vs-fund-balance", title: "What Is a Rainy Day Fund—and How Is It Different from Fund Balance?", category: "Public Finance Basics", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 4, date: "2026-10-15", slot: Thursday, status: proposed, slug: "how-much-reserve-is-enough", title: "How Local Governments Decide How Much Reserve Is Enough", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 5, date: "2026-10-20", slot: Tuesday, status: proposed, slug: "local-government-revenue-forecasting", title: "How Local Governments Forecast Revenue—and Why Forecasts Change", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 6, date: "2026-10-22", slot: Thursday, status: proposed, slug: "user-fee-policy-explained", title: "What Is a User Fee—and How Do Governments Decide What to Charge?", category: "Your Tax Dollars", factualRisk: high, holidayReviewRequired: false }
+  - { order: 7, date: "2026-10-27", slot: Tuesday, status: proposed, slug: "local-government-debt-affordability", title: "How Do Local Governments Decide Whether Debt Is Affordable?", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 8, date: "2026-10-29", slot: Thursday, status: proposed, slug: "debt-service-in-local-budget", title: "What Is Debt Service—and Where Does It Show Up in a Budget?", category: "Public Finance Basics", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 9, date: "2026-11-03", slot: Tuesday, status: proposed, slug: "capital-asset-management-explained", title: "What Is Capital Asset Management—and What Happens After a Project Is Built?", category: "Public Services & Infrastructure", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 10, date: "2026-11-05", slot: Thursday, status: proposed, slug: "deferred-maintenance-public-infrastructure", title: "Deferred Maintenance: Why Putting Off Repairs Can Raise Future Costs", category: "Public Services & Infrastructure", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 11, date: "2026-11-10", slot: Tuesday, status: proposed, slug: "enterprise-fund-explained", title: "What Is an Enterprise Fund—and Why Do Utilities Often Use One?", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 12, date: "2026-11-12", slot: Thursday, status: proposed, slug: "cash-flow-vs-fund-balance", title: "Cash Flow vs. Fund Balance: Why They Are Not the Same Thing", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 13, date: "2026-11-17", slot: Tuesday, status: proposed, slug: "public-procurement-local-government", title: "What Is Public Procurement—and How Does a Local Government Buy Things?", category: "Transparency & Accountability", factualRisk: high, holidayReviewRequired: false }
+  - { order: 14, date: "2026-11-19", slot: Thursday, status: proposed, slug: "internal-controls-before-audit", title: "Internal Controls: How Governments Prevent Errors Before the Audit", category: "Transparency & Accountability", factualRisk: high, holidayReviewRequired: false }
+  - { order: 15, date: "2026-11-24", slot: Tuesday, status: proposed, slug: "pension-opeb-costs-local-budgets", title: "What Are Pension and OPEB Costs—and Why Do They Matter to Local Budgets?", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 16, date: "2026-11-26", slot: Thursday, status: proposed, slug: "read-local-government-financial-policies", title: "How to Read a Local Government's Financial Policies", category: "Citizen Participation", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 17, date: "2026-12-01", slot: Tuesday, status: proposed, slug: "encumbrance-committed-but-unspent", title: "What Is an Encumbrance—and Why Can Money Look Unspent Even When It Is Committed?", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 18, date: "2026-12-03", slot: Thursday, status: proposed, slug: "budget-variance-explained", title: "Budget Variance: Why Actual Spending Rarely Matches the Budget Exactly", category: "Transparency & Accountability", factualRisk: high, holidayReviewRequired: false }
+  - { order: 19, date: "2026-12-08", slot: Tuesday, status: proposed, slug: "budget-contingency-explained", title: "What Is a Budget Contingency—and When Can It Be Used?", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 20, date: "2026-12-10", slot: Thursday, status: proposed, slug: "interfund-transfer-explained", title: "What Is an Interfund Transfer—and Why Does Money Move Between Government Funds?", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 21, date: "2026-12-15", slot: Tuesday, status: proposed, slug: "local-government-revenue-diversification", title: "Revenue Diversification: Why Local Governments Avoid Relying on One Source", category: "Your Tax Dollars", factualRisk: high, holidayReviewRequired: false }
+  - { order: 22, date: "2026-12-17", slot: Thursday, status: proposed, slug: "performance-measures-public-budget", title: "What Are Performance Measures—and What Can They Tell You About a Budget?", category: "Transparency & Accountability", factualRisk: medium, holidayReviewRequired: false }
+  - { order: 23, date: "2026-12-22", slot: Tuesday, status: proposed, slug: "fiscal-year-explained", title: "What Is a Fiscal Year—and Why Doesn't It Always Match the Calendar Year?", category: "Public Finance Basics", factualRisk: low, holidayReviewRequired: false }
+  - { order: 24, date: "2026-12-24", slot: Thursday, status: proposed, slug: "tax-abatement-financial-impact", title: "What Is a Tax Abatement—and Where Can You Find Its Financial Impact?", category: "Your Tax Dollars", factualRisk: high, holidayReviewRequired: true }
+  - { order: 25, date: "2026-12-29", slot: Tuesday, status: proposed, slug: "government-credit-rating-explained", title: "What Is a Government Credit Rating—and What Does It Actually Measure?", category: "Public Finance Basics", factualRisk: high, holidayReviewRequired: false }
+  - { order: 26, date: "2026-12-31", slot: Thursday, status: proposed, slug: "long-term-financial-plan-vs-annual-budget", title: "What Is a Long-Term Financial Plan—and How Is It Different from an Annual Budget?", category: "Public Finance Basics", factualRisk: medium, holidayReviewRequired: true }
