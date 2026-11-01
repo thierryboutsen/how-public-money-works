@@ -1,0 +1,11 @@
+{
+  "name": "hpw-editorial-cover-factory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node generate.mjs"
+  },
+  "dependencies": {
+    "ai": "7.0.159"
+  }
+}

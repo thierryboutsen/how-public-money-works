@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "style": "premium-civic-editorial-v1",
+  "model": "bfl/flux-3-image",
+  "aspectRatio": "3:2",
+  "references": [
+    "/assets/article-operating-capital-budget-hero.jpg",
+    "/assets/article-intergovernmental-funding-hero.jpg",
+    "/assets/article-local-road-funding-hero.jpg",
+    "/assets/article-fund-balance-layers-hero.jpg",
+    "/assets/article-rainy-day-fund-vs-fund-balance-hero.jpg",
+    "/assets/article-how-much-reserve-is-enough-hero.jpg"
+  ],
+  "items": [
+    {
+      "slug": "local-government-revenue-forecasting",
+      "targetPublicationDate": "2026-10-20",
+      "output": "article-local-government-revenue-forecasting-hero.png",
+      "status": "ready-for-generation",
+      "topic": "Local government revenue forecasting",
+      "visualConcept": "A municipal finance planning scene where several distinct revenue streams flow through historical records and economic signals into a multi-year forecast horizon, with uncertainty bands and scenario pathways."
+    },
+    {
+      "slug": "user-fee-policy-explained",
+      "targetPublicationDate": "2026-10-22",
+      "output": "article-user-fee-policy-explained-hero.png",
+      "status": "ready-for-generation",
+      "topic": "Local government user-fee policy",
+      "visualConcept": "A civic service system connecting public facilities and services to a transparent fee-policy framework: cost layers, service users, subsidies and affordability considerations represented without currency symbols or text."
+    },
+    {
+      "slug": "local-government-debt-affordability",
+      "targetPublicationDate": "2026-10-27",
+      "output": "article-local-government-debt-affordability-hero.png",
+      "status": "ready-for-generation",
+      "topic": "Local government debt affordability",
+      "visualConcept": "A long-lived civic capital project balanced against a multi-year repayment path, existing obligations, future revenue capacity and policy guardrails, communicating capacity and tradeoffs rather than alarm."
+    },
+    {
+      "slug": "debt-service-in-local-budget",
+      "targetPublicationDate": "2026-10-29",
+      "output": "article-debt-service-in-local-budget-hero.png",
+      "status": "ready-for-generation",
+      "topic": "Debt service in a local government budget",
+      "visualConcept": "A completed civic asset connected to a structured multi-year repayment schedule, with separate principal-and-interest paths and multiple legitimate repayment-source channels flowing into a public budget."
+    },
+    {
+      "slug": "capital-asset-management-explained",
+      "targetPublicationDate": "2026-11-03",
+      "output": "article-capital-asset-management-hero.png",
+      "status": "ready-for-generation",
+      "topic": "Capital asset management after construction",
+      "visualConcept": "A coordinated portfolio of bridge, public building, road and utility assets organized around inspection records, lifecycle rings, maintenance intervals, renewal and replacement planning."
+    },
+    {
+      "slug": "deferred-maintenance-public-infrastructure",
+      "targetPublicationDate": "2026-11-05",
+      "output": "article-deferred-maintenance-public-infrastructure-hero.png",
+      "status": "ready-for-generation",
+      "topic": "Deferred maintenance in public infrastructure",
+      "visualConcept": "The same public asset shown across two points in time, with subtle condition decline, inspection records and accumulating maintenance needs, emphasizing planning consequences without dramatic decay."
+    }
+  ]
+}
