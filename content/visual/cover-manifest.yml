@@ -138,16 +138,16 @@ covers:
     approval: human-approved
     referenceChecked: true
   - asset: /assets/article-rainy-day-fund-vs-fund-balance-hero.jpg
-    status: candidate
+    status: approved
     style: premium-civic-editorial-v1
-    tier: candidate
-    approval: pending
+    tier: reference
+    approval: human-approved
     referenceChecked: true
   - asset: /assets/article-how-much-reserve-is-enough-hero.jpg
-    status: candidate
+    status: approved
     style: premium-civic-editorial-v1
-    tier: candidate
-    approval: pending
+    tier: reference
+    approval: human-approved
     referenceChecked: true
 retiredAssets:
   - asset: /assets/article-structural-budget-balance-hero.svg

@@ -160,10 +160,11 @@ async function main() {
     cycle.results.push(result);
   }
   const transactionFailed = cycleHasTransactionFailure(cycle);
-  cycle.finalDecision = finalDecisionForCycle(cycle);
+  const noPreparedExecution = execute && !identifier && pairs.length === 0;
+  cycle.finalDecision = noPreparedExecution ? 'ABORTED_NO_PREPARED_SLOT' : finalDecisionForCycle(cycle);
   cycle.logPath = writeLog(cycle);
   console.log(JSON.stringify(cycle, null, 2));
-  if (transactionFailed) process.exitCode = 1;
+  if (transactionFailed || noPreparedExecution) process.exitCode = 1;
 }
 
 if (require.main === module) {

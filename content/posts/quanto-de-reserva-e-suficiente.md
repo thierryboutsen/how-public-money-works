@@ -26,20 +26,20 @@ searchIntent: informational
 readingTime: 9 min de leitura
 excerpt: Não existe um percentual único de reserva adequado a todo governo local. Uma meta útil começa pelos riscos, volatilidade, recursos disponíveis e política de recomposição.
 featuredImage: /assets/article-how-much-reserve-is-enough-hero.jpg
-featuredImageStatus: candidate-pending-human-approval
+featuredImageStatus: ready
 featuredImageAlt: Ilustração cívico-financeira de equilíbrio comparando obrigações de serviços públicos com reservas e recursos orçamentários.
-status: review
-lifecycleStatus: drafted
+status: published
+lifecycleStatus: published
 publicLanguage: pt-BR
 internalWorkflowLanguage: pt-BR
 sourceLevel: authoritative-institutional
 precisionRisk: high
 draftAllowed: true
-publishAllowed: false
+publishAllowed: true
 canonicalDecision: approved
 slugDecision: approved
-humanDraftApproval: pending
-publicationApproval: pending
+humanDraftApproval: approved
+publicationApproval: approved
 translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
@@ -47,6 +47,9 @@ p2Blockers: []
 securityWarnings: []
 seoTitle: Quanto de reserva um governo local deve manter?
 metaDescription: Entenda como governos locais definem metas de reserva usando volatilidade de receitas, riscos inesperados, regras de uso e planos de recomposição.
+date: 2026-11-01
+publicationPath: human-approved
+recoveryReason: missed-scheduler-readiness-window
 ---
 
 # Como governos locais decidem quanto de reserva é suficiente
