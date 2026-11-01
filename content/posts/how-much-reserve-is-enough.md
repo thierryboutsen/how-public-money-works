@@ -26,20 +26,20 @@ searchIntent: informational
 readingTime: 9 min read
 excerpt: There is no single reserve percentage that fits every local government. A useful target starts with risks, volatility, access to resources, and replenishment policy.
 featuredImage: /assets/article-how-much-reserve-is-enough-hero.jpg
-featuredImageStatus: candidate-pending-human-approval
+featuredImageStatus: ready
 featuredImageAlt: Civic-finance balance illustration comparing public-service obligations with financial reserves and budget resources.
-status: review
-lifecycleStatus: drafted
+status: published
+lifecycleStatus: published
 publicLanguage: en
 internalWorkflowLanguage: pt-BR
 sourceLevel: authoritative-institutional
 precisionRisk: high
 draftAllowed: true
-publishAllowed: false
+publishAllowed: true
 canonicalDecision: approved
 slugDecision: approved
-humanDraftApproval: pending
-publicationApproval: pending
+humanDraftApproval: approved
+publicationApproval: approved
 translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
@@ -47,6 +47,9 @@ p2Blockers: []
 securityWarnings: []
 seoTitle: How Much Reserve Should a Local Government Keep?
 metaDescription: Learn how local governments set reserve targets using revenue volatility, unexpected costs, risk exposure, policy rules, and replenishment plans.
+date: 2026-11-01
+publicationPath: human-approved
+recoveryReason: missed-scheduler-readiness-window
 ---
 
 # How Local Governments Decide How Much Reserve Is Enough

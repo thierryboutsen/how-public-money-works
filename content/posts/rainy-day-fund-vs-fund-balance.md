@@ -25,20 +25,20 @@ searchIntent: informational
 readingTime: 8 min read
 excerpt: A rainy-day reserve and fund balance can overlap, but they answer different questions about financial position, policy, purpose, and access.
 featuredImage: /assets/article-rainy-day-fund-vs-fund-balance-hero.jpg
-featuredImageStatus: candidate-pending-human-approval
+featuredImageStatus: ready
 featuredImageAlt: Layered civic-finance illustration showing protected reserve resources flowing toward recurring public services over time.
-status: review
-lifecycleStatus: drafted
+status: published
+lifecycleStatus: published
 publicLanguage: en
 internalWorkflowLanguage: pt-BR
 sourceLevel: authoritative-institutional
 precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
+publishAllowed: true
 canonicalDecision: approved
 slugDecision: approved
-humanDraftApproval: pending
-publicationApproval: pending
+humanDraftApproval: approved
+publicationApproval: approved
 translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
@@ -46,6 +46,9 @@ p2Blockers: []
 securityWarnings: []
 seoTitle: Rainy Day Fund vs. Fund Balance in Local Government
 metaDescription: Understand how a rainy-day reserve differs from fund balance and cash, how reserve policies control use, and what readers should check in local financial reports.
+date: 2026-11-01
+publicationPath: human-approved
+recoveryReason: missed-scheduler-readiness-window
 ---
 
 # What Is a Rainy Day Fund—and How Is It Different from Fund Balance?

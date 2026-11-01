@@ -78,8 +78,12 @@ async function main() {
   console.log(JSON.stringify(result, null, 2));
 
   const failures = [];
+  const exactBlocked = result.blocked.find((item) => item.targetPublicationDate === nextSlot.date);
   if (!result.nextSlotReady) {
     failures.push(`next slot ${nextSlot.date} (${nextSlot.weekday}) has no exact bilingual pair passing static gates`);
+    if (exactBlocked) {
+      failures.push(`blocked pair ${exactBlocked.slugs.join(' / ')} failed gates: ${exactBlocked.failedGates.join(', ') || 'unknown'}`);
+    }
   }
   if (result.bufferGap > 0) {
     failures.push(`prepared buffer is short by ${result.bufferGap} pair(s)`);

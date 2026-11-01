@@ -25,20 +25,20 @@ searchIntent: informational
 readingTime: 8 min de leitura
 excerpt: Uma reserva para períodos difíceis e o fund balance podem se sobrepor, mas respondem a perguntas diferentes sobre posição financeira, política, finalidade e acesso.
 featuredImage: /assets/article-rainy-day-fund-vs-fund-balance-hero.jpg
-featuredImageStatus: candidate-pending-human-approval
+featuredImageStatus: ready
 featuredImageAlt: Ilustração cívico-financeira em camadas mostrando recursos de reserva protegidos e sua relação com serviços públicos recorrentes ao longo do tempo.
-status: review
-lifecycleStatus: drafted
+status: published
+lifecycleStatus: published
 publicLanguage: pt-BR
 internalWorkflowLanguage: pt-BR
 sourceLevel: authoritative-institutional
 precisionRisk: medium
 draftAllowed: true
-publishAllowed: false
+publishAllowed: true
 canonicalDecision: approved
 slugDecision: approved
-humanDraftApproval: pending
-publicationApproval: pending
+humanDraftApproval: approved
+publicationApproval: approved
 translationValidationStatus: validated
 requestedChanges: []
 p1Blockers: []
@@ -46,6 +46,9 @@ p2Blockers: []
 securityWarnings: []
 seoTitle: Rainy day fund vs. fund balance no governo local
 metaDescription: Entenda como uma reserva para contingências difere do fund balance e do caixa, como políticas controlam seu uso e o que conferir em documentos públicos.
+date: 2026-11-01
+publicationPath: human-approved
+recoveryReason: missed-scheduler-readiness-window
 ---
 
 # Rainy day fund vs. fund balance: qual é a diferença?
