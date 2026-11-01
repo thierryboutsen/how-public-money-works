@@ -690,3 +690,57 @@ articles:
     recoveryScheduledDate: 2026-10-09
     publicationCommitSha: 0e0ae77efb998563a113a57bd6b0c65ef7a51f26
     lastReviewed: 2026-10-09
+  - slug: rainy-day-fund-vs-fund-balance
+    title: "What Is a Rainy Day Fund—and How Is It Different from Fund Balance?"
+    language: en
+    status: published
+    publishDate: 2026-11-01
+    category: Public Finance Basics
+    duplicateCheckSignature: rainy-day-fund|compare-with-fund-balance|designated-reserve-vs-financial-position
+    sourceLevel: authoritative-institutional
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-13
+    recoveryScheduledDate: 2026-11-01
+    publicationCommitSha: 7f795c79971fc2907d9a55b5f8f80739e6ea3c33
+    lastReviewed: 2026-11-01
+  - slug: reserva-para-contingencias-vs-fund-balance
+    title: "Rainy day fund vs. fund balance: qual é a diferença?"
+    language: pt-BR
+    translationOf: rainy-day-fund-vs-fund-balance
+    status: published
+    publishDate: 2026-11-01
+    category: Fundamentos de Finanças Públicas
+    duplicateCheckSignature: rainy-day-fund|compare-with-fund-balance|designated-reserve-vs-financial-position
+    sourceLevel: authoritative-institutional
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-13
+    recoveryScheduledDate: 2026-11-01
+    publicationCommitSha: 7f795c79971fc2907d9a55b5f8f80739e6ea3c33
+    lastReviewed: 2026-11-01
+  - slug: how-much-reserve-is-enough
+    title: "How Local Governments Decide How Much Reserve Is Enough"
+    language: en
+    status: published
+    publishDate: 2026-11-01
+    category: Public Finance Basics
+    duplicateCheckSignature: reserve-policy|set-prudent-level|risk-volatility-and-replenishment
+    sourceLevel: authoritative-institutional
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-15
+    recoveryScheduledDate: 2026-11-01
+    publicationCommitSha: 7f795c79971fc2907d9a55b5f8f80739e6ea3c33
+    lastReviewed: 2026-11-01
+  - slug: quanto-de-reserva-e-suficiente
+    title: "Como governos locais decidem quanto de reserva é suficiente"
+    language: pt-BR
+    translationOf: how-much-reserve-is-enough
+    status: published
+    publishDate: 2026-11-01
+    category: Fundamentos de Finanças Públicas
+    duplicateCheckSignature: reserve-policy|set-prudent-level|risk-volatility-and-replenishment
+    sourceLevel: authoritative-institutional
+    publicationPath: human-approved
+    originalScheduledDate: 2026-10-15
+    recoveryScheduledDate: 2026-11-01
+    publicationCommitSha: 7f795c79971fc2907d9a55b5f8f80739e6ea3c33
+    lastReviewed: 2026-11-01

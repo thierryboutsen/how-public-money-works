@@ -229,6 +229,30 @@ slots:
     targetPublicationDate: 2026-10-08
     publishedAt: 2026-10-09
     recoveryReason: missed Q4 scheduler preparation window
+  - date: 2026-10-13
+    slot: Tuesday
+    status: published
+    plannedTopic: "What Is a Rainy Day Fund—and How Is It Different from Fund Balance?"
+    articleSlug: rainy-day-fund-vs-fund-balance
+    readiness: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    targetPublicationDate: 2026-10-13
+    publishedAt: 2026-11-01
+    recoveryReason: missed scheduler readiness window
+  - date: 2026-10-15
+    slot: Thursday
+    status: published
+    plannedTopic: "How Local Governments Decide How Much Reserve Is Enough"
+    articleSlug: how-much-reserve-is-enough
+    readiness: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    targetPublicationDate: 2026-10-15
+    publishedAt: 2026-11-01
+    recoveryReason: missed scheduler readiness window
 recoverySlots:
   - originalScheduledDate: 2026-08-18
     recoveryScheduledDate: 2026-08-22
@@ -307,6 +331,26 @@ recoverySlots:
     status: armed
     publicationDecision: pending
     triggerWorkflow: editorial-holiday-specials-2026.yml
+  - originalScheduledDate: 2026-10-13
+    recoveryScheduledDate: 2026-11-01
+    recoveryReason: missed scheduler readiness window
+    articleSlug: rainy-day-fund-vs-fund-balance
+    status: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    publishedAt: 2026-11-01
+    publicationCommitSha: 7f795c79971fc2907d9a55b5f8f80739e6ea3c33
+  - originalScheduledDate: 2026-10-15
+    recoveryScheduledDate: 2026-11-01
+    recoveryReason: missed scheduler readiness window
+    articleSlug: how-much-reserve-is-enough
+    status: published
+    publicationDecision: published
+    result: published
+    publicationPath: human-approved
+    publishedAt: 2026-11-01
+    publicationCommitSha: 7f795c79971fc2907d9a55b5f8f80739e6ea3c33
 rules:
   - No topic becomes a brief or draft without the required human topic and brief approvals
   - Publication review is preferably human; silence may use the auto-publish fallback only after cutoff and only when every gate passes

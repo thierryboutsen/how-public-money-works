@@ -132,6 +132,20 @@ coveredTopics:
     relatedSlug: one-time-revenue-ongoing-costs
     topicAngleSignature: one-time-revenue|avoid-recurring-cost-dependency|temporary-resources-and-ongoing-services
     notes: Recovered and publicly verified on 2026-10-09 for the missed 2026-10-08 slot.
+  - topic: Public Finance Basics
+    subtopic: Rainy day fund vs fund balance
+    angle: Designated reserve versus broader financial position
+    status: covered
+    relatedSlug: rainy-day-fund-vs-fund-balance
+    topicAngleSignature: rainy-day-fund|compare-with-fund-balance|designated-reserve-vs-financial-position
+    notes: Recovered and publicly verified on 2026-11-01 for the missed 2026-10-13 slot.
+  - topic: Public Finance Basics
+    subtopic: Reserve adequacy
+    angle: Risk, volatility and replenishment policy
+    status: covered
+    relatedSlug: how-much-reserve-is-enough
+    topicAngleSignature: reserve-policy|set-prudent-level|risk-volatility-and-replenishment
+    notes: Recovered and publicly verified on 2026-11-01 for the missed 2026-10-15 slot.
 seedTopics:
   - topic: Local taxes
     subtopic: Revenue destination
