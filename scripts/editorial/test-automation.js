@@ -58,6 +58,11 @@ assert.strictEqual(publicationWeekday('2026-08-13'), 'Thursday', 'Thursday date 
 assert.deepStrictEqual(scheduledDayCheck('2026-08-11'), { pass: true, detail: { targetDate: '2026-08-11', targetDay: 'Tuesday' } });
 assert.deepStrictEqual(scheduledDayCheck('2026-08-13'), { pass: true, detail: { targetDate: '2026-08-13', targetDay: 'Thursday' } });
 assert.strictEqual(slotLabelForEvaluation({ schedule: thursdayAfterCutoff }), 'Thursday', 'displayed label must use the real Thursday slot');
+const runSlotText = fs.readFileSync(path.join(__dirname, 'run-slot.js'), 'utf8');
+assert.ok(runSlotText.includes("ABORTED_NO_PREPARED_SLOT"), 'scheduled execution must fail visibly when no exact prepared pair exists');
+assert.ok(runSlotText.includes("transactionFailed || noPreparedExecution"), 'empty scheduled execution must set a nonzero exit code');
+const preflightText = fs.readFileSync(path.join(__dirname, 'preflight-next-slot.js'), 'utf8');
+assert.ok(preflightText.includes("failed gates:"), 'preflight must report the exact failed gates for a blocked next-slot pair');
 const workflowText = fs.readFileSync(path.join(__dirname, '../../.github/workflows/editorial-automation.yml'), 'utf8');
 assert.ok(workflowText.includes("cron: '17 9 * * 2,4'"), 'scheduled workflow must avoid minute 00 while keeping the Tuesday/Thursday 09:xx window');
 assert.ok(workflowText.includes("timezone: 'America/Sao_Paulo'"), 'scheduled workflow must keep the Sao Paulo timezone');
