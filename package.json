@@ -18,6 +18,7 @@
     "public:test:exposure-audit": "node scripts/test-public-exposure-audit.js",
     "home:test": "node scripts/test-homepage-build.js",
     "resources:test": "node scripts/test-resources.js",
+    "resources:preview": "node scripts/preview-resource.js",
     "editorial:plan-week": "node scripts/editorial/plan-week.js",
     "editorial:prepare-next": "node scripts/editorial/prepare-next.js",
     "editorial:validate": "node scripts/editorial/auto-publish-check.js",
